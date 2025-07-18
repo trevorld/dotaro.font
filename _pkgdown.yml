@@ -1,0 +1,6 @@
+destination: "../../websites/R/dotaro.font/"
+url: "https://trevorldavis.com/R/dotaro.font"
+development:
+    mode: auto
+template:
+  bootstrap: 5

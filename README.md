@@ -1,0 +1,112 @@
+# Dotaro Font
+
+[![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
+
+**Warning:** this project is a Work-in-Progress.  The existing code seems to successfully generate TrueType fonts via FontForge but currently the fonts are imcomplete and contain very few glyphs.
+
+### Table of Contents
+
+* [Overview](#overview)
+* [Unicode block coverage](#blocks)
+* [Build the fonts from scratch](#build)
+* [Related links](#related)
+
+## <a name="overview">Overview</a>
+
+The main goal is to create a couple of fonts with bespoke glyphs to use in my [Dotaro Deck](https://github.com/trevorld/dotaro.deck) of playing cards:
+
+* **Dotaro Narrow** A narrow monospace font to provide *rank* symbols in playing card [corner indices](https://www.wopc.co.uk/playing-cards/corner-indices).  Likely mainly [slab serif](https://en.wikipedia.org/wiki/Slab_serif) but will probably include digits in an alternative style (perhaps in the [Mathematical Alphanumeric Symbols](https://en.wikipedia.org/wiki/Mathematical_Alphanumeric_Symbols) block).
+* **Dotaro Square** A square monospace font to provide *suit* symbols in playing card corner indices and pips.  If time permits may also evolve to serve as a general board game diagram font (i.e. a prettier vector version of my [Game Bit Mono Font](https://github.com/trevorld/game-bit-font)).
+
+Note support for the full [Basic Latin Unicode block](https://en.wikipedia.org/wiki/Basic_Latin_(Unicode_block)) is not considered necessary for a minimum viable project of these fonts (since most of these glyphs will not be used in the Dotaro Deck) but if time permits I may add them later.
+
+## <a name="blocks">Unicode block coverage</a>
+
+Current [Unicode block](https://en.wikipedia.org/wiki/Unicode_block) coverage (excluding control codes):
+
+
+|Block            | Dotaro Narrow| Dotaro Square| Total in Block|
+|:----------------|-------------:|-------------:|--------------:|
+|Basic Latin      |             1|             1|             95|
+|Block Elements   |            29|            29|             32|
+|Geometric Shapes |             0|             3|             96|
+
+## <a name="build">Build the fonts from scratch</a>
+
+Install the R package with
+
+```r
+remotes::install_github("trevorld/dotaro.font")
+```
+
+Also install [FontForge](https://fontforge.org/en-US/) and its python bindings e.g. `apt install fontforge python3-fontforge` on Debian-based Linux distributions.
+
+Run the following R code
+
+```r
+library("dotaro.font")
+reticulate::use_python(Sys.which("python3"))
+
+generate_sfd("narrow", "dotaro_narrow.sfd")
+generate_font("dotaro_narrow.sfd", "dotaro_narrow.ttf")
+
+generate_sfd("square", "dotaro_square.sfd")
+generate_font("dotaro_square.sfd", "dotaro_square.ttf")
+```
+
+**Warning:** I've noticed it may not update a previously generated font unless run in a clean R session.
+
+## <a name="related">Related links</a>
+
+### FontForge:
+
+* [FontForge Site](https://fontforge.org/en-US/)
+
+  + [Python Scripting](https://fontforge.org/docs/scripting/python.html)
+
+* [Design With FontForge](http://designwithfontforge.com/en-US/index.html)
+
+  + [The Final Output, Generating Font Files](http://designwithfontforge.com/en-US/The_Final_Output_Generating_Font_Files.html)
+  + [Importing Glyphs from Other Programs](http://designwithfontforge.com/en-US/Importing_Glyphs_from_Other_Programs.html)
+
+* [Creating Fonts with Inkscape and FontForge](https://www.reddit.com/r/neography/comments/818364/creating_fonts_with_inkscape_and_fontforge_table/)
+
+  + [FontForge Scripting](https://www.reddit.com/r/neography/comments/83ovk7/creating_fonts_with_inkscape_and_fontforge_part10/)
+
+### Fonts and glyphs
+
+#### Chess fonts and glyphs
+
+* [Chess Fonts](https://www.enpassant.dk/chess/fonteng.htm)
+* [Chess Word Macros & Fonts](https://www.chessvariants.com/d.font/fonts.html)
+* [lichess svg images](https://github.com/lichess-org/lila/tree/master/public/piece)
+* [Unicode Fonts with Chess Piece Images](https://www.chessvariants.com/d.font/unicode.html)
+
+#### Playing card fonts
+
+* [Card Characters](https://www.haroldsfonts.com/font/card-characters)
+* [Cards Font](https://www.fontspace.com/cards-font-f3690)
+* [Fortune Letters and Widgets](https://www.fontmonkey.com/archive.php?font=fortune) (i.e. the [Decktet](https://www.decktet.com/) fonts)
+* [Hoyle Playing Cards](https://www.fontspace.com/hoyle-playing-cards-font-f3686)
+* [JQKAs Wild](https://www.fontspace.com/jqkas-wild-font-f96423)
+* [Numbers: Deuce](https://www.typography.com/fonts/numbers/)
+
+#### Other Slab Serif fonts
+
+* [Bondie Condensed Slab Serif](https://craftsupply.co/product/bondie-condensed-slab-serif-font/)
+* [Cabo Slad](https://designalot.net/product/cabo-slab-typeface/)
+* [Jerome Condensed Slab Serif](https://delapan.studio/product/jerome-condensed-slab-serif/)
+* [Luna](https://creativemarket.com/orcacreative/866559-Luna)
+* [Memphis](https://en.wikipedia.org/wiki/Memphis_(typeface))
+* [Neutraface Slab](https://housefonts.com/hi/neutraface_slab)
+* [Rockwell](https://en.wikipedia.org/wiki/Rockwell_(typeface))
+* [Servat](https://www.fontcanyon.com/servat/)
+* [Stymie](https://www.youworkforthem.com/font/T1050/stymie/)
+* [Winchester Condensed](https://creativemarket.com/DesignSomething/104244-Winchester-Condensed-Font?u=unblast)
+
+#### Bitmap fonts with R
+
+* [`{bittermelon}`](https://github.com/trevorld/bittermelon)
+* [Game Bit Font](https://github.com/trevorld/game-bit-font)
+* [`{hexfont}`](https://github.com/trevorld/hexfont)
+* [`{lofifonts}`](https://github.com/coolbutuseless/lofifonts)

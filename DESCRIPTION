@@ -1,0 +1,31 @@
+Package: dotaro.font
+Type: Package
+Title: Dotaro Font
+Version: 0.1.0-1
+Authors@R: c(person("Trevor L.", "Davis", role=c("aut", "cre"),
+             email="trevor.l.davis@gmail.com",
+             comment = c(ORCID = "0000-0001-6341-4639")))
+URL: https://github.com/trevorld/dotaro.font, https://trevorldavis.com/R/dotaro.font/dev/
+BugReports: https://github.com/trevorld/dotaro.font/issues
+Description: Utilities to generate 'Dotaro' fonts.
+Depends:
+    R (>= 4.2)
+Imports:
+    affiner (>= 0.2.0),
+    dee (>= 0.1.0-5),
+    glue,
+    grid,
+    omsvg,
+    rlang,
+    reticulate,
+    tools
+Suggests:
+    knitr,
+    svgparser,
+    Unicode,
+    testthat
+Remotes: trevorld/affiner, trevorld/dee, coolbutuseless/svgparser
+License: MIT + file LICENSE
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1
+Encoding: UTF-8

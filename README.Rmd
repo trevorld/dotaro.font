@@ -2,7 +2,7 @@
 
 [![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 
-**Warning:** this project is a Work-in-Progress.  The existing code seems to successfully generate TrueType fonts via FontForge but currently the fonts are imcomplete and contain very few glyphs.
+**Warning:** this project is a Work-in-Progress.  The existing code seems to successfully generate TrueType fonts via FontForge but currently the fonts are incomplete and contain very few glyphs.
 
 ### Table of Contents
 

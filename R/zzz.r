@@ -61,6 +61,8 @@ SQUARE_WIDTH <- 2048L
 NARROW_HEIGHT <- 2048L
 NARROW_WIDTH <- 1024L
 
+SW <- 60L # Stroke Width
+
 dotaro_height <- function(font = c("square", "narrow")) {
     font <- match.arg(font)
     switch(font,

@@ -29,7 +29,7 @@ Current [Unicode block](https://en.wikipedia.org/wiki/Unicode_block) coverage (e
 |:----------------|-------------:|-------------:|--------------:|
 |Basic Latin      |             1|             1|             95|
 |Block Elements   |            29|            29|             32|
-|Geometric Shapes |             0|             8|             96|
+|Geometric Shapes |            10|            10|             96|
 
 ## <a name="build">Build the fonts from scratch</a>
 

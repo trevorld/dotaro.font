@@ -20,9 +20,13 @@ glyph_file <- function(font, hex) {
 
 # `fontforge` seems to recommend svg files in pixels
 # By CSS standards a "px" unit is exactly equal to 1/96th of an "in" unit.
-svg_square <- function(d, file) {
+write_svg <- function(d, hex,
+                      font = getOption("dotaro.font", "square"),
+                      width = getOption("dee.width", SQUARE_WIDTH),
+                      height = getOption("dee.height", SQUARE_HEIGHT)) {
+    file <- glyph_file(font, hex)
     attrs <- svg_attrs_pres(fill_rule = "evenodd")
-    s <- SVG(width = SQUARE_WIDTH, height = SQUARE_HEIGHT, viewbox = TRUE)
+    s <- SVG(width = width, height = height, viewbox = TRUE)
     for (i in seq_along(d)) {
         s <- svg_path(s, d[[i]], fill = "black", stroke = "none", stroke_width = 0, attrs = attrs)
     }
@@ -31,16 +35,23 @@ svg_square <- function(d, file) {
 
 as_hex <- function(x) as.character(as.hexmode(x))
 
-glyph_dee_options <- function(width, height) {
+glyph_options <- function(width, height, font) {
     stopifnot(is.numeric(width), is.numeric(height))
     attrs <- svg_attrs_pres(fill_rule = "evenodd")
-    dee_options(dee.width = width, dee.height = height,
-                dee.background_color = "grey90",
-                dee.origin_at_bottom = TRUE, dee.fill = "black",
-                dee.stroke = "none", dee.stroke_width = 0, dee.attrs = attrs)
+    l <- dee_options(dee.attrs = attrs,
+                     dee.background_color = "grey90",
+                     dee.digits = 0,
+                     dee.fill = "black",
+                     dee.height = height,
+                     dee.origin_at_bottom = TRUE,
+                     dee.stroke = "none",
+                     dee.stroke_width = 0,
+                     dee.width = width)
+    l[["dotaro.font"]] <- font
+    l
 }
 
-plot_glyph <- function(x, font = "square") {
+plot_glyph <- function(x, font = getOption("dotaro.font", "square")) {
     stopifnot(requireNamespace("svgparser", quietly = TRUE))
     if (inherits(x, "dee")) {
         plot(x)

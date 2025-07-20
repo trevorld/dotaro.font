@@ -26,6 +26,15 @@ generate_sfd <- function(font = c("square", "narrow"),
     ff_font$ascent <- glyph_height %/% 2L
     ff_font$encoding <- "UnicodeFull"
 
+    ff_font$version <- packageVersion("dotaro.font") |> as.character()
+
+    copyright <- "Copyright (c) 2025, Trevor L. Davis"
+    ff_font$appendSFNTName("English (US)", "Copyright", copyright)
+    license <- "This Font Software is licensed under the SIL Open Font License, Version 1.1."
+    ff_font$appendSFNTName("English (US)", "License", license)
+    ofl_url <- "https://openfontlicense.org"
+    ff_font$appendSFNTName("English (US)", "License URL", ofl_url)
+
     space <- ff_font$createChar(utf8ToInt(" "))
     space$width <- glyph_width
 

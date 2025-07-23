@@ -28,9 +28,9 @@ generate_sfd <- function(font = c("square", "narrow"),
 
     ff_font$version <- packageVersion("dotaro.font") |> as.character()
 
-    copyright <- "Copyright (c) 2025, Trevor L. Davis"
+    copyright <- "Copyright (c) 2025 Trevor L. Davis"
     ff_font$appendSFNTName("English (US)", "Copyright", copyright)
-    license <- "This Font Software is licensed under the SIL Open Font License, Version 1.1."
+    license <- "This Font Software is licensed under the SIL Open Font License, Version 1.1.\nThis license is available with a FAQ at:\nhttps://openfontlicense.org"
     ff_font$appendSFNTName("English (US)", "License", license)
     ofl_url <- "https://openfontlicense.org"
     ff_font$appendSFNTName("English (US)", "License URL", ofl_url)
@@ -41,11 +41,26 @@ generate_sfd <- function(font = c("square", "narrow"),
     hexes <- create_glyphs(font)
     for (hex in hexes) {
         int <- hex |> as.hexmode() |> as.integer()
-        glyph <- ff_font$createChar(int)
+        if (hasName(GLYPH_NAMES, hex))
+            glyph <- ff_font$createChar(int, glue('"{GLYPH_NAMES[[hex]]}"'))
+        else
+            glyph <- ff_font$createChar(int)
         glyph$width <- glyph_width
         glyph$importOutlines(glyph_file(font, hex), scale = FALSE)
         # glyph$autoTrace()
         glyph$removeOverlap()
+    }
+
+    for (hex in names(OUTLINE_FROM_TO)) {
+        from_int <- hex |> as.hexmode() |> as.integer()
+        to_int <- OUTLINE_FROM_TO[[hex]] |> as.hexmode() |> as.integer()
+
+        ff_font$selection$select(from_int)
+        ff_font$copy()
+        glyph <- ff_font$createChar(to_int)
+        ff_font$selection$select(to_int)
+        ff_font$paste()
+        glyph$stroke("circular", as.integer(OW))
     }
 
     ff_font$save(output)

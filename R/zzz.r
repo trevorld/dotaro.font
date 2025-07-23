@@ -33,7 +33,13 @@ write_svg <- function(d, hex,
     writeLines(as.character(s), file)
 }
 
-as_hex <- function(x) as.character(as.hexmode(x))
+as_hex <- function(x) as.hexmode(x) |> as.character() |> tolower()
+as_int <- function(x) as.hexmode(x) |> as.integer()
+
+# Some codepoint integers to jump to in Font Forge with <CTRL>-<SHIFT>-E
+# Box Drawing            9472
+# Geometric Shapes       9632
+# PUA                   62895
 
 glyph_options <- function(width, height, font) {
     stopifnot(is.numeric(width), is.numeric(height))
@@ -72,7 +78,12 @@ SQUARE_WIDTH <- 2048L
 NARROW_HEIGHT <- 2048L
 NARROW_WIDTH <- 1024L
 
-SW <- 60L # Stroke Width
+OW <- 60L # Outline Stroke Width
+CH <- 1600 # Cap Height
+SW <- 180 # Letter Stroke Width
+
+BDL <- OW # Box Drawing Light
+BDH <- 4 * BDL # Box Drawing Heavy
 
 dotaro_height <- function(font = c("square", "narrow")) {
     font <- match.arg(font)

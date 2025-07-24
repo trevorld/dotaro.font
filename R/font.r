@@ -60,7 +60,7 @@ generate_sfd <- function(font = c("square", "narrow"),
         glyph <- ff_font$createChar(to_int)
         ff_font$selection$select(to_int)
         ff_font$paste()
-        glyph$stroke("circular", as.integer(OW))
+        glyph$stroke("circular", as.integer(OW), join = "miter", joinlimit=80)
     }
 
     ff_font$save(output)

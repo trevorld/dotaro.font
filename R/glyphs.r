@@ -23,14 +23,7 @@ GLYPH_NAMES <- list(
 # Copy glyph from and use just the outline
 # https://fontforge.org/docs/scripting/python/fontforge.html#fontforge.glyph.stroke
 OUTLINE_FROM_TO <- list(
-    `25c6` = "25c7", # Diamond (Shape)
     `2660` = "2664", # Spade Suit
     `2665` = "2661", # Heart Suit
-    `2666` = "2662", # Diamond Suit
-    `2663` = "2667", # Club Suit
-    `2b25` = "2b26", # Medium Diamond (Shape)
-    `25e2` = "25ff", # Lower Right Triangle
-    `25e3` = "25fa", # Lower Left Triangle
-    `25e4` = "25f8", # Upper Left Triangle
-    `25e5` = "25f9"  # Upper Right Triangle
+    `2663` = "2667"  # Club Suit
 )

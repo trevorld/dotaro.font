@@ -1,4 +1,4 @@
-#' @importFrom affiner as_coord2d
+#' @importFrom affiner as_coord2d degrees
 #' @import dee
 #' @importFrom glue glue
 #' @importFrom omsvg SVG svg_attrs_pres svg_path

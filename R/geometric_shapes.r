@@ -39,12 +39,18 @@ create_geometric_shapes <- function(font = "square") {
     write_svg(white_square + d_25a3, "25a3")
 
     # 25c6 black diamond
-    d <- d_diamond(xc, yc, w, w)
-    write_svg(d, "25c6")
+    d_25c6 <- d_diamond(xc, yc, w, w)
+    write_svg(d_25c6, "25c6")
+    # 25c7 white diamond
+    d_25c7 <- d_diamond(xc, yc, w, w, offset = -OW)
+    write_svg(d_25c6 + d_25c7, "25c7")
 
     # 2b25 black medium diamond
-    d <- d_diamond(xc, yc, w = cw, h = cw)
-    write_svg(d, "2b25")
+    d_2b25 <- d_diamond(xc, yc, w = cw, h = cw)
+    write_svg(d_2b25, "2b25")
+    # 2b26 black medium diamond
+    d_2b26 <- d_diamond(xc, yc, w = cw, h = cw, offset = -OW)
+    write_svg(d_2b25 + d_2b26, "2b26")
 
     d_25cf <- CIRCLE(xc, yc, 0.5 * w)
 
@@ -84,17 +90,37 @@ create_geometric_shapes <- function(font = "square") {
     write_svg(d_25cf + d_25d3, "25d3")
 
     # 25e2 black lower right triangle
-    d_25e2 <- MZ(c(0, w, w), c(yc - 0.5 * w, yc + 0.5 * w, yc - 0.5 * w))
+    l <- list(x = c(0, w, w),
+              y = c(yc - 0.5 * w, yc + 0.5 * w, yc - 0.5 * w))
+    d_25e2 <- POLYGON(l)
     write_svg(d_25e2, "25e2")
+    # 25ff white lower right triangle
+    d_25ff <- POLYGON(l, offset = -OW)
+    write_svg(d_25e2 + d_25ff, "25ff")
     # 25e3 black lower left triangle
-    d_25e3 <- MZ(c(0, 0, w), c(yc - 0.5 * w, yc + 0.5 * w, yc - 0.5 * w))
+    l <- list(x = c(0, 0, w),
+              y = c(yc - 0.5 * w, yc + 0.5 * w, yc - 0.5 * w))
+    d_25e3 <- POLYGON(l)
     write_svg(d_25e3, "25e3")
+    # 25fa white lower left triangle
+    d_25fa <- POLYGON(l, offset = -OW)
+    write_svg(d_25e3 + d_25fa, "25fa")
     # 25e4 black upper left triangle
-    d_25e4 <- MZ(c(0, 0, w), c(yc - 0.5 * w, yc + 0.5 * w, yc + 0.5 * w))
+    l <- list(x = c(0, 0, w),
+              y = c(yc - 0.5 * w, yc + 0.5 * w, yc + 0.5 * w))
+    d_25e4 <- POLYGON(l)
     write_svg(d_25e4, "25e4")
+    # 25f8 white upper left triangle
+    d_25f8 <- POLYGON(l, offset = -OW)
+    write_svg(d_25e4 + d_25f8, "25f8")
     # 25e5 black upper right triangle
-    d_25e5 <- MZ(c(0, w, w), c(yc + 0.5 * w, yc + 0.5 * w, yc - 0.5 * w))
+    l <- list(x = c(0, w, w),
+              y = c(yc + 0.5 * w, yc + 0.5 * w, yc - 0.5 * w))
+    d_25e5 <- POLYGON(l)
     write_svg(d_25e5, "25e5")
+    # 25f9 white upper right triangle
+    d_25f9 <- POLYGON(l, offset = -OW)
+    write_svg(d_25e5 + d_25f9, "25f9")
 
     # 25e7 square with left half black
     write_svg(c(white_square, RECT(0.25 * w, yc, 0.5 * w, w)), "25e7")
@@ -105,19 +131,20 @@ create_geometric_shapes <- function(font = "square") {
     # 25ea square with lower right diagonal half black
     write_svg(c(white_square, d_25e2), "25ea")
 
-    as_hex(c(as.hexmode(c("25a0", "25a1", "25a3", "25c6", "25cb")),
+    as_hex(c(as.hexmode(c("25a0", "25a1", "25a3", "25c6", "25c7", "25cb")),
              as.hexmode("25cf"):as.hexmode("25d3"),
              as.hexmode("25ef"),
              as.hexmode("25fb"):as.hexmode("25fc"),
-             as.hexmode("2b1b"):as.hexmode("2b1c"),
-             as.hexmode("2b24"):as.hexmode("2b25"),
              as.hexmode("25e2"):as.hexmode("25e5"),
-             as.hexmode("25e7"):as.hexmode("25ea")
+             as.hexmode("25e7"):as.hexmode("25ea"),
+             as.hexmode(c("25fa", "25f8", "25f9", "25ff")),
+             as.hexmode("2b1b"):as.hexmode("2b1c"),
+             as.hexmode("2b24"):as.hexmode("2b26")
              ))
 }
 
-d_diamond <- function(xc, yc, w, h) {
+d_diamond <- function(xc, yc, w, h, offset = 0) {
     x <- c(xc - 0.5 * w, xc, xc + 0.5 * w, xc)
     y <- c(yc, yc + 0.5 * h, yc, yc - 0.5 * h)
-    d <- MZ(x, y)
+    d <- POLYGON(x, y, offset = offset)
 }

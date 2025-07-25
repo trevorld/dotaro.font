@@ -28,7 +28,7 @@ Current [Unicode block](https://en.wikipedia.org/wiki/Unicode_block) coverage (e
 
 |Block                            | Dotaro Narrow| Dotaro Square| Total in Block|
 |:--------------------------------|-------------:|-------------:|--------------:|
-|Basic Latin                      |             1|             1|             95|
+|Basic Latin                      |            13|            13|             95|
 |Block Elements                   |            29|            29|             32|
 |Box Drawing                      |            80|            80|            128|
 |Dingbats                         |             8|             8|            192|
@@ -75,6 +75,7 @@ generate_font("dotaro_square.sfd", "dotaro_square.ttf")
 * [FontForge Site](https://fontforge.org/en-US/)
 
   + [Python Scripting](https://fontforge.org/docs/scripting/python.html)
+  + [Technical References](https://fontforge.org/docs/techref.html)
 
 * [Design With FontForge](http://designwithfontforge.com/en-US/index.html)
 
@@ -116,3 +117,15 @@ generate_font("dotaro_square.sfd", "dotaro_square.ttf")
 * [Stymie](https://www.youworkforthem.com/font/T1050/stymie/)
 * [Winchester Condensed](https://creativemarket.com/DesignSomething/104244-Winchester-Condensed-Font?u=unblast)
 * [Zilla Slab](https://blog.mozilla.org/opendesign/zilla-slab-common-language-shared-font/)
+
+#### Square fonts
+
+* [Game Bit Mono](https://github.com/trevorld/game-bit-font/)
+* [Kreative Square](https://www.kreativekorp.com/software/fonts/ksquare/)
+
+#### Other fonts
+
+* [Catrinity](https://catrinity-font.de/)
+* [Fairfax HD](https://www.kreativekorp.com/software/fonts/fairfaxhd/)
+* [Nishiki-teki](https://umihotaru.work/)
+* [Quivira](http://quivira-font.com/)

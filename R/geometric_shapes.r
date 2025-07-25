@@ -8,7 +8,7 @@ create_geometric_shapes <- function(font = "square") {
     vg <- (h - CH) / 2
     hg <- vg
     if (font == "narrow")
-        hg <- 0.25 * hg
+        hg <- NHGM * hg
     cw <- w - 2 * hg
 
     xc <- w / 2

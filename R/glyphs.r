@@ -1,9 +1,10 @@
 create_glyphs <- function(font = "square") {
+    latin <- create_basic_latin(font)
     block <- create_block_elements(font)
     box <- create_box_drawing(font)
     shapes <- create_geometric_shapes(font)
     misc_symbols <- create_miscellaneous_symbols(font)
-    c(box, block, shapes, misc_symbols) |> sort()
+    c(box, block, latin, shapes, misc_symbols) |> sort()
 }
 
 # Playing Card Suit has similar location as the Catrinity Font but different names

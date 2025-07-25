@@ -3,12 +3,6 @@ create_box_drawing <- function(font = "square") {
     w <- dotaro_width(font)
     do.call(local_options, glyph_options(w, h, font))
 
-    vg <- (h - CH) / 2
-    hg <- vg
-    if (font == "narrow")
-        hg <- 0.25 * hg
-    cw <- w - 2 * hg
-
     xc <- w / 2
     yc <- h / 2
 
@@ -44,19 +38,19 @@ create_box_drawing <- function(font = "square") {
                  y = c(0, yc + 0.5 * BDH |> rep(2L), yc - 0.5 * BDH |> rep(2L), 0))
     write_svg(d_250f, "250f")
     # 2510 box drawings light down and left
-    d_2510 <- MZ(x = c(0, 0, xc + 0.5 * BDL |> rep(2L), xc - 0.5 * BDL |> rep(2L)), 
+    d_2510 <- MZ(x = c(0, 0, xc + 0.5 * BDL |> rep(2L), xc - 0.5 * BDL |> rep(2L)),
                  y = c(yc - 0.5 * BDL, yc + 0.5 * BDL |> rep(2L), 0, 0, yc - 0.5 * BDL))
     write_svg(d_2510, "2510")
     # 2511 box drawings down light and left heavy
-    d_2511 <- MZ(x = c(0, 0, xc + 0.5 * BDL |> rep(2L), xc - 0.5 * BDL |> rep(2L)), 
+    d_2511 <- MZ(x = c(0, 0, xc + 0.5 * BDL |> rep(2L), xc - 0.5 * BDL |> rep(2L)),
                  y = c(yc - 0.5 * BDH, yc + 0.5 * BDH |> rep(2L), 0, 0, yc - 0.5 * BDH))
     write_svg(d_2511, "2511")
     # 2512 box drawings down heavy and left light
-    d_2512 <- MZ(x = c(0, 0, xc + 0.5 * BDH |> rep(2L), xc - 0.5 * BDH |> rep(2L)), 
+    d_2512 <- MZ(x = c(0, 0, xc + 0.5 * BDH |> rep(2L), xc - 0.5 * BDH |> rep(2L)),
                  y = c(yc - 0.5 * BDL, yc + 0.5 * BDL |> rep(2L), 0, 0, yc - 0.5 * BDL))
     write_svg(d_2512, "2512")
     # 2513 box drawings heavy down and left
-    d_2513 <- MZ(x = c(0, 0, xc + 0.5 * BDH |> rep(2L), xc - 0.5 * BDH |> rep(2L)), 
+    d_2513 <- MZ(x = c(0, 0, xc + 0.5 * BDH |> rep(2L), xc - 0.5 * BDH |> rep(2L)),
                  y = c(yc - 0.5 * BDH, yc + 0.5 * BDH |> rep(2L), 0, 0, yc - 0.5 * BDH))
     write_svg(d_2513, "2513")
     # 2514 box drawings light up and right

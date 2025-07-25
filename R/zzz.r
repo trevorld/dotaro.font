@@ -15,6 +15,9 @@ glyph_dir <- function(font = "square", create = TRUE) {
 
 glyph_file <- function(font, hex) {
     hex <- as.character(hex)
+    if (nchar(hex) < 4L) {
+        hex <- paste0(strrep("0", 4L - nchar(hex)), hex)
+    }
     glyph_dir(font) |> file.path(paste0(hex, ".svg"))
 }
 
@@ -84,6 +87,8 @@ SW <- 180 # Letter Stroke Width
 
 BDL <- OW # Box Drawing Light
 BDH <- 4 * BDL # Box Drawing Heavy
+
+NHGM <- 0.25 # Narrow Horizontal Gap Multiplier
 
 dotaro_height <- function(font = c("square", "narrow")) {
     font <- match.arg(font)

@@ -15,84 +15,57 @@ create_miscellaneous_symbols <- function(font = "square") {
 
     # 2605 Black Star
     ro <- 0.5 * cw
-    xyo <- as_coord2d(degrees(seq(90, by = 72, length.out = 5L)),
-                      radius = ro)$
-        translate(x = xc, y = yc)
-    ri <- 0.2 * cw
-    xyi <- as_coord2d(degrees(seq(90 + 36, by = 72, length.out = 5L)),
-                      radius = ri)$
-        translate(x = xc, y = yc)
-    x <- as.numeric(rbind(xyo$x, xyi$x))
-    y <- as.numeric(rbind(xyo$y, xyi$y))
-    d_2605 <- POLYGON(x, y)
+    s <- isotoxal_2ngon_inner_radius(n = 5, d = 2)
+    d_2605 <- d_isotoxal_2ngon(xc, yc, ro, s, 5)
     write_svg(d_2605, "2605")
 
     # 2606 White Star
-    d_2606 <- POLYGON(x, y, offset = -OW)
+    d_2606 <- d_isotoxal_2ngon(xc, yc, ro, s, 5, offset = -OW)
     write_svg(d_2605 + d_2606, "2606")
 
     # 272a circled white star
-    write_svg(CIRCLE(xc, yc, ro) + d_2605, "272a")
+    write_svg(d_circle(xc, yc, ro) + d_2605, "272a")
     # 272b open center black star
-    write_svg(d_2605 + CIRCLE(xc, yc, ri), "272b")
+    ri <- s * ro
+    write_svg(d_2605 + d_circle(xc, yc, ri), "272b")
     # 272c black center white star
-    write_svg(d_2605 + d_2606 + CIRCLE(xc, yc, ri - OW), "272c")
+    write_svg(d_2605 + d_2606 + d_circle(xc, yc, ri - OW), "272c")
     # 272d outlined black star
-    write_svg(d_2605 + d_2606 + POLYGON(x, y, offset = -2 * OW), "272d")
+    write_svg(d_2605 + d_2606 + d_isotoxal_2ngon(xc, yc, ro, s, 5, offset = -2 * OW), "272d")
     # Throws an error if I let `offset` get bigger than -2.4 * OW
     # # 272e heavy outlined black star
-    # write_svg(d_2605 + d_2606 + POLYGON(x, y, offset = -2.4 * OW), "272e")
+    # write_svg(d_2605 + d_2606 + d_polygon(x, y, offset = -2.4 * OW), "272e")
 
     # 2736 six-pointed black star
-    ro <- 0.5 * cw
-    xyo <- as_coord2d(degrees(seq(90, by = 60, length.out = 6L)),
-                      radius = ro)$
-        translate(x = xc, y = yc)
-    ri <- 0.2 * cw
-    xyi <- as_coord2d(degrees(seq(90 + 30, by = 60, length.out = 6L)),
-                      radius = ri)$
-        translate(x = xc, y = yc)
-    x <- as.numeric(rbind(xyo$x, xyi$x))
-    y <- as.numeric(rbind(xyo$y, xyi$y))
-    d_2736 <- POLYGON(x, y)
+    s <- 0.4
+    d_2736 <- d_isotoxal_2ngon(xc, yc, ro, s, 6)
     write_svg(d_2736, "2736")
 
-    # 2734 eight-pointed black star
-    ro <- 0.5 * cw
-    xyo <- as_coord2d(degrees(seq(90, by = 45, length.out = 8L)),
-                      radius = ro)$
-        translate(x = xc, y = yc)
-    ri <- 0.2 * cw
-    xyi <- as_coord2d(degrees(seq(90 + 22.5, by = 45, length.out = 8L)),
-                      radius = ri)$
-        translate(x = xc, y = yc)
-    x <- as.numeric(rbind(xyo$x, xyi$x))
-    y <- as.numeric(rbind(xyo$y, xyi$y))
-    d_2734 <- POLYGON(x, y)
+    # 2734 eight pointed black star
+    s <- 0.30
+    d_2734 <- d_isotoxal_2ngon(xc, yc, ro, s, 8)
     write_svg(d_2734, "2734")
 
+    # 2737 eight pointed rectilinear black star
+    s <- 0.40
+    d_2737 <- d_isotoxal_2ngon(xc, yc, ro, s, 8, 22.5)
+    write_svg(d_2737, "2737")
+
+    # 2738 heavy eight pointed rectilinear black star
+    # (in unicode example the "heavy" one actually looks like it)
+    s <- isotoxal_2ngon_inner_radius(n = 8, beta_ext = 90) # 0.5411
+    d_2738 <- d_isotoxal_2ngon(xc, yc, ro, s, 8, 22.5)
+    write_svg(d_2738, "2738")
+
     # 2742 circled open center eight-pointed black star
-    ri <- 0.3 * cw
-    xyi <- as_coord2d(degrees(seq(90 + 22.5, by = 45, length.out = 8L)),
-                      radius = ri)$
-        translate(x = xc, y = yc)
-    x <- as.numeric(rbind(xyo$x, xyi$x))
-    y <- as.numeric(rbind(xyo$y, xyi$y))
-    d_2742 <- CIRCLE(xc, yc, ro) + POLYGON(x, y) + CIRCLE(xc, yc, ri) + CIRCLE(xc, yc, ri - OW)
+    s <- 0.6
+    ri <- s * ro
+    d_2742 <- d_circle(xc, yc, c(ro, ri, ri - OW)) + d_isotoxal_2ngon(xc, yc, ro, s, 8)
     write_svg(d_2742, "2742")
 
     # 2739 twelve-pointed black star
-    ro <- 0.5 * cw
-    xyo <- as_coord2d(degrees(seq(90, by = 30, length.out = 12L)),
-                      radius = ro)$
-        translate(x = xc, y = yc)
-    ri <- 0.3 * cw
-    xyi <- as_coord2d(degrees(seq(90 + 15, by = 30, length.out = 12L)),
-                      radius = ri)$
-        translate(x = xc, y = yc)
-    x <- as.numeric(rbind(xyo$x, xyi$x))
-    y <- as.numeric(rbind(xyo$y, xyi$y))
-    d_2739 <- POLYGON(x, y)
+    s <- isotoxal_2ngon_inner_radius(n = 12, d = 5)
+    d_2739 <- d_isotoxal_2ngon(xc, yc, ro, s, 12)
     write_svg(d_2739, "2739")
 
 
@@ -107,11 +80,11 @@ create_miscellaneous_symbols <- function(font = "square") {
         rt <- 320
         ycl <- yc - 40
     }
-    l1 <- RECT(x = xc, y = yc - 0.5 * r, w = SW, h = CH - r)
-    l2 <- RECT(x = xc, y = ycl, h = SW, w = cw - 2 * r)
-    c1 <- CIRCLE(x = hg + r, y = ycl, r = r)
-    c2 <- CIRCLE(x = xc, y = h - vg - rt, r = rt)
-    c3 <- CIRCLE(x = w - hg - r, y = ycl, r = r)
+    l1 <- d_rect(x = xc, y = yc - 0.5 * r, w = SW, h = CH - r)
+    l2 <- d_rect(x = xc, y = ycl, h = SW, w = cw - 2 * r)
+    c1 <- d_circle(x = hg + r, y = ycl, r = r)
+    c2 <- d_circle(x = xc, y = h - vg - rt, r = rt)
+    c3 <- d_circle(x = w - hg - r, y = ycl, r = r)
     write_svg(c(l1, l2, c1, c2, c3), "2663")
 
     # 2660 Black Spade Suit
@@ -143,11 +116,11 @@ create_miscellaneous_symbols <- function(font = "square") {
     write_svg(d_2666, "2666")
 
     # 2662 White Diamond Suit
-    d_2662 <- POLYGON(x, y, offset = -OW)
+    d_2662 <- d_polygon(x, y, offset = -OW)
     write_svg(d_2666 + d_2662, "2662")
 
-    d_26aa <- CIRCLE(xc, yc, 0.5 * cw - OW)
-    d_26ab <- CIRCLE(xc, yc, 0.5 * cw)
+    d_26aa <- d_circle(xc, yc, 0.5 * cw - OW)
+    d_26ab <- d_circle(xc, yc, 0.5 * cw)
     # 26aa Medium White Circle
     write_svg(d_26ab + d_26aa, "26aa")
     # 26ab Medium Black Circle
@@ -164,7 +137,7 @@ create_miscellaneous_symbols <- function(font = "square") {
              as.hexmode("2665"):as.hexmode("2666"),
              as.hexmode("26aa"):as.hexmode("26ab"),
              as.hexmode("272a"):as.hexmode("272d"),
-             as.hexmode(c("2734", "2736", "2739", "2742")),
+             as.hexmode(c("2734", "2736", "2737", "2738", "2739", "2742")),
              as.hexmode("f5b8")
              ))
 }

@@ -8,55 +8,55 @@ create_block_elements <- function(font = "square") {
     yc <- h / 2
 
     # 2580 upper half block
-    d <- d_rect(xl = 0, xr = w, yb = yc, yt = h)
+    d <- d_rect2(xl = 0, xr = w, yb = yc, yt = h)
     write_svg(d, "2580")
 
     # 2581--2587 lower 1/8 -- lower 7/8 block
     for (i in 1:7) {
         hex <- as.character(2580 + i)
-        d <- d_rect(xl = 0, xr = w, yb = 0, yt = (i / 8) * h)
+        d <- d_rect2(xl = 0, xr = w, yb = 0, yt = (i / 8) * h)
         write_svg(d, hex)
     }
 
     # 2588 full block
-    d <- d_rect(xl = 0, xr = w, yb = 0, yt = h)
+    d <- d_rect2(xl = 0, xr = w, yb = 0, yt = h)
     write_svg(d, "2588")
 
     # 2589 -- 258f left 7/8 -- left 1/8 block
     for (i in 1:7) {
         hex <- as.hexmode("2588") + i
-        d <- d_rect(xl = 0, xr = ((8 - i) / 8) * w, yb = 0, yt = h)
+        d <- d_rect2(xl = 0, xr = ((8 - i) / 8) * w, yb = 0, yt = h)
         write_svg(d, hex)
     }
 
     # 2590 right half block
-    d <- d_rect(xl = xc, xr = w, yb = 0, yt = h)
+    d <- d_rect2(xl = xc, xr = w, yb = 0, yt = h)
     write_svg(d, "2590")
 
     #### 2591--2593 LIGHT SHADE--HEAVY SHADE
 
     # 2594 upper 1/8
-    d <- d_rect(xl = 0, xr = w, yb = (7/8) * h, yt = h)
+    d <- d_rect2(xl = 0, xr = w, yb = (7/8) * h, yt = h)
     write_svg(d, "2594")
 
     # 2595 right 1/8
-    d <- d_rect(xl = (7/8) * w, xr = w, yb = 0, yt = h)
+    d <- d_rect2(xl = (7/8) * w, xr = w, yb = 0, yt = h)
     write_svg(d, "2595")
 
     # 2596 quadrant lower left
-    dll <- d_rect(xl = 0, xr = xc, yb = 0, yt = yc)
+    dll <- d_rect2(xl = 0, xr = xc, yb = 0, yt = yc)
     write_svg(dll, "2596")
 
     # 2597 quadrant lower right
-    dlr <- d_rect(xl = xc, xr = w, yb = 0, yt = yc)
+    dlr <- d_rect2(xl = xc, xr = w, yb = 0, yt = yc)
     write_svg(dlr, "2597")
 
     # 2598 quadrant upper left
-    dul <- d_rect(xl = 0, xr = xc, yb = yc, yt = h)
+    dul <- d_rect2(xl = 0, xr = xc, yb = yc, yt = h)
     write_svg(dul, "2598")
 
     # 259d quadrant upper right
-    dur <- d_rect(xl = xc, xr = w, yb = yc, yt = h)
+    dur <- d_rect2(xl = xc, xr = w, yb = yc, yt = h)
     write_svg(dur, "259d")
 
     # 259a quadrant upper left and lower right
@@ -89,7 +89,7 @@ create_block_elements <- function(font = "square") {
              as.hexmode("2594"):as.hexmode("259f")))
 }
 
-d_rect <- function(xl, xr, yb, yt) {
+d_rect2 <- function(xl, xr, yb, yt) {
     x <- c(xl, xl, xr, xr)
     y <- c(yb, yt, yt, yb)
     MZ(x, y)

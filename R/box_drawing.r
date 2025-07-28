@@ -7,16 +7,16 @@ create_box_drawing <- function(font = "square") {
     yc <- h / 2
 
     # 2500 box drawings light horizontal
-    d_2500 <- RECT(xc, yc, w, BDL)
+    d_2500 <- d_rect(xc, yc, w, BDL)
     write_svg(d_2500, "2500")
     # 2501 box drawings heavy horizontal
-    d_2501 <- RECT(xc, yc, w, BDH)
+    d_2501 <- d_rect(xc, yc, w, BDH)
     write_svg(d_2501, "2501")
     # 2502 box drawings light vertical
-    d_2502 <- RECT(xc, yc, BDL, h)
+    d_2502 <- d_rect(xc, yc, BDL, h)
     write_svg(d_2502, "2502")
     # 2503 box drawings heavy vertical
-    d_2503 <- RECT(xc, yc, BDH, h)
+    d_2503 <- d_rect(xc, yc, BDH, h)
     write_svg(d_2503, "2503")
 
     #### 2504...250b light and heavy dashed lines
@@ -87,28 +87,28 @@ create_box_drawing <- function(font = "square") {
     write_svg(d_251b, "251b")
 
     # 2574 box drawings light left
-    d_2574 <- RECT(0.25 * w, yc, 0.5 * w, BDL)
+    d_2574 <- d_rect(0.25 * w, yc, 0.5 * w, BDL)
     write_svg(d_2574, "2574")
     # 2575 box drawings light up
-    d_2575 <- RECT(xc, 0.75 * h, BDL, 0.5 * h)
+    d_2575 <- d_rect(xc, 0.75 * h, BDL, 0.5 * h)
     write_svg(d_2575, "2575")
     # 2576 box drawings light right
-    d_2576 <- RECT(0.75 * w, yc, 0.5 * w, BDL)
+    d_2576 <- d_rect(0.75 * w, yc, 0.5 * w, BDL)
     write_svg(d_2576, "2576")
     # 2577 box drawings light down
-    d_2577 <- RECT(xc, 0.25 * h, BDL, 0.5 * h)
+    d_2577 <- d_rect(xc, 0.25 * h, BDL, 0.5 * h)
     write_svg(d_2577, "2577")
     # 2578 box drawings heavy left
-    d_2578 <- RECT(0.25 * w, yc, 0.5 * w, BDH)
+    d_2578 <- d_rect(0.25 * w, yc, 0.5 * w, BDH)
     write_svg(d_2578, "2578")
     # 2579 box drawings heavy up
-    d_2579 <- RECT(xc, 0.75 * h, BDH, 0.5 * h)
+    d_2579 <- d_rect(xc, 0.75 * h, BDH, 0.5 * h)
     write_svg(d_2579, "2579")
     # 257a box drawings heavy right
-    d_257a <- RECT(0.75 * w, yc, 0.5 * w, BDH)
+    d_257a <- d_rect(0.75 * w, yc, 0.5 * w, BDH)
     write_svg(d_257a, "257a")
     # 257b box drawings heavy down
-    d_257b <- RECT(xc, 0.25 * h, BDH, 0.5 * h)
+    d_257b <- d_rect(xc, 0.25 * h, BDH, 0.5 * h)
     write_svg(d_257b, "257b")
 
     # 251c box drawings light vertical and right

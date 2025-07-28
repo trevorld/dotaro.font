@@ -1,4 +1,4 @@
-#' @importFrom affiner as_coord2d degrees
+#' @importFrom affiner as_coord2d degrees isotoxal_2ngon_inner_radius
 #' @import dee
 #' @importFrom glue glue
 #' @importFrom omsvg SVG svg_attrs_pres svg_path

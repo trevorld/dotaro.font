@@ -28,10 +28,10 @@ Current [Unicode block](https://en.wikipedia.org/wiki/Unicode_block) coverage (e
 
 |Block                            | Dotaro Narrow| Dotaro Square| Total in Block|
 |:--------------------------------|-------------:|-------------:|--------------:|
-|Basic Latin                      |            13|            13|             95|
+|Basic Latin                      |            16|            16|             95|
 |Block Elements                   |            29|            29|             32|
 |Box Drawing                      |            80|            80|            128|
-|Dingbats                         |             8|             8|            192|
+|Dingbats                         |            10|            10|            192|
 |Geometric Shapes                 |            26|            26|             96|
 |Miscellaneous Symbols            |            12|            12|            256|
 |Miscellaneous Symbols and Arrows |             5|             5|            256|
@@ -95,10 +95,14 @@ generate_font("dotaro_square.sfd", "dotaro_square.ttf")
 * [lichess svg images](https://github.com/lichess-org/lila/tree/master/public/piece)
 * [Unicode Fonts with Chess Piece Images](https://www.chessvariants.com/d.font/unicode.html)
 
-#### Playing card fonts
+#### Playing card fonts and glyphs
+
+* [Links: Bitmaps, fonts, programming tools](https://www.pagat.com/links/images.html)
+* [Playing card fonts](https://luc.devroye.org/cards.html)
 
 * [Card Characters](https://www.haroldsfonts.com/font/card-characters)
 * [Cards Font](https://www.fontspace.com/cards-font-f3690)
+* [Cards TrueType Font](https://www.pagat.com/com/cardsttf.html)
 * [Fortune Letters and Widgets](https://www.fontmonkey.com/archive.php?font=fortune) (i.e. the [Decktet](https://www.decktet.com/) fonts)
 * [Hoyle Playing Cards](https://www.fontspace.com/hoyle-playing-cards-font-f3686)
 * [JQKAs Wild](https://www.fontspace.com/jqkas-wild-font-f96423)

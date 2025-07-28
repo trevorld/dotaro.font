@@ -111,10 +111,14 @@ generate_font("dotaro_square.sfd", "dotaro_square.ttf")
 * [lichess svg images](https://github.com/lichess-org/lila/tree/master/public/piece)
 * [Unicode Fonts with Chess Piece Images](https://www.chessvariants.com/d.font/unicode.html)
 
-#### Playing card fonts
+#### Playing card fonts and glyphs
+
+* [Links: Bitmaps, fonts, programming tools](https://www.pagat.com/links/images.html)
+* [Playing card fonts](https://luc.devroye.org/cards.html)
 
 * [Card Characters](https://www.haroldsfonts.com/font/card-characters)
 * [Cards Font](https://www.fontspace.com/cards-font-f3690)
+* [Cards TrueType Font](https://www.pagat.com/com/cardsttf.html)
 * [Fortune Letters and Widgets](https://www.fontmonkey.com/archive.php?font=fortune) (i.e. the [Decktet](https://www.decktet.com/) fonts)
 * [Hoyle Playing Cards](https://www.fontspace.com/hoyle-playing-cards-font-f3686)
 * [JQKAs Wild](https://www.fontspace.com/jqkas-wild-font-f96423)

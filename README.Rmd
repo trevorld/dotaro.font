@@ -36,6 +36,7 @@ points_narrow <- dotaro.font:::get_unicode_code_points("tmp/dotaro_narrow.ttf") 
 blocks <- u_blocks()
 n_per_block <- lapply(blocks, n_of_u_chars)
 n_per_block[["Basic Latin"]] <- 128L - 33L # Don't count control codes
+n_per_block[["Latin-1 Supplement"]] <- 128L - 34L # Don't count control codes
 
 n_per_block_square <- lapply(blocks, \(x) sum(points_square %in% as.u_char(x)))
 n_per_block_narrow <- lapply(blocks, \(x) sum(points_narrow %in% as.u_char(x)))

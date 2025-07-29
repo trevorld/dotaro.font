@@ -30,9 +30,12 @@ Current [Unicode block](https://en.wikipedia.org/wiki/Unicode_block) coverage (e
 |:--------------------------------|-------------:|-------------:|--------------:|
 |Basic Latin                      |            16|            16|             95|
 |Block Elements                   |            29|            29|             32|
-|Box Drawing                      |            80|            80|            128|
+|Box Drawing                      |           109|           109|            128|
 |Dingbats                         |            10|            10|            192|
+|General Punctuation              |             1|             1|            112|
 |Geometric Shapes                 |            26|            26|             96|
+|Latin-1 Supplement               |             6|             6|             94|
+|Mathematical Operators           |             4|             4|            256|
 |Miscellaneous Symbols            |            12|            12|            256|
 |Miscellaneous Symbols and Arrows |             5|             5|            256|
 |Private Use Area                 |             1|             1|           6400|

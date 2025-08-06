@@ -6,8 +6,6 @@ create_box_drawing <- function(font = "square") {
     xc <- w / 2
     yc <- h / 2
 
-
-
     # 2500 box drawings light horizontal
     d_2500 <- d_rect(xc, yc, w, BDL)
     write_svg(d_2500, "2500")
@@ -21,7 +19,7 @@ create_box_drawing <- function(font = "square") {
     d_2503 <- d_rect(xc, yc, BDH, h)
     write_svg(d_2503, "2503")
 
-    #### 2504...250b light and heavy dashed lines
+    # 2504...250b light and heavy dashed lines
 
     # 250c box drawings light down and right
     d_250c <- MZ(x = c(xc - 0.5 * BDL |> rep(2L), w, w, xc + 0.5 * BDL |> rep(2L)),
@@ -330,18 +328,44 @@ create_box_drawing <- function(font = "square") {
     y <- c(yc - BDL / 2, rep(c(yc + BDL / 2, h, yc + BDL / 2, h, yc + BDL / 2), each = 2L), yc - BDL / 2)
     write_svg(d_polygon(x = x, y = y), "2568")
 
+    # 256d--2570 Curved
+    rcl <- 300 # radius curve
+    write_svg(c(
+        d_rect2(yc + 0.5 * BDL - rcl, xc + 0.5 * BDL, 0, xc - 0.5 * BDL), 
+        d_arc2(yc + 0.5 * BDL, xc - 0.5 * BDL + rcl, yc + 0.5 * BDL - rcl, xc - 0.5 * BDL, BDL), 
+        d_rect2(yc + 0.5 * BDL, h, yc - 0.5 * BDL, xc - 0.5 * BDL + rcl)
+    ), "256d")
+
+    write_svg(c(
+        d_rect2(yc + 0.5 * BDL - rcl, xc + 0.5 * BDL, 0, xc - 0.5 * BDL), 
+        d_arc1(yc + 0.5 * BDL, xc + 0.5 * BDL, yc + 0.5 * BDL - rcl, xc + 0.5 * BDL - rcl, BDL), 
+        d_rect2(yc + 0.5 * BDL, xc + 0.5 * BDL - rcl, yc - 0.5 * BDL, 0)
+    ), "256e")
+
+    write_svg(c(
+        d_rect2(h, xc + 0.5 * BDL, yc - 0.5 * BDL + rcl, xc - 0.5 * BDL), 
+        d_arc4(yc - 0.5 * BDL + rcl, xc + 0.5 * BDL, yc - 0.5 * BDL, xc + 0.5 * BDL - rcl, BDL), 
+        d_rect2(yc + 0.5 * BDL, xc + 0.5 * BDL - rcl, yc - 0.5 * BDL, 0)
+    ), "256f")
+
+    write_svg(c(
+        d_rect2(h, xc + 0.5 * BDL, yc - 0.5 * BDL + rcl, xc - 0.5 * BDL), 
+        d_arc3(yc - 0.5 * BDL + rcl, xc - 0.5 * BDL + rcl, yc - 0.5 * BDL, xc - 0.5 * BDL, BDL), 
+        d_rect2(yc + 0.5 * BDL, w, yc - 0.5 * BDL, xc - 0.5 * BDL + rcl)
+    ), "2570")
+
     write_svg(c(d_v_l, d_uri, d_lri), "2560")
     write_svg(c(d_v_r, d_uli, d_lli), "2563")
     write_svg(c(d_h_t, d_lli, d_lri), "2566")
     write_svg(c(d_h_b, d_uli, d_uri), "2569")
-    write_svg(c(d_lli, d_lri, d_uli, d_uri), "256d")
+    write_svg(c(d_lli, d_lri, d_uli, d_uri), "256c")
 
     write_svg(c(d_h_t, d_h_b, d_2502), "256a")
     write_svg(c(d_v_l, d_v_r, d_2500), "256b")
 
     as_hex(c(as.hexmode("2500"):as.hexmode("2503"),
              as.hexmode("250c"):as.hexmode("254b"),
-             as.hexmode("2550"):as.hexmode("256c"),
+             as.hexmode("2550"):as.hexmode("2570"),
              as.hexmode("2574"):as.hexmode("257f")
              ))
 }

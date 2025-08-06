@@ -30,7 +30,7 @@ Current [Unicode block](https://en.wikipedia.org/wiki/Unicode_block) coverage (e
 |:--------------------------------|-------------:|-------------:|--------------:|
 |Basic Latin                      |            16|            16|             95|
 |Block Elements                   |            29|            29|             32|
-|Box Drawing                      |           109|           109|            128|
+|Box Drawing                      |           113|           113|            128|
 |Dingbats                         |            10|            10|            192|
 |General Punctuation              |             1|             1|            112|
 |Geometric Shapes                 |            26|            26|             96|
@@ -113,6 +113,8 @@ generate_font("dotaro_square.sfd", "dotaro_square.ttf")
 
 #### Other Slab Serif fonts
 
+* [Amazing Slab](https://www.dafont.com/amazing-slab.font)
+* [Arvo](https://fonts.google.com/specimen/Arvo)
 * [Bondie Condensed Slab Serif](https://craftsupply.co/product/bondie-condensed-slab-serif-font/)
 * [Cabo Slad](https://designalot.net/product/cabo-slab-typeface/)
 * [Jerome Condensed Slab Serif](https://delapan.studio/product/jerome-condensed-slab-serif/)

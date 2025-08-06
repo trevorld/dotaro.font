@@ -127,6 +127,8 @@ generate_font("dotaro_square.sfd", "dotaro_square.ttf")
 
 #### Other Slab Serif fonts
 
+* [Amazing Slab](https://www.dafont.com/amazing-slab.font)
+* [Arvo](https://fonts.google.com/specimen/Arvo)
 * [Bondie Condensed Slab Serif](https://craftsupply.co/product/bondie-condensed-slab-serif-font/)
 * [Cabo Slad](https://designalot.net/product/cabo-slab-typeface/)
 * [Jerome Condensed Slab Serif](https://delapan.studio/product/jerome-condensed-slab-serif/)

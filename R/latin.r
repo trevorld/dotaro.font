@@ -8,13 +8,15 @@ create_basic_latin <- function(font = "square") {
     hg <- vg
     srw <- STW # serif width
     srw2 <- STW # serif width (short)
+    srw3 <- 0.5 * STW # serif width (extra short)
     if (font == "narrow") {
         hg <- NHGM * hg
         srw2 <- 0.5 * STW
+        srw3 <- 0.25 * STW
     }
     cw <- w - 2 * hg
     ch <- h - 2 * vg
-    
+
     xc <- w / 2
     yc <- h / 2
 
@@ -63,7 +65,7 @@ create_basic_latin <- function(font = "square") {
     write_svg(d, "0021")
 
     # 00a1 inverted exclamation mark
-    d <- d_circle(xc, h - vg - 0.5 * rp, rp) + 
+    d <- d_circle(xc, h - vg - 0.5 * rp, rp) +
         d_rect(xc, yc - 1.5 * rp, STW, ch - 3 * rp)
     write_svg(d, "00a1")
 
@@ -80,6 +82,18 @@ create_basic_latin <- function(font = "square") {
     write_svg(d_002d, "002d")
 
     # 0041 latin capital letter a
+    if (font == "square")
+        yca <- 0.35 * h
+    else
+        yca <- 0.31 * h
+    ds <- c(d_fslash(h - vg, xc, vg + STW, hg + srw2, STW,
+                     left = "horizontal", right = "vertical"), # l stroke
+            d_bslash(h - vg, w - hg - srw2, vg + STW, xc, STW,
+                     left = "vertical", right = "horizontal"), # r stroke
+            d_rect2(yca + 0.5 * STW, 0.7 * w, yca - 0.5 * STW, 0.3 * w), # crossbar
+            d_rect2(vg + STW, hg + 2 * srw2 + STW, vg, hg), # ll serif
+            d_rect2(vg + STW, w - hg, vg, w - hg - 2 * srw2 - STW)) # lr serif
+    write_svg(ds, "0041")
 
     # 0042 latin capital letter b
     ds <- c(d_rect2(h - vg, hg + srw + STW, vg, hg + srw), # stem
@@ -130,12 +144,44 @@ create_basic_latin <- function(font = "square") {
             d_rect2(vg + STW, xc + 0.5 * STW + srw, vg, xc - 0.5 * STW - srw)) # b serif
     write_svg(ds, "0049")
 
+    # 004b latin capital letter k
+    ds <- c(d_rect2(h - vg, hg + srw2 + STW, vg, hg + srw2), # l stem
+            d_rect2(h - vg, hg + 2 * srw2 + STW, h - vg - STW, hg), # ul serif
+            d_rect2(h - vg, w - hg, h - vg - STW, w - hg - 2 * srw2 - STW), # ur serif
+            d_fslash(h - vg - STW, w - hg - srw2, yc, hg + srw2 + STW, STW,
+                     left = "square", right = "horizontal"), # t stroke
+            d_bslash(yc, w - hg - srw2, vg + STW, hg + srw2 + STW, STW,
+                     left = "square", right = "horizontal"), # b stroke
+            d_rect2(vg + STW, hg + 2 * srw2 + STW, vg, hg), # ll serif
+            d_rect2(vg + STW, w - hg, vg, w - hg - 2 * srw2 - STW)) # lr serif
+    write_svg(ds, "004b")
+
     # 004c latin capital letter l
     ds <- c(d_rect2(h - vg, hg + srw + STW, vg, hg + srw), # stem
             d_rect2(h - vg, hg + 2 * srw + STW, h - vg - STW, hg), # t serif
             d_rect2(vg + srw + STW, w - hg, vg, w - hg - STW), # lr serif
             d_rect2(vg + STW, w - hg, vg, hg)) # bar
     write_svg(ds, "004c")
+
+    # 004d latin capital letter m
+    ds <- c(d_rect2(h - vg - STW, hg + srw2 + STW, vg + STW, hg + srw2), # l stem
+            d_rect2(h - vg - STW, w - hg - srw2, vg, w - hg - srw2 - STW), # r stem
+            d_bslash(h - vg, xc, vg, hg + srw2 + STW, STW, nib = "vertical"), # l stroke
+            d_fslash(h - vg, w - hg - srw2 - STW, vg, xc, STW, nib = "vertical"), # r stroke
+            d_rect2(h - vg, hg + srw2 + STW, h - vg - STW, hg), # ul serif
+            d_rect2(h - vg, w - hg, h - vg - STW, w - hg - srw2 - STW), # ur serif
+            d_rect2(vg + STW, hg + 2 * srw2 + STW, vg, hg), # ll serif
+            d_rect2(vg + STW, w - hg, vg, w - hg - 2 * srw2 - STW)) # lr serif
+    write_svg(ds, "004d")
+
+    # 004e latin capital letter n
+    ds <- c(d_rect2(h - vg - STW, hg + srw2 + STW, vg + STW, hg + srw2), # l stem
+            d_rect2(h - vg - STW, w - hg - srw2, vg, w - hg - srw2 - STW), # r stem
+            d_bslash(h - vg, w - hg - srw2 - STW, vg, hg + srw2 + STW, STW, nib = "vertical"), # stroke
+            d_rect2(h - vg, hg + srw2 + STW, h - vg - STW, hg), # ul serif
+            d_rect2(h - vg, w - hg, h - vg - STW, w - hg - 2 * srw2 - STW), # ur serif
+            d_rect2(vg + STW, hg + 2 * srw2 + STW, vg, hg)) # ll serif
+    write_svg(ds, "004e")
 
     # 004f latin capital letter o
     d <- d_ellipse(xc, yc, 0.5 * cw - c(0, STW), 0.5 * ch - c(0, STW))
@@ -148,6 +194,16 @@ create_basic_latin <- function(font = "square") {
             d_rect2(yc + 0.5 * STW, xc, yc - 0.5 * STW, hg + srw), # b bar
             d_arc41(h - vg, w - hg, yc - 0.5 * STW, xc, STW)) # bowl
     write_svg(ds, "0050")
+
+    # 0052 latin capital letter r
+    ds <- c(d_rect2(h - vg, hg + srw2 + STW, vg, hg + srw2), # stem
+            d_rect2(h - vg, xc, h - vg - STW, hg), # t bar
+            d_rect2(vg + STW, hg + 2 * srw2 + STW, vg, hg), # ll serif
+            d_rect2(vg + STW, w - hg, vg, w - hg - 2 * srw2 - STW), # lr serif
+            d_bslash(yc, w - hg - srw2, vg + STW, hg + srw2 + STW, STW), # stroke
+            d_rect2(yc + 0.5 * STW, xc, yc - 0.5 * STW, hg + srw2), # b bar
+            d_arc41(h - vg, w - hg, yc - 0.5 * STW, xc, STW)) # bowl
+    write_svg(ds, "0052")
 
     # 0054 latin capital letter t
     ds <- c(d_rect2(h - vg, w - hg, h - vg - STW, hg), # bar
@@ -175,15 +231,23 @@ create_basic_latin <- function(font = "square") {
             d_rect2(h - vg, w - hg, h - vg - STW, w - hg - 2 * srw2 - STW)) # r serif
     write_svg(ds, "0056")
 
-    # # 0057 latin capital letter w
-    # ds <- c(d_bslash(h - vg - STW, 0.5 * (hg + xc), vg, hg + srw2, STW,
-    #                  left = "horizontal", right = "vertical"), # l stroke
-    #         d_fslash(h - vg - STW, xc, vg, 0.5 * (hg + xc), STW,
-    #                  left = "vertical", right = "horizontal"), # r stroke
-    #         d_rect2(h - vg, hg + 2 * srw2 + STW, h - vg - STW, hg), # l serif
-    #         d_rect2(h - vg, xc + srw2, h - vg - STW, xc - srw2), # m serif
-    #         d_rect2(h - vg, w - hg, h - vg - STW, w - hg - 2 * srw2 - STW)) # r serif
-    # write_svg(ds, "0057")
+    # 0057 latin capital letter w
+    if (font == "narrow")
+        wstw <- 0.85 * STW
+    else
+        wstw <- STW
+    ds <- c(d_bslash(h - vg - STW, 0.35 * w, vg, hg + srw3, wstw,
+                     left = "horizontal", right = "vertical"), # ll stroke
+            d_fslash(h - vg, xc, vg, 0.35 * w, wstw,
+                     left = "vertical", right = "vertical"), # lr stroke
+            d_bslash(h - vg, 0.65 * w, vg, xc, wstw,
+                     left = "vertical", right = "vertical"), # rl stroke
+            d_fslash(h - vg - STW, w - hg - srw3, vg, 0.65 * w, wstw,
+                     left = "vertical", right = "horizontal"), # rr stroke
+            d_rect2(h - vg, hg + 2 * srw3 + wstw, h - vg - STW, hg), # l serif
+            # d_rect2(h - vg, xc + srw3, h - vg - STW, xc - srw3), # m serif
+            d_rect2(h - vg, w - hg, h - vg - STW, w - hg - 2 * srw3 - wstw)) # r serif
+    write_svg(ds, "0057")
 
     # 0058 latin capital letter x
     ds <- c(d_bslash(h - vg - STW, w - hg - srw2, vg + STW, hg + srw2, STW), # l stroke
@@ -193,6 +257,17 @@ create_basic_latin <- function(font = "square") {
             d_rect2(vg + STW, hg + 2 * srw2 + STW, vg, hg), # bl serif
             d_rect2(vg + STW, w - hg, vg, w - hg - 2 * srw2 - STW)) # br serif
     write_svg(ds, "0058")
+
+    # 0059 latin capital letter y
+    ds <- c(d_rect2(h - vg, hg + 2 * srw2 + STW, h - vg - STW, hg), # ul serif
+            d_rect2(h - vg, w - hg, h - vg - STW, w - hg - 2 * srw2 - STW), # ur serif
+            d_bslash(h - vg - STW, xc, yc, hg + srw2, STW,
+                     left = "horizontal", right = "square"), # left stroke
+            d_fslash(h - vg - STW, w - hg - srw2, yc, xc, STW,
+                     left = "square", right = "horizontal"), # right stroke
+            d_rect2(yc, xc + 0.5 * STW, vg, xc - 0.5 * STW), # stem
+            d_rect2(vg + STW, xc + 1.5 * STW, vg, xc - 1.5 * STW)) # b serif
+    write_svg(ds, "0059")
 
     # 005a latin capital letter z
     ds <- c(d_rect2(h - vg, w - hg, h - vg - STW, hg), # t bar
@@ -261,13 +336,14 @@ create_basic_latin <- function(font = "square") {
 
     c(as.hexmode("0021"):as.hexmode("0023"),
       as.hexmode("002d"):as.hexmode("002f"),
+      as.hexmode("0041"):as.hexmode("0042"),
       as.hexmode("0044"):as.hexmode("0046"),
       as.hexmode("0048"):as.hexmode("0049"),
-      as.hexmode("004f"):as.hexmode("0050"),
-      as.hexmode("0054"):as.hexmode("0056"),
+      as.hexmode("004b"):as.hexmode("0050"),
+      as.hexmode("0054"):as.hexmode("005a"),
       as.hexmode("22ee"):as.hexmode("22f1"),
       as.hexmode(c("0025", "0027", "002b", "003a", "003d",
-                   "0042", "004c", "0058", "005a", "005c", "005f", "007c",
+                   "0052", "005c", "005f", "007c",
                    "00a1", "00a8", "00af", "00b7", "00d7", "00f7",
                    "2026"))
     ) |> as_hex()

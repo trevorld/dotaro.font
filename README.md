@@ -28,7 +28,7 @@ Current [Unicode block](https://en.wikipedia.org/wiki/Unicode_block) coverage (e
 
 |Block                            | Dotaro Narrow| Dotaro Square| Total in Block|
 |:--------------------------------|-------------:|-------------:|--------------:|
-|Basic Latin                      |            29|            29|             95|
+|Basic Latin                      |            36|            36|             95|
 |Block Elements                   |            29|            29|             32|
 |Box Drawing                      |           113|           113|            128|
 |Dingbats                         |            10|            10|            192|

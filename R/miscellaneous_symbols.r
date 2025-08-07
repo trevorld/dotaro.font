@@ -80,8 +80,8 @@ create_miscellaneous_symbols <- function(font = "square") {
         rt <- 320
         ycl <- yc - 40
     }
-    l1 <- d_rect(x = xc, y = yc - 0.5 * r, w = SW, h = CH - r)
-    l2 <- d_rect(x = xc, y = ycl, h = SW, w = cw - 2 * r)
+    l1 <- d_rect(x = xc, y = yc - 0.5 * r, w = STW, h = CH - r)
+    l2 <- d_rect(x = xc, y = ycl, h = STW, w = cw - 2 * r)
     c1 <- d_circle(x = hg + r, y = ycl, r = r)
     c2 <- d_circle(x = xc, y = h - vg - rt, r = rt)
     c3 <- d_circle(x = w - hg - r, y = ycl, r = r)

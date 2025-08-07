@@ -83,7 +83,7 @@ NARROW_WIDTH <- 1024L
 
 OW <- 60L # Outline Stroke Width
 CH <- 1600 # Cap Height
-SW <- 180 # Letter Stroke Width
+STW <- 180 # Letter Stroke Width
 
 BDL <- OW # Box Drawing Light
 BDH <- 4 * BDL # Box Drawing Heavy

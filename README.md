@@ -28,12 +28,14 @@ Current [Unicode block](https://en.wikipedia.org/wiki/Unicode_block) coverage (e
 
 |Block                            | Dotaro Narrow| Dotaro Square| Total in Block|
 |:--------------------------------|-------------:|-------------:|--------------:|
-|Basic Latin                      |            36|            36|             95|
+|Basic Latin                      |            54|            54|             95|
 |Block Elements                   |            29|            29|             32|
 |Box Drawing                      |           113|           113|            128|
 |Dingbats                         |            10|            10|            192|
 |General Punctuation              |             1|             1|            112|
 |Geometric Shapes                 |            26|            26|             96|
+|IPA Extensions                   |             1|             1|             96|
+|Latin Extended-B                 |             1|             1|            208|
 |Latin-1 Supplement               |             6|             6|             94|
 |Mathematical Operators           |             4|             4|            256|
 |Miscellaneous Symbols            |            12|            12|            256|
@@ -116,16 +118,16 @@ generate_font("dotaro_square.sfd", "dotaro_square.ttf")
 * [Amazing Slab](https://www.dafont.com/amazing-slab.font)
 * [Arvo](https://fonts.google.com/specimen/Arvo)
 * [Bondie Condensed Slab Serif](https://craftsupply.co/product/bondie-condensed-slab-serif-font/)
-* [Cabo Slad](https://designalot.net/product/cabo-slab-typeface/)
-* [Jerome Condensed Slab Serif](https://delapan.studio/product/jerome-condensed-slab-serif/)
+* [Cabo Slad](https://www.dafont.com/cabo-slab.font)
+* [Jerome Condensed Slab Serif](https://www.dafont.com/jerome.font)
 * [Luna](https://creativemarket.com/orcacreative/866559-Luna)
 * [Memphis](https://en.wikipedia.org/wiki/Memphis_(typeface))
 * [Neutraface Slab](https://housefonts.com/hi/neutraface_slab)
 * [Rockwell](https://en.wikipedia.org/wiki/Rockwell_(typeface)) (i.e. [Geometric Slabserif 712](https://www.fontspring.com/fonts/paratype/geometric-slabserif-712?srsltid=AfmBOoof4JDryBjju-n4XtArWi5hKfHLe0PSqIyud8oR8rJApCCd3gJC))
-* [Servat](https://www.fontcanyon.com/servat/)
-* [Stymie](https://www.youworkforthem.com/font/T1050/stymie/)
-* [Winchester Condensed](https://creativemarket.com/DesignSomething/104244-Winchester-Condensed-Font?u=unblast)
-* [Zilla Slab](https://blog.mozilla.org/opendesign/zilla-slab-common-language-shared-font/)
+* [Servat](https://fontlot.com/servat-font/)
+* [Stymie](https://www.youworkforthem.com/font/T1050/stymie/typetester/)
+* [Winchester Condensed](https://www.creativefabrica.com/product/winchester-condensed/)
+* [Zilla Slab](https://fonts.google.com/specimen/Zilla+Slab/tester) ([blog post](https://blog.mozilla.org/opendesign/zilla-slab-common-language-shared-font/))
 
 #### Square fonts
 

@@ -28,15 +28,16 @@ Current [Unicode block](https://en.wikipedia.org/wiki/Unicode_block) coverage (e
 
 |Block                            | Dotaro Narrow| Dotaro Square| Total in Block|
 |:--------------------------------|-------------:|-------------:|--------------:|
-|Basic Latin                      |            54|            54|             95|
+|Basic Latin                      |            67|            67|             95|
 |Block Elements                   |            29|            29|             32|
 |Box Drawing                      |           113|           113|            128|
 |Dingbats                         |            10|            10|            192|
-|General Punctuation              |             1|             1|            112|
+|General Punctuation              |             3|             3|            112|
 |Geometric Shapes                 |            26|            26|             96|
 |IPA Extensions                   |             1|             1|             96|
-|Latin Extended-B                 |             1|             1|            208|
-|Latin-1 Supplement               |             6|             6|             94|
+|Latin Extended-A                 |             1|             1|            128|
+|Latin Extended-B                 |             2|             2|            208|
+|Latin-1 Supplement               |            12|            12|             94|
 |Mathematical Operators           |             4|             4|            256|
 |Miscellaneous Symbols            |            12|            12|            256|
 |Miscellaneous Symbols and Arrows |             5|             5|            256|

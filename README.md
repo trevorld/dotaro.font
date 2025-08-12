@@ -28,22 +28,23 @@ Current [Unicode block](https://en.wikipedia.org/wiki/Unicode_block) coverage (e
 
 |Block                            | Dotaro Narrow| Dotaro Square| Total in Block|
 |:--------------------------------|-------------:|-------------:|--------------:|
-|Basic Latin                      |            74|            74|             95|
+|Basic Latin                      |            82|            82|             95|
 |Block Elements                   |            29|            29|             32|
 |Box Drawing                      |           113|           113|            128|
 |Currency Symbols                 |            11|            11|             48|
 |Dingbats                         |            10|            10|            192|
-|General Punctuation              |             3|             3|            112|
+|General Punctuation              |             5|             5|            112|
 |Geometric Shapes                 |            26|            26|             96|
 |IPA Extensions                   |             1|             1|             96|
 |Latin Extended-A                 |             1|             1|            128|
 |Latin Extended-B                 |             2|             2|            208|
-|Latin-1 Supplement               |            14|            14|             94|
+|Latin-1 Supplement               |            18|            18|             94|
 |Mathematical Operators           |             4|             4|            256|
 |Miscellaneous Symbols            |            12|            12|            256|
 |Miscellaneous Symbols and Arrows |             5|             5|            256|
 |Number Forms                     |             1|             1|             64|
-|Private Use Area                 |             1|             1|           6400|
+|Private Use Area                 |             2|             2|           6400|
+|Spacing Modifier Letters         |             1|             1|             80|
 |Thai                             |             1|             1|            128|
 
 ## <a name="license">License</a>

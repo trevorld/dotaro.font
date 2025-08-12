@@ -31,6 +31,7 @@ create_basic_latin <- function(font = "square") {
     d <- d_rect(xc + c(-0.25, 0.25) * cw, ych - 0.5 * ah, STW, ah)
     write_svg(d, "0022")
 
+    #### use vertical slashes?
     # 0023 number sign
     d <- c(d_rect(xc, yc + c(-0.20, 0.20) * cw, cw, STW),
            d_rect(xc + c(-0.20, 0.20) * cw, yc, STW, cw))
@@ -52,8 +53,8 @@ create_basic_latin <- function(font = "square") {
     write_svg(d_0025, "0025")
 
     # 002e full stop
-    d_002e <- d_circle(xc, vg + 0.5 * rp, rp)
-    write_svg(d_002e, "002e")
+    d_full_stop <- d_circle(xc, vg + rp, rp)
+    write_svg(d_full_stop, "002e")
 
     # 002f Solidus (Slash)
     d_002f <- d_fslash(ych, xcw, vg, hg, STW)
@@ -76,17 +77,100 @@ create_basic_latin <- function(font = "square") {
     write_svg(ds, "005d")
 
     # 0021 exclamation mark
-    d <- d_002e + d_rect(xc, yc + 1.5 * rp, STW, ch - 3 * rp)
+    d <- d_full_stop + d_rect(xc, yc + 1.5 * rp, STW, ch - 3 * rp)
     write_svg(d, "0021")
 
     # 00a1 inverted exclamation mark
-    d <- d_circle(xc, ych - 0.5 * rp, rp) +
+    d <- d_circle(xc, ych - rp, rp) +
         d_rect(xc, yc - 1.5 * rp, STW, ch - 3 * rp)
     write_svg(d, "00a1")
+
+    # 003f question mark
+    ds <- c(d_full_stop, # period
+            d_rect2(yc, xc + 0.5 * STW, vg + 3 * rp, xc - 0.5 * STW), # stem
+            d_arc412(ych, xcw, yc - STW, hg, STW), # curve
+            d_circle(hg + rp,  0.5 * (ych + yc - STW), rp)) # ball
+    write_svg(ds, "003f")
+
+    # 00bf inverted question mark
+    ds <- c(d_circle(xc, ych - rp, rp), # period
+            d_rect2(ych - 3 * rp, xc + 0.5 * STW, yc, xc - 0.5 * STW), # stem
+            d_arc234(yc + STW, xcw, vg, hg, STW)) # curve
+    write_svg(ds, "00bf")
 
     # 0027 apostrophe
     d <- d_rect(xc, ych - 0.5 * ah, STW, ah)
     write_svg(d, "0027")
+
+    # 002a asterisk
+    if (font == "narrow")
+        astl <- 0.8 * ah
+    else
+        astl <- ah
+    astf <- 1.0 * astl
+    ds <- c(d_rect(xc, yc, STW, 2 * astl),
+            d_fslash(yc + 0.66* astf, xc + astf, yc - 0.66 * astf, xc - astf, STW, nib = "diagonal"),
+            d_bslash(yc + 0.66* astf, xc + astf, yc - 0.66 * astf, xc - astf, STW, nib = "diagonal"))
+    write_svg(ds, "002a")
+
+    # 002c comma
+    d_comma <- c(d_full_stop,
+                 d_arc4(vg + rp, xc + rp, vg - rp, xc - rp, 0.5 * STW)) # hook
+    write_svg(d_comma, "002c")
+
+    # 003a colon
+    d <- d_full_stop + d_circle(xc, yxh - rp, rp)
+    write_svg(d, "003a")
+
+    # 003b semi-colon
+    d <- d_comma + d_circle(xc, yxh - rp, rp)
+    write_svg(d, "003b")
+
+    # 002b plus sign
+    d <- d_rect(xc, yc, STW, cw) + d_rect(xc, yc, cw, STW)
+    write_svg(d, "002b")
+
+    # 002d hyphen-minus
+    d_hyphen <- d_rect(xc, yc, cw, STW)
+    write_svg(d_hyphen, "002d")
+
+    # 00f7 division sign
+    if (font == "narrow") # need to spread them out
+        d_dots <- d_circle(xc, yc + c(-0.33, 0.33) * cw, rp)
+    else
+        d_dots <- d_circle(xc, yc + c(-0.25, 0.25) * cw, rp)
+    write_svg(d_hyphen + d_dots, "00f7")
+
+    # 0060 grave accent
+    d <- d_bslash(ych, xc + 1.5 * STW, ych - ah, xc - 1.5 * STW, STW)
+    write_svg(d, "0060")
+
+    # 00ac not sign
+    ds <- c(d_rect2(yc + 0.5 * ah, xcw - STW, yc + 0.5 * ah - STW, hg),
+            d_rect2(yc + 0.5 * ah, xcw, yc - 0.5 * ah, xcw - STW))
+    write_svg(ds, "00ac")
+
+    # 00b0 degree sign
+    d <- d_circle(xc, ych - 0.5 * ah, 0.5 * ah + c(0, -STW))
+    write_svg(d, "00b0")
+
+    # 00b4 acute accent
+    d <- d_fslash(ych, xc + 1.5 * STW, ych - ah, xc - 1.5 * STW, STW)
+    write_svg(d, "00b4")
+
+    # 005e circumflex accent
+    ds <- c(d_fslash(ych, xc, ych - ah, xc - 2 * STW, STW,
+                    left = "horizontal", right = "vertical"),
+            d_bslash(ych, xc + 2 * STW, ych - ah, xc, STW,
+                    left = "vertical", right = "horizontal"))
+    write_svg(ds, "005e")
+
+    # 02c7 caron
+    ds <- c(d_bslash(ych, xc, ych - ah, xc - 2 * STW, STW,
+                    left = "horizontal", right = "vertical"),
+            d_fslash(ych, xc + 2 * STW, ych - ah, xc, STW,
+                    left = "vertical", right = "horizontal"))
+    write_svg(ds, "02c7")
 
     # 0028 left parenthesis
     w_par <- 2 * STW
@@ -95,14 +179,6 @@ create_basic_latin <- function(font = "square") {
     # 0029 right parenthesis
     d <- d_arc41(ych, xc + 0.5 * w_par, vg, xc - 0.5 * w_par, STW)
     write_svg(d, "0029")
-
-    # 002b plus sign
-    d <- d_rect(xc, yc, STW, cw) + d_rect(xc, yc, cw, STW)
-    write_svg(d, "002b")
-
-    # 002d hyphen-minus
-    d_002d <- d_rect(xc, yc, cw, STW)
-    write_svg(d_002d, "002d")
 
     # # 007e tilde
     # ry <- 300
@@ -208,6 +284,21 @@ create_basic_latin <- function(font = "square") {
             d_fslash(ych - d6yf * ch - STW, xcw - d9so, vg + STW, xc - 0.5 * STW, STW), # lower stroke
             d_rect(xc, vg + 0.5 * STW, 3 * STW, STW)) # b serif
     write_svg(ds, "0039")
+
+    # number ten (private use area since doesn't exist in Unicode)
+    # PUA f590 (for now)
+    if (font == "narrow") {
+        ten_rx <- 0.5 * (w - 2 * hg - 1.75 * STW)
+        ds <- c(d_rect2(ych, hg + STW, vg, hg), # one
+                d_ellipse(xcw - ten_rx, yc, ten_rx + c(0, -STW), 0.5 * ch + c(0, -STW)))
+    } else {
+        ten_rx <- 0.5 * (w - 2 * hg - 1.75 * STW - 2 * srw)
+        ds <- c(d_rect2(ych, hg + srw + STW, vg + STW, hg + srw), # 1 stem
+                d_rect2(ych, hg + srw, ych - STW, hg), # 1 t serif
+                d_rect2(vg + STW, hg + 2 * srw + STW, vg, hg), # 1 b serif
+                d_ellipse(xcw - ten_rx, yc, ten_rx + c(0, -STW), 0.5 * ch + c(0, -STW)))
+    }
+    write_svg(ds, "f590")
 
     # 0041 latin capital letter a
     if (font == "square")
@@ -580,6 +671,9 @@ create_basic_latin <- function(font = "square") {
 
     rt <- 300
     #### 0061 latin small letter a
+
+    #### 0040 commercial at (circled small letter a)
+
     #### 0061 latin small letter b
 
     # 0063 latin small letter c
@@ -759,6 +853,9 @@ create_basic_latin <- function(font = "square") {
             d_rect2(vg + STW, xc + 0.5 * STW + rt, vg, xc - 0.5 * STW + rt)) # terminal
     write_svg(ds, "0074")
 
+    #### 0026 ampersand is a stylized ligature of e t
+    # https://en.wikipedia.org/wiki/Ampersand
+
     #### 0075 latin small letter u
     # 0076 latin small letter v
     ds <- c(d_bslash(yxh - STW, xc, vg, hg + srw2, STW,
@@ -805,9 +902,13 @@ create_basic_latin <- function(font = "square") {
             d_rect2(yxh, xc - 0.5 * ncw + STW, yxh - 2 * STW, xc - 0.5 * ncw)) # t serif
     write_svg(ds, "007a")
 
-    # 005f low line
-    d <- d_rect(xc, vg + 0.5 * STW, cw, STW)
+    # 005f low line (to go under baseline and reaches from side to side)
+    d <- d_rect2(STW, w, 0, 0)
     write_svg(d, "005f")
+
+    # 203e over line
+    d <- d_rect2(h, w, h - STW, 0)
+    write_svg(d, "203e")
 
     # 00af macron
     d <- d_rect(xc, ych - 0.5 * STW, cw, STW)
@@ -823,14 +924,6 @@ create_basic_latin <- function(font = "square") {
          d_rect2(yc - bbg, xc + 0.5 * STW, vg, xc - 0.5 * STW)
     write_svg(d, "00a6")
 
-    # 003a colon
-    d_003a <- d_circle(xc, yc + c(-0.25, 0.25) * cw, rp)
-    write_svg(d_003a, "003a")
-
-    # 00f7 division sign
-    if (font == "narrow")
-        d_003a <- d_circle(xc, yc + c(-0.33, 0.33) * cw, rp)
-    write_svg(d_002d + d_003a, "00f7")
 
     # 003c less-than sign
     ds <- c(d_fslash(yc + 0.50 * cw, xcw, yc, hg, STW,
@@ -888,6 +981,19 @@ create_basic_latin <- function(font = "square") {
                      left = "vertical", right = "horizontal")) # b stroke
     write_svg(ds, "003e")
 
+    # 007b left curly bracket
+    ds <- c(d_arc3(yc - 0.25 * ch, xc + 1.5 * STW, vg, xc - 0.5 * STW, STW), # b b curve
+            d_arc2(ych, xc + 1.5 * STW, yc + 0.25 * ch, xc - 0.5 * STW, STW), # t t curve
+            d_arc4(yc + 0.25 * ch, xc + 0.5 * STW, yc - 0.5 * STW, xc - 1.5 * STW, STW), # t b curve
+            d_arc1(yc + 0.5 * STW, xc + 0.5 * STW, yc - 0.25 * ch, xc - 1.5 * STW, STW)) # b t curve
+    write_svg(ds, "007b")
+    # 007d right curly bracket
+    ds <- c(d_arc4(yc - 0.25 * ch, xc + 0.5 * STW, vg, xc - 1.5 * STW, STW), # b b curve
+            d_arc1(ych, xc + 0.5 * STW, yc + 0.25 * ch, xc - 1.5 * STW, STW), # t t curve
+            d_arc3(yc + 0.25 * ch, xc + 1.5 * STW, yc - 0.5 * STW, xc - 0.5 * STW, STW), # t b curve
+            d_arc2(yc + 0.5 * STW, xc + 1.5 * STW, yc - 0.25 * ch, xc - 0.5 * STW, STW)) # b t curve
+    write_svg(ds, "007d")
+
     # 00d7 multiplication sign
     ms <- 0.8 * 0.5
     d <- c(d_fslash(yc + ms * cw, xc + ms * cw, yc - ms * cw, xc - ms * cw, STW, nib = "diagonal"),
@@ -899,6 +1005,9 @@ create_basic_latin <- function(font = "square") {
 
     # 00b7 middle dot
     write_svg(d_circle(xc, yc, rp), "00b7")
+
+    # 2022 bullet
+    write_svg(d_circle(xc, yc, 2 * rp), "2022")
 
     # 2026 horizontal ellipsis
     d <- d_circle(c(hg + rp, xc, h - hg - rp), vg + rp, rp)
@@ -929,29 +1038,29 @@ create_basic_latin <- function(font = "square") {
             d_bslash(yc + 0.5 * ncw, xcw, yc + gcso, xc + gcso, STW, nib = "diagonal")) # ur stroke
     write_svg(ds, "00a4")
 
+    # browser()
+
     c(as.hexmode("0021"):as.hexmode("0025"),
-      as.hexmode("0027"):as.hexmode("0029"),
-      as.hexmode("002d"):as.hexmode("0039"),
-      as.hexmode("003c"):as.hexmode("003e"),
-      as.hexmode("0041"):as.hexmode("005d"),
+      as.hexmode("0027"):as.hexmode("003f"),
+      as.hexmode("0041"):as.hexmode("0060"),
       as.hexmode("0063"):as.hexmode("0066"),
       as.hexmode("0069"):as.hexmode("006c"),
       as.hexmode("0072"):as.hexmode("0074"),
       as.hexmode("0076"):as.hexmode("0078"),
+      as.hexmode("007a"):as.hexmode("007d"),
       as.hexmode("00a1"):as.hexmode("00a8"),
       as.hexmode("20b1"):as.hexmode("20b3"),
       as.hexmode("22ee"):as.hexmode("22f1"),
-      as.hexmode(c("002b", "003a",
-                   "005f",
-                   "006f",
-                   "007a", "007c",
-                   "00ab", "00af",
-                   "00b7", "00bb", "00d7", "00f7",
+      as.hexmode(c("006f",
+                   "00ab", "00ac", "00af", "00b0",
+                   "00b4", "00b7", "00bb", "00bf",
+                   "00d7", "00f7",
                    "0131", "0186",
-                   "0237", "0254",
+                   "02c7", "0237", "0254",
                    "0e3f",
-                   "2026", "2039", "203a",
+                   "2022", "2026", "2039", "203a", "203e",
                    "20a3", "20a4", "20a6", "20a9", "20ac", "20ad",
-                   "20b5", "20bf", "218b"))
+                   "20b5", "20bf", "218b",
+                   "f590"))
     ) |> as_hex()
 }

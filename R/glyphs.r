@@ -9,6 +9,7 @@ create_glyphs <- function(font = "square") {
 
 # Playing Card Suit has similar location as the Catrinity Font but different names
 GLYPH_NAMES <- list(
+    `f590` = "NUMBER TEN",
     `f5b0` = "GERMAN ACORN SUIT",
     `f5b1` = "GERMAN LEAF SUIT",
     `f5b2` = "GERMAN HEART SUIT",

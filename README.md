@@ -28,10 +28,10 @@ Current [Unicode block](https://en.wikipedia.org/wiki/Unicode_block) coverage (e
 
 |Block                            | Dotaro Narrow| Dotaro Square| Total in Block|
 |:--------------------------------|-------------:|-------------:|--------------:|
-|Basic Latin                      |            68|            68|             95|
+|Basic Latin                      |            74|            74|             95|
 |Block Elements                   |            29|            29|             32|
 |Box Drawing                      |           113|           113|            128|
-|Currency Symbols                 |            10|            10|             48|
+|Currency Symbols                 |            11|            11|             48|
 |Dingbats                         |            10|            10|            192|
 |General Punctuation              |             3|             3|            112|
 |Geometric Shapes                 |            26|            26|             96|
@@ -42,6 +42,7 @@ Current [Unicode block](https://en.wikipedia.org/wiki/Unicode_block) coverage (e
 |Mathematical Operators           |             4|             4|            256|
 |Miscellaneous Symbols            |            12|            12|            256|
 |Miscellaneous Symbols and Arrows |             5|             5|            256|
+|Number Forms                     |             1|             1|             64|
 |Private Use Area                 |             1|             1|           6400|
 |Thai                             |             1|             1|            128|
 

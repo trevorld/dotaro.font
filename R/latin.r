@@ -120,11 +120,71 @@ create_basic_latin <- function(font = "square") {
             d_rect2(ych, xc + 0.5 * STW, ych - STW, xc - 1.5 * STW), # t serif,
             d_rect2(vg + STW, xc + 1.5 * STW, vg, xc - 1.5 * STW)) # b serif
     write_svg(ds, "0031")
+
     # 0032 digit 2
+    d2ry <- 0.26 * h
+    if (font == "narrow")
+        d2xa <- 0.7 * STW
+    else
+        d2xa <- 0.9 * STW
+    ds <- c(d_arc412(ych, xcw, ych - 2 * d2ry, hg, STW), # top curve
+            d_circle(hg + rp, ych - d2ry, rp), # ball
+            d_fslash(ych - 2 * d2ry + 1.0 * STW, xc + d2xa, vg + STW, hg, STW,
+                     left = "horizontal", right = "diagonal"), # stroke
+            d_rect2(vg + STW, xcw, vg, hg), # bar
+            d_rect2(vg + 2 * STW, xcw, vg + STW, xcw - STW)) # lr serif
+    write_svg(ds, "0032")
+
+    #### 218a turned digit 2
+
     # 0033 digit 3
+    if (font == "narrow")
+        d3o <- 0.6 * STW
+    else
+        d3o <- 0.8 * STW
+    ds <- c(d_rect2(ych, hg + STW, ych - STW - STW, hg), # ul serif
+            d_rect2(ych, xcw, ych - STW, hg + STW), # bar
+            d_fslash(ych - STW, xcw, yc, xc - d3o, STW,
+                     right = "horizontal", left = "diagonal"), # stroke
+            d_arc41(yc + 1.0 * STW, xcw, vg, xc, STW), # b curve 1
+            d_arc3(vg + 3 * STW, xc, vg, hg, STW)) # b curve 2
+    write_svg(ds, "0033")
+
+    # 218b turned digit 3
+    ds <- c(d_rect2(vg + STW + STW, xcw - STW, vg, xcw), # lr serif
+            d_rect2(vg + STW, xcw - STW, vg, hg), # bar
+            d_fslash(yc, xc + d3o, vg + STW, hg, STW,
+                     right = "diagonal", left = "horizontal"), # stroke
+            d_arc23(ych, xc, yc - 1.0 * STW, hg, STW), # t curve 1
+            d_arc1(ych, xcw, ych - 3 * STW, xc, STW), # t curve 2
+            d_circle(xcw - rp, ych - 3 * STW, rp)) # ball
+    write_svg(ds, "218b")
+
     # 0034 digit 4
+    yd4b <- yc - 1.0 * STW
+    ds <- c(d_rect2(yd4b + 1 * STW, xcw - srw, vg + STW, xcw - srw - STW), # stem
+            d_rect2(vg + STW, xcw, vg, xcw - STW - 2 * srw), # b serif
+            d_rect2(yd4b, xcw, yd4b - 1.0 * STW, hg), # bar
+            d_fslash(ych, xcw - srw, yd4b, hg, STW,
+                     left = "horizontal", right = "vertical")) # stroke
+    write_svg(ds, "0034")
+
     # 0035 digit 5
+    ds <- c(d_rect2(ych, xcw, ych - 2 * STW, xcw - STW), # ur serif
+            d_rect2(ych, xcw - STW, ych - STW, hg + 0.5 * STW), # bar
+            d_rect2(ych - STW, hg + STW + 0.5 * STW, yc - 0.0 * STW, hg + 0.5 * STW), # stem
+            d_rect2(yc + 1.0 * STW, xc, yc - 0.0 * STW, hg + STW + 0.5 * STW), # curve 1
+            d_arc41(yc + 1.0 * STW, xcw, vg, xc, STW), # curve 2
+            d_arc3(0.5 * (vg + yc + 1.0 * STW), xc, vg, hg, STW)) # curve 3
+    write_svg(ds, "0035")
+
     # 0036 digit 6
+    d6yf <- 0.3
+    ds <- c(d_ellipse(xc, vg + d6yf * ch, 0.5 * cw + c(0, -STW), d6yf * ch + c(0, -STW)), # loop
+            d_arc2(ych, xcw - rp, vg + d6yf * ch, hg, STW), # upper curve
+            d_circle(xcw - rp, ych - rp, rp)) # ball
+    write_svg(ds, "0036")
+
     # 0037 digit 7
     ds <- c(d_rect2(ych, hg + STW, ych - STW - STW, hg), # ul serif
             d_rect2(ych, xcw, ych - STW, hg + STW), # bar
@@ -139,6 +199,15 @@ create_basic_latin <- function(font = "square") {
             )
     write_svg(ds, "0038")
     # 0039 digit 9
+    d6yf <- 0.3
+    if (font == "narrow")
+       d9so <- 30
+    else
+       d9so <- 55
+    ds <- c(d_ellipse(xc, ych - d6yf * ch, 0.5 * cw + c(0, -STW), d6yf * ch + c(0, -STW)), # loop
+            d_fslash(ych - d6yf * ch - STW, xcw - d9so, vg + STW, xc - 0.5 * STW, STW), # lower stroke
+            d_rect(xc, vg + 0.5 * STW, 3 * STW, STW)) # b serif
+    write_svg(ds, "0039")
 
     # 0041 latin capital letter a
     if (font == "square")
@@ -184,7 +253,7 @@ create_basic_latin <- function(font = "square") {
             d_rect(xc, yc, STW, ch + 2 * STW))
     write_svg(ds, "0e3f")
 
-    # 20bf bitcoin sign 
+    # 20bf bitcoin sign
     xbs <- xc + 0.84 * STW
     ds <- c(d_rect2(ych, hg + srw2 + STW, vg, hg + srw2), # stem
             d_rect2(ych, xbs, ych - STW, hg), # u bar
@@ -380,7 +449,17 @@ create_basic_latin <- function(font = "square") {
             d_arc41(ych, xcw, yc - 0.5 * STW, xc, STW)) # bowl
     write_svg(ds, "0050")
 
-    #### 20b1 peso sign
+    # 20b1 peso sign
+    ds <- c(d_rect2(ych, hg + srw2 + STW, vg, hg + srw2), # stem
+            d_rect2(ych, xc, ych - STW, hg), # t bar
+            d_rect2(vg + STW, hg + 2 * srw2 + STW, vg, hg), # b serif
+            d_rect2(yc + 0.5 * STW, xc, yc - 0.5 * STW, hg + srw2), # b bar
+            d_arc41(ych, xcw - srw2, yc - 0.5 * STW, xc, STW), # bowl
+            d_rect2(0.63 * ych + 0.33 * yc + 0.5 * STW, xcw,
+                    0.63 * ych + 0.33 * yc - 0.5 * STW, hg), # t strikethrough
+            d_rect2(0.32 * ych + 0.66 * yc + 0.5 * STW, xcw,
+                    0.32 * ych + 0.66 * yc - 0.5 * STW, hg)) # b strikethrough
+    write_svg(ds, "20b1")
 
     # 0051 latin capital letter q
     ylclq <- 0.40 * h
@@ -486,7 +565,7 @@ create_basic_latin <- function(font = "square") {
     write_svg(d_lcly, "0059")
 
     # 00a5 yen sign
-    ds <- c(d_lcly, 
+    ds <- c(d_lcly,
             d_rect2(yc + 0.8 * STW, xcw - srw2, yc - 0.2 * STW, hg + srw2), # t bar
             d_rect2(yc - 0.7 * STW, xcw - srw2, yc - 1.7 * STW, hg + srw2)) # b bar
     write_svg(ds, "00a5")
@@ -852,8 +931,7 @@ create_basic_latin <- function(font = "square") {
 
     c(as.hexmode("0021"):as.hexmode("0025"),
       as.hexmode("0027"):as.hexmode("0029"),
-      as.hexmode("002d"):as.hexmode("0031"),
-      as.hexmode("0037"):as.hexmode("0038"),
+      as.hexmode("002d"):as.hexmode("0039"),
       as.hexmode("003c"):as.hexmode("003e"),
       as.hexmode("0041"):as.hexmode("005d"),
       as.hexmode("0063"):as.hexmode("0066"),
@@ -861,9 +939,10 @@ create_basic_latin <- function(font = "square") {
       as.hexmode("0072"):as.hexmode("0074"),
       as.hexmode("0076"):as.hexmode("0078"),
       as.hexmode("00a1"):as.hexmode("00a8"),
+      as.hexmode("20b1"):as.hexmode("20b3"),
       as.hexmode("22ee"):as.hexmode("22f1"),
       as.hexmode(c("002b", "003a",
-                   "005f", 
+                   "005f",
                    "006f",
                    "007a", "007c",
                    "00ab", "00af",
@@ -872,7 +951,7 @@ create_basic_latin <- function(font = "square") {
                    "0237", "0254",
                    "0e3f",
                    "2026", "2039", "203a",
-                   "20a3", "20a4", "20a6", "20a9", "20ac", "20ad", 
-                   "20b2", "20b3", "20b5", "20bf"))
+                   "20a3", "20a4", "20a6", "20a9", "20ac", "20ad",
+                   "20b5", "20bf", "218b"))
     ) |> as_hex()
 }

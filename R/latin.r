@@ -802,11 +802,37 @@ create_basic_latin <- function(font = "square") {
 	write_svg(ds, "005a")
 
 	rt <- 300
-	#### 0061 latin small letter a
+	# 0061 latin small letter a
+	xl_ds <- xcw - rt - srw2
+	ds <- c(
+		d_rect2(yxh, xl_ds + STW, vg + rt, xl_ds), # stem
+		d_ellipse(
+			0.5 * (hg + xl_ds + STW),
+			0.5 * (vg + yxh),
+			0.5 * (xl_ds + STW - hg) + c(0, -STW),
+			0.5 * (yxh - vg) + c(0, -STW)
+		), # ellipse
+		d_arc3(vg + rt, xl_ds + rt, vg, xl_ds, STW), # terminal..
+		d_rect2(vg + STW, xl_ds + rt + srw2, vg, xl_ds + rt)
+	) # terminal
+	write_svg(ds, "0061")
 
-	#### 0040 commercial at (circled small letter a)
-
-	#### 0061 latin small letter b
+	# 0040 commercial at (circled small letter a)
+	xl_ds <- hg + srw2
+	if (font == "square") {
+		at_d <- ncw
+	} else {
+		at_d <- 0.5 * ncw
+	}
+	ds <- c(
+		d_ellipse(xc, yc, 0.5 * at_d + c(0, -STW), 0.5 * at_d + c(0, -STW)),
+		d_rect2(yc + 0.5 * at_d, xc + 0.5 * at_d, yc, xc + 0.5 * at_d - STW),
+		d_arc34(yc + STW, xcw, yc - 0.5 * at_d, xc + 0.5 * at_d - STW, STW),
+		d_arc1(ych, xcw, yc + STW, xc, STW),
+		d_arc23(ych, xc, vg, hg, STW),
+		d_arc4(vg + 1.8 * STW, xcw - STW, vg, xc, STW)
+	)
+	write_svg(ds, "0040")
 
 	# 0063 latin small letter c
 	cvo <- 1.7 * STW
@@ -895,12 +921,21 @@ create_basic_latin <- function(font = "square") {
 		d_rect2(yslt + 0.0 * STW, hg + 3.0 * STW, yslt - 1.0 * STW, hg), # t. bar
 		d_rect2(yslt - 1.5 * STW, hg + 3.0 * STW, yslt - 2.5 * STW, hg), # m. bar
 		d_rect2(vg + srw + STW, xcw, vg, xcw - STW), # lr serif
-		d_rect2(vg + STW, xcw, vg, hg)
-	) # b. bar
+		d_rect2(vg + STW, xcw, vg, hg) # b. bar
+	)
 	write_svg(ds, "20a4")
 
 	#### 0067 latin small letter g
-	#### 0068 latin small letter h
+	# 0068 latin small letter h
+	ds <- c(
+		d_rect2(ych, hg + srw2 + STW, vg, hg + srw2), # l stem
+		d_rect2(ych, hg + srw2 + STW, ych - STW, hg), # ul serif
+		d_rect2(vg + STW, hg + 2 * srw2 + STW, vg, hg), # ll serif
+		d_arc12(yxh, xcw - srw2, yxh - 2 * STW, hg + srw2, STW), # curve
+		d_rect2(yxh - 2 * STW, xcw - srw2, vg, xcw - srw2 - STW), # r stem
+		d_rect2(vg + STW, xcw, vg, xcw - 2 * srw2 - STW) # lr serif
+	)
+	write_svg(ds, "0068")
 
 	# 0131 latin small letter dotless i
 	d_dli <- c(
@@ -950,8 +985,8 @@ create_basic_latin <- function(font = "square") {
 			right = "horizontal"
 		), # b stroke
 		d_rect2(vg + STW, hg + 2 * srw2 + STW, vg, hg), # ll serif
-		d_rect2(vg + STW, xcw, vg, xcw - 3 * srw2 - STW)
-	) # lr serif
+		d_rect2(vg + STW, xcw, vg, xcw - 3 * srw2 - STW) # lr serif
+	)
 	write_svg(d_slk, "006b")
 
 	# 006c latin small letter l
@@ -967,7 +1002,16 @@ create_basic_latin <- function(font = "square") {
 
 	#### 20a5 mill sign
 
-	#### 006e latin small letter n
+	# 006e latin small letter n
+	ds <- c(
+		d_rect2(yxh, hg + srw2 + STW, vg, hg + srw2), # l stem
+		d_rect2(yxh, hg + srw2 + STW, yxh - STW, hg), # ul serif
+		d_rect2(vg + STW, hg + 2 * srw2 + STW, vg, hg), # ll serif
+		d_arc12(yxh, xcw - srw2, yxh - 2 * STW, hg + srw2, STW), # curve
+		d_rect2(yxh - 2 * STW, xcw - srw2, vg, xcw - srw2 - STW), # r stem
+		d_rect2(vg + STW, xcw, vg, xcw - 2 * srw2 - STW) # lr serif
+	)
+	write_svg(ds, "006e")
 
 	# 006f latin small letter o
 	write_svg(
@@ -976,7 +1020,20 @@ create_basic_latin <- function(font = "square") {
 	)
 
 	#### 0070 latin small letter p
-	#### 0071 latin small letter q
+	# 0071 latin small letter q
+	xl_ds <- xcw - rt - srw2
+	ds <- c(
+		d_rect2(yxh, xl_ds + STW, rt, xl_ds), # stem
+		d_ellipse(
+			0.5 * (hg + xl_ds + STW),
+			0.5 * (vg + yxh),
+			0.5 * (xl_ds + STW - hg) + c(0, -STW),
+			0.5 * (yxh - vg) + c(0, -STW)
+		), # ellipse
+		d_arc3(rt, xl_ds + rt, 0, xl_ds, STW), # terminal..
+		d_rect2(STW, xl_ds + rt + srw2, 0, xl_ds + rt)
+	) # terminal
+	write_svg(ds, "0071")
 
 	# 0072 latin small letter r
 	d_lr <- c(
@@ -1258,21 +1315,18 @@ create_basic_latin <- function(font = "square") {
 	) # ur stroke
 	write_svg(ds, "00a4")
 
-	# browser()
-
 	c(
 		as.hexmode("0021"):as.hexmode("0025"),
-		as.hexmode("0027"):as.hexmode("003f"),
-		as.hexmode("0041"):as.hexmode("0060"),
-		as.hexmode("0063"):as.hexmode("0066"),
-		as.hexmode("0069"):as.hexmode("006c"),
-		as.hexmode("0072"):as.hexmode("0074"),
+		as.hexmode("0027"):as.hexmode("0066"),
+		as.hexmode("0068"):as.hexmode("006c"),
+		as.hexmode("0071"):as.hexmode("0074"),
 		as.hexmode("0076"):as.hexmode("0078"),
 		as.hexmode("007a"):as.hexmode("007d"),
 		as.hexmode("00a1"):as.hexmode("00a8"),
 		as.hexmode("20b1"):as.hexmode("20b3"),
 		as.hexmode("22ee"):as.hexmode("22f1"),
 		as.hexmode(c(
+			"006e",
 			"006f",
 			"00ab",
 			"00ac",

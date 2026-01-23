@@ -196,6 +196,16 @@ create_basic_latin <- function(font = "square") {
 	# ry <- 300
 	# ds <- c(d_arc12(yc + ry, xc + 0.5 * STW, yc, hg, STW),
 	#         d_arc34(yc, xcw, yc - ry, xc - 0.5 * STW, STW))
+	# if (font == "square") {
+	# 	m <- 1.0
+	# } else {
+	# 	m <- 1.0
+	# }
+	# ds <- c(
+	# 	d_fslash(yc + ry, 0.5 * (xc + hg), yc - ry, hg, STW, right = "vertical", left = "diagonal"),
+	# 	d_bslash(yc + ry, 0.5 * (xc + xcw), yc - ry, 0.5 * (xc + hg), m * STW, nib = "vertical"),
+	# 	d_fslash(yc + ry, xcw, yc - ry, 0.5 * (xc + xcw), STW, left = "vertical", right = "diagonal")
+	# )
 	# write_svg(ds, "007e")
 
 	# 0030 digit 0
@@ -813,8 +823,8 @@ create_basic_latin <- function(font = "square") {
 			0.5 * (yxh - vg) + c(0, -STW)
 		), # ellipse
 		d_arc3(vg + rt, xl_ds + rt, vg, xl_ds, STW), # terminal..
-		d_rect2(vg + STW, xl_ds + rt + srw2, vg, xl_ds + rt)
-	) # terminal
+		d_rect2(vg + STW, xl_ds + rt + srw2, vg, xl_ds + rt) # terminal
+	)
 	write_svg(ds, "0061")
 
 	# 0040 commercial at (circled small letter a)
@@ -833,6 +843,20 @@ create_basic_latin <- function(font = "square") {
 		d_arc4(vg + 1.8 * STW, xcw - STW, vg, xc, STW)
 	)
 	write_svg(ds, "0040")
+
+	# 0062 latin small letter b
+	xl_ds <- hg + srw2
+	ds <- c(
+		d_rect2(ych, xl_ds + STW, 0.5 * (vg + yxh), xl_ds), # stem
+		d_rect2(ych, xl_ds, ych - STW, xl_ds - srw2), # t serif
+		d_ellipse(
+			0.5 * (hg + srw2 + xcw),
+			0.5 * (vg + yxh),
+			0.5 * (xcw - hg - srw2) + c(0, -STW),
+			0.5 * (yxh - vg) + c(0, -STW)
+		) # ellipse
+	) # terminal
+	write_svg(ds, "0062")
 
 	# 0063 latin small letter c
 	cvo <- 1.7 * STW
@@ -925,7 +949,21 @@ create_basic_latin <- function(font = "square") {
 	)
 	write_svg(ds, "20a4")
 
-	#### 0067 latin small letter g
+	# 0067 latin small letter g
+	xl_ds <- xcw - srw2
+	ds <- c(
+		d_rect2(yxh, xl_ds, STW + 0.5 * STW, xl_ds - STW), # stem
+		d_ellipse(
+			0.5 * (hg + xl_ds),
+			0.5 * (vg + yxh),
+			0.5 * (xl_ds - hg) + c(0, -STW),
+			0.5 * (yxh - vg) + c(0, -STW)
+		),
+		d_arc4(STW + 0.5 * STW, xl_ds, 0, xc, STW),
+		d_arc3(STW + 0.5 * STW, xc, 0, hg, STW)
+	)
+	write_svg(ds, "0067")
+
 	# 0068 latin small letter h
 	ds <- c(
 		d_rect2(ych, hg + srw2 + STW, vg, hg + srw2), # l stem
@@ -998,7 +1036,18 @@ create_basic_latin <- function(font = "square") {
 	) # terminal
 	write_svg(ds, "006c")
 
-	#### 006d latin small letter m
+	# 006d latin small letter m
+	ds <- c(
+		d_rect2(yxh, hg + srw2 + STW, vg, hg + srw2), # l stem
+		d_rect2(yxh, hg + srw2 + STW, yxh - STW, hg), # ul serif
+		d_rect2(vg + STW, hg + 2 * srw2 + STW, vg, hg), # ll serif
+		d_arc12(yxh, xc + 0.5 * STW, yxh - 2 * STW, hg + srw2, STW), # l curve
+		d_rect2(yxh - 2 * STW, xc + 0.5 * STW, vg + STW + srw2, xc - 0.5 * STW), # m stem
+		d_arc12(yxh, xcw - srw2, yxh - 2 * STW, xc - 0.5 * STW, STW), # r curve
+		d_rect2(yxh - 2 * STW, xcw - srw2, vg, xcw - srw2 - STW), # r stem
+		d_rect2(vg + STW, xcw, vg, xcw - 2 * srw2 - STW) # lr serif
+	)
+	write_svg(ds, "006d")
 
 	#### 20a5 mill sign
 
@@ -1019,20 +1068,35 @@ create_basic_latin <- function(font = "square") {
 		"006f"
 	)
 
-	#### 0070 latin small letter p
-	# 0071 latin small letter q
-	xl_ds <- xcw - rt - srw2
+	# 0070 latin small letter p
+	xl_ds <- hg + srw2
 	ds <- c(
-		d_rect2(yxh, xl_ds + STW, rt, xl_ds), # stem
+		d_rect2(yxh, xl_ds + STW, STW, xl_ds), # stem
+		d_rect2(yxh, xl_ds, yxh - STW, xl_ds - srw2), # t serif
+		d_rect2(STW, xl_ds + STW + srw2, 0, xl_ds - srw2), # b serif
 		d_ellipse(
-			0.5 * (hg + xl_ds + STW),
+			0.5 * (hg + srw2 + xcw),
 			0.5 * (vg + yxh),
-			0.5 * (xl_ds + STW - hg) + c(0, -STW),
+			0.5 * (xcw - hg - srw2) + c(0, -STW),
+			0.5 * (yxh - vg) + c(0, -STW)
+		)
+	)
+	write_svg(ds, "0070")
+
+	# 0071 latin small letter q
+	xl_ds <- xcw - srw2
+	ds <- c(
+		d_rect2(yxh, xl_ds, STW, xl_ds - STW), # stem
+		d_ellipse(
+			0.5 * (hg + xl_ds),
+			0.5 * (vg + yxh),
+			0.5 * (xl_ds - hg) + c(0, -STW),
 			0.5 * (yxh - vg) + c(0, -STW)
 		), # ellipse
-		d_arc3(rt, xl_ds + rt, 0, xl_ds, STW), # terminal..
-		d_rect2(STW, xl_ds + rt + srw2, 0, xl_ds + rt)
-	) # terminal
+		d_rect2(STW, xcw, 0, xcw - STW - 2 * srw2) # b serif
+		# d_arc3(rt, xl_ds + rt, 0, xl_ds, STW), # terminal..
+		# d_rect2(STW, xl_ds + rt + srw2, 0, xl_ds + rt) # terminal
+	)
 	write_svg(ds, "0071")
 
 	# 0072 latin small letter r
@@ -1087,7 +1151,20 @@ create_basic_latin <- function(font = "square") {
 	#### 0026 ampersand is a stylized ligature of e t
 	# https://en.wikipedia.org/wiki/Ampersand
 
-	#### 0075 latin small letter u
+	# 0075 latin small letter u
+	xl_ds <- xcw - rt - srw2
+	ds <- c(
+		d_rect2(yxh - STW, hg + STW + srw2, vg + rt, hg + srw2), # l stem
+		d_rect2(yxh, hg + STW + 2 * srw2, yxh - STW, hg), # l bar
+		d_arc3(vg + rt, 0.5 * (hg + srw2 + xl_ds + STW), vg, hg + srw2, STW),
+		d_arc4(vg + rt, xl_ds + STW, vg, 0.5 * (hg + srw2 + xl_ds + STW), STW),
+		d_arc3(vg + rt, xl_ds + rt, vg, xl_ds, STW), # terminal..
+		d_rect2(yxh, xl_ds + STW + srw2, yxh - STW, xl_ds - srw2), # r bar
+		d_rect2(yxh - STW, xl_ds + STW, vg + rt, xl_ds), # r stem
+		d_rect2(vg + STW, xl_ds + rt + srw2, vg, xl_ds + rt) # terminal
+	)
+	write_svg(ds, "0075")
+
 	# 0076 latin small letter v
 	ds <- c(
 		d_bslash(yxh - STW, xc, vg, hg + srw2, STW, left = "horizontal", right = "vertical"), # l stroke
@@ -1133,7 +1210,20 @@ create_basic_latin <- function(font = "square") {
 	) # br serif
 	write_svg(ds, "0078")
 
-	#### 0079 latin small letter y
+	# 0079 latin small letter y
+	xl_ds <- xcw - srw2
+	ds <- c(
+		d_rect2(yxh - STW, hg + STW + srw2, vg + rt, hg + srw2), # l stem
+		d_rect2(yxh, hg + STW + 2 * srw2, yxh - STW, hg), # l bar
+		d_arc3(vg + rt, 0.5 * (hg + srw2 + xl_ds), vg, hg + srw2, STW),
+		d_arc4(vg + rt, xl_ds, vg, 0.5 * (hg + srw2 + xl_ds), STW),
+		d_rect2(yxh, xl_ds + srw2, yxh - STW, xl_ds - STW - srw2), # r bar
+		d_rect2(yxh - STW, xl_ds, STW + 0.4 * STW, xl_ds - STW), # r stem
+		d_arc4(STW + 0.4 * STW, xl_ds, 0, xc, STW),
+		d_arc3(STW + 0.4 * STW, xc, 0, hg + srw2, STW)
+	)
+	write_svg(ds, "0079")
+
 	# 007a latin small letter z
 	ds <- c(
 		d_rect2(yxh, xc + 0.5 * ncw, yxh - STW, xc - 0.5 * ncw), # t bar
@@ -1317,17 +1407,11 @@ create_basic_latin <- function(font = "square") {
 
 	c(
 		as.hexmode("0021"):as.hexmode("0025"),
-		as.hexmode("0027"):as.hexmode("0066"),
-		as.hexmode("0068"):as.hexmode("006c"),
-		as.hexmode("0071"):as.hexmode("0074"),
-		as.hexmode("0076"):as.hexmode("0078"),
-		as.hexmode("007a"):as.hexmode("007d"),
+		as.hexmode("0027"):as.hexmode("007d"),
 		as.hexmode("00a1"):as.hexmode("00a8"),
 		as.hexmode("20b1"):as.hexmode("20b3"),
 		as.hexmode("22ee"):as.hexmode("22f1"),
 		as.hexmode(c(
-			"006e",
-			"006f",
 			"00ab",
 			"00ac",
 			"00af",

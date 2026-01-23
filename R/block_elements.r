@@ -87,9 +87,3 @@ create_block_elements <- function(font = "square") {
 
 	as_hex(c(as.hexmode("2580"):as.hexmode("2590"), as.hexmode("2594"):as.hexmode("259f")))
 }
-
-d_rect2 <- function(yt, xr, yb, xl) {
-	x <- c(xl, xl, xr, xr)
-	y <- c(yb, yt, yt, yb)
-	MZ(x, y)
-}

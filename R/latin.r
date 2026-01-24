@@ -193,20 +193,21 @@ create_basic_latin <- function(font = "square") {
 	write_svg(d, "0029")
 
 	# # 007e tilde
-	# ry <- 300
-	# ds <- c(d_arc12(yc + ry, xc + 0.5 * STW, yc, hg, STW),
-	#         d_arc34(yc, xcw, yc - ry, xc - 0.5 * STW, STW))
-	# if (font == "square") {
-	# 	m <- 1.0
-	# } else {
-	# 	m <- 1.0
-	# }
-	# ds <- c(
-	# 	d_fslash(yc + ry, 0.5 * (xc + hg), yc - ry, hg, STW, right = "vertical", left = "diagonal"),
-	# 	d_bslash(yc + ry, 0.5 * (xc + xcw), yc - ry, 0.5 * (xc + hg), m * STW, nib = "vertical"),
-	# 	d_fslash(yc + ry, xcw, yc - ry, 0.5 * (xc + xcw), STW, left = "vertical", right = "diagonal")
-	# )
-	# write_svg(ds, "007e")
+	ry <- 150
+	ds <- c(
+		d_arc2(yc + ry, hg + 0.25 * cw, yc - ry, hg, STW),
+		d_arc4(yc + ry, xcw, yc - ry, xcw - 0.25 * cw, STW)
+	)
+	dx1 <- 0.36 * cw
+	dy1 <- 0.95 * STW
+	dy <- 0.5 * STW
+	d_middle <- M(hg + 0.25 * cw, yc + ry) +
+		Q(hg + dx1, yc + dy1, xc, yc + dy) +
+		T(xcw - 0.25 * cw, yc - ry + STW) +
+		L(xcw - 0.25 * cw, yc - ry) +
+		Q(xcw - dx1, yc - dy1, xc, yc - dy) +
+		TZ(hg + 0.25 * cw, yc + ry - STW)
+	write_svg(c(ds, d_middle), "007e")
 
 	# 0030 digit 0
 	ds <- c(
@@ -1148,8 +1149,23 @@ create_basic_latin <- function(font = "square") {
 	) # terminal
 	write_svg(ds, "0074")
 
-	#### 0026 ampersand is a stylized ligature of e t
+	# 0026 ampersand is a stylized ligature of e t
 	# https://en.wikipedia.org/wiki/Ampersand
+	if (font == "square") {
+		x_bar_r <- xcw - 2.0 * STW
+	} else {
+		x_bar_r <- xcw - 1.0 * STW
+	}
+	ds <- c(
+		d_arc1(ych, x_bar_r, ych - cvo, xc, STW), # ur curve
+		d_arc23(ych, xc, yc - 0.5 * STW, hg, STW), # ul curve
+		d_arc23(yc + 0.5 * STW, xc, vg, hg, STW), # ll curve
+		d_arc4(vg + 1.5 * STW, x_bar_r, vg, xc, STW), # lr curve
+		d_rect2(yc - 0.5 * STW, x_bar_r, vg + 1.5 * STW, x_bar_r - STW), # stem
+		d_rect2(yc + 0.5 * STW, xcw, yc - 0.5 * STW, xc), # bar
+		d_circle(x_bar_r - rp, ych - cvo, rp) # ball
+	)
+	write_svg(ds, "0026")
 
 	# 0075 latin small letter u
 	xl_ds <- xcw - rt - srw2
@@ -1406,8 +1422,7 @@ create_basic_latin <- function(font = "square") {
 	write_svg(ds, "00a4")
 
 	c(
-		as.hexmode("0021"):as.hexmode("0025"),
-		as.hexmode("0027"):as.hexmode("007d"),
+		as.hexmode("0021"):as.hexmode("007e"),
 		as.hexmode("00a1"):as.hexmode("00a8"),
 		as.hexmode("20b1"):as.hexmode("20b3"),
 		as.hexmode("22ee"):as.hexmode("22f1"),

@@ -170,8 +170,12 @@ create_miscellaneous_symbols <- function(font = "square") {
 	# ds <- c(d_polygon(x, y, offset = c(0, -OW)), d_circle(xc, ych - rq, rq + c(0, -OW)))
 	ds <- d_polygon(x, y, offset = c(0, -OW))
 	write_svg(ds, "2655")
-	#### 1fa1f white chess turned queen
-	#### 1fa25 black chess turned queen
+	# 1fa1f white chess turned queen
+	ds <- d_polygon(x, y, origin_at_bottom = FALSE, offset = c(0, -OW))
+	write_svg(ds, "1fa1f")
+	# 1fa25 black chess turned queen
+	ds <- d_polygon(x, y, origin_at_bottom = FALSE)
+	write_svg(ds, "1fa25")
 
 	# 265c black chess rook
 	if (font == "narrow") {
@@ -228,7 +232,9 @@ create_miscellaneous_symbols <- function(font = "square") {
 	# 2656 white chess rook
 	ds <- d_polygon(x, y, offset = c(0, -OW))
 	write_svg(ds, "2656")
-	#### 1fa20 white chess turned rook
+	# 1fa20 white chess turned rook
+	ds <- d_polygon(x, y, origin_at_bottom = FALSE, offset = c(0, -OW))
+	write_svg(ds, "1fa20")
 	# 1fa26 black chess turned rook
 	ds <- d_polygon(x, y, origin_at_bottom = FALSE)
 	write_svg(ds, "1fa26")
@@ -263,6 +269,7 @@ create_miscellaneous_symbols <- function(font = "square") {
 		as.hexmode("272a"):as.hexmode("272d"),
 		as.hexmode(c("2734", "2736", "2737", "2738", "2739", "2742")),
 		as.hexmode(c("f5b8")),
-		as.hexmode(c("1fa26"))
+		as.hexmode(c("1fa1f", "1fa20")),
+		as.hexmode(c("1fa25", "1fa26"))
 	))
 }

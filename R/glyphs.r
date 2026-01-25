@@ -30,3 +30,8 @@ OUTLINE_FROM_TO <- list(
 	`2665` = "2661", # Heart Suit
 	`2663` = "2667" # Club Suit
 )
+
+TURNED_FROM_TO <- list(
+	`265a` = "1fa24", # Black Chess King
+	`2654` = "1fa1e" # White Chess King
+)

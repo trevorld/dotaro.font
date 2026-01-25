@@ -13,12 +13,14 @@ generate_sfd <- function(font = c("square", "narrow"), output = paste0("dotaro_"
 	glyph_width <- dotaro_width(font)
 
 	fontforge <- reticulate::import("fontforge")
+	psMat <- reticulate::import("psMat")
 	ff_font <- fontforge$font()
 
-	fname <- paste0("Dotaro-", toupper(substr(font, 1L, 1L)), substr(font, 2L, nchar(font)))
-	ff_font$fontname <- fname
-	ff_font$familyname <- fname
-	ff_font$fullname <- fname
+	cap_font <- paste0(toupper(substr(font, 1L, 1L)), substr(font, 2L, nchar(font)))
+	ff_font$fontname <- paste0("Dotaro-", cap_font)
+	ff_font$familyname <- "Dotaro"
+	ff_font$fullname <- paste0("Dotaro ", cap_font)
+
 	# Sum of `ascent` and `descent` is a power of two for truetype fonts (often 2048 or 4096)
 	# Set `ascent` and `descent` **before** importing glyphs
 	ff_font$descent <- glyph_height %/% 2L
@@ -61,6 +63,23 @@ generate_sfd <- function(font = c("square", "narrow"), output = paste0("dotaro_"
 		ff_font$selection$select(to_int)
 		ff_font$paste()
 		glyph$stroke("circular", as.integer(OW), join = "miter", joinlimit = 80)
+	}
+
+	for (hex in names(TURNED_FROM_TO)) {
+		from_int <- hex |> as.hexmode() |> as.integer()
+		to_int <- TURNED_FROM_TO[[hex]] |> as.hexmode() |> as.integer()
+
+		ff_font$selection$select(from_int)
+		ff_font$copy()
+		glyph <- ff_font$createChar(to_int)
+		ff_font$selection$select(to_int)
+		ff_font$paste()
+		bb <- glyph$boundingBox()
+		cx <- (bb[[3]] + bb[[1]]) / 2
+		cy <- (bb[[4]] + bb[[2]]) / 2
+		trcen = psMat$translate(-cx, -cy)
+		rotcen = psMat$compose(trcen, psMat$compose(psMat$rotate(pi), psMat$inverse(trcen)))
+		glyph$transform(rotcen)
 	}
 
 	ff_font$save(output)

@@ -1391,7 +1391,7 @@ create_basic_latin <- function(font = "square") {
 	write_svg(d_circle(xc, yc, 2 * rp), "2022")
 
 	# 2026 horizontal ellipsis
-	d <- d_circle(c(hg + rp, xc, h - hg - rp), vg + rp, rp)
+	d <- d_circle(c(hg + rp, xc, w - hg - rp), vg + rp, rp)
 	write_svg(d, "2026")
 
 	# 22ee vertical ellipsis
@@ -1399,15 +1399,15 @@ create_basic_latin <- function(font = "square") {
 	write_svg(d, "22ee")
 
 	# 22ef midline horizontal ellipsis
-	d <- d_circle(c(hg + rp, xc, h - hg - rp), yc, rp)
+	d <- d_circle(c(hg + rp, xc, w - hg - rp), yc, rp)
 	write_svg(d, "22ef")
 
 	# 22f0 up right diagonal ellipsis
-	d <- d_circle(c(hg + rp, xc, h - hg - rp), c(vg + rp, yc, ych - rp), rp)
+	d <- d_circle(c(hg + rp, xc, w - hg - rp), c(vg + rp, yc, ych - rp), rp)
 	write_svg(d, "22f0")
 
 	# 22f1 down right diagonal ellipsis
-	d <- d_circle(c(hg + rp, xc, h - hg - rp), c(ych - rp, yc, vg + rp), rp)
+	d <- d_circle(c(hg + rp, xc, w - hg - rp), c(ych - rp, yc, vg + rp), rp)
 	write_svg(d, "22f1")
 
 	# 00a4 (generic) currency sign

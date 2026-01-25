@@ -2,11 +2,12 @@
 
 [![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 
-**Warning:** this project is a Work-in-Progress.  The existing code seems to successfully generate TrueType fonts via FontForge but currently the fonts are incomplete and contain very few glyphs.
+**Warning:** this project is a Work-in-Progress.
 
 ### Table of Contents
 
 * [Overview](#overview)
+* [Downloadable font files](#downloads)
 * [Unicode block coverage](#blocks)
 * [License](#license)
 * [Build the fonts from scratch](#build)
@@ -16,10 +17,15 @@
 
 The main goal is to create a couple of fonts with bespoke glyphs to use in my [Dotaro Deck](https://github.com/trevorld/dotaro.deck) of playing cards:
 
-* **Dotaro Narrow** A narrow monospace font to provide *rank* symbols in playing card [corner indices](https://www.wopc.co.uk/playing-cards/corner-indices).  Likely mainly [slab serif](https://en.wikipedia.org/wiki/Slab_serif) but will probably include digits in an alternative style (perhaps in the [Mathematical Alphanumeric Symbols](https://en.wikipedia.org/wiki/Mathematical_Alphanumeric_Symbols) block).
+* **Dotaro Narrow** A narrow monospace font to provide *rank* symbols in playing card [corner indices](https://www.wopc.co.uk/playing-cards/corner-indices).  Mainly [slab serif](https://en.wikipedia.org/wiki/Slab_serif) but will probably include digits in an alternative style (perhaps in the [Mathematical Alphanumeric Symbols](https://en.wikipedia.org/wiki/Mathematical_Alphanumeric_Symbols) block).
 * **Dotaro Square** A square monospace font to provide *suit* symbols in playing card corner indices and pips.  If time permits may also evolve to serve as a general board game diagram font (i.e. a prettier vector version of my [Game Bit Mono Font](https://github.com/trevorld/game-bit-font)).
 
-Note support for the full [Basic Latin Unicode block](https://en.wikipedia.org/wiki/Basic_Latin_(Unicode_block)) is not considered necessary for a minimum viable project of these fonts (since most of these glyphs will not be used in the Dotaro Deck) but if time permits I may add them later.
+## <a name="downloads">Downloadable Font Files</a>
+
+* [dotaro-narrow.ttf](https://trevorldavis.com/share/fonts/dotaro-narrow.ttf)
+* [dotaro-square.ttf](https://trevorldavis.com/share/fonts/dotaro-square.ttf)
+* [dotaro-narrow-code-charts.pdf](https://trevorldavis.com/share/fonts/dotaro-narrow-code-charts.pdf)
+* [dotaro-square-code-charts.pdf](https://trevorldavis.com/share/fonts/dotaro-square-code-charts.pdf)
 
 ## <a name="blocks">Unicode block coverage</a>
 
@@ -28,10 +34,10 @@ Current [Unicode block](https://en.wikipedia.org/wiki/Unicode_block) coverage (e
 
 |Block                            | Dotaro Narrow| Dotaro Square| Total in Block|
 |:--------------------------------|-------------:|-------------:|--------------:|
-|Basic Latin                      |            93|            93|             95|
+|Basic Latin                      |            95|            95|             95|
 |Block Elements                   |            29|            29|             32|
 |Box Drawing                      |           113|           113|            128|
-|Chess Symbols                    |             1|             1|            112|
+|Chess Symbols                    |             6|             6|            112|
 |Currency Symbols                 |            11|            11|             48|
 |Dingbats                         |            10|            10|            192|
 |General Punctuation              |             5|             5|            112|

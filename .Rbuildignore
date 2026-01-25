@@ -18,4 +18,5 @@
 ^pkgdown$
 ^raw-data$
 ^revdep$
+^share$
 ^tmp$

@@ -5,3 +5,11 @@ pkgdown
 tmp
 raw-data/step_1
 raw-data/step_2
+share/*.aux
+share/*.log
+share/*.out
+share/*.pdf
+share/*.sfd
+share/*.toc
+share/*.ttf
+share/*.xelatex

@@ -2,11 +2,12 @@
 
 [![Project Status: WIP – Initial development is in progress, but there has not yet been a stable, usable release suitable for the public.](https://www.repostatus.org/badges/latest/wip.svg)](https://www.repostatus.org/#wip)
 
-**Warning:** this project is a Work-in-Progress.  The existing code seems to successfully generate TrueType fonts via FontForge but currently the fonts are incomplete and contain very few glyphs.
+**Warning:** this project is a Work-in-Progress.
 
 ### Table of Contents
 
 * [Overview](#overview)
+* [Downloadable font files](#downloads)
 * [Unicode block coverage](#blocks)
 * [License](#license)
 * [Build the fonts from scratch](#build)
@@ -16,10 +17,15 @@
 
 The main goal is to create a couple of fonts with bespoke glyphs to use in my [Dotaro Deck](https://github.com/trevorld/dotaro.deck) of playing cards:
 
-* **Dotaro Narrow** A narrow monospace font to provide *rank* symbols in playing card [corner indices](https://www.wopc.co.uk/playing-cards/corner-indices).  Likely mainly [slab serif](https://en.wikipedia.org/wiki/Slab_serif) but will probably include digits in an alternative style (perhaps in the [Mathematical Alphanumeric Symbols](https://en.wikipedia.org/wiki/Mathematical_Alphanumeric_Symbols) block).
+* **Dotaro Narrow** A narrow monospace font to provide *rank* symbols in playing card [corner indices](https://www.wopc.co.uk/playing-cards/corner-indices).  Mainly [slab serif](https://en.wikipedia.org/wiki/Slab_serif) but will probably include digits in an alternative style (perhaps in the [Mathematical Alphanumeric Symbols](https://en.wikipedia.org/wiki/Mathematical_Alphanumeric_Symbols) block).
 * **Dotaro Square** A square monospace font to provide *suit* symbols in playing card corner indices and pips.  If time permits may also evolve to serve as a general board game diagram font (i.e. a prettier vector version of my [Game Bit Mono Font](https://github.com/trevorld/game-bit-font)).
 
-Note support for the full [Basic Latin Unicode block](https://en.wikipedia.org/wiki/Basic_Latin_(Unicode_block)) is not considered necessary for a minimum viable project of these fonts (since most of these glyphs will not be used in the Dotaro Deck) but if time permits I may add them later.
+## <a name="downloads">Downloadable Font Files</a>
+
+* [dotaro-narrow.ttf](https://trevorldavis.com/share/fonts/dotaro-narrow.ttf)
+* [dotaro-square.ttf](https://trevorldavis.com/share/fonts/dotaro-square.ttf)
+* [dotaro-narrow-code-charts.pdf](https://trevorldavis.com/share/fonts/dotaro-narrow-code-charts.pdf)
+* [dotaro-square-code-charts.pdf](https://trevorldavis.com/share/fonts/dotaro-square-code-charts.pdf)
 
 ## <a name="blocks">Unicode block coverage</a>
 
@@ -28,11 +34,11 @@ Current [Unicode block](https://en.wikipedia.org/wiki/Unicode_block) coverage (e
 ```{r blocks, echo=FALSE, eval=requireNamespace("Unicode", quietly = TRUE), results='asis'}
 reticulate::use_python(Sys.which("python3"))
 library("Unicode")
-# assumes fonts in `tmp` directory
-stopifnot(file.exists("tmp/dotaro_square.ttf"),
-          file.exists("tmp/dotaro_narrow.ttf"))
-points_square <- dotaro.font:::get_unicode_code_points("tmp/dotaro_square.ttf") |> as.u_char()
-points_narrow <- dotaro.font:::get_unicode_code_points("tmp/dotaro_narrow.ttf") |> as.u_char()
+# assumes fonts in `share` directory
+stopifnot(file.exists("share/dotaro-square.ttf"),
+          file.exists("share/dotaro-narrow.ttf"))
+points_square <- dotaro.font:::get_unicode_code_points("share/dotaro-square.ttf") |> as.u_char()
+points_narrow <- dotaro.font:::get_unicode_code_points("share/dotaro-narrow.ttf") |> as.u_char()
 blocks <- u_blocks()
 n_per_block <- lapply(blocks, n_of_u_chars)
 n_per_block[["Basic Latin"]] <- 128L - 33L # Don't count control codes

@@ -1,0 +1,196 @@
+\documentclass{article}
+\usepackage{colortbl}
+\usepackage{fontspec}
+\usepackage{hyperref}
+\usepackage{xcolor}
+\hypersetup{
+    colorlinks,
+    citecolor=black,
+    filecolor=black,
+    linkcolor=black,
+    urlcolor=black
+}
+
+% \setmainfont{Dotaro Narrow}
+\newfontfamily\df[Scale=1.6]{Dotaro Narrow}
+
+\title{Dotaro Narrow Code Charts}
+\author{Trevor L. Davis}
+
+%% begin.rcode setup, echo=FALSE, results='hide'
+library("bittermelon", warn.conflicts = FALSE)
+library("Unicode")
+reticulate::use_python(Sys.which("python3"))
+points_font <- dotaro.font:::get_unicode_code_points("dotaro-narrow.ttf") |> as.u_char()
+
+make_table <- function(start, end) {
+    cat("\\begin{flushleft}\n")
+    cat("{\\renewcommand{\\arraystretch}{1.3}\n")
+    cat("\\begin{tabular}{|l||c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}\n")
+    cat("\\hline\n")
+    cat("& 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & A & B & C & D & E & F \\\\\n")
+    cat("\\hline\n")
+    cat("\\hline\n")
+
+    ucp_start <- paste0("U+", start, "0")
+    ucp_end <- paste0("U+", end, "F")
+    ucp_range <- range2ucp(paste0(ucp_start, "..", ucp_end), FALSE)
+    table_range <- unique(gsub("^U\\+(.+)[0-9A-F]{1}", "\\1", ucp_range))
+    for (set in table_range) {
+       cat(set, " ")
+       for (char in bracer::expand_braces("{{0..9},{A..F}}", "R")) {
+          ucp <- paste0(set, char)
+          ucp_u <- paste0("U+", ucp)
+          if (ucp_u %in% points_font) {
+			 cat(paste0(" & {\\df\\raise.20em\\hbox{\\char\"", ucp, "}}"))
+          } else {
+             cat(paste0(" & \\cellcolor{lightgray}"))
+          }
+       }
+       cat("\\\\\n")
+       cat("\\hline\n")
+    }
+    cat("\\end{tabular}\n")
+    cat("}\n")
+    cat("\\end{flushleft}\n")
+}
+%% end.rcode
+
+\begin{document}
+
+\maketitle
+
+Private Use Area (PUA) codepoints are reserved for individual fonts.  They have generic names and default properties in Unicode.  The PUA code chart names used in this document are my own invention and are not standardized.
+
+\tableofcontents
+
+\section{Basic Latin}
+
+%% begin.rcode basic_latin, echo=FALSE, results='asis'
+make_table("002", "007")
+%% end.rcode
+
+\section{Latin-1 Supplement}
+
+%% begin.rcode latin1_supplement, echo=FALSE, results='asis'
+make_table("00A", "00F")
+%% end.rcode
+
+\section{Latin Extended-A}
+
+%% begin.rcode latin_extended_a, echo=FALSE, results='asis'
+make_table("013", "013")
+%% end.rcode
+
+\section{Latin Extended-B}
+
+%% begin.rcode latin_extended_b, echo=FALSE, results='asis'
+# make_table("018", "024")
+make_table("018", "018")
+%% end.rcode
+
+%% begin.rcode latin_extended_b_1, echo=FALSE, results='asis'
+make_table("023", "023")
+%% end.rcode
+
+\section{IPA Extensions}
+
+%% begin.rcode ipa_extensions, echo=FALSE, results='asis'
+# make_table("025", "02A")
+make_table("025", "025")
+%% end.rcode
+
+\section{Spacing Modifier Letters}
+
+%% begin.rcode spacing_modifier_letters, echo=FALSE, results='asis'
+# make_table("02B", "02F")
+make_table("02C", "02C")
+%% end.rcode
+
+\section{Currency Symbols}
+
+%% begin.rcode currency_symbols, echo=FALSE, results='asis'
+make_table("20A", "20C")
+%% end.rcode
+
+\section{Thai}
+
+%% begin.rcode thai, echo=FALSE, results='asis'
+make_table("0E3", "0E3")
+%% end.rcode
+
+\section{General Punctuation}
+
+%% begin.rcode general_punctuation, echo=FALSE, results='asis'
+make_table("202", "203")
+%% end.rcode
+
+\section{Mathematical Operators}
+
+%% begin.rcode mathematical_operators, echo=FALSE, results='asis'
+make_table("22E", "22F")
+%% end.rcode
+
+\section{Number Forms}
+
+%% begin.rcode number_forms, echo=FALSE, results='asis'
+make_table("218", "218")
+%% end.rcode
+
+\section{Box Drawing}
+
+%% begin.rcode box_drawing, echo=FALSE, results='asis'
+make_table("250", "257")
+%% end.rcode
+
+\section{Block Elements}
+
+%% begin.rcode block_elements, echo=FALSE, results='asis'
+make_table("258", "259")
+%% end.rcode
+
+\section{Geometric Shapes}
+
+%% begin.rcode geometric_shapes, echo=FALSE, results='asis'
+make_table("25A", "25F")
+%% end.rcode
+
+\section{Miscellaneous Symbols}
+
+%% begin.rcode miscellaneous_symbols, echo=FALSE, results='asis'
+make_table("260", "26A")
+%% end.rcode
+
+\section{Miscellaneous Symbols and Arrows}
+
+%% begin.rcode miscellaneous_symbols_and_arrows, echo=FALSE, results='asis'
+# make_table("2B0", "2BF")
+make_table("2B1", "2B2")
+%% end.rcode
+
+\section{Chess Symbols}
+
+%% begin.rcode chess_symbols, echo=FALSE, results='asis'
+# make_table("1FA0", "1FA6")
+make_table("1FA1", "1FA2")
+%% end.rcode
+
+\section{Dingbats}
+
+%% begin.rcode dingbats, echo=FALSE, results='asis'
+make_table("272", "274")
+%% end.rcode
+
+\section{Private Use Area}
+
+%% begin.rcode pua_font, echo=FALSE, results='asis'
+make_table("F59", "F5B")
+%% end.rcode
+
+% \section{Supplementary Private Use Area-A: Box Drawing Domino Suits}
+%
+% %% begin.rcode pua_box_drawing_domino_suits, echo=FALSE, results='asis'
+% make_table("F590", "FCAF")
+% %% end.rcode
+
+\end{document}

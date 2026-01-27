@@ -205,26 +205,29 @@ create_miscellaneous_symbols <- function(font = "square") {
 		xcw,
 		xcw
 	)
+	ybt <- 0.25 * (vg + ych)
+	ytb <- 0.75 * (vg + ych)
+	ytb2 <- 0.65 * (vg + ych)
 	y <- c(
 		vg,
-		vg + STW,
-		vg + STW,
-		ych - STW,
-		ych - STW,
+		ybt,
+		ybt,
+		ytb2,
+		ytb2,
 		ych,
 		ych,
-		ych - STW,
-		ych - STW,
+		ytb,
+		ytb,
 		ych,
 		ych,
-		ych - STW,
-		ych - STW,
+		ytb,
+		ytb,
 		ych,
 		ych,
-		ych - STW,
-		ych - STW,
-		vg + STW,
-		vg + STW,
+		ytb2,
+		ytb2,
+		ybt,
+		ybt,
 		vg
 	)
 	ds <- d_polygon(x, y)
@@ -249,11 +252,25 @@ create_miscellaneous_symbols <- function(font = "square") {
 	#### 1fa22 white chess turned knight
 	#### 1fa28 black chess turned knight
 
-	#### 265f black chess pawn
+	# 265f black chess pawn
+	ybt <- 0.25 * (vg + ych)
+	if (font == "square") {
+		ytr <- 0.165 * (vg + ych)
+	} else {
+		ytr <- 0.120 * (vg + ych)
+	}
+	xy1 <- as_coord2d(degrees(225), radius = ytr + 2)$translate(x = xc, y = ych - ytr)
+	xy2 <- as_coord2d(degrees(315), radius = ytr + 2)$translate(x = xc, y = ych - ytr)
+	d_p <- M(hg + srw2, ybt + 2) +
+		L(xy1$x, xy1$y) +
+		A(ytr + 2, x = xy2$x, y = xy2$y, sweep_flag = TRUE) +
+		LZ(xcw - srw2, ybt + 2)
+	ds <- c(d_rect2(ybt, xcw, vg, hg), d_circle(xc, ych - ytr, ytr), d_p)
+	write_svg(ds, "265f")
 
-	#### 2659 white chess pawn
-	#### 1fa23 white chess turned pawn
-	#### 1fa29 black chess turned pawn
+	# 2659 white chess pawn
+	# 1fa23 white chess turned pawn
+	# 1fa29 black chess turned pawn
 
 	#### More chess glyphs in Unicode...
 	# https://en.wikipedia.org/wiki/Chess_symbols_in_Unicode
@@ -264,6 +281,7 @@ create_miscellaneous_symbols <- function(font = "square") {
 		as.hexmode("2662"):as.hexmode("2663"),
 		as.hexmode("2655"):as.hexmode("2656"),
 		as.hexmode("265a"):as.hexmode("265c"),
+		as.hexmode(c("265f")),
 		as.hexmode("2665"):as.hexmode("2666"),
 		as.hexmode("26aa"):as.hexmode("26ab"),
 		as.hexmode("272a"):as.hexmode("272d"),

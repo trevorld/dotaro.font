@@ -155,7 +155,7 @@ make_table("258", "259")
 make_table("25A", "25F")
 %% end.rcode
 
-\section{Miscellaneous Symbols}
+\section{Miscellaneous Symbols}\label{sec:miscellaneous-symbols}
 
 %% begin.rcode miscellaneous_symbols, echo=FALSE, results='asis'
 make_table("260", "26A")
@@ -170,9 +170,11 @@ make_table("2B1", "2B2")
 
 \section{Chess Symbols}
 
+Note the normal white/black chess symbols are in \hyperref[sec:miscellaneous-symbols]{Miscellaneous Symbols}.
+
 %% begin.rcode chess_symbols, echo=FALSE, results='asis'
 # make_table("1FA0", "1FA6")
-make_table("1FA1", "1FA2")
+make_table("1FA0", "1FA3")
 %% end.rcode
 
 \section{Dingbats}

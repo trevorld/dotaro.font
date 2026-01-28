@@ -69,22 +69,42 @@ generate_sfd <- function(font = c("square", "narrow"), output = paste0("dotaro_"
 		from_int <- hex |> as.hexmode() |> as.integer()
 		to_int <- TURNED_FROM_TO[[hex]] |> as.hexmode() |> as.integer()
 
-		ff_font$selection$select(from_int)
-		ff_font$copy()
-		glyph <- ff_font$createChar(to_int)
-		ff_font$selection$select(to_int)
-		ff_font$paste()
-		bb <- glyph$boundingBox()
-		cx <- (bb[[3]] + bb[[1]]) / 2
-		cy <- (bb[[4]] + bb[[2]]) / 2
-		trcen = psMat$translate(-cx, -cy)
-		rotcen = psMat$compose(trcen, psMat$compose(psMat$rotate(pi), psMat$inverse(trcen)))
-		glyph$transform(rotcen)
+		rotate_glyph(ff_font, from_int, to_int, pi, psMat)
+	}
+
+	if (font == "square") {
+		for (hex in names(LEFT_FROM_TO)) {
+			from_int <- hex |> as.hexmode() |> as.integer()
+			to_int <- LEFT_FROM_TO[[hex]] |> as.hexmode() |> as.integer()
+
+			rotate_glyph(ff_font, from_int, to_int, pi / 2, psMat)
+		}
+
+		for (hex in names(RIGHT_FROM_TO)) {
+			from_int <- hex |> as.hexmode() |> as.integer()
+			to_int <- RIGHT_FROM_TO[[hex]] |> as.hexmode() |> as.integer()
+
+			rotate_glyph(ff_font, from_int, to_int, -pi / 2, psMat)
+		}
 	}
 
 	ff_font$save(output)
 	ff_font$close()
 	invisible(output)
+}
+
+rotate_glyph <- function(ff_font, from_int, to_int, radians, psMat) {
+	ff_font$selection$select(from_int)
+	ff_font$copy()
+	glyph <- ff_font$createChar(to_int)
+	ff_font$selection$select(to_int)
+	ff_font$paste()
+	bb <- glyph$boundingBox()
+	cx <- (bb[[3]] + bb[[1]]) / 2
+	cy <- (bb[[4]] + bb[[2]]) / 2
+	trcen = psMat$translate(-cx, -cy)
+	rotcen = psMat$compose(trcen, psMat$compose(psMat$rotate(radians), psMat$inverse(trcen)))
+	glyph$transform(rotcen)
 }
 
 # http://designwithfontforge.com/en-US/The_Final_Output_Generating_Font_Files.html

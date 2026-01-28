@@ -14,7 +14,7 @@ create_miscellaneous_symbols <- function(font = "square") {
 		srw3 <- 0.25 * STW
 	}
 	cw <- w - 2 * hg
-	ch <- w - 2 * vg
+	ch <- h - 2 * vg
 
 	xc <- w / 2
 	yc <- h / 2
@@ -242,10 +242,30 @@ create_miscellaneous_symbols <- function(font = "square") {
 	ds <- d_polygon(x, y, origin_at_bottom = FALSE)
 	write_svg(ds, "1fa26")
 
-	#### 265d black chess bishop
-	#### 2657 white chess bishop
-	#### 1fa21 white chess turned bishop
-	#### 1fa27 black chess turned bishop
+	# 265d black chess bishop
+	ybt <- 0.32 * (vg + ych)
+	yc1 <- 0.5 * (vg + ybt)
+	yc2 <- 0.6 * (vg + ych)
+	xbb <- hg + STW
+	xc2 <- hg
+	ytr <- 0.07 * (vg + ych)
+	ytb <- 0.6 * (vg + ych)
+	# xy1 <- as_coord2d(degrees(225), radius = ytr + 2)$translate(x = xc, y = ych - ytr)
+	# xy2 <- as_coord2d(degrees(315), radius = ytr + 2)$translate(x = xc, y = ych - ytr)
+	d_bshp <- M(xbb, vg) +
+		Q(hg, yc1, hg, ybt) +
+		Q(xc2, yc2, xc - 0.5 * STW, ych) +
+		L(xc + c(-0.5, 0.5) * STW, ytb) +
+		L(xc + 0.5 * STW, ych) +
+		# A(ytr + 2, x = xy2$x, y = xy2$y, sweep_flag = TRUE) +
+		Q(w - xc2, yc2, xcw, ybt) +
+		QZ(xcw, yc1, w - xbb, vg)
+	ds <- c(d_bshp)
+	# ds <- c(d_bshp, d_circle(xc, ych - ytr, ytr))
+	write_svg(ds, "265d")
+	# 2657 white chess bishop
+	# 1fa21 white chess turned bishop
+	# 1fa27 black chess turned bishop
 
 	#### 265e black chess knight
 	#### 2658 white chess knight
@@ -280,7 +300,7 @@ create_miscellaneous_symbols <- function(font = "square") {
 		as.hexmode("2660"),
 		as.hexmode("2662"):as.hexmode("2663"),
 		as.hexmode("2655"):as.hexmode("2656"),
-		as.hexmode("265a"):as.hexmode("265c"),
+		as.hexmode("265a"):as.hexmode("265d"),
 		as.hexmode(c("265f")),
 		as.hexmode("2665"):as.hexmode("2666"),
 		as.hexmode("26aa"):as.hexmode("26ab"),

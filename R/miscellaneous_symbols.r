@@ -254,9 +254,10 @@ create_miscellaneous_symbols <- function(font = "square") {
 	# xy2 <- as_coord2d(degrees(315), radius = ytr + 2)$translate(x = xc, y = ych - ytr)
 	d_bshp <- M(xbb, vg) +
 		Q(hg, yc1, hg, ybt) +
-		Q(xc2, yc2, xc - 0.5 * STW, ych) +
-		L(xc + c(-0.5, 0.5) * STW, ytb) +
-		L(xc + 0.5 * STW, ych) +
+		Q(xc2, yc2, xc, ych) +
+		# Q(xc2, yc2, xc - 0.5 * STW, ych) +
+		# L(xc + c(-0.5, 0.5) * STW, ytb) +
+		# L(xc + 0.5 * STW, ych) +
 		# A(ytr + 2, x = xy2$x, y = xy2$y, sweep_flag = TRUE) +
 		Q(w - xc2, yc2, xcw, ybt) +
 		QZ(xcw, yc1, w - xbb, vg)

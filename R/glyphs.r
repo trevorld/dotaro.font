@@ -26,6 +26,7 @@ GLYPH_NAMES <- list(
 # https://fontforge.org/docs/scripting/python/fontforge.html#fontforge.glyph.stroke
 OUTLINE_FROM_TO <- list(
 	`265a` = "2654", # Chess King
+	`265c` = "2656", # Chess Rook
 	`265d` = "2657", # Chess Bishop
 	`265f` = "2659", # Chess Pawn
 	`2660` = "2664", # Spade Suit
@@ -35,10 +36,12 @@ OUTLINE_FROM_TO <- list(
 
 TURNED_FROM_TO <- list(
 	`265a` = "1fa24", # Black Chess King
+	`265c` = "1fa26", # Black Chess Rook
 	`265d` = "1fa27", # Black Chess Bishop
 	`265e` = "1fa28", # Black Chess Knight
 	`265f` = "1fa29", # Black Chess Pawn
 	`2654` = "1fa1e", # White Chess King
+	`2656` = "1fa20", # White Chess Rook
 	`2657` = "1fa21", # White Chess Bishop
 	`2658` = "1fa22", # White Chess Knight
 	`2659` = "1fa23" # White Chess Pawn

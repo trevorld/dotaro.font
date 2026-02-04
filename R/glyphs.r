@@ -36,9 +36,11 @@ OUTLINE_FROM_TO <- list(
 TURNED_FROM_TO <- list(
 	`265a` = "1fa24", # Black Chess King
 	`265d` = "1fa27", # Black Chess Bishop
+	`265e` = "1fa28", # Black Chess Knight
 	`265f` = "1fa29", # Black Chess Pawn
 	`2654` = "1fa1e", # White Chess King
 	`2657` = "1fa21", # White Chess Bishop
+	`2658` = "1fa22", # White Chess Knight
 	`2659` = "1fa23" # White Chess Pawn
 )
 
@@ -47,13 +49,13 @@ LEFT_FROM_TO <- list(
 	`2655` = "1fa34", # White Chess Queen
 	`2656` = "1fa35", # White Chess Rook
 	`2657` = "1fa36", # White Chess Bishop
-	# `2658` = "1fa37", # White Chess Knight
+	`2658` = "1fa37", # White Chess Knight
 	`2659` = "1fa38", # White Chess Pawn
 	`265a` = "1fa39", # Black Chess King
 	`265b` = "1fa3a", # Black Chess Queen
 	`265c` = "1fa3b", # Black Chess Rook
 	`265d` = "1fa3c", # Black Chess Bishop
-	# `265e` = "1fa3d", # Black Chess Knight
+	`265e` = "1fa3d", # Black Chess Knight
 	`265f` = "1fa3e" # Black Chess Pawn
 )
 
@@ -62,12 +64,12 @@ RIGHT_FROM_TO <- list(
 	`2655` = "1fa0a", # White Chess Queen
 	`2656` = "1fa0b", # White Chess Rook
 	`2657` = "1fa0c", # White Chess Bishop
-	# `2658` = "1fa0d", # White Chess Knight
+	`2658` = "1fa0d", # White Chess Knight
 	`2659` = "1fa0e", # White Chess Pawn
 	`265a` = "1fa0f", # Black Chess King
 	`265b` = "1fa10", # Black Chess Queen
 	`265c` = "1fa11", # Black Chess Rook
 	`265d` = "1fa12", # Black Chess Bishop
-	# `265e` = "1fa13", # Black Chess Knight
+	`265e` = "1fa13", # Black Chess Knight
 	`265f` = "1fa14" # Black Chess Pawn
 )

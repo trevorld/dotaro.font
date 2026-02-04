@@ -12,7 +12,7 @@ Depends:
     R (>= 4.2)
 Imports:
     affiner (>= 0.2.0-3),
-    dee (>= 0.1.0-17),
+    dee (>= 0.1.0-22),
     glue,
     grid,
     omsvg,

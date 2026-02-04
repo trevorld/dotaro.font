@@ -267,10 +267,45 @@ create_miscellaneous_symbols <- function(font = "square") {
 	# 1fa21 white chess turned bishop
 	# 1fa27 black chess turned bishop
 
-	#### 265e black chess knight
-	#### 2658 white chess knight
-	#### 1fa22 white chess turned knight
-	#### 1fa28 black chess turned knight
+	# 265e black chess knight
+	ysb <- vg + 0.08 * ch
+	yst <- vg + 0.25 * ch
+	ycb <- vg + 0.48 * ch
+	yct <- vg + 0.7 * ch
+	yeb <- vg + 0.80 * ch
+	yem <- vg + 0.90 * ch
+	yht <- vg + 0.85 * ch
+	xb <- hg + 0.4 * cw
+	xsb <- hg + 0.25 * cw
+	xeb <- hg + 0.22 * cw
+	xem <- hg + 0.18 * cw
+	xet <- hg + 0.22 * cw
+	xht <- hg + 0.4 * cw
+	xhorse <- c(xb, xsb, xsb, hg, hg, xeb, xem, xet, xht)
+	xhorse <- c(xhorse, w - rev(xhorse))
+	yhorse <- c(vg, ysb, yst, ycb, yct, yeb, yem, ych, yht)
+	yhorse <- c(yhorse, rev(yhorse))
+	d_eye_left <- d_ellipse(hg + 180, yct - 110, 140, 80, a = -20)
+	d_eye_right <- d_ellipse(xcw - 180, yct - 110, 140, 80, a = +20)
+	d_nostril_left <- d_ellipse(xsb + 80, ysb + 40, 60, 30, a = -55)
+	d_nostril_right <- d_ellipse(w - xsb - 80, ysb + 40, 60, 30, a = +55)
+	d <- d_polygon(xhorse, yhorse) +
+		d_eye_left +
+		d_eye_right +
+		d_nostril_left +
+		d_nostril_right
+	write_svg(d, "265e")
+
+	# 2658 white chess knight
+	d <- d_polygon(xhorse, yhorse, offset = c(0, -OW)) +
+		d_eye_left +
+		d_eye_right +
+		d_nostril_left +
+		d_nostril_right
+	write_svg(d, "2658")
+
+	# 1fa22 white chess turned knight
+	# 1fa28 black chess turned knight
 
 	# 265f black chess pawn
 	ybt <- 0.25 * (vg + ych)
@@ -300,8 +335,8 @@ create_miscellaneous_symbols <- function(font = "square") {
 		as.hexmode("2660"),
 		as.hexmode("2662"):as.hexmode("2663"),
 		as.hexmode("2655"):as.hexmode("2656"),
-		as.hexmode("265a"):as.hexmode("265d"),
-		as.hexmode(c("265f")),
+		as.hexmode("2658"),
+		as.hexmode("265a"):as.hexmode("265f"),
 		as.hexmode("2665"):as.hexmode("2666"),
 		as.hexmode("26aa"):as.hexmode("26ab"),
 		as.hexmode("272a"):as.hexmode("272d"),

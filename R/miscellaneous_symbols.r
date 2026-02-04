@@ -313,7 +313,7 @@ create_miscellaneous_symbols <- function(font = "square") {
 	if (font == "square") {
 		ytr <- 0.165 * (vg + ych)
 	} else {
-		ytr <- 0.120 * (vg + ych)
+		ytr <- 0.140 * (vg + ych)
 	}
 	xy1 <- as_coord2d(degrees(225), radius = ytr + 2)$translate(x = xc, y = ych - ytr)
 	xy2 <- as_coord2d(degrees(315), radius = ytr + 2)$translate(x = xc, y = ych - ytr)

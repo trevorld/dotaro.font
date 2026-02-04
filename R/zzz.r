@@ -107,8 +107,8 @@ dotaro_width <- function(font = c("square", "narrow")) {
 	switch(font, square = SQUARE_WIDTH, narrow = NARROW_WIDTH)
 }
 
-d_rect2 <- function(yt, xr, yb, xl) {
+d_rect2 <- function(yt, xr, yb, xl, ...) {
 	x <- c(xl, xl, xr, xr)
 	y <- c(yb, yt, yt, yb)
-	MZ(x, y)
+	d_polygon(x, y, ...)
 }

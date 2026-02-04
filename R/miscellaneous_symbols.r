@@ -179,17 +179,13 @@ create_miscellaneous_symbols <- function(font = "square") {
 
 	# 265c black chess rook
 	if (font == "narrow") {
-		wcr <- cw / 3.8
+		wcr <- cw / 4.0
 	} else {
 		wcr <- cw / 4
 	}
 	x <- c(
 		hg,
 		hg,
-		hg + srw2,
-		hg + srw2,
-		hg,
-		hg,
 		hg + wcr,
 		hg + wcr,
 		xc - wcr / 2,
@@ -198,10 +194,6 @@ create_miscellaneous_symbols <- function(font = "square") {
 		xc + wcr / 2,
 		xcw - wcr,
 		xcw - wcr,
-		xcw,
-		xcw,
-		xcw - srw2,
-		xcw - srw2,
 		xcw,
 		xcw
 	)
@@ -209,11 +201,7 @@ create_miscellaneous_symbols <- function(font = "square") {
 	ytb <- 0.75 * (vg + ych)
 	ytb2 <- 0.65 * (vg + ych)
 	y <- c(
-		vg,
-		ybt,
-		ybt,
-		ytb2,
-		ytb2,
+		ytb2 + 2,
 		ych,
 		ych,
 		ytb,
@@ -224,23 +212,23 @@ create_miscellaneous_symbols <- function(font = "square") {
 		ytb,
 		ych,
 		ych,
-		ytb2,
-		ytb2,
-		ybt,
-		ybt,
-		vg
+		ytb2 + 2
 	)
-	ds <- d_polygon(x, y)
+	ds <- c(
+		d_rect2(ybt, xcw, vg, hg),
+		d_rect2(ytb2, xcw - srw2, ybt + 2, hg + srw2),
+		d_polygon(x, y)
+	)
 	write_svg(ds, "265c")
 	# 2656 white chess rook
-	ds <- d_polygon(x, y, offset = c(0, -OW))
+	ds <- c(
+		d_rect2(ybt, xcw, vg, hg, offset = c(0, -OW)),
+		d_rect2(ytb2, xcw - srw2, ybt + 2, hg + srw2, offset = c(0, -OW)),
+		d_polygon(x, y, offset = c(0, -OW))
+	)
 	write_svg(ds, "2656")
 	# 1fa20 white chess turned rook
-	ds <- d_polygon(x, y, origin_at_bottom = FALSE, offset = c(0, -OW))
-	write_svg(ds, "1fa20")
 	# 1fa26 black chess turned rook
-	ds <- d_polygon(x, y, origin_at_bottom = FALSE)
-	write_svg(ds, "1fa26")
 
 	# 265d black chess bishop
 	ybt <- 0.32 * (vg + ych)

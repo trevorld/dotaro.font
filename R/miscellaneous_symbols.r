@@ -83,23 +83,34 @@ create_miscellaneous_symbols <- function(font = "square") {
 		r <- 280
 		rt <- r
 		ycl <- yc
+		base <- d_rect(x = xc, y = yc - 0.5 * r, w = STW, h = CH - r)
 	} else {
-		r <- 240
-		rt <- 320
-		ycl <- yc - 40
+		r <- 270
+		rt <- 300
+		ycl <- yc - 20
+		base <- c(
+			d_rect(x = xc, y = yc - 0.5 * r, w = STW, h = CH - r),
+			d_polygon(
+				x = c(xc - STW, xc, xc + STW),
+				y = c(vg, yc + 2 * STW, vg)
+			)
+		)
 	}
-	l1 <- d_rect(x = xc, y = yc - 0.5 * r, w = STW, h = CH - r)
 	l2 <- d_rect(x = xc, y = ycl, h = STW, w = cw - 2 * r)
 	c1 <- d_circle(x = hg + r, y = ycl, r = r)
 	c2 <- d_circle(x = xc, y = h - vg - rt, r = rt)
 	c3 <- d_circle(x = w - hg - r, y = ycl, r = r)
-	write_svg(c(l1, l2, c1, c2, c3), "2663")
+	write_svg(c(base, l2, c1, c2, c3), "2663")
 
 	# 2660 Black Spade Suit
 	hr <- cw / 4
 	vr <- cw / 5
 	if (font == "narrow") {
-		vr <- 2 * vr
+		vr <- 2.0 * vr
+		base <- d_polygon(
+			x = c(xc - 0.7 * STW, xc, xc + 0.7 * STW),
+			y = c(vg, yc + 2 * STW, vg)
+		)
 	}
 	bso <- 180
 	d <- M(xc, vg + vr + bso) +
@@ -107,12 +118,13 @@ create_miscellaneous_symbols <- function(font = "square") {
 		Q(hg, h - 5 * vg, xc, h - vg) +
 		Q(w - hg, h - 5 * vg, xc + 2 * hr, vg + vr + bso) +
 		AZ(hr, vr, 0, 0, 0, xc, vg + vr + bso)
-	write_svg(d + l1, "2660")
+	write_svg(c(base, d), "2660")
+
 	# 2665 Black Heart Suit
 	hr <- cw / 4
 	vr <- cw / 4
 	if (font == "narrow") {
-		vr <- 2 * vr
+		vr <- 2.0 * vr
 	}
 	d <- M(xc, h - vg - vr) +
 		A(hr, vr, 0, 0, 0, xc + 2 * hr, h - vg - vr) +

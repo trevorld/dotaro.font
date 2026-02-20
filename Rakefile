@@ -15,9 +15,9 @@ file "README.html" do
     sh 'Rscript -e "pkgdown::build_site()"'
 end
 
-file "share/dotaro-narrow.ttf" => Rake::FileList["R/*.r"]
+file "share/dotaro-narrow.ttf" => Rake::FileList["R/*.R"]
 file "share/dotaro-narrow.ttf" do
-    sh 'Rscript share/generate_fonts.r'
+    sh 'Rscript share/generate_fonts.R'
     sh "cp share/dotaro-narrow.ttf ~/.local/share/fonts/"
     sh "cp share/dotaro-square.ttf ~/.local/share/fonts/"
 end

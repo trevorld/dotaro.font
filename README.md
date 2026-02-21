@@ -4,10 +4,13 @@
 
 **Warning:** this project is a Work-in-Progress.
 
+
+
 ### Table of Contents
 
 * [Overview](#overview)
 * [Downloadable font files](#downloads)
+* [Examples](#examples)
 * [Unicode block coverage](#blocks)
 * [License](#license)
 * [Build the fonts from scratch](#build)
@@ -26,6 +29,12 @@ The main goal is to create a couple of fonts with bespoke glyphs to use in my [D
 * [dotaro-square.ttf](https://trevorldavis.com/share/fonts/dotaro-square.ttf)
 * [dotaro-narrow-code-charts.pdf](https://trevorldavis.com/share/fonts/dotaro-narrow-code-charts.pdf)
 * [dotaro-square-code-charts.pdf](https://trevorldavis.com/share/fonts/dotaro-square-code-charts.pdf)
+
+## <a name="examples">Examples</a>
+
+<img src="man/figures/README-numerals-1.png" alt="The digits in Dotaro Narrow shown as card indices"  />
+<img src="man/figures/README-face_letters-1.png" alt="Some capital letters in Dotaro Narrow shown as card indices"  />
+<img src="man/figures/README-face_chess-1.png" alt="Some chess glyphs in Dotaro Narrow shown as card indices"  />
 
 ## <a name="blocks">Unicode block coverage</a>
 

@@ -1,6 +1,7 @@
 #' @importFrom affiner as_coord2d degrees isotoxal_2ngon_inner_radius
 #' @import dee
 #' @importFrom glue glue
+#' @importFrom grid fillStrokeGrob gList gTree gpar grid.draw rectGrob roundrectGrob textGrob unit viewport
 #' @importFrom omsvg SVG svg_attrs_pres svg_path
 #' @importFrom rlang abort check_dots_empty local_options warn
 #' @importFrom utils hasName packageVersion
@@ -112,3 +113,11 @@ d_rect2 <- function(yt, xr, yb, xl, ...) {
 	y <- c(yb, yt, yt, yb)
 	d_polygon(x, y, ...)
 }
+
+# Constants from {dotaro.deck}
+BLEED <- 1 / 8
+CARD_HEIGHT <- 3.5
+CARD_WIDTH <- 2.25 # Bridge Card
+# INDEX_HEIGHT <- 1.25
+INDEX_HEIGHT <- 0.75
+INDEX_WIDTH <- 0.25

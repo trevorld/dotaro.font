@@ -4,10 +4,41 @@
 
 **Warning:** this project is a Work-in-Progress.
 
+```{r hidden, echo = FALSE}
+knitr::opts_chunk$set(fig.path = "man/figures/README-", fig.cap = '', fig.height = 1.1)
+
+df_index <- function(ranks) {
+
+	suits <- c("\u2660", "\u2665", "\u2666", "\u2663") # ♠ ♥ ♦ ♣
+	suit_fills <- c("#009E73", "#D55E00", "#D55E00", "#009E73")
+	# suit_fills <- rep_len("white", 4L)
+
+	n_cards <- length(ranks)
+	suit_idx <- ((seq_len(n_cards) - 1L) %% 4L) + 1L
+
+	df_ranks <- data.frame(
+		card = seq_len(n_cards),
+		type = "rank",
+		glyph = ranks,
+		col = "black",
+		fill = suit_fills[suit_idx]
+	)
+	df_suits <- data.frame(
+		card = seq_len(n_cards),
+		type = "suit",
+		glyph = suits[suit_idx],
+		col = "black",
+		fill = suit_fills[suit_idx]
+	)
+	rbind(df_ranks, df_suits)
+}
+```
+
 ### Table of Contents
 
 * [Overview](#overview)
 * [Downloadable font files](#downloads)
+* [Examples](#examples)
 * [Unicode block coverage](#blocks)
 * [License](#license)
 * [Build the fonts from scratch](#build)
@@ -26,6 +57,21 @@ The main goal is to create a couple of fonts with bespoke glyphs to use in my [D
 * [dotaro-square.ttf](https://trevorldavis.com/share/fonts/dotaro-square.ttf)
 * [dotaro-narrow-code-charts.pdf](https://trevorldavis.com/share/fonts/dotaro-narrow-code-charts.pdf)
 * [dotaro-square-code-charts.pdf](https://trevorldavis.com/share/fonts/dotaro-square-code-charts.pdf)
+
+## <a name="examples">Examples</a>
+
+```{r numerals, echo=FALSE, fig.alt = "The digits in Dotaro Narrow shown as card indices"}
+df <- df_index(as.character(0:9))
+dotaro.font:::grid.index(df, bleed = "white")
+```
+```{r face_letters, echo=FALSE, fig.alt = "Some capital letters in Dotaro Narrow shown as card indices"}
+df <- df_index(c("\uf590", "J", "C", "Q", "K", "A"))
+dotaro.font:::grid.index(df, bleed = "white")
+```
+```{r face_chess, echo=FALSE, fig.alt = "Some chess glyphs in Dotaro Narrow shown as card indices"}
+df <- df_index(c("\u265f", "\u265e", "\u265d", "\u265c", "\u265b", "\u265a"))
+dotaro.font:::grid.index(df, bleed = "white")
+```
 
 ## <a name="blocks">Unicode block coverage</a>
 

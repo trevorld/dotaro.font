@@ -18,8 +18,13 @@ generate_sfd <- function(font = c("square", "narrow"), output = paste0("dotaro_"
 
 	cap_font <- paste0(toupper(substr(font, 1L, 1L)), substr(font, 2L, nchar(font)))
 	ff_font$fontname <- paste0("Dotaro-", cap_font)
-	ff_font$familyname <- "Dotaro"
 	ff_font$fullname <- paste0("Dotaro ", cap_font)
+	# Name ID 16: Preferred/Typographic Family groups variants under "Dotaro"
+	# in applications that support it, while ID 1 (familyname) is what
+	# fontconfig uses for fc-match, so it must be the full "Dotaro Narrow" etc.
+	ff_font$familyname <- paste0("Dotaro ", cap_font)
+	ff_font$appendSFNTName("English (US)", "Preferred Family", "Dotaro")
+	ff_font$appendSFNTName("English (US)", "Preferred Styles", cap_font)
 
 	# Sum of `ascent` and `descent` is a power of two for truetype fonts (often 2048 or 4096)
 	# Set `ascent` and `descent` **before** importing glyphs

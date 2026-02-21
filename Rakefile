@@ -20,6 +20,7 @@ file "share/dotaro-narrow.ttf" do
     sh 'Rscript share/generate_fonts.R'
     sh "cp share/dotaro-narrow.ttf ~/.local/share/fonts/"
     sh "cp share/dotaro-square.ttf ~/.local/share/fonts/"
+    sh "fc-cache -f"
 end
 
 file "share/dotaro-narrow-code-charts.pdf" => "share/dotaro-narrow.ttf"

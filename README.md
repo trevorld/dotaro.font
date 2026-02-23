@@ -20,8 +20,30 @@
 
 The main goal is to create a couple of fonts with bespoke glyphs to use in my [Dotaro Deck](https://github.com/trevorld/dotaro.deck) of playing cards:
 
-* **Dotaro Narrow** A narrow monospace font to provide *rank* symbols in playing card [corner indices](https://www.wopc.co.uk/playing-cards/corner-indices).  Mainly [slab serif](https://en.wikipedia.org/wiki/Slab_serif) but will probably include digits in an alternative style (perhaps in the [Mathematical Alphanumeric Symbols](https://en.wikipedia.org/wiki/Mathematical_Alphanumeric_Symbols) block).
-* **Dotaro Square** A square monospace font to provide *suit* symbols in playing card corner indices and pips.  If time permits may also evolve to serve as a general board game diagram font (i.e. a prettier vector version of my [Game Bit Mono Font](https://github.com/trevorld/game-bit-font)).
+### Dotaro Narrow
+
+* A narrow monospace font to provide *rank* symbols in playing card [corner indices](https://www.wopc.co.uk/playing-cards/corner-indices):
+
+  + Digits especially 0&ndash;10
+
+    - Include a special 10 glyph in the Private Use Area
+    - Possibly include digits in an alternative style (perhaps in the [Mathematical Alphanumeric Symbols](https://en.wikipedia.org/wiki/Mathematical_Alphanumeric_Symbols) block).
+
+  + Capital letters especially J, C, Q, K, A
+  + Chess symbols especially ♟, ♞, ♛, ♚
+
+* Should look good when rendered with a border and a colored fill with R's [`fillStrokeGrob()`](https://stat.ethz.ch/R-manual/R-devel/library/grid/html/grid.stroke.html) at a target size of 1/4&Prime; &times; 3/8&Prime;.
+* Mainly [slab serif](https://en.wikipedia.org/wiki/Slab_serif).
+
+### Dotaro Square
+
+* A square monospace font to provide *suit* symbols in playing card corner indices and pips:
+
+  + The French suits: &spades;, &hearts;, &diams;, &clubs;
+  + Circled digits especially those from 0&ndash;4
+
+* Should look good when rendered with a border and a colored fill with R's [`fillStrokeGrob()`](https://stat.ethz.ch/R-manual/R-devel/library/grid/html/grid.stroke.html) at a target size of 1/4&Prime; &times; 1/4&Prime;.
+* If time permits may also evolve to serve as a general board game diagram font (i.e. a prettier vector version of my [Game Bit Mono Font](https://github.com/trevorld/game-bit-font)).
 
 ## <a name="downloads">Downloadable Font Files</a>
 
@@ -31,6 +53,8 @@ The main goal is to create a couple of fonts with bespoke glyphs to use in my [D
 * [dotaro-square-code-charts.pdf](https://trevorldavis.com/share/fonts/dotaro-square-code-charts.pdf)
 
 ## <a name="examples">Examples</a>
+
+**Note:** Although *Dotaro Narrow* and *Dotaro Square* are **monochrome** fonts in the examples below I use R's [`fillStrokeGrob()`](https://stat.ethz.ch/R-manual/R-devel/library/grid/html/grid.stroke.html) to rendered colored versions of the glyphs with outlines.
 
 <img src="man/figures/README-numerals-1.png" alt="The digits in Dotaro Narrow shown as card indices"  />
 <img src="man/figures/README-face_letters-1.png" alt="Some capital letters in Dotaro Narrow shown as card indices"  />
@@ -116,15 +140,20 @@ generate_font("dotaro_square.sfd", "dotaro_square.ttf")
 
 #### Chess fonts and glyphs
 
-* [Chess Fonts](https://www.enpassant.dk/chess/fonteng.htm)
-* [Chess Word Macros & Fonts](https://www.chessvariants.com/d.font/fonts.html)
-* [lichess svg images](https://github.com/lichess-org/lila/tree/master/public/piece)
-* [Unicode Fonts with Chess Piece Images](https://www.chessvariants.com/d.font/unicode.html)
+* [chessvariants.com: Chess Word Macros & Fonts](https://www.chessvariants.com/d.font/fonts.html)
+* [chessvariants.com: Unicode Fonts with Chess Piece Images](https://www.chessvariants.com/d.font/unicode.html)
+* [enpassant.dk: Chess Fonts](https://www.enpassant.dk/chess/fonteng.htm)
+* [lichess.org: svg images](https://github.com/lichess-org/lila/tree/master/public/piece)
+* [Luc Devroye: Chess fonts](https://luc.devroye.org/chess.html)
 
 #### Playing card fonts and glyphs
 
-* [Links: Bitmaps, fonts, programming tools](https://www.pagat.com/links/images.html)
-* [Playing card fonts](https://luc.devroye.org/cards.html)
+Collections of links:
+
+* [Luc Devroye: Playing card fonts](https://luc.devroye.org/cards.html)
+* [pagat.com links: Bitmaps, fonts, programming tools](https://www.pagat.com/links/images.html)
+
+Select playing card fonts:
 
 * [Card Characters](https://www.haroldsfonts.com/font/card-characters)
 * [Cards Font](https://www.fontspace.com/cards-font-f3690)

@@ -25,22 +25,25 @@ indexGrob <- function(df, ..., bleed = "white") {
 		x_offset <- (i - 0.5 - n_cards / 2) * corner_width
 		x <- unit(0.5, "npc") + unit(x_offset, "in")
 		gl_card <- gList()
-		#### Look up the `roundrectGrob()` `r` value we use in `{piecepackr}`
-		gl_card[[1L]] <- roundrectGrob(
+		vp_card <- viewport(
 			x = x - unit(corner_width / 2, "in"),
 			y = unit(0.5, "npc") + unit(corner_height / 2, "in"),
 			width = unit(CARD_WIDTH, "in"),
 			height = unit(CARD_HEIGHT, "in"),
-			just = c("left", "top"),
+			just = c("left", "top")
+		)
+		gl_card[[1L]] <- roundrectGrob(
+			r = unit(0.06, "snpc"), # default for a card in {piecepackr}
+			name = paste0("border_and_bleed"),
 			gp = gpar(col = "black", fill = bleed, lwd = lwd_card),
-			name = paste0("border.", i)
+			vp = vp_card
 		)
 		gl_card[[2L]] <- rectGrob(
 			x = x,
 			width = unit(INDEX_WIDTH, "in"),
 			height = unit(INDEX_HEIGHT, "in"),
-			gp = gpar(col = NA, fill = "white"),
-			name = paste0("index.", i)
+			name = paste0("index_background"),
+			gp = gpar(col = NA, fill = "white")
 		)
 		df_rank <- df[df$card == i & df$type == "rank", ]
 		y_rank <- unit(0.5, "npc") + unit(0.5 * corner_height - BLEED - 0.12, "in")
@@ -53,8 +56,8 @@ indexGrob <- function(df, ..., bleed = "white") {
 			)
 			gl_card[[2L + j]] <- fillStrokeGrob(
 				tg,
-				gp = gpar(col = df_rank$col[j], fill = df_rank$fill[j], lwd = lwd_glyph),
-				name = paste0("rank.", j)
+				name = paste0("rank_glyph.", j),
+				gp = gpar(col = df_rank$col[j], fill = df_rank$fill[j], lwd = lwd_glyph)
 			)
 		}
 
@@ -71,8 +74,8 @@ indexGrob <- function(df, ..., bleed = "white") {
 			)
 			gl_card[[2L + n_rank + j]] <- fillStrokeGrob(
 				tg,
-				gp = gpar(col = df_suit$col[j], fill = df_suit$fill[j], lwd = lwd_glyph),
-				name = paste0("suit.", j)
+				name = paste0("suit_glyph.", j),
+				gp = gpar(col = df_suit$col[j], fill = df_suit$fill[j], lwd = lwd_glyph)
 			)
 		}
 

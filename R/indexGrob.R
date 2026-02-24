@@ -10,9 +10,10 @@
 #'
 #' @param ... Should be empty
 #' @param bleed Bleed zone fill color
+#' @param circle Should we add circles at the glyph "centers"
 #' @return A grid grob
 #' @noRd
-indexGrob <- function(df, ..., bleed = "white") {
+indexGrob <- function(df, ..., bleed = "white", center = FALSE) {
 	check_dots_empty()
 	n_cards <- max(df$card)
 	corner_width <- INDEX_WIDTH + 2 * BLEED
@@ -46,7 +47,8 @@ indexGrob <- function(df, ..., bleed = "white") {
 			gp = gpar(col = NA, fill = "white")
 		)
 		df_rank <- df[df$card == i & df$type == "rank", ]
-		y_rank <- unit(0.5, "npc") + unit(0.5 * corner_height - BLEED - 0.12, "in")
+		n_rank <- nrow(df_rank)
+		y_rank <- unit(0.5, "npc") + unit(0.5 * corner_height - BLEED - 0.5 * 3 / 8, "in")
 		for (j in seq_len(nrow(df_rank))) {
 			tg <- textGrob(
 				label = df_rank$glyph[j],
@@ -62,9 +64,9 @@ indexGrob <- function(df, ..., bleed = "white") {
 		}
 
 		df_suit <- df[df$card == i & df$type == "suit", ]
+		n_suit <- nrow(df_suit)
 		y_suit <- unit(0.5, "npc") +
-			unit(0.5 * corner_height - BLEED - 0.5 - 0.08, "in")
-		n_rank <- nrow(df_rank)
+			unit(0.5 * corner_height - BLEED - 3 / 8 - 0.10 - 0.5 * 0.25, "in")
 		for (j in seq_len(nrow(df_suit))) {
 			tg <- textGrob(
 				label = df_suit$glyph[j],
@@ -76,6 +78,22 @@ indexGrob <- function(df, ..., bleed = "white") {
 				tg,
 				name = paste0("suit_glyph.", j),
 				gp = gpar(col = df_suit$col[j], fill = df_suit$fill[j], lwd = lwd_glyph)
+			)
+		}
+		if (isTRUE(center)) {
+			gl_card[[2L + n_rank + n_suit + 1L]] <- grid::circleGrob(
+				x = x,
+				y = y_rank,
+				r = 0.04,
+				name = "rank_center",
+				gp = gpar(col = "black", fill = "yellow")
+			)
+			gl_card[[2L + n_rank + n_suit + 2L]] <- grid::circleGrob(
+				x = x,
+				y = y_suit,
+				r = 0.04,
+				name = "suit_center",
+				gp = gpar(col = "black", fill = "yellow")
 			)
 		}
 

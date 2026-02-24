@@ -46,6 +46,7 @@ generate_sfd <- function(font = c("square", "narrow"), output = paste0("dotaro_"
 
 	hexes <- create_glyphs(font)
 	for (hex in hexes) {
+		# cat(hex, "\n")
 		int <- hex |> as.hexmode() |> as.integer()
 		if (hasName(GLYPH_NAMES, hex)) {
 			glyph <- ff_font$createChar(int, glue('"{GLYPH_NAMES[[hex]]}"'))
@@ -67,7 +68,8 @@ generate_sfd <- function(font = c("square", "narrow"), output = paste0("dotaro_"
 		glyph <- ff_font$createChar(to_int)
 		ff_font$selection$select(to_int)
 		ff_font$paste()
-		glyph$stroke("circular", as.integer(OW), join = "miter", joinlimit = 80)
+		ow <- dotaro_outline_stroke_width(font)
+		glyph$stroke("circular", as.integer(ow), join = "miter", joinlimit = 80)
 	}
 
 	for (hex in names(TURNED_FROM_TO)) {

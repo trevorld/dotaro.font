@@ -89,15 +89,6 @@ SQUARE_WIDTH <- 2048L
 NARROW_HEIGHT <- 2048L
 NARROW_WIDTH <- 1024L
 
-OW <- 60L # Outline Stroke Width
-CH <- 1600 # Cap Height
-STW <- 180 # Letter Stroke Width
-
-BDL <- OW # Box Drawing Light
-BDH <- 4 * BDL # Box Drawing Heavy
-
-NHGM <- 0.25 # Narrow Horizontal Gap Multiplier
-
 dotaro_height <- function(font = c("square", "narrow")) {
 	font <- match.arg(font)
 	switch(font, square = SQUARE_HEIGHT, narrow = NARROW_HEIGHT)
@@ -106,6 +97,68 @@ dotaro_height <- function(font = c("square", "narrow")) {
 dotaro_width <- function(font = c("square", "narrow")) {
 	font <- match.arg(font)
 	switch(font, square = SQUARE_WIDTH, narrow = NARROW_WIDTH)
+}
+
+dotaro_cap_width <- function(font = c("square", "narrow")) {
+	font <- match.arg(font)
+	(25 / 32) * dotaro_width(font)
+}
+
+dotaro_cap_height <- function(font = c("square", "narrow")) {
+	font <- match.arg(font)
+	switch(font, square = dotaro_cap_width(font), narrow = (3 / 2) * dotaro_cap_width(font))
+}
+
+dotaro_x_height <- function(font = c("square", "narrow")) {
+	font <- match.arg(font)
+	cap_width <- dotaro_cap_width(font)
+	switch(font, square = 0.7 * cap_width, narrow = cap_width)
+}
+
+dotaro_vertical_gap <- function(font = c("square", "narrow")) {
+	font <- match.arg(font)
+	(dotaro_height(font) - dotaro_cap_height(font)) / 2
+}
+
+dotaro_horizontal_gap <- function(font = c("square", "narrow")) {
+	font <- match.arg(font)
+	(dotaro_width(font) - dotaro_cap_width(font)) / 2
+}
+
+dotaro_stroke_width <- function(font = c("square", "narrow")) {
+	font <- match.arg(font)
+	270L * dotaro_width(font) / SQUARE_WIDTH
+}
+
+dotaro_stroke_width_short <- function(font = c("square", "narrow")) {
+	font <- match.arg(font)
+	0.5 * dotaro_stroke_width(font)
+}
+
+
+dotaro_terminal_radius <- function(font = c("square", "narrow")) {
+	font <- match.arg(font)
+	(5 / 3) * dotaro_stroke_width(font)
+}
+
+dotaro_outline_stroke_width <- function(font = c("square", "narrow")) {
+	font <- match.arg(font)
+	60L
+}
+
+box_drawing_light <- function(font = c("square", "narrow")) {
+	font <- match.arg(font)
+	dotaro_outline_stroke_width(font)
+}
+
+box_drawing_heavy <- function(font = c("square", "narrow")) {
+	font <- match.arg(font)
+	4L * dotaro_outline_stroke_width(font)
+}
+
+box_drawing_radius <- function(font = c("square", "narrow")) {
+	font <- match.arg(font)
+	300L
 }
 
 d_rect2 <- function(yt, xr, yb, xl, ...) {

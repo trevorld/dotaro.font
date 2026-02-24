@@ -3,144 +3,148 @@ create_box_drawing <- function(font = "square") {
 	w <- dotaro_width(font)
 	do.call(local_options, glyph_options(w, h, font))
 
+	bdl <- box_drawing_light(font)
+	bdh <- box_drawing_heavy(font)
+	bdr <- box_drawing_radius(font)
+
 	xc <- w / 2
 	yc <- h / 2
 
 	# 2500 box drawings light horizontal
-	d_2500 <- d_rect(xc, yc, w, BDL)
+	d_2500 <- d_rect(xc, yc, w, bdl)
 	write_svg(d_2500, "2500")
 	# 2501 box drawings heavy horizontal
-	d_2501 <- d_rect(xc, yc, w, BDH)
+	d_2501 <- d_rect(xc, yc, w, bdh)
 	write_svg(d_2501, "2501")
 	# 2502 box drawings light vertical
-	d_2502 <- d_rect(xc, yc, BDL, h)
+	d_2502 <- d_rect(xc, yc, bdl, h)
 	write_svg(d_2502, "2502")
 	# 2503 box drawings heavy vertical
-	d_2503 <- d_rect(xc, yc, BDH, h)
+	d_2503 <- d_rect(xc, yc, bdh, h)
 	write_svg(d_2503, "2503")
 
 	# 2504...250b light and heavy dashed lines
 
 	# 250c box drawings light down and right
 	d_250c <- MZ(
-		x = c(xc - 0.5 * BDL |> rep(2L), w, w, xc + 0.5 * BDL |> rep(2L)),
-		y = c(0, yc + 0.5 * BDL |> rep(2L), yc - 0.5 * BDL |> rep(2L), 0)
+		x = c(xc - 0.5 * bdl |> rep(2L), w, w, xc + 0.5 * bdl |> rep(2L)),
+		y = c(0, yc + 0.5 * bdl |> rep(2L), yc - 0.5 * bdl |> rep(2L), 0)
 	)
 	write_svg(d_250c, "250c")
 	# 250d box drawings down light and right heavy
 	d_250d <- MZ(
-		x = c(xc - 0.5 * BDL |> rep(2L), w, w, xc + 0.5 * BDL |> rep(2L)),
-		y = c(0, yc + 0.5 * BDH |> rep(2L), yc - 0.5 * BDH |> rep(2L), 0)
+		x = c(xc - 0.5 * bdl |> rep(2L), w, w, xc + 0.5 * bdl |> rep(2L)),
+		y = c(0, yc + 0.5 * bdh |> rep(2L), yc - 0.5 * bdh |> rep(2L), 0)
 	)
 	write_svg(d_250d, "250d")
 	# 250e box drawings down heavy and right light
 	d_250e <- MZ(
-		x = c(xc - 0.5 * BDH |> rep(2L), w, w, xc + 0.5 * BDH |> rep(2L)),
-		y = c(0, yc + 0.5 * BDL |> rep(2L), yc - 0.5 * BDL |> rep(2L), 0)
+		x = c(xc - 0.5 * bdh |> rep(2L), w, w, xc + 0.5 * bdh |> rep(2L)),
+		y = c(0, yc + 0.5 * bdl |> rep(2L), yc - 0.5 * bdl |> rep(2L), 0)
 	)
 	write_svg(d_250e, "250e")
 	# 250f box drawings heavy down and right
 	d_250f <- MZ(
-		x = c(xc - 0.5 * BDH |> rep(2L), w, w, xc + 0.5 * BDH |> rep(2L)),
-		y = c(0, yc + 0.5 * BDH |> rep(2L), yc - 0.5 * BDH |> rep(2L), 0)
+		x = c(xc - 0.5 * bdh |> rep(2L), w, w, xc + 0.5 * bdh |> rep(2L)),
+		y = c(0, yc + 0.5 * bdh |> rep(2L), yc - 0.5 * bdh |> rep(2L), 0)
 	)
 	write_svg(d_250f, "250f")
 	# 2510 box drawings light down and left
 	d_2510 <- MZ(
-		x = c(0, 0, xc + 0.5 * BDL |> rep(2L), xc - 0.5 * BDL |> rep(2L)),
-		y = c(yc - 0.5 * BDL, yc + 0.5 * BDL |> rep(2L), 0, 0, yc - 0.5 * BDL)
+		x = c(0, 0, xc + 0.5 * bdl |> rep(2L), xc - 0.5 * bdl |> rep(2L)),
+		y = c(yc - 0.5 * bdl, yc + 0.5 * bdl |> rep(2L), 0, 0, yc - 0.5 * bdl)
 	)
 	write_svg(d_2510, "2510")
 	# 2511 box drawings down light and left heavy
 	d_2511 <- MZ(
-		x = c(0, 0, xc + 0.5 * BDL |> rep(2L), xc - 0.5 * BDL |> rep(2L)),
-		y = c(yc - 0.5 * BDH, yc + 0.5 * BDH |> rep(2L), 0, 0, yc - 0.5 * BDH)
+		x = c(0, 0, xc + 0.5 * bdl |> rep(2L), xc - 0.5 * bdl |> rep(2L)),
+		y = c(yc - 0.5 * bdh, yc + 0.5 * bdh |> rep(2L), 0, 0, yc - 0.5 * bdh)
 	)
 	write_svg(d_2511, "2511")
 	# 2512 box drawings down heavy and left light
 	d_2512 <- MZ(
-		x = c(0, 0, xc + 0.5 * BDH |> rep(2L), xc - 0.5 * BDH |> rep(2L)),
-		y = c(yc - 0.5 * BDL, yc + 0.5 * BDL |> rep(2L), 0, 0, yc - 0.5 * BDL)
+		x = c(0, 0, xc + 0.5 * bdh |> rep(2L), xc - 0.5 * bdh |> rep(2L)),
+		y = c(yc - 0.5 * bdl, yc + 0.5 * bdl |> rep(2L), 0, 0, yc - 0.5 * bdl)
 	)
 	write_svg(d_2512, "2512")
 	# 2513 box drawings heavy down and left
 	d_2513 <- MZ(
-		x = c(0, 0, xc + 0.5 * BDH |> rep(2L), xc - 0.5 * BDH |> rep(2L)),
-		y = c(yc - 0.5 * BDH, yc + 0.5 * BDH |> rep(2L), 0, 0, yc - 0.5 * BDH)
+		x = c(0, 0, xc + 0.5 * bdh |> rep(2L), xc - 0.5 * bdh |> rep(2L)),
+		y = c(yc - 0.5 * bdh, yc + 0.5 * bdh |> rep(2L), 0, 0, yc - 0.5 * bdh)
 	)
 	write_svg(d_2513, "2513")
 	# 2514 box drawings light up and right
 	d_2514 <- MZ(
-		x = c(xc - 0.5 * BDL |> rep(2L), xc + 0.5 * BDL |> rep(2L), w, w),
-		y = c(yc - 0.5 * BDL, h, h, yc + 0.5 * BDL |> rep(2L), yc - 0.5 * BDL)
+		x = c(xc - 0.5 * bdl |> rep(2L), xc + 0.5 * bdl |> rep(2L), w, w),
+		y = c(yc - 0.5 * bdl, h, h, yc + 0.5 * bdl |> rep(2L), yc - 0.5 * bdl)
 	)
 	write_svg(d_2514, "2514")
 	# 2515 box drawings up light and right heavy
 	d_2515 <- MZ(
-		x = c(xc - 0.5 * BDL |> rep(2L), xc + 0.5 * BDL |> rep(2L), w, w),
-		y = c(yc - 0.5 * BDH, h, h, yc + 0.5 * BDH |> rep(2L), yc - 0.5 * BDH)
+		x = c(xc - 0.5 * bdl |> rep(2L), xc + 0.5 * bdl |> rep(2L), w, w),
+		y = c(yc - 0.5 * bdh, h, h, yc + 0.5 * bdh |> rep(2L), yc - 0.5 * bdh)
 	)
 	write_svg(d_2515, "2515")
 	# 2516 box drawings up heavy and right light
 	d_2516 <- MZ(
-		x = c(xc - 0.5 * BDH |> rep(2L), xc + 0.5 * BDH |> rep(2L), w, w),
-		y = c(yc - 0.5 * BDL, h, h, yc + 0.5 * BDL |> rep(2L), yc - 0.5 * BDL)
+		x = c(xc - 0.5 * bdh |> rep(2L), xc + 0.5 * bdh |> rep(2L), w, w),
+		y = c(yc - 0.5 * bdl, h, h, yc + 0.5 * bdl |> rep(2L), yc - 0.5 * bdl)
 	)
 	write_svg(d_2516, "2516")
 	# 2517 box drawings heavy up and right
 	d_2517 <- MZ(
-		x = c(xc - 0.5 * BDH |> rep(2L), xc + 0.5 * BDH |> rep(2L), w, w),
-		y = c(yc - 0.5 * BDH, h, h, yc + 0.5 * BDH |> rep(2L), yc - 0.5 * BDH)
+		x = c(xc - 0.5 * bdh |> rep(2L), xc + 0.5 * bdh |> rep(2L), w, w),
+		y = c(yc - 0.5 * bdh, h, h, yc + 0.5 * bdh |> rep(2L), yc - 0.5 * bdh)
 	)
 	write_svg(d_2517, "2517")
 	# 2518 box drawings light up and left
 	d_2518 <- MZ(
-		x = c(0, 0, xc - 0.5 * BDL |> rep(2L), xc + 0.5 * BDL |> rep(2L)),
-		y = c(yc - 0.5 * BDL, yc + 0.5 * BDL |> rep(2L), h, h, yc - 0.5 * BDL)
+		x = c(0, 0, xc - 0.5 * bdl |> rep(2L), xc + 0.5 * bdl |> rep(2L)),
+		y = c(yc - 0.5 * bdl, yc + 0.5 * bdl |> rep(2L), h, h, yc - 0.5 * bdl)
 	)
 	write_svg(d_2518, "2518")
 	# 2519 box drawings up light and left heavy
 	d_2519 <- MZ(
-		x = c(0, 0, xc - 0.5 * BDL |> rep(2L), xc + 0.5 * BDL |> rep(2L)),
-		y = c(yc - 0.5 * BDH, yc + 0.5 * BDH |> rep(2L), h, h, yc - 0.5 * BDH)
+		x = c(0, 0, xc - 0.5 * bdl |> rep(2L), xc + 0.5 * bdl |> rep(2L)),
+		y = c(yc - 0.5 * bdh, yc + 0.5 * bdh |> rep(2L), h, h, yc - 0.5 * bdh)
 	)
 	write_svg(d_2519, "2519")
 	# 251a box drawings up heavy and left light
 	d_251a <- MZ(
-		x = c(0, 0, xc - 0.5 * BDH |> rep(2L), xc + 0.5 * BDH |> rep(2L)),
-		y = c(yc - 0.5 * BDL, yc + 0.5 * BDL |> rep(2L), h, h, yc - 0.5 * BDL)
+		x = c(0, 0, xc - 0.5 * bdh |> rep(2L), xc + 0.5 * bdh |> rep(2L)),
+		y = c(yc - 0.5 * bdl, yc + 0.5 * bdl |> rep(2L), h, h, yc - 0.5 * bdl)
 	)
 	write_svg(d_251a, "251a")
 	# 251b box drawings heavy up and left
 	d_251b <- MZ(
-		x = c(0, 0, xc - 0.5 * BDH |> rep(2L), xc + 0.5 * BDH |> rep(2L)),
-		y = c(yc - 0.5 * BDH, yc + 0.5 * BDH |> rep(2L), h, h, yc - 0.5 * BDH)
+		x = c(0, 0, xc - 0.5 * bdh |> rep(2L), xc + 0.5 * bdh |> rep(2L)),
+		y = c(yc - 0.5 * bdh, yc + 0.5 * bdh |> rep(2L), h, h, yc - 0.5 * bdh)
 	)
 	write_svg(d_251b, "251b")
 
 	# 2574 box drawings light left
-	d_2574 <- d_rect(0.25 * w, yc, 0.5 * w, BDL)
+	d_2574 <- d_rect(0.25 * w, yc, 0.5 * w, bdl)
 	write_svg(d_2574, "2574")
 	# 2575 box drawings light up
-	d_2575 <- d_rect(xc, 0.75 * h, BDL, 0.5 * h)
+	d_2575 <- d_rect(xc, 0.75 * h, bdl, 0.5 * h)
 	write_svg(d_2575, "2575")
 	# 2576 box drawings light right
-	d_2576 <- d_rect(0.75 * w, yc, 0.5 * w, BDL)
+	d_2576 <- d_rect(0.75 * w, yc, 0.5 * w, bdl)
 	write_svg(d_2576, "2576")
 	# 2577 box drawings light down
-	d_2577 <- d_rect(xc, 0.25 * h, BDL, 0.5 * h)
+	d_2577 <- d_rect(xc, 0.25 * h, bdl, 0.5 * h)
 	write_svg(d_2577, "2577")
 	# 2578 box drawings heavy left
-	d_2578 <- d_rect(0.25 * w, yc, 0.5 * w, BDH)
+	d_2578 <- d_rect(0.25 * w, yc, 0.5 * w, bdh)
 	write_svg(d_2578, "2578")
 	# 2579 box drawings heavy up
-	d_2579 <- d_rect(xc, 0.75 * h, BDH, 0.5 * h)
+	d_2579 <- d_rect(xc, 0.75 * h, bdh, 0.5 * h)
 	write_svg(d_2579, "2579")
 	# 257a box drawings heavy right
-	d_257a <- d_rect(0.75 * w, yc, 0.5 * w, BDH)
+	d_257a <- d_rect(0.75 * w, yc, 0.5 * w, bdh)
 	write_svg(d_257a, "257a")
 	# 257b box drawings heavy down
-	d_257b <- d_rect(xc, 0.25 * h, BDH, 0.5 * h)
+	d_257b <- d_rect(xc, 0.25 * h, bdh, 0.5 * h)
 	write_svg(d_257b, "257b")
 
 	# 251c box drawings light vertical and right
@@ -255,23 +259,23 @@ create_box_drawing <- function(font = "square") {
 	write_svg(c(d_2579, d_2577), "257f")
 
 	## Double Line
-	dg <- BDH # Double Gap
-	x_v_l_l <- xc - 0.5 * dg - BDL
-	x_v_l_c <- xc - 0.5 * dg - 0.5 * BDL
+	dg <- bdh # Double Gap
+	x_v_l_l <- xc - 0.5 * dg - bdl
+	x_v_l_c <- xc - 0.5 * dg - 0.5 * bdl
 	x_v_l_r <- xc - 0.5 * dg
 	x_v_r_l <- xc + 0.5 * dg
-	x_v_r_c <- xc + 0.5 * dg + 0.5 * BDL
-	x_v_r_r <- xc + 0.5 * dg + BDL
+	x_v_r_c <- xc + 0.5 * dg + 0.5 * bdl
+	x_v_r_r <- xc + 0.5 * dg + bdl
 	y_h_t_b <- yc + 0.5 * dg
-	y_h_t_c <- yc + 0.5 * dg + 0.5 * BDL
-	y_h_t_t <- yc + 0.5 * dg + BDL
-	y_h_b_b <- yc - 0.5 * dg - BDL
-	y_h_b_c <- yc - 0.5 * dg - 0.5 * BDL
+	y_h_t_c <- yc + 0.5 * dg + 0.5 * bdl
+	y_h_t_t <- yc + 0.5 * dg + bdl
+	y_h_b_b <- yc - 0.5 * dg - bdl
+	y_h_b_c <- yc - 0.5 * dg - 0.5 * bdl
 	y_h_b_t <- yc - 0.5 * dg
-	d_v_l <- d_rect(x_v_l_c, yc, BDL, h)
-	d_v_r <- d_rect(x_v_r_c, yc, BDL, h)
-	d_h_t <- d_rect(xc, y_h_t_c, w, BDL)
-	d_h_b <- d_rect(xc, y_h_b_c, w, BDL)
+	d_v_l <- d_rect(x_v_l_c, yc, bdl, h)
+	d_v_r <- d_rect(x_v_r_c, yc, bdl, h)
+	d_h_t <- d_rect(xc, y_h_t_c, w, bdl)
+	d_h_b <- d_rect(xc, y_h_b_c, w, bdl)
 	x_uli <- c(0, 0, x_v_l_l, x_v_l_l, x_v_l_r, x_v_l_r)
 	y_uli <- c(y_h_t_b, y_h_t_t, y_h_t_t, h, h, y_h_t_b)
 	d_uli <- d_polygon(x = x_uli, y = y_uli)
@@ -288,60 +292,60 @@ create_box_drawing <- function(font = "square") {
 	write_svg(c(d_h_t, d_h_b), "2550")
 	write_svg(c(d_v_l, d_v_r), "2551")
 
-	x <- rep(c(xc - 0.5 * BDL, w, xc + 0.5 * BDL, w, xc + 0.5 * BDL), each = 2L)
+	x <- rep(c(xc - 0.5 * bdl, w, xc + 0.5 * bdl, w, xc + 0.5 * bdl), each = 2L)
 	y <- c(0, rep(c(y_h_t_t, y_h_t_b, y_h_b_t, y_h_b_b), each = 2L), 0)
 	write_svg(d_polygon(x = x, y = y), "2552")
 
 	x <- rep(c(x_v_l_l, w, x_v_r_r, x_v_r_l, x_v_l_r), each = 2L)
-	y <- c(0, rep(c(yc + 0.5 * BDL, yc - 0.5 * BDL, 0, yc - 0.5 * BDL), each = 2L), 0)
+	y <- c(0, rep(c(yc + 0.5 * bdl, yc - 0.5 * bdl, 0, yc - 0.5 * bdl), each = 2L), 0)
 	write_svg(d_polygon(x = x, y = y), "2553")
 
 	x <- rep(c(x_v_l_l, w, x_v_l_r), each = 2L)
 	y <- c(0, rep(c(y_h_t_t, y_h_t_b), each = 2L), 0)
 	write_svg(d_polygon(x = x, y = y) + d_lri, "2554")
 
-	x <- rep(c(0, xc - 0.5 * BDL, 0, xc + 0.5 * BDL, xc - 0.5 * BDL), each = 2L)
+	x <- rep(c(0, xc - 0.5 * bdl, 0, xc + 0.5 * bdl, xc - 0.5 * bdl), each = 2L)
 	y <- c(y_h_b_b, rep(c(y_h_b_t, y_h_t_b, y_h_t_t, 0), each = 2L), y_h_b_b)
 	write_svg(d_polygon(x = x, y = y), "2555")
 
 	x <- rep(c(0, x_v_r_r, x_v_r_l, x_v_l_r, x_v_l_l), each = 2L)
-	y <- c(yc - 0.5 * BDL, rep(c(yc + 0.5 * BDL, 0, yc - 0.5 * BDL, 0), each = 2L), yc - 0.5 * BDL)
+	y <- c(yc - 0.5 * bdl, rep(c(yc + 0.5 * bdl, 0, yc - 0.5 * bdl, 0), each = 2L), yc - 0.5 * bdl)
 	write_svg(d_polygon(x = x, y = y), "2556")
 
 	x <- rep(c(0, x_v_r_r, x_v_r_l), each = 2L)
 	y <- c(y_h_t_b, rep(c(y_h_t_t, 0), each = 2L), y_h_t_b)
 	write_svg(d_polygon(x = x, y = y) + d_lli, "2557")
 
-	x <- rep(c(xc - 0.5 * BDL, xc + 0.5 * BDL, w, xc + 0.5 * BDL, w), each = 2L)
+	x <- rep(c(xc - 0.5 * bdl, xc + 0.5 * bdl, w, xc + 0.5 * bdl, w), each = 2L)
 	y <- c(y_h_b_b, rep(c(h, y_h_t_t, y_h_t_b, y_h_b_t), each = 2L), y_h_b_b)
 	write_svg(d_polygon(x = x, y = y), "2558")
 
 	x <- rep(c(x_v_l_l, x_v_l_r, x_v_r_l, x_v_r_r, w), each = 2L)
-	y <- c(yc - 0.5 * BDL, rep(c(h, yc + 0.5 * BDL, h, yc + 0.5 * BDL), each = 2L), yc - 0.5 * BDL)
+	y <- c(yc - 0.5 * bdl, rep(c(h, yc + 0.5 * bdl, h, yc + 0.5 * bdl), each = 2L), yc - 0.5 * bdl)
 	write_svg(d_polygon(x = x, y = y), "2559")
 
 	x <- rep(c(x_v_l_l, x_v_l_r, w), each = 2L)
 	y <- c(y_h_b_b, rep(c(h, y_h_b_t), each = 2L), y_h_b_b)
 	write_svg(d_polygon(x = x, y = y) + d_uri, "255a")
 
-	x <- rep(c(0, xc - 0.5 * BDL, 0, xc - 0.5 * BDL, xc + 0.5 * BDL), each = 2L)
+	x <- rep(c(0, xc - 0.5 * bdl, 0, xc - 0.5 * bdl, xc + 0.5 * bdl), each = 2L)
 	y <- c(y_h_b_b, rep(c(y_h_b_t, y_h_t_b, y_h_t_t, h), each = 2L), y_h_b_b)
 	write_svg(d_polygon(x = x, y = y), "255b")
 
 	x <- rep(c(0, x_v_l_l, x_v_l_r, x_v_r_l, x_v_r_r), each = 2L)
-	y <- c(yc - 0.5 * BDL, rep(c(yc + 0.5 * BDL, h, yc + 0.5 * BDL, h), each = 2L), yc - 0.5 * BDL)
+	y <- c(yc - 0.5 * bdl, rep(c(yc + 0.5 * bdl, h, yc + 0.5 * bdl, h), each = 2L), yc - 0.5 * bdl)
 	write_svg(d_polygon(x = x, y = y), "255c")
 
 	x <- rep(c(0, x_v_r_l, x_v_r_r), each = 2L)
 	y <- c(y_h_b_b, rep(c(y_h_b_t, h), each = 2L), y_h_b_b)
 	write_svg(d_polygon(x = x, y = y) + d_uli, "255d")
 
-	x <- rep(c(xc + 0.5 * c(-1, 1) * BDL, w, xc + 0.5 * BDL, w, xc + 0.5 * BDL), each = 2L)
+	x <- rep(c(xc + 0.5 * c(-1, 1) * bdl, w, xc + 0.5 * bdl, w, xc + 0.5 * bdl), each = 2L)
 	y <- c(0, rep(c(h, y_h_t_t, y_h_t_b, y_h_b_t, y_h_b_b), each = 2L), 0)
 	write_svg(d_polygon(x = x, y = y), "255e")
 
 	write_svg(
-		c(d_v_l, d_v_r, d_rect2(xl = x_v_r_r, xr = w, yt = yc + 0.5 * BDL, yb = yc - 0.5 * BDL)),
+		c(d_v_l, d_v_r, d_rect2(xl = x_v_r_r, xr = w, yt = yc + 0.5 * bdl, yb = yc - 0.5 * bdl)),
 		"255f"
 	)
 
@@ -350,70 +354,69 @@ create_box_drawing <- function(font = "square") {
 	write_svg(d_polygon(x = x, y = y), "2561")
 
 	write_svg(
-		c(d_v_l, d_v_r, d_rect2(xr = x_v_l_l, xl = 0, yt = yc + 0.5 * BDL, yb = yc - 0.5 * BDL)),
+		c(d_v_l, d_v_r, d_rect2(xr = x_v_l_l, xl = 0, yt = yc + 0.5 * bdl, yb = yc - 0.5 * bdl)),
 		"2562"
 	)
 
 	write_svg(
-		c(d_h_t, d_h_b, d_rect2(xr = xc + 0.5 * BDL, xl = xc - 0.5 * BDL, yt = y_h_b_b, yb = 0)),
+		c(d_h_t, d_h_b, d_rect2(xr = xc + 0.5 * bdl, xl = xc - 0.5 * bdl, yt = y_h_b_b, yb = 0)),
 		"2564"
 	)
 
 	x <- rep(c(0, w, x_v_r_r, x_v_r_l, x_v_l_r, x_v_l_l), each = 2L)
 	y <- c(
-		yc - 0.5 * BDL,
-		rep(c(yc + BDL / 2, yc - BDL / 2, 0, yc - BDL / 2, 0), each = 2L),
-		yc - BDL / 2
+		yc - 0.5 * bdl,
+		rep(c(yc + bdl / 2, yc - bdl / 2, 0, yc - bdl / 2, 0), each = 2L),
+		yc - bdl / 2
 	)
 	write_svg(d_polygon(x = x, y = y), "2565")
 
 	write_svg(
-		c(d_h_t, d_h_b, d_rect2(xr = xc + 0.5 * BDL, xl = xc - 0.5 * BDL, yt = h, yb = y_h_t_t)),
+		c(d_h_t, d_h_b, d_rect2(xr = xc + 0.5 * bdl, xl = xc - 0.5 * bdl, yt = h, yb = y_h_t_t)),
 		"2567"
 	)
 
 	x <- rep(c(0, x_v_l_l, x_v_l_r, x_v_r_l, x_v_r_r, w), each = 2L)
 	y <- c(
-		yc - BDL / 2,
-		rep(c(yc + BDL / 2, h, yc + BDL / 2, h, yc + BDL / 2), each = 2L),
-		yc - BDL / 2
+		yc - bdl / 2,
+		rep(c(yc + bdl / 2, h, yc + bdl / 2, h, yc + bdl / 2), each = 2L),
+		yc - bdl / 2
 	)
 	write_svg(d_polygon(x = x, y = y), "2568")
 
 	# 256d--2570 Curved
-	rcl <- 300 # radius curve
 	write_svg(
 		c(
-			d_rect2(yc + 0.5 * BDL - rcl, xc + 0.5 * BDL, 0, xc - 0.5 * BDL),
-			d_arc2(yc + 0.5 * BDL, xc - 0.5 * BDL + rcl, yc + 0.5 * BDL - rcl, xc - 0.5 * BDL, BDL),
-			d_rect2(yc + 0.5 * BDL, h, yc - 0.5 * BDL, xc - 0.5 * BDL + rcl)
+			d_rect2(yc + 0.5 * bdl - bdr, xc + 0.5 * bdl, 0, xc - 0.5 * bdl),
+			d_arc2(yc + 0.5 * bdl, xc - 0.5 * bdl + bdr, yc + 0.5 * bdl - bdr, xc - 0.5 * bdl, bdl),
+			d_rect2(yc + 0.5 * bdl, h, yc - 0.5 * bdl, xc - 0.5 * bdl + bdr)
 		),
 		"256d"
 	)
 
 	write_svg(
 		c(
-			d_rect2(yc + 0.5 * BDL - rcl, xc + 0.5 * BDL, 0, xc - 0.5 * BDL),
-			d_arc1(yc + 0.5 * BDL, xc + 0.5 * BDL, yc + 0.5 * BDL - rcl, xc + 0.5 * BDL - rcl, BDL),
-			d_rect2(yc + 0.5 * BDL, xc + 0.5 * BDL - rcl, yc - 0.5 * BDL, 0)
+			d_rect2(yc + 0.5 * bdl - bdr, xc + 0.5 * bdl, 0, xc - 0.5 * bdl),
+			d_arc1(yc + 0.5 * bdl, xc + 0.5 * bdl, yc + 0.5 * bdl - bdr, xc + 0.5 * bdl - bdr, bdl),
+			d_rect2(yc + 0.5 * bdl, xc + 0.5 * bdl - bdr, yc - 0.5 * bdl, 0)
 		),
 		"256e"
 	)
 
 	write_svg(
 		c(
-			d_rect2(h, xc + 0.5 * BDL, yc - 0.5 * BDL + rcl, xc - 0.5 * BDL),
-			d_arc4(yc - 0.5 * BDL + rcl, xc + 0.5 * BDL, yc - 0.5 * BDL, xc + 0.5 * BDL - rcl, BDL),
-			d_rect2(yc + 0.5 * BDL, xc + 0.5 * BDL - rcl, yc - 0.5 * BDL, 0)
+			d_rect2(h, xc + 0.5 * bdl, yc - 0.5 * bdl + bdr, xc - 0.5 * bdl),
+			d_arc4(yc - 0.5 * bdl + bdr, xc + 0.5 * bdl, yc - 0.5 * bdl, xc + 0.5 * bdl - bdr, bdl),
+			d_rect2(yc + 0.5 * bdl, xc + 0.5 * bdl - bdr, yc - 0.5 * bdl, 0)
 		),
 		"256f"
 	)
 
 	write_svg(
 		c(
-			d_rect2(h, xc + 0.5 * BDL, yc - 0.5 * BDL + rcl, xc - 0.5 * BDL),
-			d_arc3(yc - 0.5 * BDL + rcl, xc - 0.5 * BDL + rcl, yc - 0.5 * BDL, xc - 0.5 * BDL, BDL),
-			d_rect2(yc + 0.5 * BDL, w, yc - 0.5 * BDL, xc - 0.5 * BDL + rcl)
+			d_rect2(h, xc + 0.5 * bdl, yc - 0.5 * bdl + bdr, xc - 0.5 * bdl),
+			d_arc3(yc - 0.5 * bdl + bdr, xc - 0.5 * bdl + bdr, yc - 0.5 * bdl, xc - 0.5 * bdl, bdl),
+			d_rect2(yc + 0.5 * bdl, w, yc - 0.5 * bdl, xc - 0.5 * bdl + bdr)
 		),
 		"2570"
 	)

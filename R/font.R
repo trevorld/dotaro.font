@@ -28,8 +28,8 @@ generate_sfd <- function(font = c("square", "narrow"), output = paste0("dotaro_"
 
 	# Sum of `ascent` and `descent` is a power of two for truetype fonts (often 2048 or 4096)
 	# Set `ascent` and `descent` **before** importing glyphs
-	ff_font$descent <- glyph_height %/% 2L
-	ff_font$ascent <- glyph_height %/% 2L
+	ff_font$ascent <- as.integer(dotaro_height(font) - dotaro_vertical_gap(font))
+	ff_font$descent <- as.integer(dotaro_vertical_gap(font))
 	ff_font$encoding <- "UnicodeFull"
 
 	ff_font$version <- packageVersion("dotaro.font") |> as.character()

@@ -42,7 +42,7 @@ make_table <- function(start, end) {
           ucp <- paste0(set, char)
           ucp_u <- paste0("U+", ucp)
           if (ucp_u %in% points_font) {
-			 cat(paste0(" & {\\df\\raise.20em\\hbox{\\char\"", ucp, "}}"))
+			 cat(paste0(" & {\\df\\raise.0em\\hbox{\\char\"", ucp, "}}"))
           } else {
              cat(paste0(" & \\cellcolor{lightgray}"))
           }

@@ -1,7 +1,7 @@
 #' @importFrom affiner as_coord2d degrees isotoxal_2ngon_inner_radius
 #' @import dee
 #' @importFrom glue glue
-#' @importFrom grid fillStrokeGrob gList gTree gpar grid.draw rectGrob roundrectGrob textGrob unit viewport
+#' @importFrom grid fillStrokeGrob gList gTree gpar grid.draw popViewport pushViewport rectGrob roundrectGrob textGrob unit viewport
 #' @importFrom omsvg SVG svg_attrs_pres svg_path
 #' @importFrom rlang abort check_dots_empty local_options warn
 #' @importFrom utils hasName packageVersion
@@ -65,20 +65,6 @@ glyph_options <- function(width, height, font) {
 	)
 	l[["dotaro.font"]] <- font
 	l
-}
-
-plot_glyph <- function(x, font = getOption("dotaro.font", "square")) {
-	stopifnot(requireNamespace("svgparser", quietly = TRUE))
-	if (inherits(x, "dee")) {
-		plot(x)
-	} else if (is.character(x)) {
-		# hex of svg already drawn
-		f <- glyph_file(font, x)
-		grid::grid.newpage()
-		svgparser::read_svg(f) |> grid::grid.draw()
-	} else {
-		stop("Don't know how to plot this object")
-	}
 }
 
 # paths try outer clockwise, inner counter-clockwise?

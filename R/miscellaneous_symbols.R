@@ -74,22 +74,20 @@ create_miscellaneous_symbols <- function(font = "square") {
 	write_svg(d_2739, "2739")
 
 	# 2663 Black Club Suit
-	#### Add triangle at base?
 	if (font == "square") {
-		#### Magic Numbers
-		r <- 280
+		r <- 1.1 * srw
 		rt <- r
 		ycl <- yc
 		base <- d_rect(x = xc, y = yc - 0.5 * r, w = srw, h = ch - r)
 	} else {
-		r <- 270
-		rt <- 300
-		ycl <- yc - 20
+		r <- 1.6 * srw
+		rt <- 2.1 * srw
+		ycl <- yc - 0.1 * ch
 		base <- c(
 			d_rect(x = xc, y = yc - 0.5 * r, w = srw, h = ch - r),
 			d_polygon(
 				x = c(xc - srw, xc, xc + srw),
-				y = c(vg, yc + 2 * srw, vg)
+				y = c(vg, vg + 0.5 * ch, vg)
 			)
 		)
 	}

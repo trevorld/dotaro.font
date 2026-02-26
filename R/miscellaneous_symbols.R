@@ -241,21 +241,59 @@ create_miscellaneous_symbols <- function(font = "square") {
 	yc2 <- 0.6 * (vg + ych)
 	xbb <- hg + srw
 	xc2 <- hg
-	ytr <- 0.07 * (vg + ych)
 	ytb <- 0.6 * (vg + ych)
-	# xy1 <- as_coord2d(degrees(225), radius = ytr + 2)$translate(x = xc, y = ych - ytr)
-	# xy2 <- as_coord2d(degrees(315), radius = ytr + 2)$translate(x = xc, y = ych - ytr)
+
+	# Code by Claude Code to break up right Bezier curve to introduce rectangular slit
+	# Right-side bezier: from (xc, ych) via (w-xc2, yc2) to (xcw, ybt)
+	bS <- c(xc, ych)
+	bC <- c(w - xc2, yc2)
+	bE <- c(xcw, ybt)
+
+	# Slit parameters
+	t1 <- 0.16 # upper edge of slit (0 = top of bishop, 1 = right-middle)
+	t2 <- 0.30 # lower edge of slit
+	slit_depth <- 2 * srw # how far inward the slit cuts
+
+	# Quadratic bezier utilities
+	qb_lerp <- function(a, b, t) (1 - t) * a + t * b
+	qb_pt <- function(S, C, E, t) qb_lerp(qb_lerp(S, C, t), qb_lerp(C, E, t), t)
+	qb_tang <- function(S, C, E, t) 2 * (1 - t) * (C - S) + 2 * t * (E - C)
+
+	# Slit edge points on the bezier
+	pt1 <- qb_pt(bS, bC, bE, t1)
+	pt2 <- qb_pt(bS, bC, bE, t2)
+
+	# Inward normal: CW rotation of tangent (c(ty, -tx)), then normalize and scale
+	inward_offset <- function(S, C, E, t, depth) {
+		tang <- qb_tang(S, C, E, t)
+		n <- c(tang[2], -tang[1])
+		(n / sqrt(sum(n^2))) * depth
+	}
+	if (font == "narrow") {
+		t1o <- -pi / 8
+		t2o <- -pi / 8
+	} else {
+		t1o <- 0
+		t2o <- 0
+	}
+	in1 <- pt1 + inward_offset(bS, bC, bE, t1 + t1o, slit_depth)
+	in2 <- pt2 + inward_offset(bS, bC, bE, t2 + t1o, slit_depth)
+
+	# Sub-bezier control points
+	c_pre <- qb_lerp(bS, bC, t1) # control for bS -> pt1
+	t_p <- (t2 - t1) / (1 - t1) # reparametrize remaining cruve
+	c_post <- qb_lerp(qb_lerp(bC, bE, t1), bE, t_p) # control for pt2 -> bE
+
 	d_bshp <- M(xbb, vg) +
-		Q(hg, yc1, hg, ybt) +
-		Q(xc2, yc2, xc, ych) +
-		# Q(xc2, yc2, xc - 0.5 * srw, ych) +
-		# L(xc + c(-0.5, 0.5) * srw, ytb) +
-		# L(xc + 0.5 * srw, ych) +
-		# A(ytr + 2, x = xy2$x, y = xy2$y, sweep_flag = TRUE) +
-		Q(w - xc2, yc2, xcw, ybt) +
-		QZ(xcw, yc1, w - xbb, vg)
+		Q(hg, yc1, hg, ybt) + # ll curve
+		Q(xc2, yc2, bS[1], bS[2]) + # ul curve
+		Q(c_pre[1], c_pre[2], pt1[1], pt1[2]) +
+		L(in1[1], in1[2]) +
+		L(in2[1], in2[2]) +
+		L(pt2[1], pt2[2]) +
+		Q(c_post[1], c_post[2], bE[1], bE[2]) +
+		QZ(xcw, yc1, w - xbb, vg) # lr curve
 	ds <- c(d_bshp)
-	# ds <- c(d_bshp, d_circle(xc, ych - ytr, ytr))
 	write_svg(ds, "265d")
 	# 2657 white chess bishop
 	# 1fa21 white chess turned bishop

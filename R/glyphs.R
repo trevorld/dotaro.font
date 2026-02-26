@@ -24,6 +24,7 @@ GLYPH_NAMES <- list(
 
 # Copy glyph from and use just the outline
 # https://fontforge.org/docs/scripting/python/fontforge.html#fontforge.glyph.stroke
+#### Mathematical Outline Digits U+1CCF0--U+1CCF9 from our normal slab-serif digits?
 OUTLINE_FROM_TO <- list(
 	`265a` = "2654", # Chess King
 	`265c` = "2656", # Chess Rook

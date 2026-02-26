@@ -10,6 +10,7 @@ create_basic_latin <- function(font = "square") {
 	hg <- dotaro_horizontal_gap(font)
 	rt <- dotaro_terminal_radius(font)
 
+	ow <- dotaro_outline_stroke_width(font)
 	srw <- dotaro_stroke_width(font)
 	srw2 <- dotaro_stroke_width_short(font)
 	xh <- dotaro_x_height(font)
@@ -1513,6 +1514,94 @@ create_basic_latin <- function(font = "square") {
 	) # ur stroke
 	write_svg(ds, "00a4")
 
+	if (font == "square") {
+		d_circ_white <- d_ellipse(xc, yc, 0.5 * cw, 0.5 * ch, offset = c(0, -ow))
+		#### 24ea circled digit zero
+		write_svg(d_circ_white, "24ea")
+		#### 2460 circled digit one
+		write_svg(d_circ_white, "2460")
+		#### 2461 circled digit two
+		write_svg(d_circ_white, "2461")
+		#### 2462 circled digit three
+		write_svg(d_circ_white, "2462")
+		#### 2463 circled digit four
+		write_svg(d_circ_white, "2463")
+		#### 2464 circled digit five
+		write_svg(d_circ_white, "2464")
+		#### 2465 circled digit six
+		write_svg(d_circ_white, "2465")
+		#### 2466 circled digit seven
+		write_svg(d_circ_white, "2466")
+		#### 2467 circled digit eight
+		write_svg(d_circ_white, "2467")
+		#### 2468 circled digit nine
+		write_svg(d_circ_white, "2468")
+
+		d_circ_black <- d_ellipse(xc, yc, 0.5 * cw, 0.5 * ch)
+		#### 24ff negative circled digit zero
+		write_svg(d_circ_black, "24ff")
+		#### 2776 dingbat negative circled digit one
+		write_svg(d_circ_black, "2776")
+		#### 2777 dingbat negative circled digit two
+		write_svg(d_circ_black, "2777")
+		#### 2778 dingbat negative circled digit three
+		write_svg(d_circ_black, "2778")
+		#### 2779 dingbat negative circled digit four
+		write_svg(d_circ_black, "2779")
+		#### 277a dingbat negative circled digit five
+		write_svg(d_circ_black, "277a")
+		#### 277b dingbat negative circled digit six
+		write_svg(d_circ_black, "277b")
+		#### 277c dingbat negative circled digit seven
+		write_svg(d_circ_black, "277c")
+		#### 277d dingbat negative circled digit eight
+		write_svg(d_circ_black, "277d")
+		#### 277e dingbat negative circled digit nine
+		write_svg(d_circ_black, "277e")
+	}
+
+	#### 1d7ce mathematical bold digit zero
+	# write_svg(???, "1d7ce")
+	#### 1d7cf mathematical bold digit one
+	# write_svg(???, "1d7cf")
+	#### 1d7d0 mathematical bold digit two
+	# write_svg(???, "1d7d0")
+	#### 1d7d1 mathematical bold digit three
+	# write_svg(???, "1d7d1")
+	#### 1d7d2 mathematical bold digit four
+	# write_svg(???, "1d7d2")
+	#### 1d7d3 mathematical bold digit five
+	# write_svg(???, "1d7d3")
+	#### 1d7d4 mathematical bold digit six
+	# write_svg(???, "1d7d4")
+	#### 1d7d5 mathematical bold digit seven
+	# write_svg(???, "1d7d5")
+	#### 1d7d6 mathematical bold digit eight
+	# write_svg(???, "1d7d6")
+	#### 1d7d7 mathematical bold digit nine
+	# write_svg(???, "1d7d7")
+
+	#### 1d7d8 mathematical double-struck digit zero
+	# write_svg(???, "1d7d8")
+	#### 1d7d9 mathematical double-struck digit one
+	# write_svg(???, "1d7d9")
+	#### 1d7da mathematical double-struck digit two
+	# write_svg(???, "1d7da")
+	#### 1d7db mathematical double-struck digit three
+	# write_svg(???, "1d7db")
+	#### 1d7dc mathematical double-struck digit four
+	# write_svg(???, "1d7dc")
+	#### 1d7dd mathematical double-struck digit five
+	# write_svg(???, "1d7dd")
+	#### 1d7de mathematical double-struck digit six
+	# write_svg(???, "1d7de")
+	#### 1d7df mathematical double-struck digit seven
+	# write_svg(???, "1d7df")
+	#### 1d7e0 mathematical double-struck digit eight
+	# write_svg(???, "1d7e0")
+	#### 1d7e1 mathematical double-struck digit nine
+	# write_svg(???, "1d7e1")
+
 	c(
 		as.hexmode("0021"):as.hexmode("007e"),
 		as.hexmode("00a1"):as.hexmode("00a8"),
@@ -1550,7 +1639,17 @@ create_basic_latin <- function(font = "square") {
 			"20bf",
 			"218b",
 			"f590"
-		))
+		)),
+		if (font == "square") {
+			c(
+				as.hexmode("24ea"),
+				as.hexmode("2460"):as.hexmode("2468"),
+				as.hexmode("24ff"),
+				as.hexmode("2776"):as.hexmode("277e")
+			)
+		},
+		# as.hexmode("1d7ce"):as.hexmode("1d7d7"), # mathematical bold (avec-serif) digits
+		# as.hexmode("1d7d8"):as.hexmode("1d7e1"), # mathematical double-struck digits
 	) |>
 		as_hex()
 }

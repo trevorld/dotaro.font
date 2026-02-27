@@ -128,7 +128,7 @@ dotaro_terminal_radius <- function(font = c("square", "narrow")) {
 
 dotaro_outline_stroke_width <- function(font = c("square", "narrow")) {
 	font <- match.arg(font)
-	60L
+	60L * dotaro_width(font) / SQUARE_WIDTH
 }
 
 box_drawing_light <- function(font = c("square", "narrow")) {

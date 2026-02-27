@@ -19,7 +19,9 @@ GLYPH_NAMES <- list(
 	`f5b6` = "LATIN SWORD SUIT",
 	`f5b7` = "LATIN CUP SUIT",
 	`f5b8` = "LATIN COIN SUIT",
-	`f5b9` = "LATIN CLUB SUIT"
+	`f5b9` = "LATIN CLUB SUIT",
+	`fc431` = "BLACK MEEPLE",
+	`fc432` = "WHITE MEEPLE"
 )
 
 # Copy glyph from and use just the outline

@@ -397,6 +397,17 @@ create_miscellaneous_symbols <- function(font = "square") {
 	#### More chess glyphs in Unicode...
 	# https://en.wikipedia.org/wiki/Chess_symbols_in_Unicode
 
+	if (requireNamespace("piecepackr", quietly = TRUE)) {
+		# fc431 black meeple
+		xy_meeple <- piecepackr::pp_shape("meeple")$npc_coords |>
+			as_coord2d()
+		xy_meeple <- xy_meeple$translate(x = -0.5, y = -0.5)$scale(cw, ch)$translate(x = xc, y = yc)
+		write_svg(d_polygon(xy_meeple), "fc431")
+
+		# fc432 white meeple
+		write_svg(d_polygon(xy_meeple, offset = c(0, -ow)), "fc432")
+	}
+
 	as_hex(c(
 		as.hexmode(c("2605", "2606")),
 		as.hexmode("2660"),
@@ -410,6 +421,7 @@ create_miscellaneous_symbols <- function(font = "square") {
 		as.hexmode(c("2734", "2736", "2737", "2738", "2739", "2742")),
 		as.hexmode(c("f5b8")),
 		as.hexmode(c("1fa1f", "1fa20")),
-		as.hexmode(c("1fa25", "1fa26"))
+		as.hexmode(c("1fa25", "1fa26")),
+		if (requireNamespace("piecepackr")) as.hexmode(c("fc431", "fc432"))
 	))
 }

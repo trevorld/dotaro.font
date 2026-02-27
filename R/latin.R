@@ -24,6 +24,11 @@ create_basic_latin <- function(font = "square") {
 	rp <- 0.75 * srw # period radius
 	ah <- 3 * srw # apostrophe height
 
+	# Bottom y coordinate on the border of an ellipse centered at (cx, cy) given x
+	ellipse_y_bottom <- function(x, cx = xc, cy = yc, rx = 0.5 * cw, ry = 0.5 * ch) {
+		cy - ry * sqrt(pmax(0, 1 - ((x - cx) / rx)^2))
+	}
+
 	# 0022 quotation mark
 	d <- d_rect(xc + c(-0.25, 0.25) * cw, ych - 0.5 * ah, srw, ah)
 	write_svg(d, "0022")
@@ -211,11 +216,7 @@ create_basic_latin <- function(font = "square") {
 	# 1ccf0 mathematical outline digit zero (derived via OUTLINE_FROM_TO)
 
 	# 1d7ce mathematical bold digit zero
-	# Bottom y coordinate on the border of an ellipse centered at (cx, cy) given x
-	ellipse_y_bottom <- function(x, cx = xc, cy = yc, rx = 0.5 * cw, ry = 0.5 * ch) {
-		cy - ry * sqrt(pmax(0, 1 - ((x - cx) / rx)^2))
-	}
-	xbd0 <- xc + 0.1 * cw
+	xbd0 <- xc + 0.5 * srw
 	ybd0 <- ellipse_y_bottom(xbd0)
 	ds <- c(
 		d_ellipse(xc, yc, 0.5 * cw + c(0, -2), 0.5 * ch + c(0, -2)),
@@ -233,8 +234,13 @@ create_basic_latin <- function(font = "square") {
 	) # b serif
 	write_svg(ds, "0031")
 	# 1ccf1 mathematical outline digit one (derived via OUTLINE_FROM_TO)
-	#### 1d7cf mathematical bold digit one
-	# write_svg(???, "1d7cf")
+	# 1d7cf mathematical bold digit one
+	ds <- c(
+		d_rect(x = xc, y = yc, w = srw, h = h - 2 * vg - 2), # stem,
+		d_rect2(ych, xc + 0.5 * srw, ych - 1, xc - 1.5 * srw), # t serif,
+		d_rect2(vg + 1, xc + 1.5 * srw, vg, xc - 1.5 * srw)
+	) # b serif
+	write_svg(ds, "1d7cf")
 	# 1d7d9 mathematical double-struck digit one (derived via OUTLINE_FROM_TO)
 
 	# 0032 digit two
@@ -306,8 +312,14 @@ create_basic_latin <- function(font = "square") {
 	) # stroke
 	write_svg(ds, "0034")
 	# 1ccf4 mathematical outline digit four (derived via OUTLINE_FROM_TO)
-	#### 1d7d2 mathematical bold digit four
-	# write_svg(???, "1d7d2")
+	# 1d7d2 mathematical bold digit four
+	ds <- c(
+		d_rect2(yd4b + srw, xcw - srw, vg + 2, xcw - srw - srw), # stem
+		d_rect2(vg + 2, xcw, vg, xcw - srw - 2 * srw), # b serif
+		d_rect2(yd4b, xcw, yd4b - 2, hg), # bar
+		d_fslash(ych, xcw - srw, yd4b, hg, srw, left = "horizontal", right = "vertical")
+	) # stroke
+	write_svg(ds, "1d7d2")
 	# 1d7dc mathematical double-struck digit four (derived via OUTLINE_FROM_TO)
 
 	# 0035 digit five
@@ -321,8 +333,22 @@ create_basic_latin <- function(font = "square") {
 	) # curve 3
 	write_svg(ds, "0035")
 	# 1ccf5 mathematical outline digit five (derived via OUTLINE_FROM_TO)
-	#### 1d7d3 mathematical bold digit five
-	# write_svg(???, "1d7d3")
+	# 1d7d3 mathematical bold digit five
+	cy5b <- 0.5 * (yc + 2 + vg)
+	rx5b <- xcw - xc
+	ry5b <- 0.5 * (yc + 2 - vg)
+	xbd5 <- xc + 0.5 * srw
+	yb5 <- ellipse_y_bottom(xbd5, cy = cy5b, rx = rx5b, ry = ry5b)
+	ds <- c(
+		d_rect2(ych, xcw, ych - 4, xcw - 2), # ur serif
+		d_rect2(ych, xcw - 2, ych - 2, hg + 0.5 * srw), # bar
+		d_rect2(ych - 2, hg + srw + 0.5 * srw, yc, hg + 0.5 * srw), # stem
+		d_rect2(yc + 2, xc, yc, hg + srw + 0.5 * srw), # curve 1
+		d_arc41(yc + 2, xcw, vg, xc, 2), # curve 2
+		d_arc3(0.5 * (vg + yc + 2), xc, vg, hg, 2), # curve 3
+		M(xbd5, 2 * cy5b - yb5) + AZ(rx5b, ry5b, x = xbd5, y = yb5) # partial ellipse
+	)
+	write_svg(ds, "1d7d3")
 	# 1d7dd mathematical double-struck digit five (derived via OUTLINE_FROM_TO)
 
 	# 0036 digit six
@@ -339,48 +365,86 @@ create_basic_latin <- function(font = "square") {
 	# 1d7de mathematical double-struck digit six (derived via OUTLINE_FROM_TO)
 
 	# 0037 digit seven
+	d7stw <- width_slash_left(xcw - (xc - 0.5 * srw), (ych - srw) - (vg + srw), srw)
 	ds <- c(
 		d_rect2(ych, hg + srw, ych - srw - srw, hg), # ul serif
 		d_rect2(ych, xcw, ych - srw, hg + srw), # bar
 		d_fslash(ych - srw, xcw, vg + srw, xc - 0.5 * srw, srw), # stroke
-		d_rect2(vg + srw, xc + 0.5 * srw + srw, vg, xc - 0.5 * srw - srw) # b serif
+		d_rect2(vg + srw, xc + d7stw + 0.5 * srw, vg, xc - 0.5 * srw - srw) # b serif
 	)
 	write_svg(ds, "0037")
 	# 1ccf7 mathematical outline digit seven (derived via OUTLINE_FROM_TO)
-	#### 1d7d5 mathematical bold digit seven
-	# write_svg(???, "1d7d5")
+	# 1d7d5 mathematical bold digit seven
+	d7stw <- width_slash_left(xcw - (xc - 0.5 * srw), (ych - 2) - (vg + 2), srw)
+	ds <- c(
+		d_rect2(ych, hg + 2, ych - srw, hg), # ul serif
+		d_rect2(ych, xcw, ych - 2, hg + 2), # bar
+		d_fslash(ych - 2, xcw, vg + 2, xc - 0.5 * srw, srw), # stroke
+		d_rect2(vg + 2, xc + d7stw + 0.5 * srw, vg, xc - 0.5 * srw - srw) # b serif
+	)
+	write_svg(ds, "1d7d5")
 	# 1d7df mathematical double-struck digit seven (derived via OUTLINE_FROM_TO)
 
 	# 0038 digit eight
-	ov8 <- 50 # overlap amount
+	ov8 <- (5 / 18) * srw # overlap amount
 	ds <- c(
 		d_ellipse(
 			x = xc,
 			y = 0.5 * (yc + ych - ov8),
-			rx = xc - c(hg, hg + srw),
+			rx = 0.5 * cw - c(0, srw),
 			ry = 0.5 * (ov8 + yc - vg) - c(0, srw)
 		), # top
 		d_ellipse(
 			x = xc,
 			y = 0.5 * (yc + vg + ov8),
-			rx = xc - c(hg, hg + srw),
+			rx = 0.5 * cw - c(0, srw),
 			ry = 0.5 * (ov8 + yc - vg) - c(0, srw)
 		) # bottom
 	)
 	write_svg(ds, "0038")
 	# 1ccf8 mathematical outline digit eight (derived via OUTLINE_FROM_TO)
-	#### 1d7d6 mathematical bold digit eight
-	# write_svg(???, "1d7d6")
+	# 1d7d6 mathematical bold digit eight
+	rx8b <- 0.5 * cw
+	ry8b <- 0.25 * ch
+	cy_top8b <- 0.5 * (yc + ych)
+	cy_bot8b <- 0.5 * (yc + vg)
+	xbd8 <- xc + 0.5 * srw
+	yb_top8b <- ellipse_y_bottom(xbd8, cy = cy_top8b, rx = rx8b, ry = ry8b)
+	yb_bot8b <- ellipse_y_bottom(xbd8, cy = cy_bot8b, rx = rx8b, ry = ry8b)
+	ds <- c(
+		d_ellipse(
+			x = xc,
+			y = cy_top8b,
+			rx = rx8b - c(0, 2),
+			ry = ry8b - c(0, 2)
+		), # top
+		d_ellipse(
+			x = xc,
+			y = cy_bot8b,
+			rx = rx8b - c(0, 2),
+			ry = ry8b - c(0, 2)
+		), # bottom
+		M(xbd8, 2 * cy_top8b - yb_top8b) + AZ(rx8b, ry8b, x = xbd8, y = yb_top8b),
+		M(w - xbd8, yb_top8b) + AZ(rx8b, ry8b, x = w - xbd8, y = 2 * cy_top8b - yb_top8b),
+		M(xbd8, 2 * cy_bot8b - yb_bot8b) + AZ(rx8b, ry8b, x = xbd8, y = yb_bot8b),
+		M(w - xbd8, yb_bot8b) + AZ(rx8b, ry8b, x = w - xbd8, y = 2 * cy_bot8b - yb_bot8b)
+	)
+	write_svg(ds, "1d7d6")
 	# 1d7e0 mathematical double-struck digit eight (derived via OUTLINE_FROM_TO)
 
 	# 0039 digit nine
 	d6yf <- 0.3
 	d9so <- srw / 3
+	d9stw <- width_slash_left(
+		(xcw - d9so) - (xc - 0.5 * srw),
+		(ych - d6yf * ch - srw) - (vg + srw),
+		srw
+	)
 	ds <- c(
 		d_ellipse(xc, ych - d6yf * ch, 0.5 * cw + c(0, -srw), d6yf * ch + c(0, -srw)), # loop
 		d_fslash(ych - d6yf * ch - srw, xcw - d9so, vg + srw, xc - 0.5 * srw, srw), # lower stroke
-		d_rect(xc, vg + 0.5 * srw, 3 * srw, srw)
-	) # b serif
+		d_rect2(vg + srw, xc + d9stw + 0.5 * srw, vg, xc - 0.5 * srw - srw) # b serif
+	)
 	write_svg(ds, "0039")
 	# 1ccf9 mathematical outline digit nine (derived via OUTLINE_FROM_TO)
 	#### 1d7d7 mathematical bold digit nine
@@ -1679,16 +1743,17 @@ create_basic_latin <- function(font = "square") {
 			"218b",
 			"f590"
 		)),
-		if (font == "square") {
-			c(
-				as.hexmode("24ea"),
-				as.hexmode("2460"):as.hexmode("2468"),
-				as.hexmode("24ff"),
-				as.hexmode("2776"):as.hexmode("277e")
-			)
-		},
-		as.hexmode(c("1d7ce"))
-		# as.hexmode("1d7ce"):as.hexmode("1d7d7"), # mathematical bold (avec-serif) digits
+		# if (font == "square") {
+		# 	c(
+		# 		as.hexmode("24ea"),
+		# 		as.hexmode("2460"):as.hexmode("2468"),
+		# 		as.hexmode("24ff"),
+		# 		as.hexmode("2776"):as.hexmode("277e")
+		# 	)
+		# },
+		c(as.hexmode("1d7ce"):as.hexmode("1d7cf")),
+		as.hexmode(c("1d7d2", "1d7d3", "1d7d5", "1d7d6"))
+		# as.hexmode("1d7da"):as.hexmode("1d7d7"), # mathematical bold (avec-serif) digits
 	) |>
 		as_hex()
 }

@@ -168,6 +168,12 @@ make_table("260", "26A")
 make_table("2B1", "2B2")
 %% end.rcode
 
+\section{Symbols for Legacy Computing Supplement}
+
+%% begin.rcode symbols_for_legacy_computing_supplement, echo=FALSE, results='asis'
+make_table("1CCD", "1CCF")
+%% end.rcode
+
 \section{Chess Symbols}
 
 Note the normal white/black chess symbols are in \hyperref[sec:miscellaneous-symbols]{Miscellaneous Symbols}.

@@ -44,7 +44,7 @@ write_svg <- function(
 as_hex <- function(x) as.hexmode(x) |> as.character() |> tolower()
 as_int <- function(x) as.hexmode(x) |> as.integer()
 
-# Some codepoint integers to jump to in Font Forge with <CTRL>-<SHIFT>-E
+# Some codepoint integers to jump to in Font Forge with <CTRL>-<SHIFT>->
 # Box Drawing            9472
 # Geometric Shapes       9632
 # PUA                   62895
@@ -120,7 +120,6 @@ dotaro_stroke_width_short <- function(font = c("square", "narrow")) {
 	font <- match.arg(font)
 	0.5 * dotaro_stroke_width(font)
 }
-
 
 dotaro_terminal_radius <- function(font = c("square", "narrow")) {
 	font <- match.arg(font)

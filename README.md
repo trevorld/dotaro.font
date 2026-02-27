@@ -65,27 +65,30 @@ The main goal is to create a couple of fonts with bespoke glyphs to use in my [D
 Current [Unicode block](https://en.wikipedia.org/wiki/Unicode_block) coverage (excluding control codes):
 
 
-|Block                            | Dotaro Narrow| Dotaro Square| Total in Block|
-|:--------------------------------|-------------:|-------------:|--------------:|
-|Basic Latin                      |            95|            95|             95|
-|Block Elements                   |            29|            29|             32|
-|Box Drawing                      |           113|           113|            128|
-|Chess Symbols                    |            12|            36|            112|
-|Currency Symbols                 |            11|            11|             48|
-|Dingbats                         |            10|            10|            192|
-|General Punctuation              |             5|             5|            112|
-|Geometric Shapes                 |            26|            26|             96|
-|IPA Extensions                   |             1|             1|             96|
-|Latin Extended-A                 |             1|             1|            128|
-|Latin Extended-B                 |             2|             2|            208|
-|Latin-1 Supplement               |            18|            18|             94|
-|Mathematical Operators           |             4|             4|            256|
-|Miscellaneous Symbols            |            24|            24|            256|
-|Miscellaneous Symbols and Arrows |             5|             5|            256|
-|Number Forms                     |             1|             1|             64|
-|Private Use Area                 |             2|             2|           6400|
-|Spacing Modifier Letters         |             1|             1|             80|
-|Thai                             |             1|             1|            128|
+|Block                                   | Dotaro Narrow| Dotaro Square| Total in Block|
+|:---------------------------------------|-------------:|-------------:|--------------:|
+|Basic Latin                             |            95|            95|             95|
+|Block Elements                          |            29|            29|             32|
+|Box Drawing                             |           113|           113|            128|
+|Chess Symbols                           |            12|            36|            112|
+|Currency Symbols                        |            11|            11|             48|
+|Dingbats                                |            10|            19|            192|
+|Enclosed Alphanumerics                  |             0|            11|            160|
+|General Punctuation                     |             5|             5|            112|
+|Geometric Shapes                        |            26|            26|             96|
+|IPA Extensions                          |             1|             1|             96|
+|Latin Extended-A                        |             1|             1|            128|
+|Latin Extended-B                        |             2|             2|            208|
+|Latin-1 Supplement                      |            18|            18|             94|
+|Mathematical Alphanumeric Symbols       |             2|             2|           1024|
+|Mathematical Operators                  |             4|             4|            256|
+|Miscellaneous Symbols                   |            24|            24|            256|
+|Miscellaneous Symbols and Arrows        |             5|             5|            256|
+|Number Forms                            |             1|             1|             64|
+|Private Use Area                        |             2|             2|           6400|
+|Spacing Modifier Letters                |             1|             1|             80|
+|Symbols for Legacy Computing Supplement |            36|            36|            704|
+|Thai                                    |             1|             1|            128|
 
 ## <a name="license">License</a>
 

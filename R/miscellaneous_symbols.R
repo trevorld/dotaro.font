@@ -96,6 +96,7 @@ create_miscellaneous_symbols <- function(font = "square") {
 	c2 <- d_circle(x = xc, y = h - vg - rt, r = rt)
 	c3 <- d_circle(x = w - hg - r, y = ycl, r = r)
 	write_svg(c(base, l2, c1, c2, c3), "2663")
+	# 2667 white club suit (derived via OUTLINE_FROM_TO)
 
 	# 2660 Black Spade Suit
 	hr <- cw / 4
@@ -113,6 +114,7 @@ create_miscellaneous_symbols <- function(font = "square") {
 		Q(w - hg, ych - 0.56 * ch, xc + 2 * hr, vg + vr + bso) +
 		AZ(hr, vr, 0, 0, 0, xc, vg + vr + bso)
 	write_svg(c(base, d), "2660")
+	# 2664 white spade suit (derived via OUTLINE_FROM_TO)
 
 	# 2665 Black Heart Suit
 	hr <- cw / 4
@@ -123,6 +125,7 @@ create_miscellaneous_symbols <- function(font = "square") {
 		Q(hg, vg + 0.56 * ch, xc - 2 * hr, h - vg - vr) +
 		AZ(hr, vr, 0, 0, 0, xc, h - vg - vr)
 	write_svg(d, "2665")
+	# 2661 white heart suit (derived via OUTLINE_FROM_TO)
 
 	# 2666 Black Diamond Suit
 	x <- c(xc, w - hg, xc, hg)
@@ -157,9 +160,13 @@ create_miscellaneous_symbols <- function(font = "square") {
 		AZ(srw, yc + 2 * srw - vg, x = xcw - srw, y = vg)
 	write_svg(d, "265a")
 
-	#### 2654 white chess king
-	#### 1fa1e white chess turned king
-	#### 1fa24 black chess turned king
+	# 2654 white chess king (derived via OUTLINE_FROM_TO)
+	# 1fa09 white chess king rotated 90 degrees (derived via RIGHT_FROM_TO)
+	# 1fa1e white chess turned king (derived via TURNED_FROM_TO)
+	# 1fa33 white chess king rotated 270 degrees (derived via LEFT_FROM_TO)
+	# 1fa0f black chess king rotated 90 degrees (derived via RIGHT_FROM_TO)
+	# 1fa24 black chess turned king (derived via TURNED_FROM_TO)
+	# 1fa39 black chess king rotated 270 degrees (derived via LEFT_FROM_TO)
 
 	# 265b black chess queen
 	rcq <- 0
@@ -179,6 +186,10 @@ create_miscellaneous_symbols <- function(font = "square") {
 	# 1fa25 black chess turned queen
 	ds <- d_polygon(x, y, origin_at_bottom = FALSE)
 	write_svg(ds, "1fa25")
+	# 1fa0a white chess queen rotated 90 degrees (derived via RIGHT_FROM_TO)
+	# 1fa34 white chess queen rotated 270 degrees (derived via LEFT_FROM_TO)
+	# 1fa10 black chess queen rotated 90 degrees (derived via RIGHT_FROM_TO)
+	# 1fa3a black chess queen rotated 270 degrees (derived via LEFT_FROM_TO)
 
 	# 265c black chess rook
 	if (font == "narrow") {
@@ -223,15 +234,19 @@ create_miscellaneous_symbols <- function(font = "square") {
 		d_polygon(x, y) # roof of tower
 	)
 	write_svg(ds, "265c")
-	# 2656 white chess rook
+	# 2656 white chess rook (derived via OUTLINE_FROM_TO)
 	# ds <- c(
 	# 	d_rect2(ybt, xcw, vg, hg, offset = c(0, -ow)),
 	# 	d_rect2(ytb2, xcw - srw, ybt + 2, hg + srw, offset = c(0, -ow)),
 	# 	d_polygon(x, y, offset = c(0, -ow))
 	# )
 	# write_svg(ds, "2656")
-	# 1fa20 white chess turned rook
-	# 1fa26 black chess turned rook
+	# 1fa0b white chess rook rotated 90 degrees (derived via RIGHT_FROM_TO)
+	# 1fa20 white chess turned rook (derived via TURNED_FROM_TO)
+	# 1fa35 white chess rook rotated 270 degrees (derived via LEFT_FROM_TO)
+	# 1fa11 black chess rook rotated 90 degrees (derived via RIGHT_FROM_TO)
+	# 1fa26 black chess turned rook (derived via TURNED_FROM_TO)
+	# 1fa3b black chess rook rotated 270 degrees (derived via LEFT_FROM_TO)
 
 	# 265d black chess bishop
 	ybt <- 0.32 * (vg + ych)
@@ -293,9 +308,13 @@ create_miscellaneous_symbols <- function(font = "square") {
 		QZ(xcw, yc1, w - xbb, vg) # lr curve
 	ds <- c(d_bshp)
 	write_svg(ds, "265d")
-	# 2657 white chess bishop
-	# 1fa21 white chess turned bishop
-	# 1fa27 black chess turned bishop
+	# 2657 white chess bishop (derived via OUTLINE_FROM_TO)
+	# 1fa0c white chess bishop rotated 90 degrees (derived via RIGHT_FROM_TO)
+	# 1fa21 white chess turned bishop (derived via TURNED_FROM_TO)
+	# 1fa36 white chess bishop rotated 270 degrees (derived via LEFT_FROM_TO)
+	# 1fa12 black chess bishop rotated 90 degrees (derived via RIGHT_FROM_TO)
+	# 1fa27 black chess turned bishop (derived via TURNED_FROM_TO)
+	# 1fa3c black chess bishop rotated 270 degrees (derived via LEFT_FROM_TO)
 
 	# 265e black chess knight
 	ysb <- vg + 0.08 * ch
@@ -348,8 +367,12 @@ create_miscellaneous_symbols <- function(font = "square") {
 		d_nostril_right
 	write_svg(d, "2658")
 
-	# 1fa22 white chess turned knight
-	# 1fa28 black chess turned knight
+	# 1fa22 white chess turned knight (derived via TURNED_FROM_TO)
+	# 1fa0d white chess knight rotated 90 degrees (derived via RIGHT_FROM_TO)
+	# 1fa37 white chess knight rotated 270 degrees (derived via LEFT_FROM_TO)
+	# 1fa13 black chess knight rotated 90 degrees (derived via RIGHT_FROM_TO)
+	# 1fa28 black chess turned knight (derived via TURNED_FROM_TO)
+	# 1fa3d black chess knight rotated 270 degrees (derived via LEFT_FROM_TO)
 
 	# 265f black chess pawn
 	ybt <- vg + 0.20 * ch
@@ -363,9 +386,13 @@ create_miscellaneous_symbols <- function(font = "square") {
 	ds <- c(d_rect2(ybt, xcw, vg, hg), d_circle(xc, ych - ytr, ytr), d_p)
 	write_svg(ds, "265f")
 
-	# 2659 white chess pawn
-	# 1fa23 white chess turned pawn
-	# 1fa29 black chess turned pawn
+	# 2659 white chess pawn (derived via OUTLINE_FROM_TO)
+	# 1fa0e white chess pawn rotated 90 degrees (derived via RIGHT_FROM_TO)
+	# 1fa23 white chess turned pawn (derived via TURNED_FROM_TO)
+	# 1fa38 white chess pawn rotated 270 degrees (derived via LEFT_FROM_TO)
+	# 1fa14 black chess pawn rotated 90 degrees (derived via RIGHT_FROM_TO)
+	# 1fa29 black chess turned pawn (derived via TURNED_FROM_TO)
+	# 1fa3e black chess pawn rotated 270 degrees (derived via LEFT_FROM_TO)
 
 	#### More chess glyphs in Unicode...
 	# https://en.wikipedia.org/wiki/Chess_symbols_in_Unicode

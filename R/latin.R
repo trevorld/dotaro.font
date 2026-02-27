@@ -202,21 +202,42 @@ create_basic_latin <- function(font = "square") {
 		TZ(hg + 0.25 * cw, yc + ry - srw)
 	write_svg(c(ds, d_middle), "007e")
 
-	# 0030 digit 0
+	# 0030 digit zero
 	ds <- c(
 		d_ellipse(x = xc, y = yc, rx = xc - c(hg, hg + srw), ry = yc - c(vg, vg + srw)), # loop
 		d_rect(x = xc, y = yc, w = srw, h = 0.6 * yc) # inside "dot/slash"
 	)
 	write_svg(ds, "0030")
-	# 0031 digit 1
+	# 1ccf0 mathematical outline digit zero (derived via OUTLINE_FROM_TO)
+
+	# 1d7ce mathematical bold digit zero
+	# Bottom y coordinate on the border of an ellipse centered at (cx, cy) given x
+	ellipse_y_bottom <- function(x, cx = xc, cy = yc, rx = 0.5 * cw, ry = 0.5 * ch) {
+		cy - ry * sqrt(pmax(0, 1 - ((x - cx) / rx)^2))
+	}
+	xbd0 <- xc + 0.1 * cw
+	ybd0 <- ellipse_y_bottom(xbd0)
+	ds <- c(
+		d_ellipse(xc, yc, 0.5 * cw + c(0, -2), 0.5 * ch + c(0, -2)),
+		M(xbd0, h - ybd0) + AZ(0.5 * cw, 0.5 * ch, x = xbd0, y = ybd0),
+		M(w - xbd0, ybd0) + AZ(0.5 * cw, 0.5 * ch, x = w - xbd0, y = h - ybd0)
+	)
+	write_svg(ds, "1d7ce")
+	# 1d7d8 mathematical double-struck digit zero (derived via OUTLINE_FROM_TO)
+
+	# 0031 digit one
 	ds <- c(
 		d_rect(x = xc, y = yc, w = srw, h = h - 2 * vg - 2 * srw), # stem,
 		d_rect2(ych, xc + 0.5 * srw, ych - srw, xc - 1.5 * srw), # t serif,
 		d_rect2(vg + srw, xc + 1.5 * srw, vg, xc - 1.5 * srw)
 	) # b serif
 	write_svg(ds, "0031")
+	# 1ccf1 mathematical outline digit one (derived via OUTLINE_FROM_TO)
+	#### 1d7cf mathematical bold digit one
+	# write_svg(???, "1d7cf")
+	# 1d7d9 mathematical double-struck digit one (derived via OUTLINE_FROM_TO)
 
-	# 0032 digit 2
+	# 0032 digit two
 	d2ry <- 0.30 * ch
 	# multiplier for the quadratic bezier curve
 	if (font == "narrow") {
@@ -238,10 +259,14 @@ create_basic_latin <- function(font = "square") {
 		d_rect2(vg + 2 * srw, xcw, vg + srw, xcw - srw)
 	) # lr serif
 	write_svg(ds, "0032")
+	# 1ccf2 mathematical outline digit two (derived via OUTLINE_FROM_TO)
+	#### 1d7d0 mathematical bold digit two
+	# write_svg(???, "1d7d0")
+	# 1d7da mathematical double-struck digit two (derived via OUTLINE_FROM_TO)
 
-	#### 218a turned digit 2
+	#### 218a turned digit two
 
-	# 0033 digit 3
+	# 0033 digit three
 	if (font == "narrow") {
 		d3o <- 0.6 * srw
 	} else {
@@ -255,8 +280,12 @@ create_basic_latin <- function(font = "square") {
 		d_arc3(vg + 3 * srw, xc, vg, hg, srw)
 	) # b curve 2
 	write_svg(ds, "0033")
+	# 1ccf3 mathematical outline digit three (derived via OUTLINE_FROM_TO)
+	#### 1d7d1 mathematical bold digit three
+	# write_svg(???, "1d7d1")
+	# 1d7db mathematical double-struck digit three (derived via OUTLINE_FROM_TO)
 
-	# 218b turned digit 3
+	# 218b turned digit three
 	ds <- c(
 		d_rect2(vg + srw + srw, xcw - srw, vg, xcw), # lr serif
 		d_rect2(vg + srw, xcw - srw, vg, hg), # bar
@@ -267,7 +296,7 @@ create_basic_latin <- function(font = "square") {
 	) # ball
 	write_svg(ds, "218b")
 
-	# 0034 digit 4
+	# 0034 digit four
 	yd4b <- yc - 1.0 * srw
 	ds <- c(
 		d_rect2(yd4b + 1 * srw, xcw - srw, vg + srw, xcw - srw - srw), # stem
@@ -276,8 +305,12 @@ create_basic_latin <- function(font = "square") {
 		d_fslash(ych, xcw - srw, yd4b, hg, srw, left = "horizontal", right = "vertical")
 	) # stroke
 	write_svg(ds, "0034")
+	# 1ccf4 mathematical outline digit four (derived via OUTLINE_FROM_TO)
+	#### 1d7d2 mathematical bold digit four
+	# write_svg(???, "1d7d2")
+	# 1d7dc mathematical double-struck digit four (derived via OUTLINE_FROM_TO)
 
-	# 0035 digit 5
+	# 0035 digit five
 	ds <- c(
 		d_rect2(ych, xcw, ych - 2 * srw, xcw - srw), # ur serif
 		d_rect2(ych, xcw - srw, ych - srw, hg + 0.5 * srw), # bar
@@ -287,8 +320,12 @@ create_basic_latin <- function(font = "square") {
 		d_arc3(0.5 * (vg + yc + 1.0 * srw), xc, vg, hg, srw)
 	) # curve 3
 	write_svg(ds, "0035")
+	# 1ccf5 mathematical outline digit five (derived via OUTLINE_FROM_TO)
+	#### 1d7d3 mathematical bold digit five
+	# write_svg(???, "1d7d3")
+	# 1d7dd mathematical double-struck digit five (derived via OUTLINE_FROM_TO)
 
-	# 0036 digit 6
+	# 0036 digit six
 	d6yf <- 0.3
 	ds <- c(
 		d_ellipse(xc, vg + d6yf * ch, 0.5 * cw + c(0, -srw), d6yf * ch + c(0, -srw)), # loop
@@ -296,8 +333,12 @@ create_basic_latin <- function(font = "square") {
 		d_circle(xcw - rp, ych - rp, rp)
 	) # ball
 	write_svg(ds, "0036")
+	# 1ccf6 mathematical outline digit six (derived via OUTLINE_FROM_TO)
+	#### 1d7d4 mathematical bold digit six
+	# write_svg(???, "1d7d4")
+	# 1d7de mathematical double-struck digit six (derived via OUTLINE_FROM_TO)
 
-	# 0037 digit 7
+	# 0037 digit seven
 	ds <- c(
 		d_rect2(ych, hg + srw, ych - srw - srw, hg), # ul serif
 		d_rect2(ych, xcw, ych - srw, hg + srw), # bar
@@ -305,7 +346,12 @@ create_basic_latin <- function(font = "square") {
 		d_rect2(vg + srw, xc + 0.5 * srw + srw, vg, xc - 0.5 * srw - srw) # b serif
 	)
 	write_svg(ds, "0037")
-	# 0038 digit 8
+	# 1ccf7 mathematical outline digit seven (derived via OUTLINE_FROM_TO)
+	#### 1d7d5 mathematical bold digit seven
+	# write_svg(???, "1d7d5")
+	# 1d7df mathematical double-struck digit seven (derived via OUTLINE_FROM_TO)
+
+	# 0038 digit eight
 	ov8 <- 50 # overlap amount
 	ds <- c(
 		d_ellipse(
@@ -322,7 +368,12 @@ create_basic_latin <- function(font = "square") {
 		) # bottom
 	)
 	write_svg(ds, "0038")
-	# 0039 digit 9
+	# 1ccf8 mathematical outline digit eight (derived via OUTLINE_FROM_TO)
+	#### 1d7d6 mathematical bold digit eight
+	# write_svg(???, "1d7d6")
+	# 1d7e0 mathematical double-struck digit eight (derived via OUTLINE_FROM_TO)
+
+	# 0039 digit nine
 	d6yf <- 0.3
 	d9so <- srw / 3
 	ds <- c(
@@ -331,6 +382,10 @@ create_basic_latin <- function(font = "square") {
 		d_rect(xc, vg + 0.5 * srw, 3 * srw, srw)
 	) # b serif
 	write_svg(ds, "0039")
+	# 1ccf9 mathematical outline digit nine (derived via OUTLINE_FROM_TO)
+	#### 1d7d7 mathematical bold digit nine
+	# write_svg(???, "1d7d7")
+	# 1d7e1 mathematical double-struck digit nine (derived via OUTLINE_FROM_TO)
 
 	# number ten (private use area since doesn't exist in Unicode)
 	# PUA f590 (for now)
@@ -375,6 +430,7 @@ create_basic_latin <- function(font = "square") {
 		d_rect2(yca + 0.5 * srw, 0.7 * w, yca - 0.5 * srw, 0.3 * w) # crossbar
 	)
 	write_svg(ds, "0041")
+	# 1ccd6 outlined latin capital letter a (derived via OUTLINE_FROM_TO)
 
 	# 20b3 austral sign
 	ds <- c(
@@ -394,6 +450,7 @@ create_basic_latin <- function(font = "square") {
 		d_arc41(yc + 0.5 * srw, xcw, vg, xc, srw)
 	) # b bowl
 	write_svg(d_lclb, "0042")
+	# 1ccd7 outlined latin capital letter b (derived via OUTLINE_FROM_TO)
 
 	# 0e3f thai currency symbol baht
 	ds <- c(
@@ -432,6 +489,7 @@ create_basic_latin <- function(font = "square") {
 		d_arc4(vg + Cvo, xcw, vg, xc, srw)
 	) # lr curve
 	write_svg(d_clc, "0043")
+	# 1ccd8 outlined latin capital letter c (derived via OUTLINE_FROM_TO)
 
 	# 20b5 cedi sign
 	ds <- c(d_clc, d_rect(xc, yc, srw, ch + 2 * srw))
@@ -468,6 +526,7 @@ create_basic_latin <- function(font = "square") {
 		d_arc41(ych, xcw, vg, xc, srw)
 	) # bowl
 	write_svg(ds, "0044")
+	# 1ccd9 outlined latin capital letter d (derived via OUTLINE_FROM_TO)
 
 	# 0045 latin capital letter e
 	ds <- c(
@@ -479,6 +538,7 @@ create_basic_latin <- function(font = "square") {
 		d_rect2(vg + srw + srw, xcw, vg, xcw - srw)
 	) # lr serif
 	write_svg(ds, "0045")
+	# 1ccda outlined latin capital letter e (derived via OUTLINE_FROM_TO)
 
 	# 0046 latin capital letter f
 	ds <- c(
@@ -489,6 +549,7 @@ create_basic_latin <- function(font = "square") {
 		d_rect2(ych, xcw, ych - srw - srw, xcw - srw)
 	) # t serif
 	write_svg(ds, "0046")
+	# 1ccdb outlined latin capital letter f (derived via OUTLINE_FROM_TO)
 
 	# 20a3 french franc sign
 	ds <- c(
@@ -512,6 +573,7 @@ create_basic_latin <- function(font = "square") {
 		d_rect2(vg + Cvo + 2 * srw, xcw, vg + Cvo + srw, xcw - ghw)
 	) # hook 2
 	write_svg(d_clg, "0047")
+	# 1ccdc outlined latin capital letter g (derived via OUTLINE_FROM_TO)
 
 	# 20b2 guarani sign
 	if (font == "narrow") {
@@ -541,6 +603,7 @@ create_basic_latin <- function(font = "square") {
 		d_rect2(ych, xcw, ych - srw, xcw - srw - 2 * srw2)
 	) # ur serif
 	write_svg(ds, "0048")
+	# 1ccdd outlined latin capital letter h (derived via OUTLINE_FROM_TO)
 
 	# 0049 latin capital letter i
 	ds <- c(
@@ -549,6 +612,7 @@ create_basic_latin <- function(font = "square") {
 		d_rect2(vg + srw, xc + 0.5 * srw + srw, vg, xc - 0.5 * srw - srw)
 	) # b serif
 	write_svg(ds, "0049")
+	# 1ccde outlined latin capital letter i (derived via OUTLINE_FROM_TO)
 
 	# 004a latin capital letter j
 	ds <- c(
@@ -557,6 +621,7 @@ create_basic_latin <- function(font = "square") {
 		d_arc34(0.4 * h, xcw - srw, vg, hg, srw)
 	) # hook
 	write_svg(ds, "004a")
+	# 1ccdf outlined latin capital letter j (derived via OUTLINE_FROM_TO)
 
 	# 004b latin capital letter k
 	Ksw <- width_slash_right(
@@ -592,6 +657,7 @@ create_basic_latin <- function(font = "square") {
 		d_rect2(vg + srw, xcw, vg, xcw - Ksw - 2 * srw2)
 	) # lr serif
 	write_svg(d_clk, "004b")
+	# 1cce0 outlined latin capital letter k (derived via OUTLINE_FROM_TO)
 
 	# 20ad kip sign
 	if (font == "narrow") {
@@ -610,6 +676,7 @@ create_basic_latin <- function(font = "square") {
 		d_rect2(vg + srw, xcw, vg, hg)
 	) # bar
 	write_svg(ds, "004c")
+	# 1cce1 outlined latin capital letter l (derived via OUTLINE_FROM_TO)
 
 	# 004d latin capital letter m
 	ds <- c(
@@ -623,6 +690,7 @@ create_basic_latin <- function(font = "square") {
 		d_rect2(vg + srw, xcw, vg, xcw - 2 * srw2 - srw)
 	) # lr serif
 	write_svg(ds, "004d")
+	# 1cce2 outlined latin capital letter m (derived via OUTLINE_FROM_TO)
 
 	# 004e latin capital letter n
 	d_cln <- c(
@@ -634,6 +702,7 @@ create_basic_latin <- function(font = "square") {
 		d_rect2(vg + srw, hg + 2 * srw + srw, vg, hg)
 	) # ll serif
 	write_svg(d_cln, "004e")
+	# 1cce3 outlined latin capital letter n (derived via OUTLINE_FROM_TO)
 
 	# 20a6 naira sign
 	if (font == "square") {
@@ -647,6 +716,7 @@ create_basic_latin <- function(font = "square") {
 	# 004f latin capital letter o
 	d <- d_ellipse(xc, yc, 0.5 * cw - c(0, srw), 0.5 * ch - c(0, srw))
 	write_svg(d, "004f")
+	# 1cce4 outlined latin capital letter o (derived via OUTLINE_FROM_TO)
 
 	# 0050 latin capital letter p
 	ds <- c(
@@ -657,6 +727,7 @@ create_basic_latin <- function(font = "square") {
 		d_arc41(ych, xcw, yc - 0.5 * srw, xc, srw)
 	) # bowl
 	write_svg(ds, "0050")
+	# 1cce5 outlined latin capital letter p (derived via OUTLINE_FROM_TO)
 
 	# 20b1 peso sign
 	ds <- c(
@@ -678,6 +749,7 @@ create_basic_latin <- function(font = "square") {
 		d_arc3(0.5 * (vg + ylclq), xcw, vg, xc - 0.5 * srw, srw)
 	)
 	write_svg(ds, "0051")
+	# 1cce6 outlined latin capital letter q (derived via OUTLINE_FROM_TO)
 
 	# 0052 latin capital letter r
 	ds <- c(
@@ -690,6 +762,7 @@ create_basic_latin <- function(font = "square") {
 		d_arc41(ych, xcw, yc - 0.5 * srw, xc, srw)
 	) # bowl
 	write_svg(ds, "0052")
+	# 1cce7 outlined latin capital letter r (derived via OUTLINE_FROM_TO)
 
 	# 0053 latin capital letter s
 	d_lcls <- c(
@@ -700,6 +773,7 @@ create_basic_latin <- function(font = "square") {
 		d_arc3(vg + Cvo, xc, vg, hg, srw)
 	) # lr curve
 	write_svg(d_lcls, "0053")
+	# 1cce8 outlined latin capital letter s (derived via OUTLINE_FROM_TO)
 
 	# 0024 dollar sign
 	ds <- c(d_lcls, d_rect(xc, yc, srw, h - 2 * vg + 2 * srw))
@@ -717,6 +791,7 @@ create_basic_latin <- function(font = "square") {
 		d_rect2(vg + srw, xc + 1.5 * srw, vg, xc - 1.5 * srw)
 	) # b serif
 	write_svg(ds, "0054")
+	# 1cce9 outlined latin capital letter t (derived via OUTLINE_FROM_TO)
 
 	#### 20ae tugrik sign
 	#### 20b8 tenge sign
@@ -731,6 +806,7 @@ create_basic_latin <- function(font = "square") {
 		d_rect2(ych, xcw, ych - srw, xcw - srw - 2 * srw2)
 	) # r serif
 	write_svg(ds, "0055")
+	# 1ccea outlined latin capital letter u (derived via OUTLINE_FROM_TO)
 
 	# 0056 latin capital letter v
 	Vsw <- width_slash_left(
@@ -747,6 +823,7 @@ create_basic_latin <- function(font = "square") {
 		d_rect2(ych, xcw, ych - srw, xcw - 2 * srw2 - Vsw)
 	) # r serif
 	write_svg(ds, "0056")
+	# 1cceb outlined latin capital letter v (derived via OUTLINE_FROM_TO)
 
 	# 0057 latin capital letter w
 	wstw <- width_slash_left(
@@ -802,6 +879,7 @@ create_basic_latin <- function(font = "square") {
 		d_rect2(ych, xcw, ych - srw, xcw - 2 * srw2 - wstw)
 	) # r serif
 	write_svg(d_clw, "0057")
+	# 1ccec outlined latin capital letter w (derived via OUTLINE_FROM_TO)
 
 	# 20a9 won sign
 	ds <- c(d_clw, d_rect(x = xc, y = yc + 1.5 * srw, w = cw, h = srw))
@@ -822,6 +900,7 @@ create_basic_latin <- function(font = "square") {
 		d_rect2(vg + srw, xcw, vg, xcw - 2 * srw2 - Xsw)
 	) # br serif
 	write_svg(ds, "0058")
+	# 1cced outlined latin capital letter x (derived via OUTLINE_FROM_TO)
 
 	# 0059 latin capital letter y
 	Ysw <- width_slash_left(
@@ -840,6 +919,7 @@ create_basic_latin <- function(font = "square") {
 		d_rect2(vg + srw, xc + 1.5 * srw, vg, xc - 1.5 * srw)
 	) # b serif
 	write_svg(d_lcly, "0059")
+	# 1ccee outlined latin capital letter y (derived via OUTLINE_FROM_TO)
 
 	# 00a5 yen sign
 	ds <- c(
@@ -858,6 +938,7 @@ create_basic_latin <- function(font = "square") {
 		d_rect2(ych, hg + srw, ych - 2 * srw, hg)
 	) # t serif
 	write_svg(ds, "005a")
+	# 1ccef outlined latin capital letter z (derived via OUTLINE_FROM_TO)
 
 	# 0061 latin small letter a
 	xl_ds <- xcw - rt - srw
@@ -1515,7 +1596,7 @@ create_basic_latin <- function(font = "square") {
 	write_svg(ds, "00a4")
 
 	if (font == "square") {
-		d_circ_white <- d_ellipse(xc, yc, 0.5 * cw, 0.5 * ch, offset = c(0, -ow))
+		d_circ_white <- d_circle(xc, yc, 0.5 * c(cw, cw - ow))
 		#### 24ea circled digit zero
 		write_svg(d_circ_white, "24ea")
 		#### 2460 circled digit one
@@ -1559,48 +1640,6 @@ create_basic_latin <- function(font = "square") {
 		#### 277e dingbat negative circled digit nine
 		write_svg(d_circ_black, "277e")
 	}
-
-	#### 1d7ce mathematical bold digit zero
-	# write_svg(???, "1d7ce")
-	#### 1d7cf mathematical bold digit one
-	# write_svg(???, "1d7cf")
-	#### 1d7d0 mathematical bold digit two
-	# write_svg(???, "1d7d0")
-	#### 1d7d1 mathematical bold digit three
-	# write_svg(???, "1d7d1")
-	#### 1d7d2 mathematical bold digit four
-	# write_svg(???, "1d7d2")
-	#### 1d7d3 mathematical bold digit five
-	# write_svg(???, "1d7d3")
-	#### 1d7d4 mathematical bold digit six
-	# write_svg(???, "1d7d4")
-	#### 1d7d5 mathematical bold digit seven
-	# write_svg(???, "1d7d5")
-	#### 1d7d6 mathematical bold digit eight
-	# write_svg(???, "1d7d6")
-	#### 1d7d7 mathematical bold digit nine
-	# write_svg(???, "1d7d7")
-
-	#### 1d7d8 mathematical double-struck digit zero
-	# write_svg(???, "1d7d8")
-	#### 1d7d9 mathematical double-struck digit one
-	# write_svg(???, "1d7d9")
-	#### 1d7da mathematical double-struck digit two
-	# write_svg(???, "1d7da")
-	#### 1d7db mathematical double-struck digit three
-	# write_svg(???, "1d7db")
-	#### 1d7dc mathematical double-struck digit four
-	# write_svg(???, "1d7dc")
-	#### 1d7dd mathematical double-struck digit five
-	# write_svg(???, "1d7dd")
-	#### 1d7de mathematical double-struck digit six
-	# write_svg(???, "1d7de")
-	#### 1d7df mathematical double-struck digit seven
-	# write_svg(???, "1d7df")
-	#### 1d7e0 mathematical double-struck digit eight
-	# write_svg(???, "1d7e0")
-	#### 1d7e1 mathematical double-struck digit nine
-	# write_svg(???, "1d7e1")
 
 	c(
 		as.hexmode("0021"):as.hexmode("007e"),
@@ -1648,8 +1687,8 @@ create_basic_latin <- function(font = "square") {
 				as.hexmode("2776"):as.hexmode("277e")
 			)
 		},
+		as.hexmode(c("1d7ce"))
 		# as.hexmode("1d7ce"):as.hexmode("1d7d7"), # mathematical bold (avec-serif) digits
-		# as.hexmode("1d7d8"):as.hexmode("1d7e1"), # mathematical double-struck digits
 	) |>
 		as_hex()
 }

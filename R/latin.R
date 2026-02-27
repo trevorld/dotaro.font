@@ -453,21 +453,11 @@ create_basic_latin <- function(font = "square") {
 
 	# number ten (private use area since doesn't exist in Unicode)
 	# PUA f590 (for now)
-	if (font == "narrow") {
-		ten_rx <- 0.5 * (w - 2 * hg - 1.75 * srw)
-		ds <- c(
-			d_rect2(ych, hg + srw, vg, hg), # one
-			d_ellipse(xcw - ten_rx, yc, ten_rx + c(0, -srw), 0.5 * ch + c(0, -srw))
-		)
-	} else {
-		ten_rx <- 0.5 * (w - 2 * hg - 1.75 * srw - 2 * srw)
-		ds <- c(
-			d_rect2(ych, hg + srw + srw, vg + srw, hg + srw), # 1 stem
-			d_rect2(ych, hg + srw, ych - srw, hg), # 1 t serif
-			d_rect2(vg + srw, hg + 2 * srw + srw, vg, hg), # 1 b serif
-			d_ellipse(xcw - ten_rx, yc, ten_rx + c(0, -srw), 0.5 * ch + c(0, -srw))
-		)
-	}
+	ten_rx <- 0.5 * (w - 2 * hg - 2.00 * srw)
+	ds <- c(
+		d_rect2(ych, hg + srw, vg, hg), # one
+		d_ellipse(xcw - ten_rx, yc, ten_rx + c(0, -srw), 0.5 * ch + c(0, -srw))
+	)
 	write_svg(ds, "f590")
 
 	# 0041 latin capital letter a

@@ -203,8 +203,12 @@ make_table("272", "277")
 
 \section{Private Use Area}
 
-%% begin.rcode pua_font, echo=FALSE, results='asis'
+%% begin.rcode pua_misc, echo=FALSE, results='asis'
 make_table("F59", "F5B")
+%% end.rcode
+
+%% begin.rcode pua_meeple, echo=FALSE, results='asis'
+make_table("FC43", "FC43")
 %% end.rcode
 
 % \section{Supplementary Private Use Area-A: Box Drawing Domino Suits}

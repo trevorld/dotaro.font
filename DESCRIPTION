@@ -9,22 +9,23 @@ URL: https://github.com/trevorld/dotaro.font, https://trevorldavis.com/R/dotaro.
 BugReports: https://github.com/trevorld/dotaro.font/issues
 Description: Utilities to generate 'Dotaro' fonts.
 Depends:
-    R (>= 4.2)
+	R (>= 4.2)
 Imports:
-    affiner (>= 0.2.0-3),
-    dee (>= 0.1.0-23),
-    glue,
-    grid,
-    omsvg,
-    rlang,
-    reticulate,
-    tools,
+	affiner (>= 0.2.0-3),
+	dee (>= 0.1.0-23),
+	glue,
+	grid,
+	omsvg,
+	rlang,
+	reticulate,
+	tools,
 	utils
 Suggests:
-    knitr,
-    svgparser,
-    Unicode,
-    testthat
+	knitr,
+	piecepackr,
+	svgparser,
+	Unicode,
+	testthat
 Remotes: trevorld/affiner, trevorld/dee, coolbutuseless/svgparser
 License: MIT + file LICENSE
 Roxygen: list(markdown = TRUE)

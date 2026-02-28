@@ -1660,21 +1660,20 @@ create_basic_latin <- function(font = "square") {
 		)
 		write_svg(c(d_circ_white, d_cd0), "24ea")
 		# 24ff negative circled digit zero
-		write_svg(c(d_circ_black, d_cd0), "24ff")
+		write_svg(c(d_circ_black + d_cd0), "24ff")
 		# 2460 circled digit one
-		d_cd1 <- c(
-			d_rect(x = xc, y = yc, w = srw, h = cdw - 2 * srw), # stem
-			d_rect2(yc + 0.5 * cdw, xc + 0.5 * srw, yc + 0.5 * cdw - srw, xc - 0.5 * srw - srw2), # t serif
+		d_cd1 <- d_rect(x = xc, y = yc, w = srw, h = cdw - 2 * srw) + # stem
+			d_rect2(yc + 0.5 * cdw, xc + 0.5 * srw, yc + 0.5 * cdw - srw, xc - 0.5 * srw - srw2) + # t serif
 			d_rect2(
 				yc - 0.5 * cdw + srw,
 				xc + 0.5 * srw + srw2,
 				yc - 0.5 * cdw,
 				xc - 0.5 * srw - srw2
 			) # b serif
-		)
 		write_svg(c(d_circ_white, d_cd1), "2460")
 		# 2776 dingbat negative circled digit one
-		write_svg(c(d_circ_black, d_cd1), "2776")
+		write_svg(c(d_circ_black + d_cd1), "2776")
+		# write_svg(c(d_cd1), "2776")
 		#### 2461 circled digit two
 		write_svg(d_circ_white, "2461")
 		#### 2777 dingbat negative circled digit two
@@ -1700,7 +1699,7 @@ create_basic_latin <- function(font = "square") {
 		#### 277c dingbat negative circled digit seven
 		write_svg(d_circ_black, "277c")
 		# 2467 circled digit eight
-		ov8c <- (9 / 18) * srw
+		ov8c <- (8 / 18) * srw
 		he8c <- 0.5 * (cdw - ov8c)
 		d_cd8 <- c(
 			d_ellipse(
@@ -1718,7 +1717,29 @@ create_basic_latin <- function(font = "square") {
 		)
 		write_svg(c(d_circ_white, d_cd8), "2467")
 		# 277d dingbat negative circled digit eight
-		write_svg(c(d_circ_black, d_cd8), "277d")
+		# We need to add the trace of the outside of the eight
+		# plus the two ellipses of the eight loops to the black circle
+		# Claude Sonnet 4.6 gave us the following equation for
+		# x-coordinate where the two ellipses meet
+		x_left8c <- xc - he8c * sqrt(1 - ((he8c - ov8c) / (ov8c + he8c))^2)
+		x_right8c <- 2 * xc - x_left8c
+		d_cd8_outer <- M(x_left8c, yc) +
+			A(he8c, 0.5 * (ov8c + he8c), big = TRUE, x = x_right8c, y = yc) +
+			AZ(he8c, 0.5 * (ov8c + he8c), big = TRUE, x = x_left8c, y = yc)
+		d_cd8_loop_top <- d_ellipse(
+			x = xc,
+			y = yc + 0.5 * (he8c - ov8c),
+			rx = he8c - srw,
+			ry = 0.5 * (ov8c + he8c) - srw
+		)
+		d_cd8_loop_bot <- d_ellipse(
+			x = xc,
+			y = yc - 0.5 * (he8c - ov8c),
+			rx = he8c - srw,
+			ry = 0.5 * (ov8c + he8c) - srw
+		)
+
+		write_svg(c(d_circ_black + d_cd8_outer + d_cd8_loop_top + d_cd8_loop_bot), "277d")
 		#### 2468 circled digit nine
 		write_svg(d_circ_white, "2468")
 		#### 277e dingbat negative circled digit nine

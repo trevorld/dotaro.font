@@ -71,8 +71,8 @@ Current [Unicode block](https://en.wikipedia.org/wiki/Unicode_block) coverage (e
 |Box Drawing                             |           113|           113|            128|
 |Chess Symbols                           |            12|            36|            112|
 |Currency Symbols                        |            11|            11|             48|
-|Dingbats                                |            10|            19|            192|
-|Enclosed Alphanumerics                  |             0|            11|            160|
+|Dingbats                                |            10|            12|            192|
+|Enclosed Alphanumerics                  |             0|             4|            160|
 |General Punctuation                     |             5|             5|            112|
 |Geometric Shapes                        |            28|            28|             96|
 |IPA Extensions                          |             1|             1|             96|

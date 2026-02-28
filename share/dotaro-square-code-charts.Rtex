@@ -140,7 +140,11 @@ make_table("218", "218")
 \section{Enclosed Alphanumerics}
 
 %% begin.rcode enclosed_alphanumerics, echo=FALSE, results='asis'
-make_table("246", "24F")
+make_table("246", "246")
+%% end.rcode
+
+%% begin.rcode enclosed_alphanumerics_2, echo=FALSE, results='asis'
+make_table("24E", "24F")
 %% end.rcode
 
 \section{Box Drawing}
@@ -165,6 +169,12 @@ make_table("25A", "25F")
 
 %% begin.rcode miscellaneous_symbols, echo=FALSE, results='asis'
 make_table("260", "26A")
+%% end.rcode
+
+\section{Dingbats}
+
+%% begin.rcode dingbats, echo=FALSE, results='asis'
+make_table("272", "277")
 %% end.rcode
 
 \section{Miscellaneous Symbols and Arrows}
@@ -199,12 +209,6 @@ Note the normal white/black chess symbols are in \hyperref[sec:miscellaneous-sym
 %% begin.rcode chess_symbols, echo=FALSE, results='asis'
 # make_table("1FA0", "1FA6")
 make_table("1FA0", "1FA3")
-%% end.rcode
-
-\section{Dingbats}
-
-%% begin.rcode dingbats, echo=FALSE, results='asis'
-make_table("272", "277")
 %% end.rcode
 
 \section{Private Use Area}

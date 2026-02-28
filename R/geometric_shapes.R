@@ -34,7 +34,8 @@ create_geometric_shapes <- function(font = "square") {
 	white_square <- d_25a0 + d_25a1
 	write_svg(white_square, "25a1")
 	# 2b1c white large square
-	write_svg(white_square, "2b1c")
+	d_2b1c <- d_rect(x = xc, y = yc, w = w - 2 * ow, h = w - 2 * ow)
+	write_svg(d_2b1b + d_2b1c, "2b1c")
 
 	# 25a3 white square containing black small square
 	d_25a3 <- d_rect(x = xc, y = yc, w = 0.5 * cw, h = 0.5 * cw)

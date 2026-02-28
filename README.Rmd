@@ -71,7 +71,6 @@ The main goal is to create a couple of fonts with bespoke glyphs to use in my [D
   + Circled digits especially those from 0&ndash;4
 
 * Should look good when rendered with a border and a colored fill with R's [`fillStrokeGrob()`](https://stat.ethz.ch/R-manual/R-devel/library/grid/html/grid.stroke.html) at a target size of 1/4&Prime; &times; 1/4&Prime;.
-* If time permits may also evolve to serve as a general board game diagram font (i.e. a prettier vector version of my [Game Bit Mono Font](https://github.com/trevorld/game-bit-font)).
 
 ## <a name="downloads">Downloadable Font Files</a>
 
@@ -224,6 +223,7 @@ Select playing card fonts:
 
 #### Square fonts
 
+* [Alpine Fonts: Chess and Other Games](https://partae.com/fonts/index.php/general-info)
 * [Game Bit Mono](https://github.com/trevorld/game-bit-font/)
 * [Kreative Square](https://www.kreativekorp.com/software/fonts/ksquare/)
 

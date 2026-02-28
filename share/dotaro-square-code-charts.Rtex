@@ -186,6 +186,12 @@ make_table("1CCD", "1CCF")
 make_table("1D7C", "1D7E")
 %% end.rcode
 
+\section{Miscellaneous Symbols and Pictographs}
+
+%% begin.rcode misc_symbols_pictographs, echo=FALSE, results='asis'
+make_table("1F4A", "1F4A")
+%% end.rcode
+
 \section{Chess Symbols}
 
 Note the normal white/black chess symbols are in \hyperref[sec:miscellaneous-symbols]{Miscellaneous Symbols}.

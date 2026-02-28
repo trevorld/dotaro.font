@@ -256,7 +256,7 @@ create_miscellaneous_symbols <- function(font = "square") {
 	xc2 <- hg
 	ytb <- 0.6 * (vg + ych)
 
-	# Code by Claude Code to break up right Bezier curve to introduce rectangular slit
+	# Code by Claude Sonnet 4.6 to break up right Bezier curve to introduce rectangular slit
 	# Right-side bezier: from (xc, ych) via (w-xc2, yc2) to (xcw, ybt)
 	bS <- c(xc, ych)
 	bC <- c(w - xc2, yc2)
@@ -294,7 +294,7 @@ create_miscellaneous_symbols <- function(font = "square") {
 
 	# Sub-bezier control points
 	c_pre <- qb_lerp(bS, bC, t1) # control for bS -> pt1
-	t_p <- (t2 - t1) / (1 - t1) # reparametrize remaining cruve
+	t_p <- (t2 - t1) / (1 - t1) # reparametrize remaining curve
 	c_post <- qb_lerp(qb_lerp(bC, bE, t1), bE, t_p) # control for pt2 -> bE
 
 	d_bshp <- M(xbb, vg) +

@@ -74,7 +74,7 @@ Current [Unicode block](https://en.wikipedia.org/wiki/Unicode_block) coverage (e
 |Dingbats                                |            10|            19|            192|
 |Enclosed Alphanumerics                  |             0|            11|            160|
 |General Punctuation                     |             5|             5|            112|
-|Geometric Shapes                        |            26|            26|             96|
+|Geometric Shapes                        |            28|            28|             96|
 |IPA Extensions                          |             1|             1|             96|
 |Latin Extended-A                        |             1|             1|            128|
 |Latin Extended-B                        |             2|             2|            208|

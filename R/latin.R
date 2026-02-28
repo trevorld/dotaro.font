@@ -1795,10 +1795,9 @@ create_basic_latin <- function(font = "square") {
 		)),
 		if (font == "square") {
 			c(
-				as.hexmode("24ea"),
-				as.hexmode("24ff"),
-				as.hexmode("2460"):as.hexmode("2468"),
-				as.hexmode("2776"):as.hexmode("277e")
+				as.hexmode(c("24ea", "24ff", "2460", "2467", "2776", "277d"))
+				# as.hexmode("2460"):as.hexmode("2468"),
+				# as.hexmode("2776"):as.hexmode("277e")
 			)
 		},
 		as.hexmode("1f4a7"),

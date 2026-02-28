@@ -43,7 +43,6 @@ The main goal is to create a couple of fonts with bespoke glyphs to use in my [D
   + Circled digits especially those from 0&ndash;4
 
 * Should look good when rendered with a border and a colored fill with R's [`fillStrokeGrob()`](https://stat.ethz.ch/R-manual/R-devel/library/grid/html/grid.stroke.html) at a target size of 1/4&Prime; &times; 1/4&Prime;.
-* If time permits may also evolve to serve as a general board game diagram font (i.e. a prettier vector version of my [Game Bit Mono Font](https://github.com/trevorld/game-bit-font)).
 
 ## <a name="downloads">Downloadable Font Files</a>
 
@@ -72,7 +71,8 @@ Current [Unicode block](https://en.wikipedia.org/wiki/Unicode_block) coverage (e
 |Box Drawing                             |           113|           113|            128|
 |Chess Symbols                           |            12|            36|            112|
 |Currency Symbols                        |            11|            11|             48|
-|Dingbats                                |            10|            10|            192|
+|Dingbats                                |            10|            19|            192|
+|Enclosed Alphanumerics                  |             0|            11|            160|
 |General Punctuation                     |             5|             5|            112|
 |Geometric Shapes                        |            26|            26|             96|
 |IPA Extensions                          |             1|             1|             96|
@@ -83,6 +83,7 @@ Current [Unicode block](https://en.wikipedia.org/wiki/Unicode_block) coverage (e
 |Mathematical Operators                  |             4|             4|            256|
 |Miscellaneous Symbols                   |            24|            24|            256|
 |Miscellaneous Symbols and Arrows        |             5|             5|            256|
+|Miscellaneous Symbols and Pictographs   |             1|             1|            768|
 |Number Forms                            |             1|             1|             64|
 |Private Use Area                        |             2|             2|           6400|
 |Spacing Modifier Letters                |             1|             1|             80|
@@ -184,6 +185,7 @@ Select playing card fonts:
 
 #### Square fonts
 
+* [Alpine Fonts: Chess and Other Games](https://partae.com/fonts/index.php/general-info)
 * [Game Bit Mono](https://github.com/trevorld/game-bit-font/)
 * [Kreative Square](https://www.kreativekorp.com/software/fonts/ksquare/)
 

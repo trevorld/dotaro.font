@@ -23,6 +23,7 @@ create_basic_latin <- function(font = "square") {
 
 	rp <- 0.75 * srw # period radius
 	ah <- 3 * srw # apostrophe height
+	cdw <- cw / sqrt(2)
 
 	# Bottom y coordinate on the border of an ellipse centered at (cx, cy) given x
 	ellipse_y_bottom <- function(x, cx = xc, cy = yc, rx = 0.5 * cw, ry = 0.5 * ch) {
@@ -1651,49 +1652,87 @@ create_basic_latin <- function(font = "square") {
 
 	if (font == "square") {
 		d_circ_white <- d_circle(xc, yc, 0.5 * c(cw, cw - ow))
-		#### 24ea circled digit zero
-		write_svg(d_circ_white, "24ea")
-		#### 2460 circled digit one
-		write_svg(d_circ_white, "2460")
+		d_circ_black <- d_ellipse(xc, yc, 0.5 * cw, 0.5 * ch)
+
+		# 24ea circled digit zero
+		d_cd0 <- c(
+			d_ellipse(x = xc, y = yc, rx = 0.35 * cdw + c(0, -srw), ry = 0.5 * cdw + c(0, -srw))
+		)
+		write_svg(c(d_circ_white, d_cd0), "24ea")
+		# 24ff negative circled digit zero
+		write_svg(c(d_circ_black, d_cd0), "24ff")
+		# 2460 circled digit one
+		d_cd1 <- c(
+			d_rect(x = xc, y = yc, w = srw, h = cdw - 2 * srw), # stem
+			d_rect2(yc + 0.5 * cdw, xc + 0.5 * srw, yc + 0.5 * cdw - srw, xc - 0.5 * srw - srw2), # t serif
+			d_rect2(
+				yc - 0.5 * cdw + srw,
+				xc + 0.5 * srw + srw2,
+				yc - 0.5 * cdw,
+				xc - 0.5 * srw - srw2
+			) # b serif
+		)
+		write_svg(c(d_circ_white, d_cd1), "2460")
+		# 2776 dingbat negative circled digit one
+		write_svg(c(d_circ_black, d_cd1), "2776")
 		#### 2461 circled digit two
 		write_svg(d_circ_white, "2461")
-		#### 2462 circled digit three
-		write_svg(d_circ_white, "2462")
-		#### 2463 circled digit four
-		write_svg(d_circ_white, "2463")
-		#### 2464 circled digit five
-		write_svg(d_circ_white, "2464")
-		#### 2465 circled digit six
-		write_svg(d_circ_white, "2465")
-		#### 2466 circled digit seven
-		write_svg(d_circ_white, "2466")
-		#### 2467 circled digit eight
-		write_svg(d_circ_white, "2467")
-		#### 2468 circled digit nine
-		write_svg(d_circ_white, "2468")
-
-		d_circ_black <- d_ellipse(xc, yc, 0.5 * cw, 0.5 * ch)
-		#### 24ff negative circled digit zero
-		write_svg(d_circ_black, "24ff")
-		#### 2776 dingbat negative circled digit one
-		write_svg(d_circ_black, "2776")
 		#### 2777 dingbat negative circled digit two
 		write_svg(d_circ_black, "2777")
+		#### 2462 circled digit three
+		write_svg(d_circ_white, "2462")
 		#### 2778 dingbat negative circled digit three
 		write_svg(d_circ_black, "2778")
+		#### 2463 circled digit four
+		write_svg(d_circ_white, "2463")
 		#### 2779 dingbat negative circled digit four
 		write_svg(d_circ_black, "2779")
+		#### 2464 circled digit five
+		write_svg(d_circ_white, "2464")
 		#### 277a dingbat negative circled digit five
 		write_svg(d_circ_black, "277a")
+		#### 2465 circled digit six
+		write_svg(d_circ_white, "2465")
 		#### 277b dingbat negative circled digit six
 		write_svg(d_circ_black, "277b")
+		#### 2466 circled digit seven
+		write_svg(d_circ_white, "2466")
 		#### 277c dingbat negative circled digit seven
 		write_svg(d_circ_black, "277c")
-		#### 277d dingbat negative circled digit eight
-		write_svg(d_circ_black, "277d")
+		# 2467 circled digit eight
+		ov8c <- (9 / 18) * srw
+		he8c <- 0.5 * (cdw - ov8c)
+		d_cd8 <- c(
+			d_ellipse(
+				x = xc,
+				y = yc + 0.5 * (he8c - ov8c),
+				rx = he8c - c(0, srw),
+				ry = 0.5 * (ov8c + he8c) - c(0, srw)
+			), # top
+			d_ellipse(
+				x = xc,
+				y = yc - 0.5 * (he8c - ov8c),
+				rx = he8c - c(0, srw),
+				ry = 0.5 * (ov8c + he8c) - c(0, srw)
+			) # bottom
+		)
+		write_svg(c(d_circ_white, d_cd8), "2467")
+		# 277d dingbat negative circled digit eight
+		write_svg(c(d_circ_black, d_cd8), "277d")
+		#### 2468 circled digit nine
+		write_svg(d_circ_white, "2468")
 		#### 277e dingbat negative circled digit nine
 		write_svg(d_circ_black, "277e")
 	}
+
+	# 1f4a7 droplet
+	r_drop <- 0.5 * cw
+	ycc_drop <- vg + r_drop
+	ds <- M(xc, ych) +
+		Q(xc + 0.8 * r_drop, vg + 0.75 * ch, xc + r_drop, ycc_drop) +
+		A(r_drop, r_drop, x = xc - r_drop, y = ycc_drop) +
+		QZ(xc - 0.8 * r_drop, vg + 0.75 * ch, xc, ych)
+	write_svg(ds, "1f4a7")
 
 	c(
 		as.hexmode("0021"):as.hexmode("007e"),
@@ -1733,14 +1772,15 @@ create_basic_latin <- function(font = "square") {
 			"218b",
 			"f590"
 		)),
-		# if (font == "square") {
-		# 	c(
-		# 		as.hexmode("24ea"),
-		# 		as.hexmode("2460"):as.hexmode("2468"),
-		# 		as.hexmode("24ff"),
-		# 		as.hexmode("2776"):as.hexmode("277e")
-		# 	)
-		# },
+		if (font == "square") {
+			c(
+				as.hexmode("24ea"),
+				as.hexmode("24ff"),
+				as.hexmode("2460"):as.hexmode("2468"),
+				as.hexmode("2776"):as.hexmode("277e")
+			)
+		},
+		as.hexmode("1f4a7"),
 		c(as.hexmode("1d7ce"):as.hexmode("1d7cf")),
 		as.hexmode(c("1d7d2", "1d7d3", "1d7d5", "1d7d6"))
 		# as.hexmode("1d7da"):as.hexmode("1d7d7"), # mathematical bold (avec-serif) digits

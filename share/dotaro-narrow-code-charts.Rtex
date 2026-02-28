@@ -161,6 +161,12 @@ make_table("25A", "25F")
 make_table("260", "26A")
 %% end.rcode
 
+\section{Dingbats}
+
+%% begin.rcode dingbats, echo=FALSE, results='asis'
+make_table("272", "274")
+%% end.rcode
+
 \section{Miscellaneous Symbols and Arrows}
 
 %% begin.rcode miscellaneous_symbols_and_arrows, echo=FALSE, results='asis'
@@ -187,12 +193,6 @@ Note the normal white/black chess symbols are in \hyperref[sec:miscellaneous-sym
 %% begin.rcode chess_symbols, echo=FALSE, results='asis'
 # make_table("1FA0", "1FA6")
 make_table("1FA0", "1FA3")
-%% end.rcode
-
-\section{Dingbats}
-
-%% begin.rcode dingbats, echo=FALSE, results='asis'
-make_table("272", "274")
 %% end.rcode
 
 \section{Private Use Area}

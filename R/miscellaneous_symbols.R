@@ -9,6 +9,7 @@ create_miscellaneous_symbols <- function(font = "square") {
 	hg <- dotaro_horizontal_gap(font)
 	ow <- dotaro_outline_stroke_width(font)
 	srw <- dotaro_stroke_width(font)
+	srw2 <- dotaro_stroke_width_short(font)
 
 	ch <- dotaro_cap_height(font)
 
@@ -148,16 +149,28 @@ create_miscellaneous_symbols <- function(font = "square") {
 	d_diam <- d_diamond(xc, yc, w = 0.5 * cw, h = 0.5 * cw)
 	write_svg(d_26ab + d_diam, "f5b8")
 
+	if (font == "narrow") {
+		y_curve_top <- vg + 0.70 * ch
+	} else {
+		y_curve_top <- vg + 0.60 * ch
+	}
+	y_curve_mid <- yc
+
 	# 265a black chess king
 	d <- M(hg + srw, vg) +
-		A(srw, yc + 2 * srw - vg, x = hg, y = yc + 2 * srw) +
-		A(xc - 0.5 * srw - hg, yc + 2 * srw - yc, x = xc - 0.5 * srw, y = yc) +
+		A(srw, y_curve_mid - vg, x = hg, y = y_curve_mid) +
+		A(
+			0.5 * (xc - 0.5 * srw - hg),
+			y_curve_top - y_curve_mid,
+			x = xc - 0.5 * srw,
+			y = y_curve_mid
+		) +
 		L(
 			x = xc + c(-0.5, -1.5, -1.5, -0.5, -0.5, 0.5, 0.5, 1.5, 1.5, 0.5, 0.5) * srw,
-			y = c(ych - c(2, 2, 1, 1, 0, 0, 1, 1, 2, 2) * srw, yc)
+			y = c(ych - c(2, 2, 1, 1, 0, 0, 1, 1, 2, 2) * srw, y_curve_mid)
 		) +
-		A(xc - 0.5 * srw - hg, yc + 2 * srw - yc, x = xcw, y = yc + 2 * srw) +
-		AZ(srw, yc + 2 * srw - vg, x = xcw - srw, y = vg)
+		A(0.5 * (xc - 0.5 * srw - hg), y_curve_top - y_curve_mid, x = xcw, y = y_curve_mid) +
+		AZ(srw, y_curve_mid - vg, x = xcw - srw, y = vg)
 	write_svg(d, "265a")
 
 	# 2654 white chess king (derived via OUTLINE_FROM_TO)
@@ -192,11 +205,7 @@ create_miscellaneous_symbols <- function(font = "square") {
 	# 1fa3a black chess queen rotated 270 degrees (derived via LEFT_FROM_TO)
 
 	# 265c black chess rook
-	if (font == "narrow") {
-		wcr <- cw / 4.0
-	} else {
-		wcr <- cw / 4
-	}
+	wcr <- cw / 4
 	x <- c(
 		hg,
 		hg,
@@ -334,14 +343,14 @@ create_miscellaneous_symbols <- function(font = "square") {
 	xhorse <- c(xhorse, w - rev(xhorse))
 	yhorse <- c(vg, ysb, yst, ycb, yct, yeb, yem, ych, yht)
 	yhorse <- c(yhorse, rev(yhorse))
-	eye_dx <- srw
+	eye_dx <- 1.1 * srw
 	eye_dy <- (11 / 18) * srw
 	eye_rx <- (7 / 9) * srw
 	eye_ry <- (4 / 9) * srw
 	nostril_rx <- srw / 3
 	nostril_ry <- srw / 6
-	nostril_dx <- (4 / 9) * srw
-	nostril_dy <- (2 / 9) * srw
+	nostril_dx <- (5 / 9) * srw
+	nostril_dy <- (3 / 9) * srw
 	d_eye_left <- d_ellipse(hg + eye_dx, yct - eye_dy, eye_rx, eye_ry, a = -20)
 	d_eye_right <- d_ellipse(xcw - eye_dx, yct - eye_dy, eye_rx, eye_ry, a = +20)
 	d_nostril_left <- d_ellipse(xsb + nostril_dx, ysb + nostril_dy, nostril_rx, nostril_ry, a = -55)
@@ -376,13 +385,13 @@ create_miscellaneous_symbols <- function(font = "square") {
 
 	# 265f black chess pawn
 	ybt <- vg + 0.20 * ch
-	ytr <- 0.18 * ch
+	ytr <- 0.24 * cw
 	xy1 <- as_coord2d(degrees(225), radius = ytr + 2)$translate(x = xc, y = ych - ytr)
 	xy2 <- as_coord2d(degrees(315), radius = ytr + 2)$translate(x = xc, y = ych - ytr)
-	d_p <- M(hg + srw, ybt + 2) +
+	d_p <- M(hg + srw2, ybt + 2) +
 		L(xy1$x, xy1$y) +
 		A(ytr + 2, x = xy2$x, y = xy2$y, sweep_flag = TRUE) +
-		LZ(xcw - srw, ybt + 2)
+		LZ(xcw - srw2, ybt + 2)
 	ds <- c(d_rect2(ybt, xcw, vg, hg), d_circle(xc, ych - ytr, ytr), d_p)
 	write_svg(ds, "265f")
 

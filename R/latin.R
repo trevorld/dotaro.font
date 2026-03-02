@@ -31,6 +31,9 @@ create_basic_latin <- function(font = "square") {
 	cxcw <- xc + 0.5 * cdw # right
 	cych <- yc + 0.5 * cdw # top
 
+	d_circle_white <- d_circle(xc, yc, 0.5 * c(cw, cw - ow))
+	d_circle_black <- d_ellipse(xc, yc, 0.5 * cw, 0.5 * ch)
+
 	# 0022 quotation mark
 	d <- d_rect(xc + c(-0.25, 0.25) * cw, ych - 0.5 * ah, srw, ah)
 	write_svg(d, "0022")
@@ -227,6 +230,13 @@ create_basic_latin <- function(font = "square") {
 	)
 	write_svg(ds, "1d7ce")
 	# 1d7d8 mathematical double-struck digit zero (derived via OUTLINE_FROM_TO)
+	# 24ea circled digit zero
+	d_cd0 <- c(
+		d_ellipse(x = xc, y = yc, rx = 0.35 * cdw + c(0, -srw), ry = 0.5 * cdw + c(0, -srw))
+	)
+	write_svg(c(d_circle_white, d_cd0), "24ea")
+	# 24ff negative circled digit zero
+	write_svg(c(d_circle_black + d_cd0), "24ff")
 
 	# 0031 digit one
 	ds <- c(
@@ -244,6 +254,18 @@ create_basic_latin <- function(font = "square") {
 	) # b serif
 	write_svg(ds, "1d7cf")
 	# 1d7d9 mathematical double-struck digit one (derived via OUTLINE_FROM_TO)
+	# 2460 circled digit one
+	d_cd1 <- d_rect(x = xc, y = yc, w = srw, h = cdw - 2 * srw) + # stem
+		d_rect2(yc + 0.5 * cdw, xc + 0.5 * srw, yc + 0.5 * cdw - srw, xc - 0.5 * srw - srw2) + # t serif
+		d_rect2(
+			yc - 0.5 * cdw + srw,
+			xc + 0.5 * srw + srw2,
+			yc - 0.5 * cdw,
+			xc - 0.5 * srw - srw2
+		) # b serif
+	write_svg(c(d_circle_white, d_cd1), "2460")
+	# 2776 dingbat negative circled digit one
+	write_svg(c(d_circle_black + d_cd1), "2776")
 
 	# 0032 digit two
 	d2ry <- 0.30 * ch
@@ -271,6 +293,19 @@ create_basic_latin <- function(font = "square") {
 	#### 1d7d0 mathematical bold digit two
 	# write_svg(???, "1d7d0")
 	# 1d7da mathematical double-struck digit two (derived via OUTLINE_FROM_TO)
+	# 2461 circled digit two
+	d2ry_c <- 0.30 * cdw
+	d_cd2 <- d_arc12(cych, cxcw, cych - d2ry_c, chg, srw) +
+		M(cxcw, cych - d2ry_c) +
+		Q(cxcw, yc, chg + 2 * srw, cvg + srw) +
+		H(chg) +
+		Q(cxcw - 2 * srw, yc, cxcw - srw, cych - d2ry_c) +
+		Z() +
+		d_rect2(cvg + srw, cxcw, cvg, chg) +
+		d_rect2(cvg + 2 * srw, cxcw, cvg + srw, cxcw - srw)
+	write_svg(c(d_circle_white, d_cd2), "2461")
+	# 2777 dingbat negative circled digit two
+	write_svg(c(d_circle_black + d_cd2), "2777")
 
 	#### 218a turned digit two
 
@@ -292,6 +327,24 @@ create_basic_latin <- function(font = "square") {
 	#### 1d7d1 mathematical bold digit three
 	# write_svg(???, "1d7d1")
 	# 1d7db mathematical double-struck digit three (derived via OUTLINE_FROM_TO)
+	# 2462 circled digit three
+	d3o_c <- 0.8 * srw
+	d_cd3 <- d_rect2(cych, chg + srw, cych - 2 * srw, chg) +
+		d_rect2(cych, cxcw, cych - srw, chg + srw) +
+		d_fslash(
+			cych - srw,
+			cxcw,
+			yc,
+			xc - d3o_c,
+			srw,
+			right = "horizontal",
+			left = "diagonal"
+		) +
+		d_arc41(yc + srw, cxcw, cvg, xc, srw) +
+		d_arc3(cvg + 3 * srw, xc, cvg, chg, srw)
+	write_svg(c(d_circle_white, d_cd3), "2462")
+	# 2778 dingbat negative circled digit three
+	write_svg(c(d_circle_black + d_cd3), "2778")
 
 	# 218b turned digit three
 	ds <- c(
@@ -323,6 +376,15 @@ create_basic_latin <- function(font = "square") {
 	) # stroke
 	write_svg(ds, "1d7d2")
 	# 1d7dc mathematical double-struck digit four (derived via OUTLINE_FROM_TO)
+	# 2463 circled digit four
+	cyd4b <- yc - srw
+	d_cd4 <- d_rect2(cyd4b + srw, cxcw - srw, cvg + srw, cxcw - 2 * srw) +
+		d_rect2(cvg + srw, cxcw, cvg, cxcw - 3 * srw) +
+		d_rect2(cyd4b, cxcw, cyd4b - srw, chg) +
+		d_fslash(cych, cxcw - srw, cyd4b, chg, srw, left = "horizontal", right = "vertical")
+	write_svg(c(d_circle_white, d_cd4), "2463")
+	# 2779 dingbat negative circled digit four
+	write_svg(c(d_circle_black + d_cd4), "2779")
 
 	# 0035 digit five
 	ds <- c(
@@ -352,6 +414,16 @@ create_basic_latin <- function(font = "square") {
 	)
 	write_svg(ds, "1d7d3")
 	# 1d7dd mathematical double-struck digit five (derived via OUTLINE_FROM_TO)
+	# 2464 circled digit five
+	d_cd5 <- d_rect2(cych, cxcw, cych - 2 * srw, cxcw - srw) +
+		d_rect2(cych, cxcw - srw, cych - srw, chg + 0.5 * srw) +
+		d_rect2(cych - srw, chg + srw + 0.5 * srw, yc, chg + 0.5 * srw) +
+		d_rect2(yc + srw, xc, yc, chg + srw + 0.5 * srw) +
+		d_arc41(yc + srw, cxcw, cvg, xc, srw) +
+		d_arc3(0.5 * (cvg + yc + srw), xc, cvg, chg, srw)
+	write_svg(c(d_circle_white, d_cd5), "2464")
+	# 277a dingbat negative circled digit five
+	write_svg(c(d_circle_black + d_cd5), "277a")
 
 	# 0036 digit six
 	d6yf <- 0.3
@@ -365,6 +437,18 @@ create_basic_latin <- function(font = "square") {
 	#### 1d7d4 mathematical bold digit six
 	# write_svg(???, "1d7d4")
 	# 1d7de mathematical double-struck digit six (derived via OUTLINE_FROM_TO)
+	# 2465 circled digit six
+	d6yf_c <- 0.3
+	d_cd6 <- d_ellipse(
+		xc,
+		cvg + d6yf_c * cdw,
+		0.5 * cdw + c(0, -srw),
+		d6yf_c * cdw + c(0, -srw)
+	) +
+		d_arc2(cych, cxcw, cvg + d6yf_c * cdw, chg, srw)
+	write_svg(c(d_circle_white, d_cd6), "2465")
+	# 277b dingbat negative circled digit six
+	write_svg(c(d_circle_black + d_cd6), "277b")
 
 	# 0037 digit seven
 	d7stw <- width_slash_left(xcw - (xc - 0.5 * srw), (ych - srw) - (vg + srw), srw)
@@ -386,6 +470,15 @@ create_basic_latin <- function(font = "square") {
 	)
 	write_svg(ds, "1d7d5")
 	# 1d7df mathematical double-struck digit seven (derived via OUTLINE_FROM_TO)
+	# 2466 circled digit seven
+	cd7stw <- width_slash_left(cxcw - (xc - 0.5 * srw), (cych - srw) - (cvg + srw), srw)
+	d_cd7 <- d_rect2(cych, chg + srw, cych - 2 * srw, chg) +
+		d_rect2(cych, cxcw, cych - srw, chg + srw) +
+		d_fslash(cych - srw, cxcw, cvg + srw, xc - 0.5 * srw, srw) +
+		d_rect2(cvg + srw, xc + cd7stw + 0.5 * srw, cvg, xc - 0.5 * srw - srw)
+	write_svg(c(d_circle_white, d_cd7), "2466")
+	# 277c dingbat negative circled digit seven
+	write_svg(c(d_circle_black + d_cd7), "277c")
 
 	# 0038 digit eight
 	d_eight <- function(w8, h8, ov8, srw8, ..., loop = TRUE) {
@@ -426,6 +519,15 @@ create_basic_latin <- function(font = "square") {
 	)
 	write_svg(ds, "1d7d6")
 	# 1d7e0 mathematical double-struck digit eight (derived via OUTLINE_FROM_TO)
+	# 2467 circled digit eight
+	# We need to use the outline of the outside of the eight
+	# plus use two ellipses of two inner loops loops
+	# Claude Sonnet 4.6 gave us the x-coordinate where the two ellipses meet
+	ov8c <- (8 / 18) * srw
+	d_cd8 <- d_eight(cdw, cdw, ov8c, srw, loop = TRUE)
+	write_svg(d_circle_white + d_cd8, "2467")
+	# 277d dingbat negative circled digit eight
+	write_svg(d_circle_black + d_cd8, "277d")
 
 	# 0039 digit nine
 	d6yf <- 0.3
@@ -445,6 +547,25 @@ create_basic_latin <- function(font = "square") {
 	#### 1d7d7 mathematical bold digit nine
 	# write_svg(???, "1d7d7")
 	# 1d7e1 mathematical double-struck digit nine (derived via OUTLINE_FROM_TO)
+	# 2468 circled digit nine
+	# d9so_c <- srw / 3
+	# cd9stw <- width_slash_left(
+	# 	(cxcw - d9so_c) - (xc - 0.5 * srw),
+	# 	(cych - d6yf_c * cdw - srw) - (cvg + srw),
+	# 	srw
+	# )
+	# d_cd9 <- d_ellipse(
+	# 	xc,
+	# 	cych - d6yf_c * cdw,
+	# 	0.5 * cdw + c(0, -srw),
+	# 	d6yf_c * cdw + c(0, -srw)
+	# ) +
+	# 	d_fslash(cych - d6yf_c * cdw - srw, cxcw - d9so_c, cvg + srw, xc - 0.5 * srw, srw) +
+	# 	d_rect2(cvg + srw, xc + cd9stw + 0.5 * srw, cvg, xc - 0.5 * srw - srw)
+	d_cd9 <- NULL
+	write_svg(c(d_circle_white, d_cd9), "2468")
+	# 277e dingbat negative circled digit nine
+	write_svg(c(d_circle_black + d_cd9), "277e")
 
 	# number ten (private use area since doesn't exist in Unicode)
 	# PUA f590 (for now)
@@ -1644,130 +1765,6 @@ create_basic_latin <- function(font = "square") {
 	) # ur stroke
 	write_svg(ds, "00a4")
 
-	if (font == "square") {
-		d_circ_white <- d_circle(xc, yc, 0.5 * c(cw, cw - ow))
-		d_circ_black <- d_ellipse(xc, yc, 0.5 * cw, 0.5 * ch)
-
-		# 24ea circled digit zero
-		d_cd0 <- c(
-			d_ellipse(x = xc, y = yc, rx = 0.35 * cdw + c(0, -srw), ry = 0.5 * cdw + c(0, -srw))
-		)
-		write_svg(c(d_circ_white, d_cd0), "24ea")
-		# 24ff negative circled digit zero
-		write_svg(c(d_circ_black + d_cd0), "24ff")
-		# 2460 circled digit one
-		d_cd1 <- d_rect(x = xc, y = yc, w = srw, h = cdw - 2 * srw) + # stem
-			d_rect2(yc + 0.5 * cdw, xc + 0.5 * srw, yc + 0.5 * cdw - srw, xc - 0.5 * srw - srw2) + # t serif
-			d_rect2(
-				yc - 0.5 * cdw + srw,
-				xc + 0.5 * srw + srw2,
-				yc - 0.5 * cdw,
-				xc - 0.5 * srw - srw2
-			) # b serif
-		write_svg(c(d_circ_white, d_cd1), "2460")
-		# 2776 dingbat negative circled digit one
-		write_svg(c(d_circ_black + d_cd1), "2776")
-		# 2461 circled digit two
-		d2ry_c <- 0.30 * cdw
-		d_cd2 <- d_arc12(cych, cxcw, cych - d2ry_c, chg, srw) +
-			M(cxcw, cych - d2ry_c) +
-			Q(cxcw, yc, chg + 2 * srw, cvg + srw) +
-			H(chg) +
-			Q(cxcw - 2 * srw, yc, cxcw - srw, cych - d2ry_c) +
-			Z() +
-			d_rect2(cvg + srw, cxcw, cvg, chg) +
-			d_rect2(cvg + 2 * srw, cxcw, cvg + srw, cxcw - srw)
-		write_svg(c(d_circ_white, d_cd2), "2461")
-		# 2777 dingbat negative circled digit two
-		write_svg(c(d_circ_black + d_cd2), "2777")
-		# 2462 circled digit three
-		d3o_c <- 0.8 * srw
-		d_cd3 <- d_rect2(cych, chg + srw, cych - 2 * srw, chg) +
-			d_rect2(cych, cxcw, cych - srw, chg + srw) +
-			d_fslash(
-				cych - srw,
-				cxcw,
-				yc,
-				xc - d3o_c,
-				srw,
-				right = "horizontal",
-				left = "diagonal"
-			) +
-			d_arc41(yc + srw, cxcw, cvg, xc, srw) +
-			d_arc3(cvg + 3 * srw, xc, cvg, chg, srw)
-		write_svg(c(d_circ_white, d_cd3), "2462")
-		# 2778 dingbat negative circled digit three
-		write_svg(c(d_circ_black + d_cd3), "2778")
-		# 2463 circled digit four
-		cyd4b <- yc - srw
-		d_cd4 <- d_rect2(cyd4b + srw, cxcw - srw, cvg + srw, cxcw - 2 * srw) +
-			d_rect2(cvg + srw, cxcw, cvg, cxcw - 3 * srw) +
-			d_rect2(cyd4b, cxcw, cyd4b - srw, chg) +
-			d_fslash(cych, cxcw - srw, cyd4b, chg, srw, left = "horizontal", right = "vertical")
-		write_svg(c(d_circ_white, d_cd4), "2463")
-		# 2779 dingbat negative circled digit four
-		write_svg(c(d_circ_black + d_cd4), "2779")
-		# 2464 circled digit five
-		d_cd5 <- d_rect2(cych, cxcw, cych - 2 * srw, cxcw - srw) +
-			d_rect2(cych, cxcw - srw, cych - srw, chg + 0.5 * srw) +
-			d_rect2(cych - srw, chg + srw + 0.5 * srw, yc, chg + 0.5 * srw) +
-			d_rect2(yc + srw, xc, yc, chg + srw + 0.5 * srw) +
-			d_arc41(yc + srw, cxcw, cvg, xc, srw) +
-			d_arc3(0.5 * (cvg + yc + srw), xc, cvg, chg, srw)
-		write_svg(c(d_circ_white, d_cd5), "2464")
-		# 277a dingbat negative circled digit five
-		write_svg(c(d_circ_black + d_cd5), "277a")
-		# 2465 circled digit six
-		d6yf_c <- 0.3
-		d_cd6 <- d_ellipse(
-			xc,
-			cvg + d6yf_c * cdw,
-			0.5 * cdw + c(0, -srw),
-			d6yf_c * cdw + c(0, -srw)
-		) +
-			d_arc2(cych, cxcw, cvg + d6yf_c * cdw, chg, srw)
-		write_svg(c(d_circ_white, d_cd6), "2465")
-		# 277b dingbat negative circled digit six
-		write_svg(c(d_circ_black + d_cd6), "277b")
-		# 2466 circled digit seven
-		cd7stw <- width_slash_left(cxcw - (xc - 0.5 * srw), (cych - srw) - (cvg + srw), srw)
-		d_cd7 <- d_rect2(cych, chg + srw, cych - 2 * srw, chg) +
-			d_rect2(cych, cxcw, cych - srw, chg + srw) +
-			d_fslash(cych - srw, cxcw, cvg + srw, xc - 0.5 * srw, srw) +
-			d_rect2(cvg + srw, xc + cd7stw + 0.5 * srw, cvg, xc - 0.5 * srw - srw)
-		write_svg(c(d_circ_white, d_cd7), "2466")
-		# 277c dingbat negative circled digit seven
-		write_svg(c(d_circ_black + d_cd7), "277c")
-		# 2467 circled digit eight
-		# We need to use the outline of the outside of the eight
-		# plus use two ellipses of two inner loops loops
-		# Claude Sonnet 4.6 gave us the x-coordinate where the two ellipses meet
-		ov8c <- (8 / 18) * srw
-		d_cd8 <- d_eight(cdw, cdw, ov8c, srw, loop = TRUE)
-		write_svg(d_circ_white + d_cd8, "2467")
-		# 277d dingbat negative circled digit eight
-		write_svg(d_circ_black + d_cd8, "277d")
-		# 2468 circled digit nine
-		# d9so_c <- srw / 3
-		# cd9stw <- width_slash_left(
-		# 	(cxcw - d9so_c) - (xc - 0.5 * srw),
-		# 	(cych - d6yf_c * cdw - srw) - (cvg + srw),
-		# 	srw
-		# )
-		# d_cd9 <- d_ellipse(
-		# 	xc,
-		# 	cych - d6yf_c * cdw,
-		# 	0.5 * cdw + c(0, -srw),
-		# 	d6yf_c * cdw + c(0, -srw)
-		# ) +
-		# 	d_fslash(cych - d6yf_c * cdw - srw, cxcw - d9so_c, cvg + srw, xc - 0.5 * srw, srw) +
-		# 	d_rect2(cvg + srw, xc + cd9stw + 0.5 * srw, cvg, xc - 0.5 * srw - srw)
-		d_cd9 <- NULL
-		write_svg(c(d_circ_white, d_cd9), "2468")
-		# 277e dingbat negative circled digit nine
-		write_svg(c(d_circ_black + d_cd9), "277e")
-	}
-
 	# 1f4a7 droplet
 	r_drop <- 0.5 * cw
 	ycc_drop <- vg + r_drop
@@ -1815,14 +1812,12 @@ create_basic_latin <- function(font = "square") {
 			"218b",
 			"f590"
 		)),
-		if (font == "square") {
-			c(
-				as.hexmode(c("24ea", "24ff")),
-				as.hexmode(c("2460", "2467", "2776", "277d"))
-				# as.hexmode("2460"):as.hexmode("2468"),
-				# as.hexmode("2776"):as.hexmode("277e")
-			)
-		},
+		c(
+			as.hexmode(c("24ea", "24ff")),
+			as.hexmode(c("2460", "2467", "2776", "277d"))
+			# as.hexmode("2460"):as.hexmode("2468"), # circled digits
+			# as.hexmode("2776"):as.hexmode("277e") # negative circled digits
+		),
 		as.hexmode("1f4a7"),
 		c(as.hexmode("1d7ce"):as.hexmode("1d7cf")),
 		as.hexmode(c("1d7d2", "1d7d3", "1d7d5", "1d7d6"))

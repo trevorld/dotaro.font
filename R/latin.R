@@ -32,7 +32,7 @@ create_basic_latin <- function(font = "suits") {
 	cych <- yc + 0.5 * cdw # top
 	cd_circle_white <- d_circle(xc, yc, 0.5 * c(cw, cw - ow))
 	cd_circle_black <- d_ellipse(xc, yc, 0.5 * cw, 0.5 * cw)
-	csrw <- srw
+	csrw <- 0.8 * srw
 
 	# 0022 quotation mark
 	d <- d_rect(xc + c(-0.25, 0.25) * cw, ych - 0.5 * ah, srw, ah)
@@ -296,14 +296,14 @@ create_basic_latin <- function(font = "suits") {
 	# 1d7da mathematical double-struck digit two (derived via OUTLINE_FROM_TO)
 	# 2461 circled digit two
 	d2ry_c <- 0.30 * cdw
-	d_cd2 <- d_arc12(cych, cxcw, cych - d2ry_c, chg, csrw) +
-		M(cxcw, cych - d2ry_c) +
-		Q(cxcw, yc, chg + 2 * csrw, cvg + csrw) +
+	c2vg <- cvg + 0.15 * cdw
+	d_cd2 <- d_arc12(cych, cxcw, cych - d2ry_c, chg, csrw) + # top curve
+		M(cxcw, cych - d2ry_c) + # curved stroke
+		Q(cxcw, yc, chg + 2 * csrw, c2vg + csrw) +
 		H(chg) +
 		Q(cxcw - 2 * csrw, yc, cxcw - csrw, cych - d2ry_c) +
 		Z() +
-		d_rect2(cvg + csrw, cxcw, cvg, chg) +
-		d_rect2(cvg + 2 * csrw, cxcw, cvg + csrw, cxcw - csrw)
+		d_rect2(c2vg + csrw, cxcw, c2vg, chg) # bar
 	write_svg(c(cd_circle_white, d_cd2), "2461")
 	# 2777 dingbat negative circled digit two
 	write_svg(c(cd_circle_black + d_cd2), "2777")
@@ -1857,8 +1857,10 @@ create_basic_latin <- function(font = "suits") {
 		# circled digits 24ea and 2460 through 2468
 		# negative circled digits 24ff and 2776 through 277e
 		as.hexmode(c("24ea", "24ff")),
-		as.hexmode(c("2460", "2462", "2463", "2467")),
-		as.hexmode(c("2776", "2778", "2779", "277d")),
+		as.hexmode("2460"):as.hexmode("2463"),
+		as.hexmode(c("2467")),
+		as.hexmode("2776"):as.hexmode("2779"),
+		as.hexmode(c("277d")),
 		# mathematical bold (avec-serif) digits 1d7ce through 1d7d7
 		c(as.hexmode("1d7ce"):as.hexmode("1d7cf")),
 		as.hexmode(c("1d7d2", "1d7d3", "1d7d5", "1d7d6"))

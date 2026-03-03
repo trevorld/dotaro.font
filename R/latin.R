@@ -320,7 +320,7 @@ create_basic_latin <- function(font = "suits") {
 		d_rect2(ych, xcw, ych - srw, hg + srw), # bar
 		d_fslash(ych - srw, xcw, yc, xc - d3o, srw, right = "horizontal", left = "diagonal"), # stroke
 		d_arc41(yc + 1.0 * srw, xcw, vg, xc, srw), # b curve 1
-		d_arc3(vg + 3 * srw, xc, vg, hg, srw)
+		d_arc3(0.5 * (vg + yc + 1.0 * srw), xc, vg, hg, srw)
 	) # b curve 2
 	write_svg(ds, "0033")
 	# 1ccf3 mathematical outline digit three (derived via OUTLINE_FROM_TO)
@@ -328,23 +328,36 @@ create_basic_latin <- function(font = "suits") {
 	# write_svg(???, "1d7d1")
 	# 1d7db mathematical double-struck digit three (derived via OUTLINE_FROM_TO)
 	# 2462 circled digit three
-	d3o_c <- 0.8 * csrw
-	d_cd3 <- d_rect2(cych, chg + csrw, cych - 2 * csrw, chg) +
-		d_rect2(cych, cxcw, cych - csrw, chg + csrw) +
-		d_fslash(
-			cych - csrw,
-			cxcw,
-			yc,
-			xc - d3o_c,
-			csrw,
-			right = "horizontal",
-			left = "diagonal"
-		) +
-		d_arc41(yc + csrw, cxcw, cvg, xc, csrw) +
-		d_arc3(cvg + 3 * csrw, xc, cvg, chg, csrw)
-	write_svg(c(cd_circle_white, d_cd3), "2462")
+	# Traces similar ellipses in the digit eight
+	ov3c <- (9 / 18) * csrw
+	h3c <- cdw
+	w3c <- cdw
+	srw3c <- csrw
+	rx3c <- 0.5 * w3c
+	ry3c <- 0.25 * h3c + 0.5 * ov3c
+	yc3c_top <- yc + 0.25 * h3c - 0.5 * ov3c
+	yc3c_bot <- yc - 0.25 * h3c + 0.5 * ov3c
+	x_right3c <- x_ellipse_right(yc, xc, yc3c_top, rx3c, ry3c)
+
+	y_left3c1 <- yc - 0.39 * h3c
+	x_left3c1 <- x_ellipse_left(y_left3c1, xc, yc3c_bot, rx3c, ry3c)
+	y_left3c2 <- yc - 0.22 * h3c
+	x_left3c2 <- x_ellipse_left(y_left3c2, xc, yc3c_bot, rx3c - csrw, ry3c - csrw)
+	y_left3c3 <- yc3c_bot + ry3c - srw3c
+	# x_left3c3 <- x_ellipse_left(y_left3c3, xc, yc3c_bot, rx3c - srw3c, ry3c - srw3c)
+	x_left3c3 <- xc
+
+	d_cd3 <- M(x_right3c, yc) +
+		A(rx3c, ry3c, big = TRUE, x = x_left3c1, y = y_left3c1) +
+		L(x_left3c2, y_left3c2) +
+		A(rx3c - srw3c, ry3c - srw3c, big = TRUE, cw = TRUE, x = x_left3c3, y = y_left3c3) +
+		V(h - y_left3c3) +
+		A(rx3c - srw3c, ry3c - srw3c, big = TRUE, cw = TRUE, x = x_left3c2, y = h - y_left3c2) +
+		L(x_left3c1, h - y_left3c1) +
+		AZ(rx3c, ry3c, big = TRUE, x = x_right3c, y = yc)
+	write_svg(cd_circle_white + d_cd3, "2462")
 	# 2778 dingbat negative circled digit three
-	write_svg(c(cd_circle_black + d_cd3), "2778")
+	write_svg(cd_circle_black + d_cd3, "2778")
 
 	# 218b turned digit three
 	ds <- c(
@@ -352,8 +365,8 @@ create_basic_latin <- function(font = "suits") {
 		d_rect2(vg + srw, xcw - srw, vg, hg), # bar
 		d_fslash(yc, xc + d3o, vg + srw, hg, srw, right = "diagonal", left = "horizontal"), # stroke
 		d_arc23(ych, xc, yc - 1.0 * srw, hg, srw), # t curve 1
-		d_arc1(ych, xcw, ych - 3 * srw, xc, srw), # t curve 2
-		d_circle(xcw - rp, ych - 3 * srw, rp)
+		d_arc1(ych, xcw, 0.5 * (ych + yc - 1.0), xc, srw), # t curve 2
+		d_circle(xcw - rp, 0.5 * (ych + yc - 1.0), rp)
 	) # ball
 	write_svg(ds, "218b")
 
@@ -513,15 +526,16 @@ create_basic_latin <- function(font = "suits") {
 		check_dots_empty()
 		rx8 <- 0.5 * w8
 		ry8 <- 0.25 * h8 + 0.5 * ov8
-		x_left8 <- x_ellipse_left(yc, xc, yc + 0.25 * h8 - 0.5 * ov8, rx8, ry8)
-		x_right8 <- 2 * xc - x_left8
+		yc8_top <- yc + 0.25 * h8 - 0.5 * ov8
+		yc8_bot <- yc - 0.25 * h8 + 0.5 * ov8
+		x_left8 <- x_ellipse_left(yc, xc, yc8_top, rx8, ry8)
 		d_eight <- M(x_left8, yc) +
-			A(rx8, ry8, big = TRUE, x = x_right8, y = yc) + # top half
+			A(rx8, ry8, big = TRUE, x = w - x_left8, y = yc) + # top half
 			AZ(rx8, ry8, big = TRUE, x = x_left8, y = yc) # bottom half
 		if (loop) {
 			d_eight <- d_eight +
-				d_ellipse(xc, yc + 0.25 * h8 - 0.5 * ov8, rx8 - srw8, ry8 - srw8) +
-				d_ellipse(xc, yc - 0.25 * h8 + 0.5 * ov8, rx8 - srw8, ry8 - srw8)
+				d_ellipse(xc, yc8_top, rx8 - srw8, ry8 - srw8) +
+				d_ellipse(xc, yc8_bot, rx8 - srw8, ry8 - srw8)
 		}
 		d_eight
 	}
@@ -1844,8 +1858,8 @@ create_basic_latin <- function(font = "suits") {
 		# circled digits 24ea and 2460 through 2468
 		# negative circled digits 24ff and 2776 through 277e
 		as.hexmode(c("24ea", "24ff")),
-		as.hexmode(c("2460", "2463", "2467")),
-		as.hexmode(c("2776", "2779", "277d")),
+		as.hexmode(c("2460", "2462", "2463", "2467")),
+		as.hexmode(c("2776", "2778", "2779", "277d")),
 		# mathematical bold (avec-serif) digits 1d7ce through 1d7d7
 		c(as.hexmode("1d7ce"):as.hexmode("1d7cf")),
 		as.hexmode(c("1d7d2", "1d7d3", "1d7d5", "1d7d6"))

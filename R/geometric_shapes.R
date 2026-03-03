@@ -1,6 +1,6 @@
 # Geometric Shapes
 # Miscellaneous Symbols and Arrows
-create_geometric_shapes <- function(font = "square") {
+create_geometric_shapes <- function(font = "suits") {
 	h <- dotaro_height(font)
 	w <- dotaro_width(font)
 	do.call(local_options, glyph_options(w, h, font))

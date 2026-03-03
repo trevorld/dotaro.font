@@ -1,4 +1,4 @@
-create_miscellaneous_symbols <- function(font = "square") {
+create_miscellaneous_symbols <- function(font = "suits") {
 	h <- dotaro_height(font) # glyph height
 	w <- dotaro_width(font) # glyph width
 	do.call(local_options, glyph_options(w, h, font))
@@ -75,7 +75,7 @@ create_miscellaneous_symbols <- function(font = "square") {
 	write_svg(d_2739, "2739")
 
 	# 2663 Black Club Suit
-	if (font == "square") {
+	if (font == "suits") {
 		r <- 1.1 * srw
 		rt <- r
 		ycl <- yc
@@ -102,7 +102,7 @@ create_miscellaneous_symbols <- function(font = "square") {
 	# 2660 Black Spade Suit
 	hr <- cw / 4
 	vr <- cw / 5
-	if (font == "narrow") {
+	if (font == "ranks") {
 		base <- d_polygon(
 			x = c(xc - 0.7 * srw, xc, xc + 0.7 * srw),
 			y = c(vg, yc + 2 * srw, vg)
@@ -149,7 +149,7 @@ create_miscellaneous_symbols <- function(font = "square") {
 	d_diam <- d_diamond(xc, yc, w = 0.5 * cw, h = 0.5 * cw)
 	write_svg(d_26ab + d_diam, "f5b8")
 
-	if (font == "narrow") {
+	if (font == "ranks") {
 		y_curve_top <- vg + 0.70 * ch
 	} else {
 		y_curve_top <- vg + 0.60 * ch
@@ -291,7 +291,7 @@ create_miscellaneous_symbols <- function(font = "square") {
 		n <- c(tang[2], -tang[1])
 		(n / sqrt(sum(n^2))) * depth
 	}
-	if (font == "narrow") {
+	if (font == "ranks") {
 		t1o <- -pi / 8
 		t2o <- -pi / 8
 	} else {
@@ -421,7 +421,7 @@ create_miscellaneous_symbols <- function(font = "square") {
 		as.hexmode(c("2605", "2606")),
 		as.hexmode("2660"),
 		as.hexmode("2662"):as.hexmode("2663"),
-		as.hexmode("2655"):as.hexmode("2656"),
+		as.hexmode("2655"),
 		as.hexmode("2658"),
 		as.hexmode("265a"):as.hexmode("265f"),
 		as.hexmode("2665"):as.hexmode("2666"),
@@ -429,8 +429,8 @@ create_miscellaneous_symbols <- function(font = "square") {
 		as.hexmode("272a"):as.hexmode("272d"),
 		as.hexmode(c("2734", "2736", "2737", "2738", "2739", "2742")),
 		as.hexmode(c("f5b8")),
-		as.hexmode(c("1fa1f", "1fa20")),
-		as.hexmode(c("1fa25", "1fa26")),
+		as.hexmode(c("1fa1f")),
+		as.hexmode(c("1fa25")),
 		if (requireNamespace("piecepackr")) as.hexmode(c("fc431", "fc432"))
 	))
 }

@@ -1,4 +1,4 @@
-create_box_drawing <- function(font = "square") {
+create_box_drawing <- function(font = "suits") {
 	h <- dotaro_height(font)
 	w <- dotaro_width(font)
 	do.call(local_options, glyph_options(w, h, font))

@@ -23,50 +23,37 @@ knitr::opts_chunk$set(fig.path = "man/figures/README-", fig.cap = '', fig.height
 
 The main goal is to create a couple of fonts with bespoke glyphs to use in my [Dotaro Deck](https://github.com/trevorld/dotaro.deck) of playing cards:
 
-### Dotaro Narrow
+### Dotaro Ranks
 
-* A narrow monospace font to provide *rank* symbols in playing card [corner indices](https://www.wopc.co.uk/playing-cards/corner-indices):
-
-  + Digits especially 0&ndash;10
-
-    - Include a special 10 glyph in the Private Use Area
-    - Possibly include digits in an alternative style (perhaps in the [Mathematical Alphanumeric Symbols](https://en.wikipedia.org/wiki/Mathematical_Alphanumeric_Symbols) block).
-
-  + Capital letters especially J, C, Q, K, A
-  + Chess symbols especially ♟, ♞, ♛, ♚
-
-* Should look good when rendered with a border and a colored fill with R's [`fillStrokeGrob()`](https://stat.ethz.ch/R-manual/R-devel/library/grid/html/grid.stroke.html) at a target size of 1/4&Prime; &times; 3/8&Prime;.
+* A narrow monospace font to provide *rank* symbols in playing card [corner indices](https://www.wopc.co.uk/playing-cards/corner-indices).
+* Should look good when rendered with a border and a colored fill with R's [`fillStrokeGrob()`](https://stat.ethz.ch/R-manual/R-devel/library/grid/html/grid.stroke.html) at a target size of 1/4&Prime; &times; 3/8&Prime; (corresponds to ~46pt).
 * Mainly [slab serif](https://en.wikipedia.org/wiki/Slab_serif).
 
-### Dotaro Square
+### Dotaro Suits
 
-* A square monospace font to provide *suit* symbols in playing card corner indices and pips:
-
-  + The French suits: &spades;, &hearts;, &diams;, &clubs;
-  + Circled digits especially those from 0&ndash;4
-
-* Should look good when rendered with a border and a colored fill with R's [`fillStrokeGrob()`](https://stat.ethz.ch/R-manual/R-devel/library/grid/html/grid.stroke.html) at a target size of 1/4&Prime; &times; 1/4&Prime;.
+* A square monospace font to provide *suit* symbols in playing card corner indices and pips.
+* Should look good when rendered with a border and a colored fill with R's [`fillStrokeGrob()`](https://stat.ethz.ch/R-manual/R-devel/library/grid/html/grid.stroke.html) at a target size of 1/4&Prime; &times; 1/4&Prime; (corresponds to ~23pt).
 
 ## <a name="downloads">Downloadable Font Files</a>
 
-* [dotaro-narrow.ttf](https://trevorldavis.com/share/fonts/dotaro-narrow.ttf)
-* [dotaro-square.ttf](https://trevorldavis.com/share/fonts/dotaro-square.ttf)
-* [dotaro-narrow-code-charts.pdf](https://trevorldavis.com/share/fonts/dotaro-narrow-code-charts.pdf)
-* [dotaro-square-code-charts.pdf](https://trevorldavis.com/share/fonts/dotaro-square-code-charts.pdf)
+* [dotaro-ranks.ttf](https://trevorldavis.com/share/fonts/dotaro-ranks.ttf)
+* [dotaro-suits.ttf](https://trevorldavis.com/share/fonts/dotaro-suits.ttf)
+* [dotaro-ranks-code-charts.pdf](https://trevorldavis.com/share/fonts/dotaro-ranks-code-charts.pdf)
+* [dotaro-suits-code-charts.pdf](https://trevorldavis.com/share/fonts/dotaro-suits-code-charts.pdf)
 
 ## <a name="examples">Examples</a>
 
-**Note:** Although *Dotaro Narrow* and *Dotaro Square* are **monochrome** fonts in the examples below I use R's [`fillStrokeGrob()`](https://stat.ethz.ch/R-manual/R-devel/library/grid/html/grid.stroke.html) to rendered colored versions of the glyphs with outlines.
+**Note:** Although *Dotaro Ranks* and *Dotaro Suits* are **monochrome** fonts in the examples below I use R's [`fillStrokeGrob()`](https://stat.ethz.ch/R-manual/R-devel/library/grid/html/grid.stroke.html) to rendered colored versions of the glyphs with outlines.
 
-```{r numerals, echo=FALSE, fig.alt = "The digits in Dotaro Narrow shown as card indices"}
+```{r numerals, echo=FALSE, fig.alt = "The digits in Dotaro Ranks shown as card indices"}
 df <- dotaro.font:::df_index(as.character(0:9))
 dotaro.font:::grid.index(df, bleed = "white")
 ```
-```{r face_letters, echo=FALSE, fig.alt = "Some capital letters in Dotaro Narrow shown as card indices"}
+```{r face_letters, echo=FALSE, fig.alt = "Some capital letters in Dotaro Ranks shown as card indices"}
 df <- dotaro.font:::df_index(c("\uf590", "J", "C", "Q", "K", "A"))
 dotaro.font:::grid.index(df, bleed = "white")
 ```
-```{r face_chess, echo=FALSE, fig.alt = "Some chess glyphs in Dotaro Narrow shown as card indices"}
+```{r face_chess, echo=FALSE, fig.alt = "Some chess glyphs in Dotaro Ranks shown as card indices"}
 df <- dotaro.font:::df_index(c("\u265f", "\u265e", "\u265d", "\u265c", "\u265b", "\u265a"))
 dotaro.font:::grid.index(df, bleed = "white")
 ```
@@ -79,27 +66,27 @@ Current [Unicode block](https://en.wikipedia.org/wiki/Unicode_block) coverage (e
 reticulate::use_python(Sys.which("python3"))
 library("Unicode")
 # assumes fonts in `share` directory
-stopifnot(file.exists("share/dotaro-square.ttf"),
-          file.exists("share/dotaro-narrow.ttf"))
-points_square <- dotaro.font:::get_unicode_code_points("share/dotaro-square.ttf") |> as.u_char()
-points_narrow <- dotaro.font:::get_unicode_code_points("share/dotaro-narrow.ttf") |> as.u_char()
+stopifnot(file.exists("share/dotaro-suits.ttf"),
+          file.exists("share/dotaro-ranks.ttf"))
+points_suits <- dotaro.font:::get_unicode_code_points("share/dotaro-suits.ttf") |> as.u_char()
+points_ranks <- dotaro.font:::get_unicode_code_points("share/dotaro-ranks.ttf") |> as.u_char()
 blocks <- u_blocks()
 n_per_block <- lapply(blocks, n_of_u_chars)
 n_per_block[["Basic Latin"]] <- 128L - 33L # Don't count control codes
 n_per_block[["Latin-1 Supplement"]] <- 128L - 34L # Don't count control codes
 
-n_per_block_square <- lapply(blocks, \(x) sum(points_square %in% as.u_char(x)))
-n_per_block_narrow <- lapply(blocks, \(x) sum(points_narrow %in% as.u_char(x)))
-positive_square <- Filter(as.logical, n_per_block_square) |> names()
-positive_narrow <- Filter(as.logical, n_per_block_narrow) |> names()
-shared_blocks <- union(positive_square, positive_narrow)
+n_per_block_suits <- lapply(blocks, \(x) sum(points_suits %in% as.u_char(x)))
+n_per_block_ranks <- lapply(blocks, \(x) sum(points_ranks %in% as.u_char(x)))
+positive_suits <- Filter(as.logical, n_per_block_suits) |> names()
+positive_ranks <- Filter(as.logical, n_per_block_ranks) |> names()
+shared_blocks <- union(positive_suits, positive_ranks)
 
 n_per_block <- n_per_block[shared_blocks]
-n_per_block_square <- n_per_block_square[shared_blocks]
-n_per_block_narrow <- n_per_block_narrow[shared_blocks]
+n_per_block_suits <- n_per_block_suits[shared_blocks]
+n_per_block_ranks <- n_per_block_ranks[shared_blocks]
 df <- data.frame(Block = names(n_per_block),
-                 `Dotaro Narrow` = as.integer(n_per_block_narrow),
-                 `Dotaro Square` = as.integer(n_per_block_square),
+                 `Dotaro Ranks` = as.integer(n_per_block_ranks),
+                 `Dotaro Suits` = as.integer(n_per_block_suits),
                  `Total in Block` = as.integer(n_per_block), check.names = FALSE)
 knitr::kable(df)
 ```
@@ -126,11 +113,11 @@ Run the following R code
 library("dotaro.font")
 reticulate::use_python(Sys.which("python3"))
 
-generate_sfd("narrow", "dotaro_narrow.sfd")
-generate_font("dotaro_narrow.sfd", "dotaro_narrow.ttf")
+generate_sfd("ranks", "dotaro-ranks.sfd")
+generate_font("dotaro-ranks.sfd", "dotaro-ranks.ttf")
 
-generate_sfd("square", "dotaro_square.sfd")
-generate_font("dotaro_square.sfd", "dotaro_square.ttf")
+generate_sfd("suits", "dotaro-suits.sfd")
+generate_font("dotaro-suits.sfd", "dotaro-suits.ttf")
 ```
 
 **Warning:** I've noticed it may not update a previously generated font unless run in a clean R session.

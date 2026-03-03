@@ -1,4 +1,4 @@
-# `plot_glyph()` plots a single character in both "narrow" and "square" fonts
+# `plot_glyph()` plots a single character in both "ranks" and "suits" fonts
 # with {svgparser} based on the **svg** files
 # In contrast `indexGrob()` plots glyphs in {grid} based on the **fonts**
 plot_glyph <- function(x) {
@@ -10,15 +10,15 @@ plot_glyph <- function(x) {
 			stopifnot(requireNamespace("Unicode", quietly = TRUE))
 			x <- as_hex(as.integer(Unicode::as.u_char(utf8ToInt(x))))
 		}
-		mult <- dotaro_width("square") / dotaro_width("narrow")
-		denom <- mult * dotaro_height("narrow") + dotaro_height("square")
-		h_narrow <- grid::unit(mult * dotaro_height("narrow") / denom, "snpc")
-		w_narrow <- grid::unit(mult * dotaro_width("narrow") / denom, "snpc")
-		h_square <- grid::unit(dotaro_height("square") / denom, "snpc")
-		w_square <- grid::unit(dotaro_width("square") / denom, "snpc")
+		mult <- dotaro_width("suits") / dotaro_width("ranks")
+		denom <- mult * dotaro_height("ranks") + dotaro_height("suits")
+		h_narrow <- grid::unit(mult * dotaro_height("ranks") / denom, "snpc")
+		w_narrow <- grid::unit(mult * dotaro_width("ranks") / denom, "snpc")
+		h_square <- grid::unit(dotaro_height("suits") / denom, "snpc")
+		w_square <- grid::unit(dotaro_width("suits") / denom, "snpc")
 
-		f_square <- glyph_file("square", x)
-		f_narrow <- glyph_file("narrow", x)
+		f_square <- glyph_file("suits", x)
+		f_narrow <- glyph_file("ranks", x)
 
 		grid::grid.newpage()
 

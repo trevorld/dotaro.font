@@ -5,12 +5,12 @@
 \title{Generate a FontForge sfd file}
 \usage{
 generate_sfd(
-  font = c("square", "narrow"),
+  font = c("suits", "ranks"),
   output = paste0("dotaro_", font, ".sfd")
 )
 }
 \arguments{
-\item{font}{The desired Dotaro font i.e. "square" or "narrow".}
+\item{font}{The desired Dotaro font i.e. "suits" or "ranks".}
 
 \item{output}{A string of desired FontForge spline font database file name.}
 }

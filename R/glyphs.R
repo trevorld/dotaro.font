@@ -1,4 +1,4 @@
-create_glyphs <- function(font = "square") {
+create_glyphs <- function(font = "suits") {
 	latin <- create_basic_latin(font)
 	block <- create_block_elements(font)
 	box <- create_box_drawing(font)

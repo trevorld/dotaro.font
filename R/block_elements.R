@@ -1,5 +1,5 @@
 # All but the three "shade" glyphs
-create_block_elements <- function(font = "square") {
+create_block_elements <- function(font = "suits") {
 	h <- dotaro_height(font) # glyph height
 	w <- dotaro_width(font) # glyph width
 	do.call(local_options, glyph_options(w, h, font))

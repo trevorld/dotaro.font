@@ -2,12 +2,12 @@
 #'
 #' `generate_sfd()` generates a FontForge Spline Font Database (sfd) file for
 #' the indicated Dotaro font.
-#' @param font The desired Dotaro font i.e. "square" or "narrow".
+#' @param font The desired Dotaro font i.e. "suits" or "ranks".
 #' @param output A string of desired FontForge spline font database file name.
 #' @return The `output` filename invisible.
 #'         As a side effect generates a FontForge spline font database file.
 #' @export
-generate_sfd <- function(font = c("square", "narrow"), output = paste0("dotaro_", font, ".sfd")) {
+generate_sfd <- function(font = c("suits", "ranks"), output = paste0("dotaro_", font, ".sfd")) {
 	font <- match.arg(font)
 	glyph_height <- dotaro_height(font)
 	glyph_width <- dotaro_width(font)
@@ -79,7 +79,7 @@ generate_sfd <- function(font = c("square", "narrow"), output = paste0("dotaro_"
 		rotate_glyph(ff_font, from_int, to_int, pi, psMat)
 	}
 
-	if (font == "square") {
+	if (font == "suits") {
 		for (hex in names(LEFT_FROM_TO)) {
 			from_int <- hex |> as.hexmode() |> as.integer()
 			to_int <- LEFT_FROM_TO[[hex]] |> as.hexmode() |> as.integer()

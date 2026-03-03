@@ -1,13 +1,13 @@
 desc "Build font files and copy to ~/.local/share/fonts"
-task :default => "share/dotaro-narrow.ttf"
-task :default => "share/dotaro-square.ttf"
-task :default => "share/dotaro-narrow-code-charts.pdf"
-task :default => "share/dotaro-square-code-charts.pdf"
+task :default => "share/dotaro-ranks.ttf"
+task :default => "share/dotaro-suits.ttf"
+task :default => "share/dotaro-ranks-code-charts.pdf"
+task :default => "share/dotaro-suits-code-charts.pdf"
 task :default => "README.html"
 
 file "README.html" => "README.Rmd"
-task "README.html" => "share/dotaro-narrow.ttf"
-task "README.html" => "share/dotaro-square.ttf"
+task "README.html" => "share/dotaro-ranks.ttf"
+task "README.html" => "share/dotaro-suits.ttf"
 file "README.html" do
     sh 'Rscript -e "devtools::document()"'
     sh 'Rscript -e "knitr::knit(\"README.Rmd\")"'
@@ -15,41 +15,41 @@ file "README.html" do
     sh 'Rscript -e "pkgdown::build_site()"'
 end
 
-file "share/dotaro-narrow.ttf" => Rake::FileList["R/*.R"]
-file "share/dotaro-narrow.ttf" do
+file "share/dotaro-ranks.ttf" => Rake::FileList["R/*.R"]
+file "share/dotaro-ranks.ttf" do
     sh 'Rscript share/generate_fonts.R'
-    sh "cp share/dotaro-narrow.ttf ~/.local/share/fonts/"
-    sh "cp share/dotaro-square.ttf ~/.local/share/fonts/"
+    sh "cp share/dotaro-ranks.ttf ~/.local/share/fonts/"
+    sh "cp share/dotaro-suits.ttf ~/.local/share/fonts/"
     sh "fc-cache -f"
 end
 
-file "share/dotaro-narrow-code-charts.pdf" => "share/dotaro-narrow.ttf"
-file "share/dotaro-narrow-code-charts.pdf" => "share/dotaro-narrow-code-charts.Rtex"
-file "share/dotaro-narrow-code-charts.pdf" do
+file "share/dotaro-ranks-code-charts.pdf" => "share/dotaro-ranks.ttf"
+file "share/dotaro-ranks-code-charts.pdf" => "share/dotaro-ranks-code-charts.Rtex"
+file "share/dotaro-ranks-code-charts.pdf" do
   Dir.chdir("share") do
-    sh "Rscript -e 'knitr::knit(\"dotaro-narrow-code-charts.Rtex\", \"dotaro-narrow-code-charts.xelatex\")'"
-    sh "xelatex dotaro-narrow-code-charts.xelatex"
-    sh "xelatex dotaro-narrow-code-charts.xelatex"
+    sh "Rscript -e 'knitr::knit(\"dotaro-ranks-code-charts.Rtex\", \"dotaro-ranks-code-charts.xelatex\")'"
+    sh "xelatex dotaro-ranks-code-charts.xelatex"
+    sh "xelatex dotaro-ranks-code-charts.xelatex"
   end
 end
 
-file "share/dotaro-square-code-charts.pdf" => "share/dotaro-square.ttf"
-file "share/dotaro-square-code-charts.pdf" => "share/dotaro-square-code-charts.Rtex"
-file "share/dotaro-square-code-charts.pdf" do
+file "share/dotaro-suits-code-charts.pdf" => "share/dotaro-suits.ttf"
+file "share/dotaro-suits-code-charts.pdf" => "share/dotaro-suits-code-charts.Rtex"
+file "share/dotaro-suits-code-charts.pdf" do
   Dir.chdir("share") do
-    sh "Rscript -e 'knitr::knit(\"dotaro-square-code-charts.Rtex\", \"dotaro-square-code-charts.xelatex\")'"
-    sh "xelatex dotaro-square-code-charts.xelatex"
-    sh "xelatex dotaro-square-code-charts.xelatex"
+    sh "Rscript -e 'knitr::knit(\"dotaro-suits-code-charts.Rtex\", \"dotaro-suits-code-charts.xelatex\")'"
+    sh "xelatex dotaro-suits-code-charts.xelatex"
+    sh "xelatex dotaro-suits-code-charts.xelatex"
   end
 end
 
 desc "Rsync fonts to trevor.l.davis.com/share/fonts"
 task :deploy => :default
 task :deploy do
-  sh "cp share/dotaro-narrow.ttf ../../websites/trevorldavis.com/content/share/fonts/"
-  sh "cp share/dotaro-square.ttf ../../websites/trevorldavis.com/content/share/fonts/"
-  sh "cp share/dotaro-narrow-code-charts.pdf ../../websites/trevorldavis.com/content/share/fonts/"
-  sh "cp share/dotaro-square-code-charts.pdf ../../websites/trevorldavis.com/content/share/fonts/"
+  sh "cp share/dotaro-ranks.ttf ../../websites/trevorldavis.com/content/share/fonts/"
+  sh "cp share/dotaro-suits.ttf ../../websites/trevorldavis.com/content/share/fonts/"
+  sh "cp share/dotaro-ranks-code-charts.pdf ../../websites/trevorldavis.com/content/share/fonts/"
+  sh "cp share/dotaro-suits-code-charts.pdf ../../websites/trevorldavis.com/content/share/fonts/"
   Dir.chdir("../../websites/trevorldavis.com/") do
     sh "rake deploy"
   end

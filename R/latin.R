@@ -218,7 +218,7 @@ create_basic_latin <- function(font = "suits") {
 		d_rect(x = xc, y = yc, w = srw, h = 0.6 * yc) # inside "dot/slash"
 	)
 	write_svg(ds, "0030")
-	# 1ccf0 mathematical outline digit zero (derived via OUTLINE_FROM_TO)
+	# 1ccf0 outline digit zero (derived via OUTLINE_FROM_TO)
 
 	# 1d7ce mathematical bold digit zero
 	xbd0 <- xc + 0.5 * srw
@@ -245,7 +245,7 @@ create_basic_latin <- function(font = "suits") {
 		d_rect2(vg + srw, xc + 1.5 * srw, vg, xc - 1.5 * srw)
 	) # b serif
 	write_svg(ds, "0031")
-	# 1ccf1 mathematical outline digit one (derived via OUTLINE_FROM_TO)
+	# 1ccf1 outline digit one (derived via OUTLINE_FROM_TO)
 	# 1d7cf mathematical bold digit one
 	ds <- c(
 		d_rect(x = xc, y = yc, w = srw, h = h - 2 * vg - 2), # stem,
@@ -289,7 +289,8 @@ create_basic_latin <- function(font = "suits") {
 		d_rect2(vg + 2 * srw, xcw, vg + srw, xcw - srw)
 	) # lr serif
 	write_svg(ds, "0032")
-	# 1ccf2 mathematical outline digit two (derived via OUTLINE_FROM_TO)
+	# 1ccf2 outline digit two (derived via OUTLINE_FROM_TO)
+	#### 218a turned digit two
 	#### 1d7d0 mathematical bold digit two
 	# write_svg(???, "1d7d0")
 	# 1d7da mathematical double-struck digit two (derived via OUTLINE_FROM_TO)
@@ -307,8 +308,6 @@ create_basic_latin <- function(font = "suits") {
 	# 2777 dingbat negative circled digit two
 	write_svg(c(cd_circle_black + d_cd2), "2777")
 
-	#### 218a turned digit two
-
 	# 0033 digit three
 	if (font == "ranks") {
 		d3o <- 0.6 * srw
@@ -323,7 +322,18 @@ create_basic_latin <- function(font = "suits") {
 		d_arc3(0.5 * (vg + yc + 1.0 * srw), xc, vg, hg, srw)
 	) # b curve 2
 	write_svg(ds, "0033")
-	# 1ccf3 mathematical outline digit three (derived via OUTLINE_FROM_TO)
+	# 1ccf3 outline digit three (derived via OUTLINE_FROM_TO)
+	# 218b turned digit three
+	ds <- c(
+		d_rect2(vg + srw + srw, xcw - srw, vg, xcw), # lr serif
+		d_rect2(vg + srw, xcw - srw, vg, hg), # bar
+		d_fslash(yc, xc + d3o, vg + srw, hg, srw, right = "diagonal", left = "horizontal"), # stroke
+		d_arc23(ych, xc, yc - 1.0 * srw, hg, srw), # t curve 1
+		d_arc1(ych, xcw, 0.5 * (ych + yc - 1.0), xc, srw), # t curve 2
+		d_circle(xcw - rp, 0.5 * (ych + yc - 1.0), rp)
+	) # ball
+	write_svg(ds, "218b")
+
 	#### 1d7d1 mathematical bold digit three
 	# write_svg(???, "1d7d1")
 	# 1d7db mathematical double-struck digit three (derived via OUTLINE_FROM_TO)
@@ -359,17 +369,6 @@ create_basic_latin <- function(font = "suits") {
 	# 2778 dingbat negative circled digit three
 	write_svg(cd_circle_black + d_cd3, "2778")
 
-	# 218b turned digit three
-	ds <- c(
-		d_rect2(vg + srw + srw, xcw - srw, vg, xcw), # lr serif
-		d_rect2(vg + srw, xcw - srw, vg, hg), # bar
-		d_fslash(yc, xc + d3o, vg + srw, hg, srw, right = "diagonal", left = "horizontal"), # stroke
-		d_arc23(ych, xc, yc - 1.0 * srw, hg, srw), # t curve 1
-		d_arc1(ych, xcw, 0.5 * (ych + yc - 1.0), xc, srw), # t curve 2
-		d_circle(xcw - rp, 0.5 * (ych + yc - 1.0), rp)
-	) # ball
-	write_svg(ds, "218b")
-
 	# 0034 digit four
 	if (font == "ranks") {
 		yd4b <- yc - 1.0 * srw
@@ -383,7 +382,7 @@ create_basic_latin <- function(font = "suits") {
 		d_fslash(ych, xcw - srw, yd4b, hg, srw, left = "horizontal", right = "vertical")
 	) # stroke
 	write_svg(ds, "0034")
-	# 1ccf4 mathematical outline digit four (derived via OUTLINE_FROM_TO)
+	# 1ccf4 outline digit four (derived via OUTLINE_FROM_TO)
 	# 1d7d2 mathematical bold digit four
 	ds <- c(
 		d_rect2(yd4b + srw, xcw - srw, vg + 2, xcw - srw - srw), # stem
@@ -437,7 +436,7 @@ create_basic_latin <- function(font = "suits") {
 		d_arc3(0.5 * (vg + yc + 1.0 * srw), xc, vg, hg, srw)
 	) # curve 3
 	write_svg(ds, "0035")
-	# 1ccf5 mathematical outline digit five (derived via OUTLINE_FROM_TO)
+	# 1ccf5 outline digit five (derived via OUTLINE_FROM_TO)
 	# 1d7d3 mathematical bold digit five
 	cy5b <- 0.5 * (yc + 2 + vg)
 	rx5b <- xcw - xc
@@ -474,7 +473,7 @@ create_basic_latin <- function(font = "suits") {
 		d_circle(xcw - rp, ych - rp, rp)
 	) # ball
 	write_svg(ds, "0036")
-	# 1ccf6 mathematical outline digit six (derived via OUTLINE_FROM_TO)
+	# 1ccf6 outline digit six (derived via OUTLINE_FROM_TO)
 	#### 1d7d4 mathematical bold digit six
 	# write_svg(???, "1d7d4")
 	# 1d7de mathematical double-struck digit six (derived via OUTLINE_FROM_TO)
@@ -500,7 +499,7 @@ create_basic_latin <- function(font = "suits") {
 		d_rect2(vg + srw, xc + d7stw + 0.5 * srw, vg, xc - 0.5 * srw - srw) # b serif
 	)
 	write_svg(ds, "0037")
-	# 1ccf7 mathematical outline digit seven (derived via OUTLINE_FROM_TO)
+	# 1ccf7 outline digit seven (derived via OUTLINE_FROM_TO)
 	# 1d7d5 mathematical bold digit seven
 	d7stw <- width_slash_left(xcw - (xc - 0.5 * srw), (ych - 2) - (vg + 2), srw)
 	ds <- c(
@@ -543,7 +542,7 @@ create_basic_latin <- function(font = "suits") {
 	ov8 <- (5 / 18) * srw # overlap amount
 	d8 <- d_eight(cw, ch, ov8, srw, loop = TRUE)
 	write_svg(d8, "0038")
-	# 1ccf8 mathematical outline digit eight (derived via OUTLINE_FROM_TO)
+	# 1ccf8 outline digit eight (derived via OUTLINE_FROM_TO)
 	# 1d7d6 mathematical bold digit eight
 	rx8b <- 0.5 * cw
 	ry8b <- 0.25 * ch
@@ -585,7 +584,7 @@ create_basic_latin <- function(font = "suits") {
 		d_rect2(vg + srw, xc + d9stw + 0.5 * srw, vg, xc - 0.5 * srw - srw) # b serif
 	)
 	write_svg(ds, "0039")
-	# 1ccf9 mathematical outline digit nine (derived via OUTLINE_FROM_TO)
+	# 1ccf9 outline digit nine (derived via OUTLINE_FROM_TO)
 	#### 1d7d7 mathematical bold digit nine
 	# write_svg(???, "1d7d7")
 	# 1d7e1 mathematical double-struck digit nine (derived via OUTLINE_FROM_TO)

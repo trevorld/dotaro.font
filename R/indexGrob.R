@@ -27,14 +27,14 @@ rankGrob <- function(
 	fill <- rep_len(fill, n)
 	# cap height = 3/8" = 27pt
 	# em height = 2048px, cap height = 1200px => 46pt = 27pt / (1200px/2048px)
-	fontsize <- 27 / (dotaro_cap_height("narrow") / dotaro_height("narrow"))
+	fontsize <- 27 / (dotaro_cap_height("ranks") / dotaro_height("ranks"))
 	gl <- gList()
 	for (j in seq_len(n)) {
 		tg <- textGrob(
 			label = glyph[j],
 			x = x[j],
 			y = y[j],
-			gp = gpar(fontsize = fontsize, fontfamily = "Dotaro Narrow")
+			gp = gpar(fontsize = fontsize, fontfamily = "Dotaro Ranks")
 		)
 		gl[[j]] <- fillStrokeGrob(
 			tg,
@@ -81,14 +81,14 @@ suitGrob <- function(
 	fill <- rep_len(fill, n)
 	# cap height = 1/4" = 18pt
 	# em height = 2048px, cap height = 1600px => 23pt = 18pt / (1600px/2048px)
-	fontsize <- 18 / (dotaro_cap_height("square") / dotaro_height("square"))
+	fontsize <- 18 / (dotaro_cap_height("suits") / dotaro_height("suits"))
 	gl <- gList()
 	for (j in seq_len(n)) {
 		tg <- textGrob(
 			label = glyph[j],
 			x = x[j],
 			y = y[j],
-			gp = gpar(fontsize = fontsize, fontfamily = "Dotaro Square")
+			gp = gpar(fontsize = fontsize, fontfamily = "Dotaro Suits")
 		)
 		gl[[j]] <- fillStrokeGrob(
 			tg,

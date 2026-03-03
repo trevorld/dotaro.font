@@ -1,5 +1,5 @@
 # Basic Latin
-create_basic_latin <- function(font = "square") {
+create_basic_latin <- function(font = "suits") {
 	h <- dotaro_height(font)
 	w <- dotaro_width(font)
 	do.call(local_options, glyph_options(w, h, font))
@@ -112,7 +112,7 @@ create_basic_latin <- function(font = "square") {
 	write_svg(d, "0027")
 
 	# 002a asterisk
-	if (font == "narrow") {
+	if (font == "ranks") {
 		astl <- 0.8 * ah
 	} else {
 		astl <- ah
@@ -146,7 +146,7 @@ create_basic_latin <- function(font = "square") {
 	write_svg(d_hyphen, "002d")
 
 	# 00f7 division sign
-	if (font == "narrow") {
+	if (font == "ranks") {
 		# need to spread them out
 		d_dots <- d_circle(xc, yc + c(-0.33, 0.33) * cw, rp)
 	} else {
@@ -270,7 +270,7 @@ create_basic_latin <- function(font = "square") {
 	# 0032 digit two
 	d2ry <- 0.30 * ch
 	# multiplier for the quadratic bezier curve
-	if (font == "narrow") {
+	if (font == "ranks") {
 		d2_m <- 1.5
 		d2_yq <- yc
 	} else {
@@ -310,7 +310,7 @@ create_basic_latin <- function(font = "square") {
 	#### 218a turned digit two
 
 	# 0033 digit three
-	if (font == "narrow") {
+	if (font == "ranks") {
 		d3o <- 0.6 * srw
 	} else {
 		d3o <- 0.8 * srw
@@ -577,7 +577,7 @@ create_basic_latin <- function(font = "square") {
 	write_svg(ds, "f590")
 
 	# 0041 latin capital letter a
-	if (font == "square") {
+	if (font == "suits") {
 		yca <- 0.37 * h
 	} else {
 		yca <- 0.35 * h
@@ -746,7 +746,7 @@ create_basic_latin <- function(font = "square") {
 	# 1ccdc outlined latin capital letter g (derived via OUTLINE_FROM_TO)
 
 	# 20b2 guarani sign
-	if (font == "narrow") {
+	if (font == "ranks") {
 		ghw <- 1.7 * srw
 	} else {
 		ghw <- 3.0 * srw
@@ -830,7 +830,7 @@ create_basic_latin <- function(font = "square") {
 	# 1cce0 outlined latin capital letter k (derived via OUTLINE_FROM_TO)
 
 	# 20ad kip sign
-	if (font == "narrow") {
+	if (font == "ranks") {
 		xks <- 0.8 * w
 	} else {
 		xks <- 0.7 * w
@@ -875,7 +875,7 @@ create_basic_latin <- function(font = "square") {
 	# 1cce3 outlined latin capital letter n (derived via OUTLINE_FROM_TO)
 
 	# 20a6 naira sign
-	if (font == "square") {
+	if (font == "suits") {
 		nsg <- 0.7
 	} else {
 		nsg <- 0.6
@@ -1127,7 +1127,7 @@ create_basic_latin <- function(font = "square") {
 
 	# 0040 commercial at (circled small letter a)
 	xl_ds <- hg + srw
-	if (font == "square") {
+	if (font == "suits") {
 		at_d <- xh
 	} else {
 		at_d <- 0.5 * xh

@@ -11,17 +11,17 @@
     urlcolor=black
 }
 
-% \setmainfont{Dotaro Square}
-\newfontfamily\df[Scale=1.0]{Dotaro Square}
+% \setmainfont{Dotaro Suits}
+\newfontfamily\df[Scale=1.0]{Dotaro Suits}
 
-\title{Dotaro Square Code Charts}
+\title{Dotaro Suits Code Charts}
 \author{Trevor L. Davis}
 
 %% begin.rcode setup, echo=FALSE, results='hide'
 library("bittermelon", warn.conflicts = FALSE)
 library("Unicode")
 reticulate::use_python(Sys.which("python3"))
-points_font <- dotaro.font:::get_unicode_code_points("dotaro-square.ttf") |> as.u_char()
+points_font <- dotaro.font:::get_unicode_code_points("dotaro-suits.ttf") |> as.u_char()
 
 make_table <- function(start, end) {
     cat("\\begin{flushleft}\n")

@@ -20,76 +20,63 @@
 
 The main goal is to create a couple of fonts with bespoke glyphs to use in my [Dotaro Deck](https://github.com/trevorld/dotaro.deck) of playing cards:
 
-### Dotaro Narrow
+### Dotaro Ranks
 
-* A narrow monospace font to provide *rank* symbols in playing card [corner indices](https://www.wopc.co.uk/playing-cards/corner-indices):
-
-  + Digits especially 0&ndash;10
-
-    - Include a special 10 glyph in the Private Use Area
-    - Possibly include digits in an alternative style (perhaps in the [Mathematical Alphanumeric Symbols](https://en.wikipedia.org/wiki/Mathematical_Alphanumeric_Symbols) block).
-
-  + Capital letters especially J, C, Q, K, A
-  + Chess symbols especially ♟, ♞, ♛, ♚
-
-* Should look good when rendered with a border and a colored fill with R's [`fillStrokeGrob()`](https://stat.ethz.ch/R-manual/R-devel/library/grid/html/grid.stroke.html) at a target size of 1/4&Prime; &times; 3/8&Prime;.
+* A narrow monospace font to provide *rank* symbols in playing card [corner indices](https://www.wopc.co.uk/playing-cards/corner-indices).
+* Should look good when rendered with a border and a colored fill with R's [`fillStrokeGrob()`](https://stat.ethz.ch/R-manual/R-devel/library/grid/html/grid.stroke.html) at a target size of 1/4&Prime; &times; 3/8&Prime; (corresponds to ~46pt).
 * Mainly [slab serif](https://en.wikipedia.org/wiki/Slab_serif).
 
-### Dotaro Square
+### Dotaro Suits
 
-* A square monospace font to provide *suit* symbols in playing card corner indices and pips:
-
-  + The French suits: &spades;, &hearts;, &diams;, &clubs;
-  + Circled digits especially those from 0&ndash;4
-
-* Should look good when rendered with a border and a colored fill with R's [`fillStrokeGrob()`](https://stat.ethz.ch/R-manual/R-devel/library/grid/html/grid.stroke.html) at a target size of 1/4&Prime; &times; 1/4&Prime;.
+* A square monospace font to provide *suit* symbols in playing card corner indices and pips.
+* Should look good when rendered with a border and a colored fill with R's [`fillStrokeGrob()`](https://stat.ethz.ch/R-manual/R-devel/library/grid/html/grid.stroke.html) at a target size of 1/4&Prime; &times; 1/4&Prime; (corresponds to ~23pt).
 
 ## <a name="downloads">Downloadable Font Files</a>
 
-* [dotaro-narrow.ttf](https://trevorldavis.com/share/fonts/dotaro-narrow.ttf)
-* [dotaro-square.ttf](https://trevorldavis.com/share/fonts/dotaro-square.ttf)
-* [dotaro-narrow-code-charts.pdf](https://trevorldavis.com/share/fonts/dotaro-narrow-code-charts.pdf)
-* [dotaro-square-code-charts.pdf](https://trevorldavis.com/share/fonts/dotaro-square-code-charts.pdf)
+* [dotaro-ranks.ttf](https://trevorldavis.com/share/fonts/dotaro-ranks.ttf)
+* [dotaro-suits.ttf](https://trevorldavis.com/share/fonts/dotaro-suits.ttf)
+* [dotaro-ranks-code-charts.pdf](https://trevorldavis.com/share/fonts/dotaro-ranks-code-charts.pdf)
+* [dotaro-suits-code-charts.pdf](https://trevorldavis.com/share/fonts/dotaro-suits-code-charts.pdf)
 
 ## <a name="examples">Examples</a>
 
-**Note:** Although *Dotaro Narrow* and *Dotaro Square* are **monochrome** fonts in the examples below I use R's [`fillStrokeGrob()`](https://stat.ethz.ch/R-manual/R-devel/library/grid/html/grid.stroke.html) to rendered colored versions of the glyphs with outlines.
+**Note:** Although *Dotaro Ranks* and *Dotaro Suits* are **monochrome** fonts in the examples below I use R's [`fillStrokeGrob()`](https://stat.ethz.ch/R-manual/R-devel/library/grid/html/grid.stroke.html) to rendered colored versions of the glyphs with outlines.
 
-<img src="man/figures/README-numerals-1.png" alt="The digits in Dotaro Narrow shown as card indices"  />
-<img src="man/figures/README-face_letters-1.png" alt="Some capital letters in Dotaro Narrow shown as card indices"  />
-<img src="man/figures/README-face_chess-1.png" alt="Some chess glyphs in Dotaro Narrow shown as card indices"  />
+<img src="man/figures/README-numerals-1.png" alt="The digits in Dotaro Ranks shown as card indices"  />
+<img src="man/figures/README-face_letters-1.png" alt="Some capital letters in Dotaro Ranks shown as card indices"  />
+<img src="man/figures/README-face_chess-1.png" alt="Some chess glyphs in Dotaro Ranks shown as card indices"  />
 
 ## <a name="blocks">Unicode block coverage</a>
 
 Current [Unicode block](https://en.wikipedia.org/wiki/Unicode_block) coverage (excluding control codes):
 
 
-|Block                                   | Dotaro Narrow| Dotaro Square| Total in Block|
-|:---------------------------------------|-------------:|-------------:|--------------:|
-|Basic Latin                             |            95|            95|             95|
-|Block Elements                          |            29|            29|             32|
-|Box Drawing                             |           113|           113|            128|
-|Chess Symbols                           |            12|            36|            112|
-|Currency Symbols                        |            11|            11|             48|
-|Dingbats                                |            12|            12|            192|
-|Enclosed Alphanumerics                  |             4|             4|            160|
-|General Punctuation                     |             5|             5|            112|
-|Geometric Shapes                        |            28|            28|             96|
-|IPA Extensions                          |             1|             1|             96|
-|Latin Extended-A                        |             1|             1|            128|
-|Latin Extended-B                        |             2|             2|            208|
-|Latin-1 Supplement                      |            18|            18|             94|
-|Mathematical Alphanumeric Symbols       |            12|            12|           1024|
-|Mathematical Operators                  |             4|             4|            256|
-|Miscellaneous Symbols                   |            24|            24|            256|
-|Miscellaneous Symbols and Arrows        |             5|             5|            256|
-|Miscellaneous Symbols and Pictographs   |             1|             1|            768|
-|Number Forms                            |             1|             1|             64|
-|Private Use Area                        |             2|             2|           6400|
-|Spacing Modifier Letters                |             1|             1|             80|
-|Supplementary Private Use Area-A        |             2|             2|          65536|
-|Symbols for Legacy Computing Supplement |            36|            36|            704|
-|Thai                                    |             1|             1|            128|
+|Block                                   | Dotaro Ranks| Dotaro Suits| Total in Block|
+|:---------------------------------------|------------:|------------:|--------------:|
+|Basic Latin                             |           95|           95|             95|
+|Block Elements                          |           29|           29|             32|
+|Box Drawing                             |          113|          113|            128|
+|Chess Symbols                           |           12|           36|            112|
+|Currency Symbols                        |           11|           11|             48|
+|Dingbats                                |           12|           12|            192|
+|Enclosed Alphanumerics                  |            4|            4|            160|
+|General Punctuation                     |            5|            5|            112|
+|Geometric Shapes                        |           28|           28|             96|
+|IPA Extensions                          |            1|            1|             96|
+|Latin Extended-A                        |            1|            1|            128|
+|Latin Extended-B                        |            2|            2|            208|
+|Latin-1 Supplement                      |           18|           18|             94|
+|Mathematical Alphanumeric Symbols       |           12|           12|           1024|
+|Mathematical Operators                  |            4|            4|            256|
+|Miscellaneous Symbols                   |           24|           24|            256|
+|Miscellaneous Symbols and Arrows        |            5|            5|            256|
+|Miscellaneous Symbols and Pictographs   |            1|            1|            768|
+|Number Forms                            |            1|            1|             64|
+|Private Use Area                        |            2|            2|           6400|
+|Spacing Modifier Letters                |            1|            1|             80|
+|Supplementary Private Use Area-A        |            2|            2|          65536|
+|Symbols for Legacy Computing Supplement |           36|           36|            704|
+|Thai                                    |            1|            1|            128|
 
 ## <a name="license">License</a>
 
@@ -113,11 +100,11 @@ Run the following R code
 library("dotaro.font")
 reticulate::use_python(Sys.which("python3"))
 
-generate_sfd("narrow", "dotaro_narrow.sfd")
-generate_font("dotaro_narrow.sfd", "dotaro_narrow.ttf")
+generate_sfd("ranks", "dotaro-ranks.sfd")
+generate_font("dotaro-ranks.sfd", "dotaro-ranks.ttf")
 
-generate_sfd("square", "dotaro_square.sfd")
-generate_font("dotaro_square.sfd", "dotaro_square.ttf")
+generate_sfd("suits", "dotaro-suits.sfd")
+generate_font("dotaro-suits.sfd", "dotaro-suits.ttf")
 ```
 
 **Warning:** I've noticed it may not update a previously generated font unless run in a clean R session.

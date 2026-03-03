@@ -7,7 +7,7 @@
 #' @importFrom utils hasName packageVersion
 NULL
 
-glyph_dir <- function(font = "square", create = TRUE) {
+glyph_dir <- function(font = "suits", create = TRUE) {
 	dir <- tools::R_user_dir("dotaro.font", "cache") |> file.path(font)
 	if (create && !dir.exists(dir)) {
 		dir.create(dir, recursive = TRUE)
@@ -28,9 +28,9 @@ glyph_file <- function(font, hex) {
 write_svg <- function(
 	d,
 	hex,
-	font = getOption("dotaro.font", "square"),
-	width = getOption("dee.width", SQUARE_WIDTH),
-	height = getOption("dee.height", SQUARE_HEIGHT)
+	font = getOption("dotaro.font", "suits"),
+	width = getOption("dee.width", SUITS_WIDTH),
+	height = getOption("dee.height", SUITS_HEIGHT)
 ) {
 	file <- glyph_file(font, hex)
 	attrs <- svg_attrs_pres(fill_rule = "evenodd")
@@ -69,79 +69,79 @@ glyph_options <- function(width, height, font) {
 
 # paths try outer clockwise, inner counter-clockwise?
 
-SQUARE_HEIGHT <- 2048L
-SQUARE_WIDTH <- 2048L
+SUITS_HEIGHT <- 2048L
+SUITS_WIDTH <- 2048L
 
-NARROW_HEIGHT <- 2048L
-NARROW_WIDTH <- 1024L
+RANKS_HEIGHT <- 2048L
+RANKS_WIDTH <- 1024L
 
-dotaro_height <- function(font = c("square", "narrow")) {
+dotaro_height <- function(font = c("suits", "ranks")) {
 	font <- match.arg(font)
-	switch(font, square = SQUARE_HEIGHT, narrow = NARROW_HEIGHT)
+	switch(font, suits = SUITS_HEIGHT, ranks = RANKS_HEIGHT)
 }
 
-dotaro_width <- function(font = c("square", "narrow")) {
+dotaro_width <- function(font = c("suits", "ranks")) {
 	font <- match.arg(font)
-	switch(font, square = SQUARE_WIDTH, narrow = NARROW_WIDTH)
+	switch(font, suits = SUITS_WIDTH, ranks = RANKS_WIDTH)
 }
 
-dotaro_cap_width <- function(font = c("square", "narrow")) {
+dotaro_cap_width <- function(font = c("suits", "ranks")) {
 	font <- match.arg(font)
 	(25 / 32) * dotaro_width(font)
 }
 
-dotaro_cap_height <- function(font = c("square", "narrow")) {
+dotaro_cap_height <- function(font = c("suits", "ranks")) {
 	font <- match.arg(font)
-	switch(font, square = dotaro_cap_width(font), narrow = (3 / 2) * dotaro_cap_width(font))
+	switch(font, suits = dotaro_cap_width(font), ranks = (3 / 2) * dotaro_cap_width(font))
 }
 
-dotaro_x_height <- function(font = c("square", "narrow")) {
+dotaro_x_height <- function(font = c("suits", "ranks")) {
 	font <- match.arg(font)
 	cap_width <- dotaro_cap_width(font)
-	switch(font, square = 0.7 * cap_width, narrow = cap_width)
+	switch(font, suits = 0.7 * cap_width, ranks = cap_width)
 }
 
-dotaro_vertical_gap <- function(font = c("square", "narrow")) {
+dotaro_vertical_gap <- function(font = c("suits", "ranks")) {
 	font <- match.arg(font)
 	(dotaro_height(font) - dotaro_cap_height(font)) / 2
 }
 
-dotaro_horizontal_gap <- function(font = c("square", "narrow")) {
+dotaro_horizontal_gap <- function(font = c("suits", "ranks")) {
 	font <- match.arg(font)
 	(dotaro_width(font) - dotaro_cap_width(font)) / 2
 }
 
-dotaro_stroke_width <- function(font = c("square", "narrow")) {
+dotaro_stroke_width <- function(font = c("suits", "ranks")) {
 	font <- match.arg(font)
-	270L * dotaro_width(font) / SQUARE_WIDTH
+	270L * dotaro_width(font) / SUITS_WIDTH
 }
 
-dotaro_stroke_width_short <- function(font = c("square", "narrow")) {
+dotaro_stroke_width_short <- function(font = c("suits", "ranks")) {
 	font <- match.arg(font)
 	0.5 * dotaro_stroke_width(font)
 }
 
-dotaro_terminal_radius <- function(font = c("square", "narrow")) {
+dotaro_terminal_radius <- function(font = c("suits", "ranks")) {
 	font <- match.arg(font)
 	(5 / 3) * dotaro_stroke_width(font)
 }
 
-dotaro_outline_stroke_width <- function(font = c("square", "narrow")) {
+dotaro_outline_stroke_width <- function(font = c("suits", "ranks")) {
 	font <- match.arg(font)
-	60L * dotaro_width(font) / SQUARE_WIDTH
+	60L * dotaro_width(font) / SUITS_WIDTH
 }
 
-box_drawing_light <- function(font = c("square", "narrow")) {
+box_drawing_light <- function(font = c("suits", "ranks")) {
 	font <- match.arg(font)
 	dotaro_outline_stroke_width(font)
 }
 
-box_drawing_heavy <- function(font = c("square", "narrow")) {
+box_drawing_heavy <- function(font = c("suits", "ranks")) {
 	font <- match.arg(font)
 	4L * dotaro_outline_stroke_width(font)
 }
 
-box_drawing_radius <- function(font = c("square", "narrow")) {
+box_drawing_radius <- function(font = c("suits", "ranks")) {
 	font <- match.arg(font)
 	300L
 }

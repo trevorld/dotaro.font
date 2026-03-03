@@ -45,6 +45,8 @@ The main goal is to create a couple of fonts with bespoke glyphs to use in my [D
 
 **Note:** Although *Dotaro Ranks* and *Dotaro Suits* are **monochrome** fonts in the examples below I use R's [`fillStrokeGrob()`](https://stat.ethz.ch/R-manual/R-devel/library/grid/html/grid.stroke.html) to rendered colored versions of the glyphs with outlines.
 
+### Traditional Anglo-American pattern ranks
+
 ```{r numerals, echo=FALSE, fig.alt = "The digits in Dotaro Ranks shown as card indices"}
 df <- dotaro.font:::df_index(as.character(0:9))
 dotaro.font:::grid.index(df, bleed = "white")
@@ -53,9 +55,91 @@ dotaro.font:::grid.index(df, bleed = "white")
 df <- dotaro.font:::df_index(c("\uf590", "J", "C", "Q", "K", "A"))
 dotaro.font:::grid.index(df, bleed = "white")
 ```
+
+### Chess ranks
+
 ```{r face_chess, echo=FALSE, fig.alt = "Some chess glyphs in Dotaro Ranks shown as card indices"}
 df <- dotaro.font:::df_index(c("\u265f", "\u265e", "\u265d", "\u265c", "\u265b", "\u265a"))
 dotaro.font:::grid.index(df, bleed = "white")
+```
+```{r chess_meeples, echo=FALSE, fig.alt = "Chess glyphs combined with meeple glyphs"}
+library("grid")
+
+# Unicode code points (Dotaro Square font)
+MEEPLE_BLACK <- "\U000FC431"
+PAWN_BLACK <- "\u265f"
+KNIGHT_BLACK <- "\u265e"
+BISHOP_BLACK <- "\u265d"
+ROOK_BLACK <- "\u265c"
+QUEEN_BLACK <- "\u265b"
+KING_BLACK <- "\u265a"
+
+# Font sizes in points
+meeple_size <- 60
+chess_size <- 26
+
+# Layout dimensions (inches)
+n_cols <- 6
+col_spacing <- 0.85
+total_width <- n_cols * col_spacing + 0.3
+total_height <- 1.8
+
+# x center of each column
+xs <- unit(0.15 + col_spacing * (seq_len(n_cols) - 0.5), "in")
+
+# Meeple y-center
+y_meeple <- unit(0.7, "in")
+
+# Hat y-center: just above the meeple's head
+# Meeple em-box half-height = meeple_size / 2 pts; chess em-box half = chess_size / 2 pts
+# Overlap slightly so the hat sits on the head rather than floating above
+hat_offset_in <- (meeple_size / 2 + chess_size * 0.35) / 72 - 0.15
+y_hat <- y_meeple + unit(hat_offset_in, "in")
+
+# Knight y-center: just below the meeple (riding position)
+knight_offset_in <- (meeple_size / 2 + chess_size * 0.35) / 72
+y_knight <- y_meeple - unit(knight_offset_in, "in")
+
+make_glyph <- function(glyph, x, y, size, col = "black", fill = "black") {
+    tg <- textGrob(
+        label = glyph,
+        x = x,
+        y = y,
+        gp = gpar(fontsize = size, fontfamily = "Dotaro Square")
+    )
+    fillStrokeGrob(tg, gp = gpar(col = col, fill = fill, lwd = 1.5))
+}
+
+vp <- viewport(
+    width = unit(total_width, "in"),
+    height = unit(total_height, "in"),
+    x = unit(0.4, "npc"),
+    y = unit(0.5, "npc")
+)
+pushViewport(vp)
+hats <- c(PAWN_BLACK, BISHOP_BLACK, QUEEN_BLACK, KING_BLACK)
+
+# Meeples 1-4: chess piece worn as hat on top
+for (i in seq_len(4)) {
+	if (i < 2L) {
+		x <- xs[1]
+	} else if (i < 3L) {
+		x <- xs[3]
+	} else {
+		x <- xs[i + 2L]
+	}
+    grid.draw(make_glyph(MEEPLE_BLACK, x, y_meeple, meeple_size, fill = "#555555"))
+    grid.draw(make_glyph(hats[i], x, y_hat, chess_size, fill = "lightgrey"))
+}
+
+# Meeple 5: knight below, as if riding
+grid.draw(make_glyph(MEEPLE_BLACK, xs[2], y_hat, 2.1 * chess_size, fill = "#555555"))
+grid.draw(make_glyph(KNIGHT_BLACK, xs[2], y_meeple, 0.9 * meeple_size, fill = "lightgrey"))
+
+# Meeple 6: rook below, as if standing on top
+grid.draw(make_glyph(MEEPLE_BLACK, xs[4], y_hat, 1.5 * chess_size, fill = "#555555"))
+grid.draw(make_glyph(ROOK_BLACK, xs[4], y_meeple, 1.0 * meeple_size, fill = "lightgrey"))
+popViewport()
 ```
 
 ## <a name="blocks">Unicode block coverage</a>

@@ -42,9 +42,15 @@ The main goal is to create a couple of fonts with bespoke glyphs to use in my [D
 
 **Note:** Although *Dotaro Ranks* and *Dotaro Suits* are **monochrome** fonts in the examples below I use R's [`fillStrokeGrob()`](https://stat.ethz.ch/R-manual/R-devel/library/grid/html/grid.stroke.html) to rendered colored versions of the glyphs with outlines.
 
+### Traditional Anglo-American pattern ranks
+
 <img src="man/figures/README-numerals-1.png" alt="The digits in Dotaro Ranks shown as card indices"  />
 <img src="man/figures/README-face_letters-1.png" alt="Some capital letters in Dotaro Ranks shown as card indices"  />
+
+### Chess ranks
+
 <img src="man/figures/README-face_chess-1.png" alt="Some chess glyphs in Dotaro Ranks shown as card indices"  />
+<img src="man/figures/README-chess_meeples-1.png" alt="Chess glyphs combined with meeple glyphs"  />
 
 ## <a name="blocks">Unicode block coverage</a>
 

@@ -26,13 +26,14 @@ create_basic_latin <- function(font = "suits") {
 
 	# Circled digit values
 	cdw <- cw / sqrt(2)
+	cdw <- 0.8 * cdw
 	chg <- xc - 0.5 * cdw # left
 	cvg <- yc - 0.5 * cdw # bottom
 	cxcw <- xc + 0.5 * cdw # right
 	cych <- yc + 0.5 * cdw # top
 	cd_circle_white <- d_circle(xc, yc, 0.5 * c(cw, cw - ow))
 	cd_circle_black <- d_ellipse(xc, yc, 0.5 * cw, 0.5 * cw)
-	csrw <- 0.8 * srw
+	csrw <- 0.4 * srw
 
 	# 0022 quotation mark
 	d <- d_rect(xc + c(-0.25, 0.25) * cw, ych - 0.5 * ah, srw, ah)
@@ -296,14 +297,16 @@ create_basic_latin <- function(font = "suits") {
 	# 1d7da mathematical double-struck digit two (derived via OUTLINE_FROM_TO)
 	# 2461 circled digit two
 	d2ry_c <- 0.30 * cdw
-	c2vg <- cvg + 0.15 * cdw
-	d_cd2 <- d_arc12(cych, cxcw, cych - d2ry_c, chg, csrw) + # top curve
-		M(cxcw, cych - d2ry_c) + # curved stroke
-		Q(cxcw, yc, chg + 2 * csrw, c2vg + csrw) +
-		H(chg) +
-		Q(cxcw - 2 * csrw, yc, cxcw - csrw, cych - d2ry_c) +
+	c2vg <- cvg + 0.0 * cdw
+	c2hg <- chg + 0.08 * cdw
+	c2xcw <- w - c2hg
+	d_cd2 <- d_arc12(cych, c2xcw, cych - d2ry_c, c2hg, csrw) + # top curve
+		M(c2xcw, cych - d2ry_c) + # curved stroke
+		Q(c2xcw, yc, c2hg + 2 * csrw, c2vg + csrw) +
+		H(c2hg) +
+		Q(c2xcw - 2 * csrw, yc, c2xcw - csrw, cych - d2ry_c) +
 		Z() +
-		d_rect2(c2vg + csrw, cxcw, c2vg, chg) # bar
+		d_rect2(c2vg + csrw, c2xcw, c2vg, c2hg) # bar
 	write_svg(c(cd_circle_white, d_cd2), "2461")
 	# 2777 dingbat negative circled digit two
 	write_svg(c(cd_circle_black + d_cd2), "2777")
@@ -393,35 +396,38 @@ create_basic_latin <- function(font = "suits") {
 	write_svg(ds, "1d7d2")
 	# 1d7dc mathematical double-struck digit four (derived via OUTLINE_FROM_TO)
 	# 2463 circled digit four
-	cyd4b <- cvg + 2 * csrw
+	ycd4bb <- cvg + 2.0 * csrw # bottom of bar
+	ycd4bt <- ycd4bb + csrw # top of bar
+	xcd4sr <- cxcw - 1.5 * csrw # right of stem
+	xcd4sl <- xcd4sr - csrw # left of stem
 	wslc4 <- width_slash_left(
-		cxcw - 2 * csrw - chg,
-		cych - cyd4b,
+		xcd4sl - chg,
+		cych - ycd4bt,
 		csrw,
 		left = "horizontal",
 		right = "vertical"
 	)
 	hsrc4 <- height_slash_right(
-		cxcw - 2 * csrw - chg,
-		cych - cyd4b,
+		xcd4sl - chg,
+		cych - ycd4bt,
 		csrw,
 		left = "horizontal",
 		right = "vertical"
 	)
-	d_cd4_outline <- M(cxcw - csrw, cvg) +
-		H(cxcw - 2 * csrw) +
-		V(cvg + csrw) +
-		H(chg) +
-		V(cvg + 2 * csrw) +
-		L(cxcw - 2 * csrw, cych) +
-		H(cxcw - 1 * csrw) +
-		V(cvg + 2 * csrw) +
+	d_cd4_outline <- M(xcd4sr, cvg) + # bottom right
+		H(xcd4sl) +
+		V(ycd4bb) +
+		H(chg) + # bottom left of bar
+		V(ycd4bt) +
+		L(xcd4sl, cych) +
+		H(xcd4sr) +
+		V(ycd4bt) + # top right of stem
 		H(cxcw) +
-		V(cvg + csrw) +
-		HZ(cxcw - csrw)
-	d_cd4_counter <- M(cxcw - 2 * csrw, cvg + 2 * csrw) +
+		V(ycd4bb) +
+		HZ(xcd4sr)
+	d_cd4_counter <- M(xcd4sl, ycd4bt) +
 		H(chg + wslc4) +
-		LZ(cxcw - 2 * csrw, cych - hsrc4)
+		LZ(xcd4sl, cych - hsrc4)
 	write_svg(c(cd_circle_white, d_cd4_outline + d_cd4_counter), "2463")
 	# 2779 dingbat negative circled digit four
 	write_svg(c(cd_circle_black + d_cd4_outline + d_cd4_counter), "2779")

@@ -452,7 +452,7 @@ create_basic_latin <- function(font = "suits") {
 	ds <- c(
 		d_rect2(ych, xcw, ych - 4, xcw - 2), # ur serif
 		d_rect2(ych, xcw - 2, ych - 2, hg + 0.5 * srw), # bar
-		d_rect2(ych - 2, hg + srw + 0.5 * srw, yc, hg + 0.5 * srw), # stem
+		d_rect2(ych - 2, w - xbd5, yc, hg + 0.5 * srw), # stem
 		d_rect2(yc + 2, xc, yc, hg + srw + 0.5 * srw), # curve 1
 		d_arc41(yc + 2, xcw, vg, xc, 2), # curve 2
 		d_arc3(0.5 * (vg + yc + 2), xc, vg, hg, 2), # curve 3

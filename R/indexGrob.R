@@ -200,28 +200,63 @@ grid.index <- function(...) {
 }
 
 # Helper function for quick rank tests where
-# we simply cycle through the French suits
-df_index <- function(ranks) {
-	suits <- c("\u2660", "\u2665", "\u2666", "\u2663") # ♠ ♥ ♦ ♣
-	suit_fills <- c("#009E73", "#D55E00", "#D55E00", "#009E73")
-	# suit_fills <- rep_len("white", 4L)
-
+# we simply cycle through the French suits or circled digits
+df_index <- function(ranks, suits = "french", fill = NULL) {
 	n_cards <- length(ranks)
-	suit_idx <- ((seq_len(n_cards) - 1L) %% 4L) + 1L
-
-	df_ranks <- data.frame(
-		card = seq_len(n_cards),
-		type = "rank",
-		glyph = ranks,
-		col = "black",
-		fill = suit_fills[suit_idx]
-	)
-	df_suits <- data.frame(
-		card = seq_len(n_cards),
-		type = "suit",
-		glyph = suits[suit_idx],
-		col = "black",
-		fill = suit_fills[suit_idx]
-	)
-	rbind(df_ranks, df_suits)
+	if (suits == "french") {
+		french_suits <- c("\u2660", "\u2665", "\u2666", "\u2663") # ♠ ♥ ♦ ♣
+		if (is.null(fill)) {
+			suit_fills <- c("#009E73", "#D55E00", "#D55E00", "#009E73")
+		} else {
+			suit_fills <- rep_len(fill, 4L)
+		}
+		suit_idx <- ((seq_len(n_cards) - 1L) %% 4L) + 1L
+		df_ranks <- data.frame(
+			card = seq_len(n_cards),
+			type = "rank",
+			glyph = ranks,
+			col = "black",
+			fill = suit_fills[suit_idx]
+		)
+		df_suits <- data.frame(
+			card = seq_len(n_cards),
+			type = "suit",
+			glyph = french_suits[suit_idx],
+			col = "black",
+			fill = suit_fills[suit_idx]
+		)
+		rbind(df_ranks, df_suits)
+	} else if (suits == "circles") {
+		circled <- c("\u24ea", "\u2460", "\u2461", "\u2462", "\u2463") # ⓪①②③④
+		neg_circled <- c("\u24ff", "\u2776", "\u2777", "\u2778", "\u2779") # ⓿❶❷❸❹
+		if (is.null(fill)) {
+			oi_fills <- c("#F0E442", "#0072B2") # Okabe-Ito yellow, dark blue
+		} else {
+			oi_fills <- c(fill, fill)
+		}
+		suit_idx <- ((seq_len(n_cards) - 1L) %% 5L) + 1L
+		fill_idx <- ((seq_len(n_cards) - 1L) %% 2L) + 1L
+		df_ranks <- data.frame(
+			card = seq_len(n_cards),
+			type = "rank",
+			glyph = ranks,
+			col = "black",
+			fill = oi_fills[fill_idx]
+		)
+		df_suits_base <- data.frame(
+			card = seq_len(n_cards),
+			type = "suit",
+			glyph = circled[suit_idx],
+			col = "black",
+			fill = "black"
+		)
+		df_suits_neg <- data.frame(
+			card = seq_len(n_cards),
+			type = "suit",
+			glyph = neg_circled[suit_idx],
+			col = "black",
+			fill = oi_fills[fill_idx]
+		)
+		rbind(df_ranks, df_suits_base, df_suits_neg)
+	}
 }

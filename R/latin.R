@@ -551,20 +551,16 @@ create_basic_latin <- function(font = "suits") {
 	# 1ccf8 outline digit eight (derived via OUTLINE_FROM_TO)
 	# 1d7d6 mathematical bold digit eight
 	rx8b <- 0.5 * cw
-	ry8b <- 0.25 * ch
-	cy_top8b <- 0.5 * (yc + ych)
-	cy_bot8b <- 0.5 * (yc + vg)
-	xbd8 <- xc + 0.5 * srw
-	yb_top8b <- y_ellipse_bottom(xbd8, xc, cy_top8b, rx8b, ry8b)
-	yb_bot8b <- y_ellipse_bottom(xbd8, xc, cy_bot8b, rx8b, ry8b)
-	ds <- c(
-		d_eight(cw, ch, 0, 2),
-		M(xbd8, 2 * cy_top8b - yb_top8b) + AZ(rx8b, ry8b, x = xbd8, y = yb_top8b),
-		M(w - xbd8, yb_top8b) + AZ(rx8b, ry8b, x = w - xbd8, y = 2 * cy_top8b - yb_top8b),
-		M(xbd8, 2 * cy_bot8b - yb_bot8b) + AZ(rx8b, ry8b, x = xbd8, y = yb_bot8b),
-		M(w - xbd8, yb_bot8b) + AZ(rx8b, ry8b, x = w - xbd8, y = 2 * cy_bot8b - yb_bot8b)
-	)
-	write_svg(ds, "1d7d6")
+	ry8b <- 0.25 * ch + 0.5 * ov8
+	yc8b_top <- yc + 0.25 * ch - 0.5 * ov8
+	x8b_inner <- xc - 0.5 * srw
+	yc8b_inner <- y_ellipse_top(x8b_inner, xc, yc8b_top, rx8b - 2, ry8b - 2)
+	d8b_outer <- d_eight(cw, ch, ov8, srw, loop = FALSE)
+	d8b_inner <- M(x8b_inner, yc8b_inner) + # top_left
+		A(rx8b - 2, ry8b - 2, cw = TRUE, x = w - x8b_inner, y = yc8b_inner) +
+		V(h - yc8b_inner) +
+		AZ(rx8b - 2, ry8b - 2, cw = TRUE, x = x8b_inner, y = h - yc8b_inner)
+	write_svg(d8b_outer + d8b_inner, "1d7d6")
 	# 1d7e0 mathematical double-struck digit eight (derived via OUTLINE_FROM_TO)
 	# 2467 circled digit eight
 	# We need to use the outline of the outside of the eight

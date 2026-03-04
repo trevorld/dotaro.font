@@ -388,10 +388,10 @@ create_basic_latin <- function(font = "suits") {
 	# 1ccf4 outline digit four (derived via OUTLINE_FROM_TO)
 	# 1d7d2 mathematical bold digit four
 	ds <- c(
-		d_rect2(yd4b + srw, xcw - srw, vg + 2, xcw - srw - srw), # stem
+		d_rect2(ych, xcw - srw, vg + 2, xcw - srw - srw), # stem
 		d_rect2(vg + 2, xcw, vg, xcw - srw - 2 * srw), # b serif
 		d_rect2(yd4b, xcw, yd4b - 2, hg), # bar
-		d_fslash(ych, xcw - srw, yd4b, hg, srw, left = "horizontal", right = "vertical")
+		d_fslash(ych, xcw - srw - srw, yd4b, hg, 2, left = "horizontal", right = "vertical")
 	) # stroke
 	write_svg(ds, "1d7d2")
 	# 1d7dc mathematical double-struck digit four (derived via OUTLINE_FROM_TO)

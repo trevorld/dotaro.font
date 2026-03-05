@@ -34,6 +34,7 @@ create_basic_latin <- function(font = "suits") {
 	cd_circle_white <- d_circle(xc, yc, 0.5 * c(cw, cw - ow))
 	cd_circle_black <- d_ellipse(xc, yc, 0.5 * cw, 0.5 * cw)
 	csrw <- 0.4 * srw
+	crp <- 0.20 * srw
 
 	# 0022 quotation mark
 	d <- d_rect(xc + c(-0.25, 0.25) * cw, ych - 0.5 * ah, srw, ah)
@@ -292,8 +293,21 @@ create_basic_latin <- function(font = "suits") {
 	write_svg(ds, "0032")
 	# 1ccf2 outline digit two (derived via OUTLINE_FROM_TO)
 	#### 218a turned digit two
-	#### 1d7d0 mathematical bold digit two
-	# write_svg(???, "1d7d0")
+	# 1d7d0 mathematical bold digit two
+	d2b_xti <- xcw - 0.6 * srw
+	d2b_yti <- y_ellipse_top(d2b_xti, xc, ych - d2ry, 0.5 * cw, d2ry)
+	ds <- c(
+		d_arc12(ych, xcw, ych - d2ry, hg, 2), # top curve
+		d_circle(hg + crp, ych - d2ry, crp), # ball
+		M(xcw, ych - d2ry) + # curved stroke
+			Q(xcw, d2_yq, hg + d2_m * srw, vg + 2) +
+			H(hg) +
+			Q(xcw - d2_m * srw, d2_yq, d2b_xti, d2b_yti) +
+			AZ(0.5 * (xcw - hg), d2ry, x = xcw, y = ych - d2ry),
+		d_rect2(vg + 2, xcw, vg, hg), # bar
+		d_rect2(vg + 2 + srw, xcw, vg + 2, xcw - 2) # lr serif
+	)
+	write_svg(ds, "1d7d0")
 	# 1d7da mathematical double-struck digit two (derived via OUTLINE_FROM_TO)
 	# 2461 circled digit two
 	d2ry_c <- 0.30 * cdw
@@ -321,8 +335,7 @@ create_basic_latin <- function(font = "suits") {
 		d_rect2(ych, hg + srw, ych - srw - srw, hg), # ul serif
 		d_rect2(ych, xcw, ych - srw, hg + srw), # bar
 		d_fslash(ych - srw, xcw, yc, xc - d3o, srw, right = "horizontal", left = "diagonal"), # stroke
-		d_arc41(yc + 1.0 * srw, xcw, vg, xc, srw), # b curve 1
-		d_arc3(0.5 * (vg + yc + 1.0 * srw), xc, vg, hg, srw)
+		d_arc341(yc + 1.0 * srw, xcw, vg, hg, srw) # b curve
 	) # b curve 2
 	write_svg(ds, "0033")
 	# 1ccf3 outline digit three (derived via OUTLINE_FROM_TO)
@@ -331,14 +344,20 @@ create_basic_latin <- function(font = "suits") {
 		d_rect2(vg + srw + srw, xcw - srw, vg, xcw), # lr serif
 		d_rect2(vg + srw, xcw - srw, vg, hg), # bar
 		d_fslash(yc, xc + d3o, vg + srw, hg, srw, right = "diagonal", left = "horizontal"), # stroke
-		d_arc23(ych, xc, yc - 1.0 * srw, hg, srw), # t curve 1
-		d_arc1(ych, xcw, 0.5 * (ych + yc - 1.0), xc, srw), # t curve 2
-		d_circle(xcw - rp, 0.5 * (ych + yc - 1.0), rp)
+		d_arc123(ych, xcw, yc - 1.0 * srw, hg, srw), # t curve 1
+		d_circle(xcw - rp, 0.5 * (ych + yc - 1.0 * srw), rp)
 	) # ball
 	write_svg(ds, "218b")
 
-	#### 1d7d1 mathematical bold digit three
-	# write_svg(???, "1d7d1")
+	# 1d7d1 mathematical bold digit three
+	ybd3_mid <- yc - 0.5 * srw
+	ds <- c(
+		d_rect2(ych, hg + 2, ych - srw, hg), # ul serif
+		d_rect2(ych, xcw, ych - 2, hg + 2), # bar
+		d_fslash(ych - 2, xcw, ybd3_mid, xc - d3o, srw, right = "horizontal", left = "horizontal"), # stroke
+		d_arc341(ybd3_mid, xcw, vg, hg, 2) # b curve
+	)
+	write_svg(ds, "1d7d1")
 	# 1d7db mathematical double-struck digit three (derived via OUTLINE_FROM_TO)
 	# 2462 circled digit three
 	# Traces similar ellipses in the digit eight
@@ -447,16 +466,18 @@ create_basic_latin <- function(font = "suits") {
 	cy5b <- 0.5 * (yc + 2 + vg)
 	rx5b <- xcw - xc
 	ry5b <- 0.5 * (yc + 2 - vg)
-	xbd5 <- xc + 0.5 * srw
+	xbd5_bar_left <- hg + 0.5 * srw
+	# xbd5 <- xc + 0.5 * srw
+	xbd5 <- xbd5_bar_left + srw
 	yb5 <- y_ellipse_bottom(xbd5, xc, cy5b, rx5b, ry5b)
+	ybd5_mid <- yc - 0.5 * srw
 	ds <- c(
-		d_rect2(ych, xcw, ych - 4, xcw - 2), # ur serif
-		d_rect2(ych, xcw - 2, ych - 2, hg + 0.5 * srw), # bar
-		d_rect2(ych - 2, w - xbd5, yc, hg + 0.5 * srw), # stem
-		d_rect2(yc + 2, xc, yc, hg + srw + 0.5 * srw), # curve 1
-		d_arc41(yc + 2, xcw, vg, xc, 2), # curve 2
-		d_arc3(0.5 * (vg + yc + 2), xc, vg, hg, 2), # curve 3
-		M(xbd5, 2 * cy5b - yb5) + AZ(rx5b, ry5b, x = xbd5, y = yb5) # partial ellipse
+		d_rect2(ych, xcw, ych - srw, xcw - 2), # ur serif
+		d_rect2(ych, xcw - 2, ych - 2, xbd5_bar_left), # bar
+		d_rect2(ych - 2, xbd5, ybd5_mid + 2, xbd5_bar_left), # stem
+		d_rect2(ybd5_mid + 2, xc, ybd5_mid, xbd5_bar_left + srw), # curve 1
+		d_arc341(ybd5_mid, xcw, vg, hg, 2) # bottom curve
+		# M(w - xbd5, 2 * cy5b - yb5) + AZ(rx5b, ry5b, x = w - xbd5, y = yb5) # partial ellipse
 	)
 	write_svg(ds, "1d7d3")
 	# 1d7dd mathematical double-struck digit five (derived via OUTLINE_FROM_TO)
@@ -480,8 +501,19 @@ create_basic_latin <- function(font = "suits") {
 	) # ball
 	write_svg(ds, "0036")
 	# 1ccf6 outline digit six (derived via OUTLINE_FROM_TO)
-	#### 1d7d4 mathematical bold digit six
-	# write_svg(???, "1d7d4")
+	# 1d7d4 mathematical bold digit six
+	yc6b <- vg + d6yf * ch
+	x6b_slit <- xc + 0.5 * srw
+	y6b_bot <- y_ellipse_bottom(x6b_slit, xc, yc6b, 0.5 * cw, d6yf * ch)
+	y6b_top <- y_ellipse_top(x6b_slit, xc, yc6b, 0.5 * cw, d6yf * ch)
+	ds <- c(
+		d_ellipse(xc, yc6b, 0.5 * cw + c(0, -2), d6yf * ch + c(0, -2)),
+		M(x6b_slit, y6b_top) + AZ(0.5 * cw, d6yf * ch, x = x6b_slit, y = y6b_bot),
+		M(w - x6b_slit, y6b_bot) + AZ(0.5 * cw, d6yf * ch, x = w - x6b_slit, y = y6b_top),
+		d_arc2(ych, xcw - crp, yc6b, hg, 2),
+		d_circle(xcw - crp, ych - crp, crp)
+	)
+	write_svg(ds, "1d7d4")
 	# 1d7de mathematical double-struck digit six (derived via OUTLINE_FROM_TO)
 	# 2465 circled digit six
 	d6yf_c <- 0.3
@@ -587,8 +619,24 @@ create_basic_latin <- function(font = "suits") {
 	)
 	write_svg(ds, "0039")
 	# 1ccf9 outline digit nine (derived via OUTLINE_FROM_TO)
-	#### 1d7d7 mathematical bold digit nine
-	# write_svg(???, "1d7d7")
+	# 1d7d7 mathematical bold digit nine
+	yc9b <- ych - d6yf * ch
+	x9b_slit <- xc + 0.5 * srw
+	y9b_bot <- y_ellipse_bottom(x9b_slit, xc, yc9b, 0.5 * cw, d6yf * ch)
+	y9b_top <- y_ellipse_top(x9b_slit, xc, yc9b, 0.5 * cw, d6yf * ch)
+	d9b_stw <- width_slash_left(
+		xcw - (xc - 1),
+		(ych - d6yf * ch - 2) - (vg + 2),
+		2
+	)
+	ds <- c(
+		d_ellipse(xc, yc9b, 0.5 * cw + c(0, -2), d6yf * ch + c(0, -2)),
+		M(x9b_slit, y9b_top) + AZ(0.5 * cw, d6yf * ch, x = x9b_slit, y = y9b_bot),
+		M(w - x9b_slit, y9b_bot) + AZ(0.5 * cw, d6yf * ch, x = w - x9b_slit, y = y9b_top),
+		d_fslash(ych - d6yf * ch - 2, xcw, vg + 2, xc - 1, 2),
+		d_rect2(vg + 2, xc - 1 + 0.5 * d9b_stw + srw, vg, xc - 1 + 0.5 * d9b_stw - srw)
+	)
+	write_svg(ds, "1d7d7")
 	# 1d7e1 mathematical double-struck digit nine (derived via OUTLINE_FROM_TO)
 	# 2468 circled digit nine
 	# d9so_c <- csrw / 3
@@ -1864,8 +1912,7 @@ create_basic_latin <- function(font = "suits") {
 		as.hexmode("2776"):as.hexmode("2779"),
 		as.hexmode(c("277d")),
 		# mathematical bold (avec-serif) digits 1d7ce through 1d7d7
-		c(as.hexmode("1d7ce"):as.hexmode("1d7cf")),
-		as.hexmode(c("1d7d2", "1d7d3", "1d7d5", "1d7d6"))
+		as.hexmode("1d7ce"):as.hexmode("1d7d7")
 	) |>
 		as_hex()
 }

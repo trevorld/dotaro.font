@@ -72,7 +72,7 @@ Current [Unicode block](https://en.wikipedia.org/wiki/Unicode_block) coverage (e
 |Latin Extended-A                        |            1|            1|            128|
 |Latin Extended-B                        |            2|            2|            208|
 |Latin-1 Supplement                      |           18|           18|             94|
-|Mathematical Alphanumeric Symbols       |           12|           12|           1024|
+|Mathematical Alphanumeric Symbols       |           20|           20|           1024|
 |Mathematical Operators                  |            4|            4|            256|
 |Miscellaneous Symbols                   |           24|           24|            256|
 |Miscellaneous Symbols and Arrows        |            5|            5|            256|

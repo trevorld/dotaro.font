@@ -1,5 +1,5 @@
 create_glyphs <- function(font = "suits") {
-	latin <- create_basic_latin(font)
+	latin <- create_alphanumerics(font)
 	block <- create_block_elements(font)
 	box <- create_box_drawing(font)
 	shapes <- create_geometric_shapes(font)

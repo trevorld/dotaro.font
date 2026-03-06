@@ -174,6 +174,7 @@ create_miscellaneous_symbols <- function(font = "suits") {
 	write_svg(d, "265a")
 
 	# 2654 white chess king (derived via OUTLINE_FROM_TO)
+	#### Weird too long curve when traced from outline in "ranks"
 	# 1fa09 white chess king rotated 90 degrees (derived via RIGHT_FROM_TO)
 	# 1fa1e white chess turned king (derived via TURNED_FROM_TO)
 	# 1fa33 white chess king rotated 270 degrees (derived via LEFT_FROM_TO)

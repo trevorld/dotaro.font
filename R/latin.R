@@ -46,8 +46,8 @@ create_alphanumerics <- function(font = "suits") {
 	d <- d_rect(xc + c(-0.25, 0.25) * cw, ych - 0.5 * ah, srw, ah)
 	write_svg(d, "0022")
 
-	#### use vertical slashes?
 	# 0023 number sign
+	#### use vertical slashes?
 	d <- c(
 		d_rect(xc, yc + c(-0.20, 0.20) * cw, cw, srw),
 		d_rect(xc + c(-0.20, 0.20) * cw, yc, srw, cw)
@@ -99,6 +99,7 @@ create_alphanumerics <- function(font = "suits") {
 	write_svg(d, "00a1")
 
 	# 003f question mark
+	#### No vertical stem in "suits"
 	ds <- c(
 		d_full_stop, # period
 		d_rect2(yc, xc + 0.5 * srw, vg + 3 * rp, xc - 0.5 * srw), # stem
@@ -767,6 +768,7 @@ create_alphanumerics <- function(font = "suits") {
 	#### 20a2 cruzeiro sign
 
 	# 20ac euro sign
+	#### Ball overlaps bar in "suits"
 	euvo <- 2.0 * srw
 	ds <- c(
 		d_arc23(ych, xc + 0.5 * srw, vg, hg + srw, srw), # l curve
@@ -998,6 +1000,7 @@ create_alphanumerics <- function(font = "suits") {
 	# 1cce5 outlined latin capital letter p (derived via OUTLINE_FROM_TO)
 
 	# 20b1 peso sign
+	#### too much overlapping in "suits"
 	ds <- c(
 		d_rect2(ych, hg + srw + srw, vg, hg + srw), # stem
 		d_rect2(ych, xc, ych - srw, hg), # t bar
@@ -1150,6 +1153,7 @@ create_alphanumerics <- function(font = "suits") {
 	# 1ccec outlined latin capital letter w (derived via OUTLINE_FROM_TO)
 
 	# 20a9 won sign
+	#### bar ugly overlap in "suits"
 	ds <- c(d_clw, d_rect(x = xc, y = yc + 1.5 * srw, w = cw, h = srw))
 	write_svg(ds, "20a9")
 
@@ -1256,6 +1260,7 @@ create_alphanumerics <- function(font = "suits") {
 	write_svg(ds, "0062")
 
 	# 0063 latin small letter c
+	#### ball too close to lower curve in "suits"
 	cvo <- 1.7 * srw
 	d_slc <- c(
 		d_arc23(yxh, xc, vg, xc - 0.5 * xh, srw), # l curve
@@ -1268,6 +1273,7 @@ create_alphanumerics <- function(font = "suits") {
 	####  00a9 copyright sign
 
 	# 0254 latin small letter open o "turned c"
+	#### ball too close to lower curve in "suits"
 	ds <- c(
 		d_arc41(yxh, xc + 0.5 * xh, vg, xc, srw), # r curve
 		d_arc2(yxh, xc, yxh - cvo, xc - 0.5 * xh, srw), # ul curve
@@ -1347,6 +1353,7 @@ create_alphanumerics <- function(font = "suits") {
 	write_svg(ds, "20a4")
 
 	# 0067 latin small letter g
+	#### Descender kind of crammed in "suits"
 	xl_ds <- xcw - srw
 	ds <- c(
 		d_rect2(yxh, xl_ds, srw + 0.5 * srw, xl_ds - srw), # stem
@@ -1474,6 +1481,7 @@ create_alphanumerics <- function(font = "suits") {
 	)
 
 	# 0070 latin small letter p
+	#### Bottom serif overlaps counter
 	xl_ds <- hg + srw
 	ds <- c(
 		d_rect2(yxh, xl_ds + srw, srw, xl_ds), # stem
@@ -1489,6 +1497,7 @@ create_alphanumerics <- function(font = "suits") {
 	write_svg(ds, "0070")
 
 	# 0071 latin small letter q
+	#### Bottom serif overlaps counter in "suits"
 	xl_ds <- xcw - srw
 	ds <- c(
 		d_rect2(yxh, xl_ds, srw, xl_ds - srw), # stem
@@ -1526,6 +1535,7 @@ create_alphanumerics <- function(font = "suits") {
 	write_svg(d_lsls, "0073")
 
 	# 00a7 section sign (aka double-s)
+	#### Top curve overlaps counter in "suits"
 	h_s <- 0.56 * h
 	ssvo <- 1.6 * srw
 	d_lss <- c(
@@ -1669,6 +1679,7 @@ create_alphanumerics <- function(font = "suits") {
 	write_svg(ds, "0078")
 
 	# 0079 latin small letter y
+	#### Descender kind of crammed...
 	xl_ds <- xcw - sl2
 	ds <- c(
 		d_rect2(yxh - srw, hg + sl2 + srw, vg + rt, hg + sl2), # l stem

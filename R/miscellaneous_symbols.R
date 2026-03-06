@@ -9,7 +9,7 @@ create_miscellaneous_symbols <- function(font = "suits") {
 	hg <- dotaro_horizontal_gap(font)
 	ow <- dotaro_outline_stroke_width(font)
 	srw <- dotaro_stroke_width(font)
-	srw2 <- dotaro_stroke_width_short(font)
+	sl2 <- dotaro_serif_length_short(font)
 
 	ch <- dotaro_cap_height(font)
 
@@ -388,10 +388,10 @@ create_miscellaneous_symbols <- function(font = "suits") {
 	ytr <- 0.24 * cw
 	xy1 <- as_coord2d(degrees(225), radius = ytr + 2)$translate(x = xc, y = ych - ytr)
 	xy2 <- as_coord2d(degrees(315), radius = ytr + 2)$translate(x = xc, y = ych - ytr)
-	d_p <- M(hg + srw2, ybt + 2) +
+	d_p <- M(hg + sl2, ybt + 2) +
 		L(xy1$x, xy1$y) +
 		A(ytr + 2, x = xy2$x, y = xy2$y, sweep_flag = TRUE) +
-		LZ(xcw - srw2, ybt + 2)
+		LZ(xcw - sl2, ybt + 2)
 	ds <- c(d_rect2(ybt, xcw, vg, hg), d_circle(xc, ych - ytr, ytr), d_p)
 	write_svg(ds, "265f")
 

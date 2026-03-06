@@ -1,7 +1,7 @@
 #' @importFrom affiner as_coord2d degrees isotoxal_2ngon_inner_radius
 #' @import dee
 #' @importFrom glue glue
-#' @importFrom grid fillStrokeGrob gList gTree gpar grid.draw popViewport pushViewport rectGrob roundrectGrob textGrob unit viewport
+#' @importFrom grid circleGrob fillStrokeGrob gList gTree gpar grid.draw popViewport pushViewport rectGrob roundrectGrob textGrob unit viewport
 #' @importFrom omsvg SVG svg_attrs_pres svg_path
 #' @importFrom rlang abort check_dots_empty local_options warn
 #' @importFrom utils hasName packageVersion
@@ -116,9 +116,14 @@ dotaro_stroke_width <- function(font = c("suits", "ranks")) {
 	270L * dotaro_width(font) / SUITS_WIDTH
 }
 
-dotaro_stroke_width_short <- function(font = c("suits", "ranks")) {
+dotaro_serif_length <- function(font = c("suits", "ranks")) {
 	font <- match.arg(font)
-	0.5 * dotaro_stroke_width(font)
+	dotaro_stroke_width(font)
+}
+
+dotaro_serif_length_short <- function(font = c("suits", "ranks")) {
+	font <- match.arg(font)
+	0.5 * dotaro_serif_length(font)
 }
 
 dotaro_terminal_radius <- function(font = c("suits", "ranks")) {

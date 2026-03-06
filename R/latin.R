@@ -11,7 +11,8 @@ create_alphanumerics <- function(font = "suits") {
 
 	ow <- dotaro_outline_stroke_width(font)
 	srw <- dotaro_stroke_width(font)
-	srw2 <- dotaro_stroke_width_short(font)
+	sl <- dotaro_serif_length(font)
+	sl2 <- dotaro_serif_length_short(font)
 	xh <- dotaro_x_height(font)
 	yxh <- vg + xh # x-height
 	ych <- h - vg
@@ -244,27 +245,27 @@ create_alphanumerics <- function(font = "suits") {
 	# 0031 digit one
 	ds <- c(
 		d_rect(x = xc, y = yc, w = srw, h = h - 2 * vg - 2 * srw), # stem,
-		d_rect2(ych, xc + 0.5 * srw, ych - srw, xc - 1.5 * srw), # t serif,
-		d_rect2(vg + srw, xc + 1.5 * srw, vg, xc - 1.5 * srw)
+		d_rect2(ych, xc + 0.5 * srw, ych - srw, xc - 0.5 * srw - sl), # t serif,
+		d_rect2(vg + srw, xc + 0.5 * srw + sl, vg, xc - 0.5 * srw - sl)
 	) # b serif
 	write_svg(ds, "0031")
 	# 1ccf1 outline digit one (derived via OUTLINE_FROM_TO)
 	# 1d7cf mathematical bold digit one
 	ds <- c(
 		d_rect(x = xc, y = yc, w = bsrw, h = h - 2 * vg - btw), # stem,
-		d_rect2(ych, xc + 0.5 * bsrw, ych - 1, xc - 0.5 * bsrw - srw), # t serif,
-		d_rect2(vg + 1, xc + 0.5 * bsrw + srw, vg, xc - 0.5 * bsrw - srw)
+		d_rect2(ych, xc + 0.5 * bsrw, ych - 1, xc - 0.5 * bsrw - sl), # t serif,
+		d_rect2(vg + 1, xc + 0.5 * bsrw + sl, vg, xc - 0.5 * bsrw - sl)
 	) # b serif
 	write_svg(ds, "1d7cf")
 	# 1d7d9 mathematical double-struck digit one (derived via OUTLINE_FROM_TO)
 	# 2460 circled digit one
 	d_cd1 <- d_rect(x = xc, y = yc, w = csrw, h = cdw - 2 * csrw) + # stem
-		d_rect2(yc + 0.5 * cdw, xc + 0.5 * csrw, yc + 0.5 * cdw - csrw, xc - 0.5 * csrw - srw2) + # t serif
+		d_rect2(yc + 0.5 * cdw, xc + 0.5 * csrw, yc + 0.5 * cdw - csrw, xc - 0.5 * csrw - sl2) + # t serif
 		d_rect2(
 			yc - 0.5 * cdw + csrw,
-			xc + 0.5 * csrw + srw2,
+			xc + 0.5 * csrw + sl2,
 			yc - 0.5 * cdw,
-			xc - 0.5 * csrw - srw2
+			xc - 0.5 * csrw - sl2
 		) # b serif
 	write_svg(c(cd_circle_white, d_cd1), "2460")
 	# 2776 dingbat negative circled digit one
@@ -289,7 +290,7 @@ create_alphanumerics <- function(font = "suits") {
 			Q(xcw - d2_m * srw, d2_yq, xcw - srw, ych - d2ry) +
 			Z(),
 		d_rect2(vg + srw, xcw, vg, hg), # bar
-		d_rect2(vg + 2 * srw, xcw, vg + srw, xcw - srw)
+		d_rect2(vg + srw + sl, xcw, vg + srw, xcw - srw)
 	) # lr serif
 	write_svg(ds, "0032")
 	# 1ccf2 outline digit two (derived via OUTLINE_FROM_TO)
@@ -307,7 +308,7 @@ create_alphanumerics <- function(font = "suits") {
 			Q(xcw - d2b_m * bsrw, d2_yq, d2b_xti, d2b_yti) +
 			AZ(0.5 * (xcw - hg), d2ry, x = xcw, y = ych - d2ry),
 		d_rect2(vg + btw, xcw, vg, hg), # bar
-		d_rect2(vg + btw + srw, xcw, vg + btw, xcw - btw) # lr serif
+		d_rect2(vg + btw + sl, xcw, vg + btw, xcw - btw) # lr serif
 	)
 	write_svg(ds, "1d7d0")
 	# 1d7da mathematical double-struck digit two (derived via OUTLINE_FROM_TO)
@@ -334,7 +335,7 @@ create_alphanumerics <- function(font = "suits") {
 		d3o <- 0.8 * srw
 	}
 	ds <- c(
-		d_rect2(ych, hg + srw, ych - srw - srw, hg), # ul serif
+		d_rect2(ych, hg + srw, ych - srw - sl, hg), # ul serif
 		d_rect2(ych, xcw, ych - srw, hg + srw), # bar
 		d_fslash(ych - srw, xcw, yc, xc - d3o, srw, right = "horizontal", left = "diagonal"), # stroke
 		d_arc341(yc + 1.0 * srw, xcw, vg, hg, srw) # b curve
@@ -408,19 +409,19 @@ create_alphanumerics <- function(font = "suits") {
 		yd4b <- vg + 2.5 * srw
 	}
 	ds <- c(
-		d_rect2(yd4b + 1 * srw, xcw - srw, vg + srw, xcw - srw - srw), # stem
-		d_rect2(vg + srw, xcw, vg, xcw - srw - 2 * srw), # b serif
+		d_rect2(yd4b + 1 * srw, xcw - sl, vg + srw, xcw - sl - srw), # stem
+		d_rect2(vg + srw, xcw, vg, xcw - sl - 2 * srw), # b serif
 		d_rect2(yd4b, xcw, yd4b - 1.0 * srw, hg), # bar
-		d_fslash(ych, xcw - srw, yd4b, hg, srw, left = "horizontal", right = "vertical")
+		d_fslash(ych, xcw - sl, yd4b, hg, srw, left = "horizontal", right = "vertical")
 	) # stroke
 	write_svg(ds, "0034")
 	# 1ccf4 outline digit four (derived via OUTLINE_FROM_TO)
 	# 1d7d2 mathematical bold digit four
 	ds <- c(
-		d_rect2(ych, xcw - srw, vg + btw, xcw - srw - bsrw), # stem
-		d_rect2(vg + btw, xcw, vg, xcw - bsrw - 2 * srw), # b serif
+		d_rect2(ych, xcw - sl, vg + btw, xcw - sl - bsrw), # stem
+		d_rect2(vg + btw, xcw, vg, xcw - bsrw - 2 * sl), # b serif
 		d_rect2(yd4b, xcw, yd4b - btw, hg), # bar
-		d_fslash(ych, xcw - srw - bsrw, yd4b, hg, btw, left = "horizontal", right = "vertical")
+		d_fslash(ych, xcw - sl - bsrw, yd4b, hg, btw, left = "horizontal", right = "vertical")
 	) # stroke
 	write_svg(ds, "1d7d2")
 	# 1d7dc mathematical double-struck digit four (derived via OUTLINE_FROM_TO)
@@ -463,7 +464,7 @@ create_alphanumerics <- function(font = "suits") {
 
 	# 0035 digit five
 	ds <- c(
-		d_rect2(ych, xcw, ych - 2 * srw, xcw - srw), # ur serif
+		d_rect2(ych, xcw, ych - srw - sl, xcw - srw), # ur serif
 		d_rect2(ych, xcw - srw, ych - srw, hg + 0.5 * srw), # bar
 		d_rect2(ych - srw, hg + srw + 0.5 * srw, yc - 0.0 * srw, hg + 0.5 * srw), # stem
 		d_rect2(yc + 1.0 * srw, xc, yc - 0.0 * srw, hg + srw + 0.5 * srw), # curve 1
@@ -537,10 +538,10 @@ create_alphanumerics <- function(font = "suits") {
 	# 0037 digit seven
 	d7stw <- width_slash_left(xcw - (xc - 0.5 * srw), (ych - srw) - (vg + srw), srw)
 	ds <- c(
-		d_rect2(ych, hg + srw, ych - srw - srw, hg), # ul serif
+		d_rect2(ych, hg + srw, ych - srw - sl, hg), # ul serif
 		d_rect2(ych, xcw, ych - srw, hg + srw), # bar
 		d_fslash(ych - srw, xcw, vg + srw, xc - 0.5 * srw, srw), # stroke
-		d_rect2(vg + srw, xc + d7stw + 0.5 * srw, vg, xc - 0.5 * srw - srw) # b serif
+		d_rect2(vg + srw, xc + d7stw + 0.5 * srw, vg, xc - 0.5 * srw - sl) # b serif
 	)
 	write_svg(ds, "0037")
 	# 1ccf7 outline digit seven (derived via OUTLINE_FROM_TO)
@@ -551,7 +552,7 @@ create_alphanumerics <- function(font = "suits") {
 		d_rect2(ych, hg + btw, ych - srw, hg), # ul serif
 		d_rect2(ych, xcw, ych - btw, hg + btw), # bar
 		d_fslash(ych - btw, xcw, vg + btw, x_slash_left, bsrw), # stroke
-		d_rect2(vg + btw, x_slash_left + d7stw + srw, vg, x_slash_left - srw) # b serif
+		d_rect2(vg + btw, x_slash_left + d7stw + sl, vg, x_slash_left - sl) # b serif
 	)
 	write_svg(ds, "1d7d5")
 	# 1d7df mathematical double-struck digit seven (derived via OUTLINE_FROM_TO)
@@ -622,7 +623,7 @@ create_alphanumerics <- function(font = "suits") {
 	ds <- c(
 		d_ellipse(xc, ych - d6yf * ch, 0.5 * cw + c(0, -srw), d6yf * ch + c(0, -srw)), # loop
 		d_fslash(ych - d6yf * ch - srw, xcw - d9so, vg + srw, xc - 0.5 * srw, srw), # lower stroke
-		d_rect2(vg + srw, xc + d9stw + 0.5 * srw, vg, xc - 0.5 * srw - srw) # b serif
+		d_rect2(vg + srw, xc + d9stw + 0.5 * srw, vg, xc - 0.5 * srw - sl) # b serif
 	)
 	write_svg(ds, "0039")
 	# 1ccf9 outline digit nine (derived via OUTLINE_FROM_TO)
@@ -640,7 +641,7 @@ create_alphanumerics <- function(font = "suits") {
 	ds <- c(
 		d_ellipse_slit(xc, yc9b, 0.5 * cw, d9byf * ch, xc + 0.5 * bsrw, dark_slit = bold_dark_slit), # counter
 		d_fslash(y_slash_right, x_slash_right, vg + btw, x_slash_left, btw), # stroke
-		d_rect2(vg + btw, x_slash_left + d9b_stw + srw, vg, x_slash_left - srw) # b serif
+		d_rect2(vg + btw, x_slash_left + d9b_stw + sl, vg, x_slash_left - sl) # b serif
 	)
 	write_svg(ds, "1d7d7")
 	# 1d7e1 mathematical double-struck digit nine (derived via OUTLINE_FROM_TO)
@@ -680,17 +681,17 @@ create_alphanumerics <- function(font = "suits") {
 		yca <- 0.35 * h
 	}
 	Asw <- width_slash_left(
-		xc - (hg + srw2),
+		xc - (hg + sl2),
 		ych - (vg + srw),
 		srw,
 		left = "horizontal",
 		right = "vertical"
 	)
 	ds_A_base <- c(
-		d_fslash(ych, xc, vg + srw, hg + srw2, srw, left = "horizontal", right = "vertical"), # l stroke
-		d_bslash(ych, xcw - srw2, vg + srw, xc, srw, left = "vertical", right = "horizontal"), # r stroke
-		d_rect2(vg + srw, hg + Asw + 2 * srw2, vg, hg), # ll serif
-		d_rect2(vg + srw, xcw, vg, xcw - Asw - 2 * srw2)
+		d_fslash(ych, xc, vg + srw, hg + sl2, srw, left = "horizontal", right = "vertical"), # l stroke
+		d_bslash(ych, xcw - sl2, vg + srw, xc, srw, left = "vertical", right = "horizontal"), # r stroke
+		d_rect2(vg + srw, hg + Asw + 2 * sl2, vg, hg), # ll serif
+		d_rect2(vg + srw, xcw, vg, xcw - Asw - 2 * sl2)
 	) # lr serif
 	ds <- c(
 		ds_A_base,
@@ -801,8 +802,8 @@ create_alphanumerics <- function(font = "suits") {
 		d_rect2(ych, xcw, ych - srw, hg), # t bar
 		d_rect2(yc + 0.5 * srw, 0.7 * w, yc - 0.5 * srw, hg + srw), # m bar
 		d_rect2(vg + srw, xcw, vg, hg), # b bar
-		d_rect2(ych, xcw, ych - srw - srw, xcw - srw), # ur serif
-		d_rect2(vg + srw + srw, xcw, vg, xcw - srw)
+		d_rect2(ych, xcw, ych - srw - sl, xcw - srw), # ur serif
+		d_rect2(vg + srw + sl, xcw, vg, xcw - srw)
 	) # lr serif
 	write_svg(ds, "0045")
 	# 1ccda outlined latin capital letter e (derived via OUTLINE_FROM_TO)
@@ -812,8 +813,8 @@ create_alphanumerics <- function(font = "suits") {
 		d_rect2(ych, hg + srw + srw, vg, hg + srw), # stem
 		d_rect2(ych, xcw, ych - srw, hg), # t bar
 		d_rect2(yc + 0.5 * srw, 0.7 * w, yc - 0.5 * srw, hg + srw), # m bar
-		d_rect2(vg + srw, hg + 2 * srw + srw, vg, hg), # b serif
-		d_rect2(ych, xcw, ych - srw - srw, xcw - srw)
+		d_rect2(vg + srw, hg + 2 * srw + sl, vg, hg), # b serif
+		d_rect2(ych, xcw, ych - srw - sl, xcw - srw)
 	) # t serif
 	write_svg(ds, "0046")
 	# 1ccdb outlined latin capital letter f (derived via OUTLINE_FROM_TO)
@@ -824,8 +825,8 @@ create_alphanumerics <- function(font = "suits") {
 		d_rect2(ych, xcw, ych - srw, hg), # t bar
 		d_rect2(yc + 0.5 * srw, 0.7 * w, yc - 0.5 * srw, hg + srw), # m bar
 		d_rect2(0.5 * (vg + yc) + 0.75 * srw, hg + 2 * srw + srw, 0.5 * (vg + yc) - 0.25 * srw, hg), # l bar
-		d_rect2(vg + srw, hg + 2 * srw + srw, vg, hg), # b serif
-		d_rect2(ych, xcw, ych - srw - srw, xcw - srw)
+		d_rect2(vg + srw, hg + 2 * srw + sl, vg, hg), # b serif
+		d_rect2(ych, xcw, ych - srw - sl, xcw - srw)
 	) # t serif
 	write_svg(ds, "20a3")
 
@@ -861,13 +862,13 @@ create_alphanumerics <- function(font = "suits") {
 
 	# 0048 latin capital letter h
 	ds <- c(
-		d_rect2(ych, hg + srw2 + srw, vg, hg + srw2), # left stem
-		d_rect2(yc + 0.5 * srw, xcw - srw2, yc - 0.5 * srw, hg + srw2), # crossbar
-		d_rect2(ych, xcw - srw2, vg, xcw - srw2 - srw), # right stem
-		d_rect2(vg + srw, hg + srw + 2 * srw2, vg, hg), # ll serif
-		d_rect2(ych, hg + srw + 2 * srw2, ych - srw, hg), # ul serif
-		d_rect2(vg + srw, xcw, vg, xcw - srw - 2 * srw2), # lr serif
-		d_rect2(ych, xcw, ych - srw, xcw - srw - 2 * srw2)
+		d_rect2(ych, hg + sl2 + srw, vg, hg + sl2), # left stem
+		d_rect2(yc + 0.5 * srw, xcw - sl2, yc - 0.5 * srw, hg + sl2), # crossbar
+		d_rect2(ych, xcw - sl2, vg, xcw - sl2 - srw), # right stem
+		d_rect2(vg + srw, hg + srw + 2 * sl2, vg, hg), # ll serif
+		d_rect2(ych, hg + srw + 2 * sl2, ych - srw, hg), # ul serif
+		d_rect2(vg + srw, xcw, vg, xcw - srw - 2 * sl2), # lr serif
+		d_rect2(ych, xcw, ych - srw, xcw - srw - 2 * sl2)
 	) # ur serif
 	write_svg(ds, "0048")
 	# 1ccdd outlined latin capital letter h (derived via OUTLINE_FROM_TO)
@@ -875,15 +876,15 @@ create_alphanumerics <- function(font = "suits") {
 	# 0049 latin capital letter i
 	ds <- c(
 		d_rect2(ych, xc + 0.5 * srw, vg, xc - 0.5 * srw), # bar
-		d_rect2(ych, xc + 0.5 * srw + srw, ych - srw, xc - 0.5 * srw - srw), # t serif
-		d_rect2(vg + srw, xc + 0.5 * srw + srw, vg, xc - 0.5 * srw - srw)
+		d_rect2(ych, xc + 0.5 * srw + sl, ych - srw, xc - 0.5 * srw - sl), # t serif
+		d_rect2(vg + srw, xc + 0.5 * srw + sl, vg, xc - 0.5 * srw - sl)
 	) # b serif
 	write_svg(ds, "0049")
 	# 1ccde outlined latin capital letter i (derived via OUTLINE_FROM_TO)
 
 	# 004a latin capital letter j
 	ds <- c(
-		d_rect2(ych, xcw, ych - srw, xcw - 3 * srw), # t serif
+		d_rect2(ych, xcw, ych - srw, xcw - 2 * srw - sl), # t serif
 		d_rect2(ych - srw, xcw - srw, 0.4 * h, xcw - 2 * srw), # bar
 		d_arc34(0.4 * h, xcw - srw, vg, hg, srw)
 	) # hook
@@ -892,36 +893,36 @@ create_alphanumerics <- function(font = "suits") {
 
 	# 004b latin capital letter k
 	Ksw <- width_slash_right(
-		(xcw - srw2) - (hg + srw2 + srw),
+		(xcw - sl2) - (hg + sl2 + srw),
 		ych - srw - yc,
 		srw,
 		left = "square",
 		right = "horizontal"
 	)
 	d_clk <- c(
-		d_rect2(ych, hg + srw2 + srw, vg, hg + srw2), # l stem
-		d_rect2(ych, hg + srw + 2 * srw2, ych - srw, hg), # ul serif
-		d_rect2(ych, xcw, ych - srw, xcw - Ksw - 2 * srw2), # ur serif
+		d_rect2(ych, hg + sl2 + srw, vg, hg + sl2), # l stem
+		d_rect2(ych, hg + srw + 2 * sl2, ych - srw, hg), # ul serif
+		d_rect2(ych, xcw, ych - srw, xcw - Ksw - 2 * sl2), # ur serif
 		d_fslash(
 			ych - srw,
-			xcw - srw2,
+			xcw - sl2,
 			yc,
-			hg + srw2 + srw,
+			hg + sl2 + srw,
 			srw,
 			left = "square",
 			right = "horizontal"
 		), # t stroke
 		d_bslash(
 			yc,
-			xcw - srw2,
+			xcw - sl2,
 			vg + srw,
-			hg + srw2 + srw,
+			hg + sl2 + srw,
 			srw,
 			left = "square",
 			right = "horizontal"
 		), # b stroke
-		d_rect2(vg + srw, hg + srw + 2 * srw2, vg, hg), # ll serif
-		d_rect2(vg + srw, xcw, vg, xcw - Ksw - 2 * srw2)
+		d_rect2(vg + srw, hg + srw + 2 * sl2, vg, hg), # ll serif
+		d_rect2(vg + srw, xcw, vg, xcw - Ksw - 2 * sl2)
 	) # lr serif
 	write_svg(d_clk, "004b")
 	# 1cce0 outlined latin capital letter k (derived via OUTLINE_FROM_TO)
@@ -938,8 +939,8 @@ create_alphanumerics <- function(font = "suits") {
 	# 004c latin capital letter l
 	ds <- c(
 		d_rect2(ych, hg + srw + srw, vg, hg + srw), # stem
-		d_rect2(ych, hg + 2 * srw + srw, ych - srw, hg), # t serif
-		d_rect2(vg + srw + srw, xcw, vg, xcw - srw), # lr serif
+		d_rect2(ych, hg + 2 * srw + sl, ych - srw, hg), # t serif
+		d_rect2(vg + srw + sl, xcw, vg, xcw - srw), # lr serif
 		d_rect2(vg + srw, xcw, vg, hg)
 	) # bar
 	write_svg(ds, "004c")
@@ -947,14 +948,14 @@ create_alphanumerics <- function(font = "suits") {
 
 	# 004d latin capital letter m
 	ds <- c(
-		d_rect2(ych - srw, hg + srw + srw2, vg + srw, hg + srw2), # l stem
-		d_rect2(ych - srw, xcw - srw2, vg, xcw - srw - srw2), # r stem
-		d_bslash(ych, xc, vg, hg + srw + srw2, srw, nib = "vertical"), # l stroke
-		d_fslash(ych, xcw - srw - srw2, vg, xc, srw, nib = "vertical"), # r stroke
-		d_rect2(ych, hg + srw + srw2, ych - srw, hg), # ul serif
-		d_rect2(ych, xcw, ych - srw, xcw - srw - srw2), # ur serif
-		d_rect2(vg + srw, hg + 2 * srw2 + srw, vg, hg), # ll serif
-		d_rect2(vg + srw, xcw, vg, xcw - 2 * srw2 - srw)
+		d_rect2(ych - srw, hg + srw + sl2, vg + srw, hg + sl2), # l stem
+		d_rect2(ych - srw, xcw - sl2, vg, xcw - srw - sl2), # r stem
+		d_bslash(ych, xc, vg, hg + srw + sl2, srw, nib = "vertical"), # l stroke
+		d_fslash(ych, xcw - srw - sl2, vg, xc, srw, nib = "vertical"), # r stroke
+		d_rect2(ych, hg + srw + sl2, ych - srw, hg), # ul serif
+		d_rect2(ych, xcw, ych - srw, xcw - srw - sl2), # ur serif
+		d_rect2(vg + srw, hg + 2 * sl2 + srw, vg, hg), # ll serif
+		d_rect2(vg + srw, xcw, vg, xcw - 2 * sl2 - srw)
 	) # lr serif
 	write_svg(ds, "004d")
 	# 1cce2 outlined latin capital letter m (derived via OUTLINE_FROM_TO)
@@ -989,7 +990,7 @@ create_alphanumerics <- function(font = "suits") {
 	ds <- c(
 		d_rect2(ych, hg + srw + srw, vg, hg + srw), # stem
 		d_rect2(ych, xc, ych - srw, hg), # t bar
-		d_rect2(vg + srw, hg + 2 * srw + srw, vg, hg), # b serif
+		d_rect2(vg + srw, hg + 2 * srw + sl, vg, hg), # b serif
 		d_rect2(yc + 0.5 * srw, xc, yc - 0.5 * srw, hg + srw), # b bar
 		d_arc41(ych, xcw, yc - 0.5 * srw, xc, srw)
 	) # bowl
@@ -1000,7 +1001,7 @@ create_alphanumerics <- function(font = "suits") {
 	ds <- c(
 		d_rect2(ych, hg + srw + srw, vg, hg + srw), # stem
 		d_rect2(ych, xc, ych - srw, hg), # t bar
-		d_rect2(vg + srw, hg + 2 * srw + srw, vg, hg), # b serif
+		d_rect2(vg + srw, hg + 2 * srw + sl, vg, hg), # b serif
 		d_rect2(yc + 0.5 * srw, xc, yc - 0.5 * srw, hg + srw), # b bar
 		d_arc41(ych, xcw - srw, yc - 0.5 * srw, xc, srw), # bowl
 		d_rect2(0.63 * ych + 0.33 * yc + 0.5 * srw, xcw, 0.63 * ych + 0.33 * yc - 0.5 * srw, hg), # t strikethrough
@@ -1020,12 +1021,12 @@ create_alphanumerics <- function(font = "suits") {
 
 	# 0052 latin capital letter r
 	ds <- c(
-		d_rect2(ych, hg + srw2 + srw, vg, hg + srw2), # stem
+		d_rect2(ych, hg + sl2 + srw, vg, hg + sl2), # stem
 		d_rect2(ych, xc, ych - srw, hg), # t bar
-		d_rect2(vg + srw, hg + srw + 2 * srw2, vg, hg), # ll serif
-		d_rect2(vg + srw, xcw, vg, xcw - srw - 2 * srw2), # lr serif
-		d_bslash(yc, xcw - srw2, vg + srw, hg + srw2 + srw, srw), # stroke
-		d_rect2(yc + 0.5 * srw, xc, yc - 0.5 * srw, hg + srw2), # b bar
+		d_rect2(vg + srw, hg + srw + 2 * sl2, vg, hg), # ll serif
+		d_rect2(vg + srw, xcw, vg, xcw - srw - 2 * sl2), # lr serif
+		d_bslash(yc, xcw - sl2, vg + srw, hg + sl2 + srw, srw), # stroke
+		d_rect2(yc + 0.5 * srw, xc, yc - 0.5 * srw, hg + sl2), # b bar
 		d_arc41(ych, xcw, yc - 0.5 * srw, xc, srw)
 	) # bowl
 	write_svg(ds, "0052")
@@ -1053,9 +1054,9 @@ create_alphanumerics <- function(font = "suits") {
 	ds <- c(
 		d_rect2(ych, xcw, ych - srw, hg), # bar
 		d_rect2(ych, xc + 0.5 * srw, vg, xc - 0.5 * srw), # stem
-		d_rect2(ych, xcw, ych - 2 * srw, xcw - srw), # r serif
-		d_rect2(ych, hg + srw, ych - 2 * srw, hg), # l serif
-		d_rect2(vg + srw, xc + 1.5 * srw, vg, xc - 1.5 * srw)
+		d_rect2(ych, xcw, ych - srw - sl, xcw - srw), # r serif
+		d_rect2(ych, hg + srw, ych - srw - sl, hg), # l serif
+		d_rect2(vg + srw, xc + 0.5 * srw + sl, vg, xc - 0.5 * srw - sl)
 	) # b serif
 	write_svg(ds, "0054")
 	# 1cce9 outlined latin capital letter t (derived via OUTLINE_FROM_TO)
@@ -1066,44 +1067,44 @@ create_alphanumerics <- function(font = "suits") {
 	# 0055 latin capital letter u
 	yu <- 0.4 * h
 	ds <- c(
-		d_rect2(ych, hg + srw2 + srw, yu, hg + srw2), # l stem
-		d_rect2(ych, xcw - srw2, yu, xcw - srw2 - srw), # r stem
-		d_arc34(yu, xcw - srw2, vg, hg + srw2, srw), # bottom
-		d_rect2(ych, hg + srw + 2 * srw2, ych - srw, hg), # l serif
-		d_rect2(ych, xcw, ych - srw, xcw - srw - 2 * srw2)
+		d_rect2(ych, hg + sl2 + srw, yu, hg + sl2), # l stem
+		d_rect2(ych, xcw - sl2, yu, xcw - sl2 - srw), # r stem
+		d_arc34(yu, xcw - sl2, vg, hg + sl2, srw), # bottom
+		d_rect2(ych, hg + srw + 2 * sl2, ych - srw, hg), # l serif
+		d_rect2(ych, xcw, ych - srw, xcw - srw - 2 * sl2)
 	) # r serif
 	write_svg(ds, "0055")
 	# 1ccea outlined latin capital letter u (derived via OUTLINE_FROM_TO)
 
 	# 0056 latin capital letter v
 	Vsw <- width_slash_left(
-		xc - (hg + srw2),
+		xc - (hg + sl2),
 		(ych - srw) - vg,
 		srw,
 		left = "horizontal",
 		right = "vertical"
 	)
 	ds <- c(
-		d_bslash(ych - srw, xc, vg, hg + srw2, srw, left = "horizontal", right = "vertical"), # l stroke
-		d_fslash(ych - srw, xcw - srw2, vg, xc, srw, left = "vertical", right = "horizontal"), # r stroke
-		d_rect2(ych, hg + 2 * srw2 + Vsw, ych - srw, hg), # l serif
-		d_rect2(ych, xcw, ych - srw, xcw - 2 * srw2 - Vsw)
+		d_bslash(ych - srw, xc, vg, hg + sl2, srw, left = "horizontal", right = "vertical"), # l stroke
+		d_fslash(ych - srw, xcw - sl2, vg, xc, srw, left = "vertical", right = "horizontal"), # r stroke
+		d_rect2(ych, hg + 2 * sl2 + Vsw, ych - srw, hg), # l serif
+		d_rect2(ych, xcw, ych - srw, xcw - 2 * sl2 - Vsw)
 	) # r serif
 	write_svg(ds, "0056")
 	# 1cceb outlined latin capital letter v (derived via OUTLINE_FROM_TO)
 
 	# 0057 latin capital letter w
 	wstw <- width_slash_left(
-		0.5 * (xc + 0.5 * srw - (hg + srw2)),
+		0.5 * (xc + 0.5 * srw - (hg + sl2)),
 		(ych - srw) - vg,
 		srw,
 		left = "horizontal",
 		right = "vertical"
 	)
-	wxll <- hg + srw2
+	wxll <- hg + sl2
 	wxlr <- xc + 0.5 * wstw
 	wxrl <- xc - 0.5 * wstw
-	wxrr <- xcw - srw2
+	wxrr <- xcw - sl2
 	d_clw <- c(
 		d_bslash(
 			ych - srw,
@@ -1141,9 +1142,9 @@ create_alphanumerics <- function(font = "suits") {
 			left = "vertical",
 			right = "horizontal"
 		), # rr stroke
-		d_rect2(ych, hg + 2 * srw2 + wstw, ych - srw, hg), # l serif
-		# d_rect2(ych, xc + srw2, ych - srw, xc - srw2), # m serif
-		d_rect2(ych, xcw, ych - srw, xcw - 2 * srw2 - wstw)
+		d_rect2(ych, hg + 2 * sl2 + wstw, ych - srw, hg), # l serif
+		# d_rect2(ych, xc + sl2, ych - srw, xc - sl2), # m serif
+		d_rect2(ych, xcw, ych - srw, xcw - 2 * sl2 - wstw)
 	) # r serif
 	write_svg(d_clw, "0057")
 	# 1ccec outlined latin capital letter w (derived via OUTLINE_FROM_TO)
@@ -1154,36 +1155,36 @@ create_alphanumerics <- function(font = "suits") {
 
 	# 0058 latin capital letter x
 	Xsw <- width_slash_right(
-		(xcw - srw2) - (hg + srw2),
+		(xcw - sl2) - (hg + sl2),
 		(ych - srw) - (vg + srw),
 		srw
 	)
 	ds <- c(
-		d_bslash(ych - srw, xcw - srw2, vg + srw, hg + srw2, srw), # l stroke
-		d_fslash(ych - srw, xcw - srw2, vg + srw, hg + srw2, srw), # r stroke
-		d_rect2(ych, hg + 2 * srw2 + Xsw, ych - srw, hg), # ul serif
-		d_rect2(ych, xcw, ych - srw, xcw - 2 * srw2 - Xsw), # ur serif
-		d_rect2(vg + srw, hg + 2 * srw2 + Xsw, vg, hg), # bl serif
-		d_rect2(vg + srw, xcw, vg, xcw - 2 * srw2 - Xsw)
+		d_bslash(ych - srw, xcw - sl2, vg + srw, hg + sl2, srw), # l stroke
+		d_fslash(ych - srw, xcw - sl2, vg + srw, hg + sl2, srw), # r stroke
+		d_rect2(ych, hg + 2 * sl2 + Xsw, ych - srw, hg), # ul serif
+		d_rect2(ych, xcw, ych - srw, xcw - 2 * sl2 - Xsw), # ur serif
+		d_rect2(vg + srw, hg + 2 * sl2 + Xsw, vg, hg), # bl serif
+		d_rect2(vg + srw, xcw, vg, xcw - 2 * sl2 - Xsw)
 	) # br serif
 	write_svg(ds, "0058")
 	# 1cced outlined latin capital letter x (derived via OUTLINE_FROM_TO)
 
 	# 0059 latin capital letter y
 	Ysw <- width_slash_left(
-		xc - (hg + srw2),
+		xc - (hg + sl2),
 		(ych - srw) - yc,
 		srw,
 		left = "horizontal",
 		right = "square"
 	)
 	d_lcly <- c(
-		d_rect2(ych, hg + 2 * srw2 + Ysw, ych - srw, hg), # ul serif
-		d_rect2(ych, xcw, ych - srw, xcw - 2 * srw2 - Ysw), # ur serif
-		d_bslash(ych - srw, xc, yc, hg + srw2, srw, left = "horizontal", right = "square"), # left stroke
-		d_fslash(ych - srw, xcw - srw2, yc, xc, srw, left = "square", right = "horizontal"), # right stroke
+		d_rect2(ych, hg + 2 * sl2 + Ysw, ych - srw, hg), # ul serif
+		d_rect2(ych, xcw, ych - srw, xcw - 2 * sl2 - Ysw), # ur serif
+		d_bslash(ych - srw, xc, yc, hg + sl2, srw, left = "horizontal", right = "square"), # left stroke
+		d_fslash(ych - srw, xcw - sl2, yc, xc, srw, left = "square", right = "horizontal"), # right stroke
 		d_rect2(yc, xc + 0.5 * srw, vg, xc - 0.5 * srw), # stem
-		d_rect2(vg + srw, xc + 1.5 * srw, vg, xc - 1.5 * srw)
+		d_rect2(vg + srw, xc + 0.5 * srw + sl, vg, xc - 0.5 * srw - sl)
 	) # b serif
 	write_svg(d_lcly, "0059")
 	# 1ccee outlined latin capital letter y (derived via OUTLINE_FROM_TO)
@@ -1201,8 +1202,8 @@ create_alphanumerics <- function(font = "suits") {
 		d_rect2(ych, xcw, ych - srw, hg), # t bar
 		d_rect2(vg + srw, xcw, vg, hg), # b bar
 		d_fslash(ych - srw, xcw, vg + srw, hg, srw), # stroke
-		d_rect2(vg + 2 * srw, xcw, vg, xcw - srw), # b serif
-		d_rect2(ych, hg + srw, ych - 2 * srw, hg)
+		d_rect2(vg + srw + sl, xcw, vg, xcw - srw), # b serif
+		d_rect2(ych, hg + srw, ych - srw - sl, hg)
 	) # t serif
 	write_svg(ds, "005a")
 	# 1ccef outlined latin capital letter z (derived via OUTLINE_FROM_TO)
@@ -1316,7 +1317,7 @@ create_alphanumerics <- function(font = "suits") {
 		d_arc2(ych, xcw - rp, ych - 0.2 * h, xc - 0.5 * srw, srw), # ur curve
 		d_circle(xcw - rp, ych - rp, rp), # ball
 		d_rect2(yslt, xc + 2.0 * srw, yslt - srw, xc - 2.0 * srw), # bar
-		d_rect2(vg + srw, xc + 1.5 * srw, vg, xc - 1.5 * srw)
+		d_rect2(vg + srw, xc + 0.5 * srw + sl, vg, xc - 0.5 * srw - sl)
 	) # b serif
 	write_svg(ds, "0066")
 
@@ -1327,7 +1328,7 @@ create_alphanumerics <- function(font = "suits") {
 		d_arc12(ych, xcw, ych - 0.2 * h, hg + srw, srw), # ur curve
 		d_circle(xcw - rp, ych - 0.2 * h, rp), # ball
 		d_rect2(yslt, hg + 3.0 * srw, yslt - srw, hg), # t. bar
-		d_rect2(vg + srw + srw, xcw, vg, xcw - srw), # lr serif
+		d_rect2(vg + srw + sl, xcw, vg, xcw - srw), # lr serif
 		d_rect2(vg + srw, xcw, vg, hg)
 	) # b. bar
 	write_svg(ds, "00a3")
@@ -1340,7 +1341,7 @@ create_alphanumerics <- function(font = "suits") {
 		d_circle(xcw - rp, ych - 0.2 * h, rp), # ball
 		d_rect2(yslt + 0.0 * srw, hg + 3.0 * srw, yslt - 1.0 * srw, hg), # t. bar
 		d_rect2(yslt - 1.5 * srw, hg + 3.0 * srw, yslt - 2.5 * srw, hg), # m. bar
-		d_rect2(vg + srw + srw, xcw, vg, xcw - srw), # lr serif
+		d_rect2(vg + srw + sl, xcw, vg, xcw - srw), # lr serif
 		d_rect2(vg + srw, xcw, vg, hg) # b. bar
 	)
 	write_svg(ds, "20a4")
@@ -1362,20 +1363,20 @@ create_alphanumerics <- function(font = "suits") {
 
 	# 0068 latin small letter h
 	ds <- c(
-		d_rect2(ych, hg + srw2 + srw, vg, hg + srw2), # l stem
-		d_rect2(ych, hg + srw2 + srw, ych - srw, hg), # ul serif
-		d_rect2(vg + srw, hg + srw + 2 * srw2, vg, hg), # ll serif
-		d_arc12(yxh, xcw - srw2, yxh - 2 * srw, hg + srw2, srw), # curve
-		d_rect2(yxh - 2 * srw, xcw - srw2, vg, xcw - srw2 - srw), # r stem
-		d_rect2(vg + srw, xcw, vg, xcw - srw - 2 * srw2) # lr serif
+		d_rect2(ych, hg + sl2 + srw, vg, hg + sl2), # l stem
+		d_rect2(ych, hg + sl2 + srw, ych - srw, hg), # ul serif
+		d_rect2(vg + srw, hg + srw + 2 * sl2, vg, hg), # ll serif
+		d_arc12(yxh, xcw - sl2, yxh - 2 * srw, hg + sl2, srw), # curve
+		d_rect2(yxh - 2 * srw, xcw - sl2, vg, xcw - sl2 - srw), # r stem
+		d_rect2(vg + srw, xcw, vg, xcw - srw - 2 * sl2) # lr serif
 	)
 	write_svg(ds, "0068")
 
 	# 0131 latin small letter dotless i
 	d_dli <- c(
 		d_rect2(yxh - srw, xc + 0.5 * srw, vg + srw, xc - 0.5 * srw), # stem
-		d_rect2(yxh, xc + 0.5 * srw, yxh - srw, xc - 1.5 * srw), # t serif
-		d_rect2(vg + srw, xc + 1.5 * srw, vg, xc - 1.5 * srw)
+		d_rect2(yxh, xc + 0.5 * srw, yxh - srw, xc - 0.5 * srw - sl), # t serif
+		d_rect2(vg + srw, xc + 0.5 * srw + sl, vg, xc - 0.5 * srw - sl)
 	) # b serif
 	write_svg(d_dli, "0131")
 
@@ -1386,7 +1387,7 @@ create_alphanumerics <- function(font = "suits") {
 	# 0237 latin small letter dotless j
 	d_dlj <- c(
 		d_rect2(yxh - srw, xc + 0.5 * srw, vg + srw, xc - 0.5 * srw), # stem
-		d_rect2(yxh, xc + 0.5 * srw, yxh - srw, xc - 1.5 * srw), # t serif
+		d_rect2(yxh, xc + 0.5 * srw, yxh - srw, xc - 0.5 * srw - sl), # t serif
 		d_arc4(vg + srw, xc + 0.5 * srw, 0, xc - 2.0 * srw, srw)
 	) # hook
 	write_svg(d_dlj, "0237")
@@ -1397,59 +1398,59 @@ create_alphanumerics <- function(font = "suits") {
 
 	# 006b latin small letter k
 	ksw <- width_slash_right(
-		(xcw - srw2) - (hg + srw2 + srw),
+		(xcw - sl2) - (hg + sl2 + srw),
 		yxh - srw - 0.5 * (yxh + vg),
 		srw,
 		left = "square",
 		right = "horizontal"
 	)
 	d_slk <- c(
-		d_rect2(ych, hg + srw + srw2, vg, hg + srw2), # l stem
-		d_rect2(ych, hg + srw + srw2, ych - srw, hg), # ul serif
-		d_rect2(yxh, xcw, yxh - srw, xcw - ksw - 2 * srw2), # ur serif
+		d_rect2(ych, hg + srw + sl2, vg, hg + sl2), # l stem
+		d_rect2(ych, hg + srw + sl2, ych - srw, hg), # ul serif
+		d_rect2(yxh, xcw, yxh - srw, xcw - ksw - 2 * sl2), # ur serif
 		d_fslash(
 			yxh - srw,
-			xcw - srw2,
+			xcw - sl2,
 			0.5 * (yxh + vg),
-			hg + srw + srw2,
+			hg + srw + sl2,
 			srw,
 			left = "square",
 			right = "horizontal"
 		), # t stroke
 		d_bslash(
 			0.5 * (yxh + vg),
-			xcw - srw2,
+			xcw - sl2,
 			vg + srw,
-			hg + srw + srw2,
+			hg + srw + sl2,
 			srw,
 			left = "square",
 			right = "horizontal"
 		), # b stroke
-		d_rect2(vg + srw, hg + 2 * srw2 + srw, vg, hg), # ll serif
-		d_rect2(vg + srw, xcw, vg, xcw - ksw - 2 * srw2) # lr serif
+		d_rect2(vg + srw, hg + 2 * sl2 + srw, vg, hg), # ll serif
+		d_rect2(vg + srw, xcw, vg, xcw - ksw - 2 * sl2) # lr serif
 	)
 	write_svg(d_slk, "006b")
 
 	# 006c latin small letter l
 	ds <- c(
 		d_rect2(ych - srw, xc + 0.5 * srw, vg + rt, xc - 0.5 * srw), # stem
-		d_rect2(ych, xc + 0.5 * srw, ych - srw, xc - 1.5 * srw), # t serif
+		d_rect2(ych, xc + 0.5 * srw, ych - srw, xc - 0.5 * srw - sl), # t serif
 		d_arc3(vg + rt, xc - 0.5 * srw + rt, vg, xc - 0.5 * srw, srw), # terminal..
 		d_rect2(vg + srw, xc + 0.5 * srw + rt, vg, xc - 0.5 * srw + rt)
 	) # terminal
 	write_svg(ds, "006c")
 
 	# 006d latin small letter m
-	r_ul_serif <- 0.5 * (xc + 0.5 * srw + hg + srw2)
+	r_ul_serif <- 0.5 * (xc + 0.5 * srw + hg + sl2)
 	ds <- c(
-		d_rect2(yxh - 2 * srw, hg + srw2 + srw, vg + srw, hg + srw2), # l stem
+		d_rect2(yxh - 2 * srw, hg + sl2 + srw, vg + srw, hg + sl2), # l stem
 		d_rect2(yxh, r_ul_serif, yxh - srw, hg), # ul serif
-		d_rect2(vg + srw, hg + srw + 2 * srw2, vg, hg), # ll serif
-		d_arc12(yxh, xc + 0.5 * srw, yxh - 2 * srw, hg + srw2, srw), # l curve
+		d_rect2(vg + srw, hg + srw + 2 * sl2, vg, hg), # ll serif
+		d_arc12(yxh, xc + 0.5 * srw, yxh - 2 * srw, hg + sl2, srw), # l curve
 		d_rect2(yxh - 2 * srw, xc + 0.5 * srw, vg + srw + srw, xc - 0.5 * srw), # m stem
-		d_arc12(yxh, xcw - srw2, yxh - 2 * srw, xc - 0.5 * srw, srw), # r curve
-		d_rect2(yxh - 2 * srw, xcw - srw2, vg + srw, xcw - srw2 - srw), # r stem
-		d_rect2(vg + srw, xcw, vg, xcw - srw - 2 * srw2) # lr serif
+		d_arc12(yxh, xcw - sl2, yxh - 2 * srw, xc - 0.5 * srw, srw), # r curve
+		d_rect2(yxh - 2 * srw, xcw - sl2, vg + srw, xcw - sl2 - srw), # r stem
+		d_rect2(vg + srw, xcw, vg, xcw - srw - 2 * sl2) # lr serif
 	)
 	write_svg(ds, "006d")
 
@@ -1457,12 +1458,12 @@ create_alphanumerics <- function(font = "suits") {
 
 	# 006e latin small letter n
 	ds <- c(
-		d_rect2(yxh, hg + srw2 + srw, vg, hg + srw2), # l stem
-		d_rect2(yxh, hg + srw2 + srw, yxh - srw, hg), # ul serif
-		d_rect2(vg + srw, hg + srw + 2 * srw2, vg, hg), # ll serif
-		d_arc12(yxh, xcw - srw2, yxh - 2 * srw, hg + srw2, srw), # curve
-		d_rect2(yxh - 2 * srw, xcw - srw2, vg, xcw - srw2 - srw), # r stem
-		d_rect2(vg + srw, xcw, vg, xcw - srw - 2 * srw2) # lr serif
+		d_rect2(yxh, hg + sl2 + srw, vg, hg + sl2), # l stem
+		d_rect2(yxh, hg + sl2 + srw, yxh - srw, hg), # ul serif
+		d_rect2(vg + srw, hg + srw + 2 * sl2, vg, hg), # ll serif
+		d_arc12(yxh, xcw - sl2, yxh - 2 * srw, hg + sl2, srw), # curve
+		d_rect2(yxh - 2 * srw, xcw - sl2, vg, xcw - sl2 - srw), # r stem
+		d_rect2(vg + srw, xcw, vg, xcw - srw - 2 * sl2) # lr serif
 	)
 	write_svg(ds, "006e")
 
@@ -1477,7 +1478,7 @@ create_alphanumerics <- function(font = "suits") {
 	ds <- c(
 		d_rect2(yxh, xl_ds + srw, srw, xl_ds), # stem
 		d_rect2(yxh, xl_ds, yxh - srw, xl_ds - srw), # t serif
-		d_rect2(srw, xl_ds + srw + srw, 0, xl_ds - srw), # b serif
+		d_rect2(srw, xl_ds + srw + sl, 0, xl_ds - srw), # b serif
 		d_ellipse(
 			0.5 * (hg + srw + xcw),
 			0.5 * (vg + yxh),
@@ -1497,7 +1498,7 @@ create_alphanumerics <- function(font = "suits") {
 			0.5 * (xl_ds - hg) + c(0, -srw),
 			0.5 * (yxh - vg) + c(0, -srw)
 		), # ellipse
-		d_rect2(srw, xcw, 0, xcw - srw - 2 * srw) # b serif
+		d_rect2(srw, xcw, 0, xcw - 2 * srw - sl) # b serif
 		# d_arc3(rt, xl_ds + rt, 0, xl_ds, srw), # terminal..
 		# d_rect2(srw, xl_ds + rt + srw, 0, xl_ds + rt) # terminal
 	)
@@ -1505,9 +1506,9 @@ create_alphanumerics <- function(font = "suits") {
 
 	# 0072 latin small letter r
 	d_lr <- c(
-		d_rect2(yxh - srw, xc - 0.5 * xh + srw + srw, vg + srw, xc - 0.5 * xh + srw), # stem
-		d_rect2(yxh, xc - 0.5 * xh + srw + srw, yxh - srw, xc - 0.5 * xh), # t serif
-		d_rect2(vg + srw, xc - 0.5 * xh + 2 * srw + srw, vg, xc - 0.5 * xh), # b serif
+		d_rect2(yxh - srw, xc - 0.5 * xh + srw + sl, vg + srw, xc - 0.5 * xh + srw), # stem
+		d_rect2(yxh, xc - 0.5 * xh + srw + sl, yxh - srw, xc - 0.5 * xh), # t serif
+		d_rect2(vg + srw, xc - 0.5 * xh + 2 * srw + sl, vg, xc - 0.5 * xh), # b serif
 		d_arc2(yxh, xc + 0.5 * xh - rp, yxh - 2 * srw, xc - 0.5 * xh + srw, srw), # curve
 		d_circle(xc + 0.5 * xh - rp, yxh - rp, rp)
 	) # ball
@@ -1545,7 +1546,7 @@ create_alphanumerics <- function(font = "suits") {
 	yslt <- yxh
 	ds <- c(
 		d_rect2(ych, xc + 0.5 * srw, vg + rt, xc - 0.5 * srw), # stem
-		d_rect2(ych, xc - 0.5 * srw, ych - srw, xc - 0.5 * srw - srw), # t serif
+		d_rect2(ych, xc - 0.5 * srw, ych - srw, xc - 0.5 * srw - sl), # t serif
 		d_rect2(yslt, xc + 2.0 * srw, yslt - srw, xc - 2.0 * srw), # bar
 		d_arc3(vg + rt, xc - 0.5 * srw + rt, vg, xc - 0.5 * srw, srw), # terminal..
 		d_rect2(vg + srw, xc + 0.5 * srw + rt, vg, xc - 0.5 * srw + rt)
@@ -1567,14 +1568,14 @@ create_alphanumerics <- function(font = "suits") {
 	write_svg(ds, "0026")
 
 	# 0075 latin small letter u
-	xl_ds <- xcw - rt - srw2
+	xl_ds <- xcw - rt - sl2
 	ds <- c(
-		d_rect2(yxh - srw, hg + srw + srw2, vg + rt, hg + srw2), # l stem
-		d_rect2(yxh, hg + srw + 2 * srw2, yxh - srw, hg), # l bar
-		d_arc3(vg + rt, 0.5 * (hg + srw2 + xl_ds + srw), vg, hg + srw2, srw),
-		d_arc4(vg + rt, xl_ds + srw, vg, 0.5 * (hg + srw2 + xl_ds + srw), srw),
+		d_rect2(yxh - srw, hg + srw + sl2, vg + rt, hg + sl2), # l stem
+		d_rect2(yxh, hg + srw + 2 * sl2, yxh - srw, hg), # l bar
+		d_arc3(vg + rt, 0.5 * (hg + sl2 + xl_ds + srw), vg, hg + sl2, srw),
+		d_arc4(vg + rt, xl_ds + srw, vg, 0.5 * (hg + sl2 + xl_ds + srw), srw),
 		d_arc3(vg + rt, xl_ds + rt, vg, xl_ds, srw), # terminal..
-		d_rect2(yxh, xl_ds + srw + srw2, yxh - srw, xl_ds - srw2), # r bar
+		d_rect2(yxh, xl_ds + srw + sl2, yxh - srw, xl_ds - sl2), # r bar
 		d_rect2(yxh - srw, xl_ds + srw, vg + rt, xl_ds), # r stem
 		d_rect2(vg + srw, xl_ds + rt + srw, vg, xl_ds + rt) # terminal
 	)
@@ -1582,32 +1583,32 @@ create_alphanumerics <- function(font = "suits") {
 
 	# 0076 latin small letter v
 	vsw <- width_slash_left(
-		xc - (hg + srw2),
+		xc - (hg + sl2),
 		(yxh - srw) - vg,
 		srw,
 		left = "horizontal",
 		right = "vertical"
 	)
 	ds <- c(
-		d_bslash(yxh - srw, xc, vg, hg + srw2, srw, left = "horizontal", right = "vertical"), # l stroke
-		d_fslash(yxh - srw, xcw - srw2, vg, xc, srw, left = "vertical", right = "horizontal"), # r stroke
-		d_rect2(yxh, hg + 2 * srw2 + vsw, yxh - srw, hg), # l serif
-		d_rect2(yxh, xcw, yxh - srw, xcw - 2 * srw2 - vsw)
+		d_bslash(yxh - srw, xc, vg, hg + sl2, srw, left = "horizontal", right = "vertical"), # l stroke
+		d_fslash(yxh - srw, xcw - sl2, vg, xc, srw, left = "vertical", right = "horizontal"), # r stroke
+		d_rect2(yxh, hg + 2 * sl2 + vsw, yxh - srw, hg), # l serif
+		d_rect2(yxh, xcw, yxh - srw, xcw - 2 * sl2 - vsw)
 	) # r serif
 	write_svg(ds, "0076")
 
 	# 0077 latin small letter w
 	wstw <- width_slash_left(
-		0.5 * (xc + 0.5 * srw - (hg + srw2)),
+		0.5 * (xc + 0.5 * srw - (hg + sl2)),
 		(yxh - srw) - vg,
 		srw,
 		left = "horizontal",
 		right = "vertical"
 	)
-	wxll <- hg + srw2
+	wxll <- hg + sl2
 	wxlr <- xc + 0.5 * wstw
 	wxrl <- xc - 0.5 * wstw
-	wxrr <- xcw - srw2
+	wxrr <- xcw - sl2
 	d_slw <- c(
 		d_bslash(
 			yxh - srw,
@@ -1645,39 +1646,39 @@ create_alphanumerics <- function(font = "suits") {
 			left = "vertical",
 			right = "horizontal"
 		), # rr stroke
-		d_rect2(yxh, hg + 2 * srw2 + wstw, yxh - srw, hg), # l serif
-		# d_rect2(yxh, xc + srw2, yxh - srw, xc - srw2), # m serif
-		d_rect2(yxh, xcw, yxh - srw, xcw - 2 * srw2 - wstw)
+		d_rect2(yxh, hg + 2 * sl2 + wstw, yxh - srw, hg), # l serif
+		# d_rect2(yxh, xc + sl2, yxh - srw, xc - sl2), # m serif
+		d_rect2(yxh, xcw, yxh - srw, xcw - 2 * sl2 - wstw)
 	) # r serif
 	write_svg(d_slw, "0077")
 
 	# 0078 latin small letter x
 	xsw <- width_slash_right(
-		(xcw - srw2) - (hg + srw2),
+		(xcw - sl2) - (hg + sl2),
 		(yxh - srw) - (vg + srw),
 		srw
 	)
 	ds <- c(
-		d_bslash(yxh - srw, xcw - srw2, vg + srw, hg + srw2, srw), # l stroke
-		d_fslash(yxh - srw, xcw - srw2, vg + srw, hg + srw2, srw), # r stroke
-		d_rect2(yxh, hg + 2 * srw2 + xsw, yxh - srw, hg), # ul serif
-		d_rect2(yxh, xcw, yxh - srw, xcw - 2 * srw2 - xsw), # ur serif
-		d_rect2(vg + srw, hg + 2 * srw2 + xsw, vg, hg), # bl serif
-		d_rect2(vg + srw, xcw, vg, xcw - 2 * srw2 - xsw)
+		d_bslash(yxh - srw, xcw - sl2, vg + srw, hg + sl2, srw), # l stroke
+		d_fslash(yxh - srw, xcw - sl2, vg + srw, hg + sl2, srw), # r stroke
+		d_rect2(yxh, hg + 2 * sl2 + xsw, yxh - srw, hg), # ul serif
+		d_rect2(yxh, xcw, yxh - srw, xcw - 2 * sl2 - xsw), # ur serif
+		d_rect2(vg + srw, hg + 2 * sl2 + xsw, vg, hg), # bl serif
+		d_rect2(vg + srw, xcw, vg, xcw - 2 * sl2 - xsw)
 	) # br serif
 	write_svg(ds, "0078")
 
 	# 0079 latin small letter y
-	xl_ds <- xcw - srw2
+	xl_ds <- xcw - sl2
 	ds <- c(
-		d_rect2(yxh - srw, hg + srw2 + srw, vg + rt, hg + srw2), # l stem
-		d_rect2(yxh, hg + srw + 2 * srw2, yxh - srw, hg), # l bar
-		d_arc3(vg + rt, 0.5 * (hg + srw2 + xl_ds), vg, hg + srw2, srw),
-		d_arc4(vg + rt, xl_ds, vg, 0.5 * (hg + srw2 + xl_ds), srw),
-		d_rect2(yxh, xl_ds + srw2, yxh - srw, xl_ds - srw - srw2), # r bar
+		d_rect2(yxh - srw, hg + sl2 + srw, vg + rt, hg + sl2), # l stem
+		d_rect2(yxh, hg + srw + 2 * sl2, yxh - srw, hg), # l bar
+		d_arc3(vg + rt, 0.5 * (hg + sl2 + xl_ds), vg, hg + sl2, srw),
+		d_arc4(vg + rt, xl_ds, vg, 0.5 * (hg + sl2 + xl_ds), srw),
+		d_rect2(yxh, xl_ds + sl2, yxh - srw, xl_ds - srw - sl2), # r bar
 		d_rect2(yxh - srw, xl_ds, srw + 0.4 * srw, xl_ds - srw), # r stem
 		d_arc4(srw + 0.4 * srw, xl_ds, 0, xc, srw),
-		d_arc3(srw + 0.4 * srw, xc, 0, hg + srw2, srw)
+		d_arc3(srw + 0.4 * srw, xc, 0, hg + sl2, srw)
 	)
 	write_svg(ds, "0079")
 
@@ -1686,8 +1687,8 @@ create_alphanumerics <- function(font = "suits") {
 		d_rect2(yxh, xc + 0.5 * xh, yxh - srw, xc - 0.5 * xh), # t bar
 		d_rect2(vg + srw, xc + 0.5 * xh, vg, xc - 0.5 * xh), # b bar
 		d_fslash(yxh - srw, xc + 0.5 * xh, vg + srw, xc - 0.5 * xh, srw), # stroke
-		d_rect2(vg + 2 * srw, xc + 0.5 * xh, vg, xc + 0.5 * xh - srw), # b serif
-		d_rect2(yxh, xc - 0.5 * xh + srw, yxh - 2 * srw, xc - 0.5 * xh)
+		d_rect2(vg + srw + sl, xc + 0.5 * xh, vg, xc + 0.5 * xh - srw), # b serif
+		d_rect2(yxh, xc - 0.5 * xh + srw, yxh - srw - sl, xc - 0.5 * xh)
 	) # t serif
 	write_svg(ds, "007a")
 

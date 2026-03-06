@@ -38,6 +38,7 @@ create_alphanumerics <- function(font = "suits") {
 	brp <- 0.20 * srw
 	# bsrw <- 2.2 * srw
 	bsrw <- cw / 3
+	btw <- 2L # thin stroke/serif width for bold digits
 	bold_dark_slit <- FALSE
 
 	# 0022 quotation mark
@@ -250,7 +251,7 @@ create_alphanumerics <- function(font = "suits") {
 	# 1ccf1 outline digit one (derived via OUTLINE_FROM_TO)
 	# 1d7cf mathematical bold digit one
 	ds <- c(
-		d_rect(x = xc, y = yc, w = bsrw, h = h - 2 * vg - 2), # stem,
+		d_rect(x = xc, y = yc, w = bsrw, h = h - 2 * vg - btw), # stem,
 		d_rect2(ych, xc + 0.5 * bsrw, ych - 1, xc - 0.5 * bsrw - srw), # t serif,
 		d_rect2(vg + 1, xc + 0.5 * bsrw + srw, vg, xc - 0.5 * bsrw - srw)
 	) # b serif
@@ -298,15 +299,15 @@ create_alphanumerics <- function(font = "suits") {
 	d2b_yti <- y_ellipse_top(d2b_xti, xc, ych - d2ry, 0.5 * cw, d2ry)
 	d2b_m <- 0.8 * d2_m
 	ds <- c(
-		d_arc12(ych, xcw, ych - d2ry, hg, 2), # top curve
+		d_arc12(ych, xcw, ych - d2ry, hg, btw), # top curve
 		d_circle(hg + brp, ych - d2ry, brp), # ball
 		M(xcw, ych - d2ry) + # curved stroke
-			Q(xcw, d2_yq, hg + d2b_m * bsrw, vg + 2) +
+			Q(xcw, d2_yq, hg + d2b_m * bsrw, vg + btw) +
 			H(hg) +
 			Q(xcw - d2b_m * bsrw, d2_yq, d2b_xti, d2b_yti) +
 			AZ(0.5 * (xcw - hg), d2ry, x = xcw, y = ych - d2ry),
-		d_rect2(vg + 2, xcw, vg, hg), # bar
-		d_rect2(vg + 2 + srw, xcw, vg + 2, xcw - 2) # lr serif
+		d_rect2(vg + btw, xcw, vg, hg), # bar
+		d_rect2(vg + btw + srw, xcw, vg + btw, xcw - btw) # lr serif
 	)
 	write_svg(ds, "1d7d0")
 	# 1d7da mathematical double-struck digit two (derived via OUTLINE_FROM_TO)
@@ -353,10 +354,18 @@ create_alphanumerics <- function(font = "suits") {
 	# 1d7d1 mathematical bold digit three
 	ybd3_mid <- yc - 0.5 * srw
 	ds <- c(
-		d_rect2(ych, hg + 2, ych - srw, hg), # ul serif
-		d_rect2(ych, xcw, ych - 2, hg + 2), # bar
-		d_fslash(ych - 2, xcw, ybd3_mid, xc - d3o, bsrw, right = "horizontal", left = "horizontal"), # stroke
-		d_arc341(ybd3_mid, xcw, vg, hg, 2) # b curve
+		d_rect2(ych, hg + btw, ych - srw, hg), # ul serif
+		d_rect2(ych, xcw, ych - btw, hg + btw), # bar
+		d_fslash(
+			ych - btw,
+			xcw,
+			ybd3_mid,
+			xc - d3o,
+			bsrw,
+			right = "horizontal",
+			left = "horizontal"
+		), # stroke
+		d_arc341(ybd3_mid, xcw, vg, hg, btw) # b curve
 	)
 	write_svg(ds, "1d7d1")
 	# 1d7db mathematical double-struck digit three (derived via OUTLINE_FROM_TO)
@@ -408,10 +417,10 @@ create_alphanumerics <- function(font = "suits") {
 	# 1ccf4 outline digit four (derived via OUTLINE_FROM_TO)
 	# 1d7d2 mathematical bold digit four
 	ds <- c(
-		d_rect2(ych, xcw - srw, vg + 2, xcw - srw - bsrw), # stem
-		d_rect2(vg + 2, xcw, vg, xcw - bsrw - 2 * srw), # b serif
-		d_rect2(yd4b, xcw, yd4b - 2, hg), # bar
-		d_fslash(ych, xcw - srw - bsrw, yd4b, hg, 2, left = "horizontal", right = "vertical")
+		d_rect2(ych, xcw - srw, vg + btw, xcw - srw - bsrw), # stem
+		d_rect2(vg + btw, xcw, vg, xcw - bsrw - 2 * srw), # b serif
+		d_rect2(yd4b, xcw, yd4b - btw, hg), # bar
+		d_fslash(ych, xcw - srw - bsrw, yd4b, hg, btw, left = "horizontal", right = "vertical")
 	) # stroke
 	write_svg(ds, "1d7d2")
 	# 1d7dc mathematical double-struck digit four (derived via OUTLINE_FROM_TO)
@@ -464,20 +473,20 @@ create_alphanumerics <- function(font = "suits") {
 	write_svg(ds, "0035")
 	# 1ccf5 outline digit five (derived via OUTLINE_FROM_TO)
 	# 1d7d3 mathematical bold digit five
-	cy5b <- 0.5 * (yc + 2 + vg)
+	cy5b <- 0.5 * (yc + btw + vg)
 	rx5b <- xcw - xc
-	ry5b <- 0.5 * (yc + 2 - vg)
+	ry5b <- 0.5 * (yc + btw - vg)
 	xbd5_bar_left <- hg + 0.5 * srw
 	# xbd5 <- xc + 0.5 * srw
 	xbd5 <- xbd5_bar_left + bsrw
 	yb5 <- y_ellipse_bottom(xbd5, xc, cy5b, rx5b, ry5b)
 	ybd5_mid <- yc - 0.5 * srw
 	ds <- c(
-		d_rect2(ych, xcw, ych - srw, xcw - 2), # ur serif
-		d_rect2(ych, xcw - 2, ych - 2, xbd5_bar_left), # bar
-		d_rect2(ych - 2, xbd5, ybd5_mid + 2, xbd5_bar_left), # stem
-		d_rect2(ybd5_mid + 2, xc, ybd5_mid, xbd5_bar_left + bsrw), # curve 1
-		d_arc341(ybd5_mid, xcw, vg, hg, 2) # bottom curve
+		d_rect2(ych, xcw, ych - srw, xcw - btw), # ur serif
+		d_rect2(ych, xcw - btw, ych - btw, xbd5_bar_left), # bar
+		d_rect2(ych - btw, xbd5, ybd5_mid + btw, xbd5_bar_left), # stem
+		d_rect2(ybd5_mid + btw, xc, ybd5_mid, xbd5_bar_left + bsrw), # curve 1
+		d_arc341(ybd5_mid, xcw, vg, hg, btw) # bottom curve
 		# M(w - xbd5, 2 * cy5b - yb5) + AZ(rx5b, ry5b, x = w - xbd5, y = yb5) # partial ellipse
 	)
 	write_svg(ds, "1d7d3")
@@ -507,7 +516,7 @@ create_alphanumerics <- function(font = "suits") {
 	yc6b <- vg + d6byf * ch
 	ds <- c(
 		d_ellipse_slit(xc, yc6b, 0.5 * cw, d6byf * ch, xc + 0.5 * bsrw, dark_slit = bold_dark_slit),
-		d_arc2(ych, xcw - brp, yc6b, hg, 2),
+		d_arc2(ych, xcw - brp, yc6b, hg, btw),
 		d_circle(xcw - brp, ych - brp, brp)
 	)
 	write_svg(ds, "1d7d4")
@@ -537,12 +546,12 @@ create_alphanumerics <- function(font = "suits") {
 	# 1ccf7 outline digit seven (derived via OUTLINE_FROM_TO)
 	# 1d7d5 mathematical bold digit seven
 	x_slash_left <- xc - 0.5 * bsrw
-	d7stw <- width_slash_left(xcw - x_slash_left, (ych - 2) - (vg + 2), bsrw)
+	d7stw <- width_slash_left(xcw - x_slash_left, (ych - btw) - (vg + btw), bsrw)
 	ds <- c(
-		d_rect2(ych, hg + 2, ych - srw, hg), # ul serif
-		d_rect2(ych, xcw, ych - 2, hg + 2), # bar
-		d_fslash(ych - 2, xcw, vg + 2, x_slash_left, bsrw), # stroke
-		d_rect2(vg + 2, x_slash_left + d7stw + srw, vg, x_slash_left - srw) # b serif
+		d_rect2(ych, hg + btw, ych - srw, hg), # ul serif
+		d_rect2(ych, xcw, ych - btw, hg + btw), # bar
+		d_fslash(ych - btw, xcw, vg + btw, x_slash_left, bsrw), # stroke
+		d_rect2(vg + btw, x_slash_left + d7stw + srw, vg, x_slash_left - srw) # b serif
 	)
 	write_svg(ds, "1d7d5")
 	# 1d7df mathematical double-struck digit seven (derived via OUTLINE_FROM_TO)
@@ -625,13 +634,13 @@ create_alphanumerics <- function(font = "suits") {
 	y_slash_right <- yc9b - d9byf * ch / sqrt(2)
 	d9b_stw <- width_slash_left(
 		0.5 * cw / sqrt(2) + 1,
-		y_slash_right - (vg + 2),
-		2
+		y_slash_right - (vg + btw),
+		btw
 	)
 	ds <- c(
 		d_ellipse_slit(xc, yc9b, 0.5 * cw, d9byf * ch, xc + 0.5 * bsrw, dark_slit = bold_dark_slit), # counter
-		d_fslash(y_slash_right, x_slash_right, vg + 2, x_slash_left, 2), # stroke
-		d_rect2(vg + 2, x_slash_left + d9b_stw + srw, vg, x_slash_left - srw) # b serif
+		d_fslash(y_slash_right, x_slash_right, vg + btw, x_slash_left, btw), # stroke
+		d_rect2(vg + btw, x_slash_left + d9b_stw + srw, vg, x_slash_left - srw) # b serif
 	)
 	write_svg(ds, "1d7d7")
 	# 1d7e1 mathematical double-struck digit nine (derived via OUTLINE_FROM_TO)

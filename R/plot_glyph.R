@@ -1,8 +1,8 @@
 # `plot_glyph()` plots a single character in both "ranks" and "suits" fonts
-# with {svgparser} based on the **svg** files
+# with {nanosvgr} based on the **svg** files
 # In contrast `indexGrob()` plots glyphs in {grid} based on the **fonts**
 plot_glyph <- function(x) {
-	stopifnot(requireNamespace("svgparser", quietly = TRUE))
+	stopifnot(requireNamespace("nanosvgr", quietly = TRUE))
 	if (inherits(x, "dee")) {
 		plot(x)
 	} else if (is.character(x)) {
@@ -29,7 +29,8 @@ plot_glyph <- function(x) {
 				height = h_square
 			))
 			grid::grid.rect(gp = gpar(col = NA, fill = "cyan"))
-			svgparser::read_svg(f_square) |> grid::grid.draw()
+			nsvg_grob_npc(f_square, dotaro_width("suits"), dotaro_height("suits")) |>
+				grid::grid.draw()
 			grid::popViewport()
 		}
 
@@ -40,19 +41,27 @@ plot_glyph <- function(x) {
 				height = h_narrow
 			))
 			grid::grid.rect(gp = gpar(col = NA, fill = "magenta"))
-			grid::popViewport()
-
-			# Hack for https://github.com/coolbutuseless/svgparser/issues/10
-			grid::pushViewport(grid::viewport(
-				x = grid::unit(1, "npc") - 0.5 * w_narrow,
-				y = h_square + h_narrow * 0.5,
-				height = h_narrow,
-				just = "center"
-			))
-			svgparser::read_svg(f_narrow) |> grid::grid.draw()
+			nsvg_grob_npc(f_narrow, dotaro_width("ranks"), dotaro_height("ranks")) |>
+				grid::grid.draw()
 			grid::popViewport()
 		}
 	} else {
 		stop("Don't know how to plot this object")
 	}
+}
+
+nsvg_grob_npc <- function(f, w, h) {
+	# nsvg_to_grob(inverty=TRUE) inverts around max(y_svg) — the glyph's bounding
+	# box bottom — not the SVG canvas height, losing the bottom margin. Correct by
+	# adding back (h - max_y_svg) so the full canvas proportions are preserved.
+	nsvg <- nanosvgr::nsvg_read(f)
+	max_y <- max(do.call(rbind, nsvg$points)$y)
+	grob <- nanosvgr::nsvg_to_grob(nsvg)
+	for (i in seq_along(grob$children)) {
+		child <- grob$children[[i]]
+		child$x <- grid::unit(as.numeric(child$x) / w, "npc")
+		child$y <- grid::unit((as.numeric(child$y) + h - max_y) / h, "npc")
+		grob$children[[i]] <- child
+	}
+	grob
 }

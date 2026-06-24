@@ -22,11 +22,11 @@ create_miscellaneous_symbols <- function(font = "suits") {
 	# 2605 Black Star
 	ro <- 0.5 * cw
 	s <- isotoxal_2ngon_inner_radius(n = 5, d = 2)
-	d_2605 <- d_isotoxal_2ngon(xc, yc, ro, s, 5)
+	d_2605 <- d_isotoxal_2ngon(xc, yc, ro, n = 5, s = s)
 	write_svg(d_2605, "2605")
 
 	# 2606 White Star
-	d_2606 <- d_isotoxal_2ngon(xc, yc, ro, s, 5, offset = -ow)
+	d_2606 <- d_isotoxal_2ngon(xc, yc, ro, n = 5, s = s, offset = -ow)
 	write_svg(d_2605 + d_2606, "2606")
 
 	# 272a circled white star
@@ -37,41 +37,44 @@ create_miscellaneous_symbols <- function(font = "suits") {
 	# 272c black center white star
 	write_svg(d_2605 + d_2606 + d_circle(xc, yc, ri - ow), "272c")
 	# 272d outlined black star
-	write_svg(d_2605 + d_2606 + d_isotoxal_2ngon(xc, yc, ro, s, 5, offset = -2 * ow), "272d")
+	write_svg(
+		d_2605 + d_2606 + d_isotoxal_2ngon(xc, yc, ro, n = 5, s = s, offset = -2 * ow),
+		"272d"
+	)
 	# Throws an error if I let `offset` get bigger than -2.4 * ow
 	# # 272e heavy outlined black star
 	# write_svg(d_2605 + d_2606 + d_polygon(x, y, offset = -2.4 * ow), "272e")
 
 	# 2736 six-pointed black star
 	s <- 0.4
-	d_2736 <- d_isotoxal_2ngon(xc, yc, ro, s, 6)
+	d_2736 <- d_isotoxal_2ngon(xc, yc, ro, n = 6, s = s)
 	write_svg(d_2736, "2736")
 
 	# 2734 eight pointed black star
 	s <- 0.30
-	d_2734 <- d_isotoxal_2ngon(xc, yc, ro, s, 8)
+	d_2734 <- d_isotoxal_2ngon(xc, yc, ro, n = 8, s = s)
 	write_svg(d_2734, "2734")
 
 	# 2737 eight pointed rectilinear black star
 	s <- 0.40
-	d_2737 <- d_isotoxal_2ngon(xc, yc, ro, s, 8, 22.5)
+	d_2737 <- d_isotoxal_2ngon(xc, yc, ro, n = 8, a = 22.5, s = s)
 	write_svg(d_2737, "2737")
 
 	# 2738 heavy eight pointed rectilinear black star
 	# (in unicode example the "heavy" one actually looks like it)
 	s <- isotoxal_2ngon_inner_radius(n = 8, beta_ext = 90) # 0.5411
-	d_2738 <- d_isotoxal_2ngon(xc, yc, ro, s, 8, 22.5)
+	d_2738 <- d_isotoxal_2ngon(xc, yc, ro, n = 8, a = 22.5, s = s)
 	write_svg(d_2738, "2738")
 
 	# 2742 circled open center eight-pointed black star
 	s <- 0.6
 	ri <- s * ro
-	d_2742 <- d_circle(xc, yc, c(ro, ri, ri - ow)) + d_isotoxal_2ngon(xc, yc, ro, s, 8)
+	d_2742 <- d_circle(xc, yc, c(ro, ri, ri - ow)) + d_isotoxal_2ngon(xc, yc, ro, n = 8, s = s)
 	write_svg(d_2742, "2742")
 
 	# 2739 twelve-pointed black star
 	s <- isotoxal_2ngon_inner_radius(n = 12, d = 5)
-	d_2739 <- d_isotoxal_2ngon(xc, yc, ro, s, 12)
+	d_2739 <- d_isotoxal_2ngon(xc, yc, ro, n = 12, s = s)
 	write_svg(d_2739, "2739")
 
 	# 2663 Black Club Suit

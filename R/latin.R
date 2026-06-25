@@ -1448,17 +1448,55 @@ create_alphanumerics <- function(font = "suits") {
 	write_svg(ds, "006c")
 
 	# 006d latin small letter m
-	r_ul_serif <- 0.5 * (xc + 0.5 * srw + hg + sl2)
-	ds <- c(
-		d_rect2(yxh - 2 * srw, hg + sl2 + srw, vg + srw, hg + sl2), # l stem
-		d_rect2(yxh, r_ul_serif, yxh - srw, hg), # ul serif
-		d_rect2(vg + srw, hg + srw + 2 * sl2, vg, hg), # ll serif
-		d_arc12(yxh, xc + 0.5 * srw, yxh - 2 * srw, hg + sl2, srw), # l curve
-		d_rect2(yxh - 2 * srw, xc + 0.5 * srw, vg + srw + srw, xc - 0.5 * srw), # m stem
-		d_arc12(yxh, xcw - sl2, yxh - 2 * srw, xc - 0.5 * srw, srw), # r curve
-		d_rect2(yxh - 2 * srw, xcw - sl2, vg + srw, xcw - sl2 - srw), # r stem
-		d_rect2(vg + srw, xcw, vg, xcw - srw - 2 * sl2) # lr serif
-	)
+	# r_ul_serif <- 0.5 * (xc + 0.5 * srw + hg + sl2)
+	# ds <- c(
+	#         d_rect2(yxh - 2 * srw, hg + sl2 + srw, vg + srw, hg + sl2), # l stem
+	#         d_rect2(yxh, r_ul_serif, yxh - srw, hg), # ul serif
+	#         d_rect2(vg + srw, hg + srw + 2 * sl2, vg, hg), # ll serif
+	#         d_arc12(yxh, xc + 0.5 * srw, yxh - 2 * srw, hg + sl2, srw), # l curve
+	#         d_rect2(yxh - 2 * srw, xc + 0.5 * srw, vg + srw + srw, xc - 0.5 * srw), # m stem
+	#         d_arc12(yxh, xcw - sl2, yxh - 2 * srw, xc - 0.5 * srw, srw), # r curve
+	#         d_rect2(yxh - 2 * srw, xcw - sl2, vg + srw, xcw - sl2 - srw), # r stem
+	#         d_rect2(vg + srw, xcw, vg, xcw - srw - 2 * sl2) # lr serif
+	# )
+	# A single outline path (rather than a union of simple shapes) so that
+	# FontForge doesn't warn about overlaps along the coincident edges where
+	# the stems, arches and serifs would otherwise meet.
+	r_ul_serif <- 0.5 * (xc + 0.5 * srw + hg + sl2) # left arch center x / ul serif right
+	r_r_arch <- 0.5 * (xc - 0.5 * srw + xcw - sl2) # right arch center x
+	arch_rx <- 0.5 * (xc + 0.5 * srw - (hg + sl2)) # outer arch x radius
+	yab <- yxh - 2 * srw # arch bottom / stem tops
+	# where the left arch's outer edge meets the ul serif's bottom edge
+	x_armpit <- x_ellipse_left(yxh - srw, xc = r_ul_serif, yc = yab, rx = arch_rx, ry = 2 * srw)
+	# where the two outer arches cross (the dip between the humps)
+	y_notch <- y_ellipse_top(xc, xc = r_ul_serif, yc = yab, rx = arch_rx, ry = 2 * srw)
+	ds <- M(hg, vg) +
+		L(hg, vg + srw) + # up ll serif left edge
+		L(hg + sl2, vg + srw) + # ll serif top (left shoulder)
+		L(hg + sl2, yab) + # up l stem left edge
+		A(arch_rx, 2 * srw, x = x_armpit, y = yxh - srw, sweep_flag = FALSE) + # l arch outer
+		L(hg, yxh - srw) + # ul serif bottom
+		L(hg, yxh) + # up ul serif left edge
+		L(r_ul_serif, yxh) + # ul serif top to l arch apex
+		A(arch_rx, 2 * srw, x = xc, y = y_notch, sweep_flag = FALSE) + # l arch apex to notch
+		A(arch_rx, 2 * srw, x = r_r_arch, y = yxh, sweep_flag = FALSE) + # notch to r arch apex
+		A(arch_rx, 2 * srw, x = xcw - sl2, y = yab, sweep_flag = FALSE) + # r arch apex to r stem
+		L(xcw - sl2, vg + srw) + # down r stem right edge
+		L(xcw, vg + srw) + # lr serif top (right shoulder)
+		L(xcw, vg) + # down lr serif right edge
+		L(xcw - srw - 2 * sl2, vg) + # lr serif bottom
+		L(xcw - srw - 2 * sl2, vg + srw) + # up lr serif left edge
+		L(xcw - sl2 - srw, vg + srw) + # lr serif top (left shoulder)
+		L(xcw - sl2 - srw, yab) + # up r stem left edge
+		A(arch_rx - srw, srw, x = xc + 0.5 * srw, y = yab, sweep_flag = TRUE) + # r counter
+		L(xc + 0.5 * srw, vg + 2 * srw) + # down m stem right edge
+		L(xc - 0.5 * srw, vg + 2 * srw) + # m stem bottom
+		L(xc - 0.5 * srw, yab) + # up m stem left edge
+		A(arch_rx - srw, srw, x = hg + sl2 + srw, y = yab, sweep_flag = TRUE) + # l counter
+		L(hg + sl2 + srw, vg + srw) + # down l stem right edge
+		L(hg + srw + 2 * sl2, vg + srw) + # ll serif top (right shoulder)
+		L(hg + srw + 2 * sl2, vg) + # down ll serif right edge
+		Z()
 	write_svg(ds, "006d")
 
 	#### 20a5 mill sign

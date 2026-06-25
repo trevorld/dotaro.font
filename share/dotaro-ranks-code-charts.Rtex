@@ -137,6 +137,16 @@ make_table("22E", "22F")
 make_table("218", "218")
 %% end.rcode
 
+\section{Enclosed Alphanumerics}
+
+%% begin.rcode enclosed_alphanumerics, echo=FALSE, results='asis'
+make_table("246", "246")
+%% end.rcode
+
+%% begin.rcode enclosed_alphanumerics_2, echo=FALSE, results='asis'
+make_table("24E", "24F")
+%% end.rcode
+
 \section{Box Drawing}
 
 %% begin.rcode box_drawing, echo=FALSE, results='asis'
@@ -164,7 +174,7 @@ make_table("260", "26A")
 \section{Dingbats}
 
 %% begin.rcode dingbats, echo=FALSE, results='asis'
-make_table("272", "274")
+make_table("272", "277")
 %% end.rcode
 
 \section{Miscellaneous Symbols and Arrows}
@@ -178,6 +188,12 @@ make_table("2B1", "2B2")
 
 %% begin.rcode symbols_for_legacy_computing_supplement, echo=FALSE, results='asis'
 make_table("1CCD", "1CCF")
+%% end.rcode
+
+\section{Mathematical Alphanumeric Symbols}
+
+%% begin.rcode mathematical_alphanumeric_symbols, echo=FALSE, results='asis'
+make_table("1D7C", "1D7E")
 %% end.rcode
 
 \section{Miscellaneous Symbols and Pictographs}

@@ -23,7 +23,7 @@ library("Unicode")
 reticulate::use_python(Sys.which("python3"))
 points_font <- dotaro.font:::get_unicode_code_points("dotaro-suits.ttf") |> as.u_char()
 
-make_table <- function(start, end) {
+make_table <- function(start, end, only = NULL) {
     cat("\\begin{flushleft}\n")
     cat("{\\renewcommand{\\arraystretch}{1.3}\n")
     cat("\\begin{tabular}{|l||c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|c|}\n")
@@ -41,7 +41,7 @@ make_table <- function(start, end) {
        for (char in bracer::expand_braces("{{0..9},{A..F}}", "R")) {
           ucp <- paste0(set, char)
           ucp_u <- paste0("U+", ucp)
-          if (ucp_u %in% points_font) {
+          if (ucp_u %in% points_font && (is.null(only) || ucp %in% only)) {
 			 cat(paste0(" & {\\df\\raise.0em\\hbox{\\char\"", ucp, "}}"))
           } else {
              cat(paste0(" & \\cellcolor{lightgray}"))
@@ -54,6 +54,18 @@ make_table <- function(start, end) {
     cat("}\n")
     cat("\\end{flushleft}\n")
 }
+ascii_digits <- paste0("003", 0:9)
+ascii_upper <- sprintf("%04X", 0x41:0x5A)
+ascii_lower <- sprintf("%04X", 0x61:0x7A)
+ascii_letters <- c(ascii_upper, ascii_lower)
+ascii_currency <- "0024"
+ascii_punct <- setdiff(sprintf("%04X", 0x20:0x7E), c(ascii_letters, ascii_digits, ascii_currency))
+latin1_currency <- c("00A2", "00A3", "00A4", "00A5")
+latin1_non_currency_00A <- setdiff(
+    c(paste0("00A", 0:9), paste0("00A", LETTERS[1:6])),
+    latin1_currency
+)
+card_suits <- paste0("266", 0:7)
 %% end.rcode
 
 \begin{document}
@@ -64,167 +76,160 @@ Private Use Area (PUA) codepoints are reserved for individual fonts.  They have 
 
 \tableofcontents
 
-\section{Basic Latin}
+\newpage
+\section{Digits}
 
-%% begin.rcode basic_latin, echo=FALSE, results='asis'
-make_table("002", "007")
+%% begin.rcode digits, echo=FALSE, results='asis'
+make_table("003", "003", only = ascii_digits)
+make_table("F59", "F59")
+make_table("218", "218")
 %% end.rcode
 
-\section{Latin-1 Supplement}
-
-%% begin.rcode latin1_supplement, echo=FALSE, results='asis'
-make_table("00A", "00F")
+%% begin.rcode symbols_for_legacy_computing_supplement_1, echo=FALSE, results='asis'
+make_table("1CCF", "1CCF")
 %% end.rcode
 
-\section{Latin Extended-A}
+%% begin.rcode mathematical_alphanumeric_symbols, echo=FALSE, results='asis'
+make_table("1D7C", "1D7E")
+%% end.rcode
 
-%% begin.rcode latin_extended_a, echo=FALSE, results='asis'
+%% begin.rcode dingbats_digits, echo=FALSE, results='asis'
+make_table("246", "246")
+make_table("24E", "24F")
+make_table("277", "277")
+%% end.rcode
+
+\newpage
+\section{Letters}
+
+%% begin.rcode letters_ascii, echo=FALSE, results='asis'
+make_table("004", "007", only = ascii_letters)
+%% end.rcode
+
+%% begin.rcode symbols_for_legacy_computing_supplement_2, echo=FALSE, results='asis'
+make_table("1CCD", "1CCE")
+%% end.rcode
+
+%% begin.rcode letters_extended_a, echo=FALSE, results='asis'
 make_table("013", "013")
 %% end.rcode
 
-\section{Latin Extended-B}
-
-%% begin.rcode latin_extended_b, echo=FALSE, results='asis'
+%% begin.rcode letters_extended_b, echo=FALSE, results='asis'
 # make_table("018", "024")
 make_table("018", "018")
 %% end.rcode
 
-%% begin.rcode latin_extended_b_1, echo=FALSE, results='asis'
+%% begin.rcode letters_extended_b_1, echo=FALSE, results='asis'
 make_table("023", "023")
 %% end.rcode
 
-\section{IPA Extensions}
-
-%% begin.rcode ipa_extensions, echo=FALSE, results='asis'
+%% begin.rcode letters_ipa, echo=FALSE, results='asis'
 # make_table("025", "02A")
 make_table("025", "025")
 %% end.rcode
 
-\section{Spacing Modifier Letters}
+\section{Currency}
 
-%% begin.rcode spacing_modifier_letters, echo=FALSE, results='asis'
-# make_table("02B", "02F")
-make_table("02C", "02C")
+%% begin.rcode currency_ascii, echo=FALSE, results='asis'
+make_table("002", "002", only = ascii_currency)
 %% end.rcode
 
-\section{Currency Symbols}
-
-%% begin.rcode currency_symbols, echo=FALSE, results='asis'
-make_table("20A", "20C")
+%% begin.rcode currency_latin1, echo=FALSE, results='asis'
+make_table("00A", "00A", only = latin1_currency)
 %% end.rcode
 
-\section{Thai}
-
-%% begin.rcode thai, echo=FALSE, results='asis'
+%% begin.rcode currency_thai, echo=FALSE, results='asis'
 make_table("0E3", "0E3")
 %% end.rcode
 
-\section{General Punctuation}
+%% begin.rcode currency_symbols, echo=FALSE, results='asis'
+make_table("20A", "20B")
+%% end.rcode
+
+\newpage
+\section{Punctuation and Mathematical Operators}
+
+%% begin.rcode punctuation_ascii, echo=FALSE, results='asis'
+make_table("002", "007", only = ascii_punct)
+%% end.rcode
+
+%% begin.rcode punctuation_latin1, echo=FALSE, results='asis'
+make_table("00A", "00A", only = latin1_non_currency_00A)
+make_table("00B", "00B")
+%% end.rcode
+
+%% begin.rcode letters_latin1, echo=FALSE, results='asis'
+make_table("00C", "00F")
+%% end.rcode
+
+%% begin.rcode letters_spacing_modifiers, echo=FALSE, results='asis'
+# make_table("02B", "02F")
+make_table("02C", "02C")
+%% end.rcode
 
 %% begin.rcode general_punctuation, echo=FALSE, results='asis'
 make_table("202", "203")
 %% end.rcode
 
-\section{Mathematical Operators}
-
 %% begin.rcode mathematical_operators, echo=FALSE, results='asis'
 make_table("22E", "22F")
 %% end.rcode
 
-\section{Number Forms}
+\newpage
+\section{Playing Card Suits}
 
-%% begin.rcode number_forms, echo=FALSE, results='asis'
-make_table("218", "218")
+%% begin.rcode playing_card_suits, echo=FALSE, results='asis'
+make_table("266", "266", only = card_suits)
+make_table("F5A", "F5B")
 %% end.rcode
 
-\section{Enclosed Alphanumerics}
+\section{Chess Symbols}
 
-%% begin.rcode enclosed_alphanumerics, echo=FALSE, results='asis'
-make_table("246", "246")
-%% end.rcode
-
-%% begin.rcode enclosed_alphanumerics_2, echo=FALSE, results='asis'
-make_table("24E", "24F")
-%% end.rcode
-
-\section{Box Drawing}
-
-%% begin.rcode box_drawing, echo=FALSE, results='asis'
-make_table("250", "257")
-%% end.rcode
-
-\section{Block Elements}
-
-%% begin.rcode block_elements, echo=FALSE, results='asis'
-make_table("258", "259")
+%% begin.rcode chess_symbols, echo=FALSE, results='asis'
+make_table("265", "265")
+# make_table("1FA0", "1FA6")
+make_table("1FA0", "1FA3")
 %% end.rcode
 
 \section{Geometric Shapes}
 
 %% begin.rcode geometric_shapes, echo=FALSE, results='asis'
 make_table("25A", "25F")
+make_table("26A", "26A")
 %% end.rcode
-
-\section{Miscellaneous Symbols}\label{sec:miscellaneous-symbols}
-
-%% begin.rcode miscellaneous_symbols, echo=FALSE, results='asis'
-make_table("260", "26A")
-%% end.rcode
-
-\section{Dingbats}
-
-%% begin.rcode dingbats, echo=FALSE, results='asis'
-make_table("272", "277")
-%% end.rcode
-
-\section{Miscellaneous Symbols and Arrows}
 
 %% begin.rcode miscellaneous_symbols_and_arrows, echo=FALSE, results='asis'
 # make_table("2B0", "2BF")
 make_table("2B1", "2B2")
 %% end.rcode
 
-\section{Symbols for Legacy Computing Supplement}
 
-%% begin.rcode symbols_for_legacy_computing_supplement, echo=FALSE, results='asis'
-make_table("1CCD", "1CCF")
+\section{Miscellaneous Symbols}\label{sec:miscellaneous-symbols}
+
+%% begin.rcode miscellaneous_symbols, echo=FALSE, results='asis'
+make_table("260", "260")
 %% end.rcode
 
-\section{Mathematical Alphanumeric Symbols}
-
-%% begin.rcode mathematical_alphanumeric_symbols, echo=FALSE, results='asis'
-make_table("1D7C", "1D7E")
+%% begin.rcode dingbats, echo=FALSE, results='asis'
+make_table("272", "274")
 %% end.rcode
-
-\section{Miscellaneous Symbols and Pictographs}
 
 %% begin.rcode misc_symbols_pictographs, echo=FALSE, results='asis'
 make_table("1F4A", "1F4A")
-%% end.rcode
-
-\section{Chess Symbols}
-
-Note the normal white/black chess symbols are in \hyperref[sec:miscellaneous-symbols]{Miscellaneous Symbols}.
-
-%% begin.rcode chess_symbols, echo=FALSE, results='asis'
-# make_table("1FA0", "1FA6")
-make_table("1FA0", "1FA3")
-%% end.rcode
-
-\section{Private Use Area}
-
-%% begin.rcode pua_misc, echo=FALSE, results='asis'
-make_table("F59", "F5B")
 %% end.rcode
 
 %% begin.rcode pua_meeple, echo=FALSE, results='asis'
 make_table("FC43", "FC43")
 %% end.rcode
 
-% \section{Supplementary Private Use Area-A: Box Drawing Domino Suits}
-%
-% %% begin.rcode pua_box_drawing_domino_suits, echo=FALSE, results='asis'
-% make_table("F590", "FCAF")
-% %% end.rcode
+\section{Box Drawing and Block Elements}
+
+%% begin.rcode box_drawing, echo=FALSE, results='asis'
+make_table("250", "257")
+%% end.rcode
+
+%% begin.rcode block_elements, echo=FALSE, results='asis'
+make_table("258", "259")
+%% end.rcode
 
 \end{document}

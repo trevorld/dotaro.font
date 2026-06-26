@@ -109,8 +109,8 @@ rotate_glyph <- function(ff_font, from_int, to_int, radians, psMat) {
 	bb <- glyph$boundingBox()
 	cx <- (bb[[3]] + bb[[1]]) / 2
 	cy <- (bb[[4]] + bb[[2]]) / 2
-	trcen = psMat$translate(-cx, -cy)
-	rotcen = psMat$compose(trcen, psMat$compose(psMat$rotate(radians), psMat$inverse(trcen)))
+	trcen <- psMat$translate(-cx, -cy)
+	rotcen <- psMat$compose(trcen, psMat$compose(psMat$rotate(radians), psMat$inverse(trcen)))
 	glyph$transform(rotcen)
 }
 

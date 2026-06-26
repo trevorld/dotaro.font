@@ -89,6 +89,8 @@ make_table("218", "218")
 make_table("1CCF", "1CCF")
 %% end.rcode
 
+Note: mathematical bold digits are intended to be rendered by \texttt{grid::fillStrokeGrob()}.
+
 %% begin.rcode mathematical_alphanumeric_symbols, echo=FALSE, results='asis'
 make_table("1D7C", "1D7E")
 %% end.rcode

@@ -232,7 +232,7 @@ df_index <- function(ranks, suits = "french", fill = NULL) {
 		if (is.null(fill)) {
 			oi_fills <- c("#F0E442", "#0072B2") # Okabe-Ito yellow, dark blue
 		} else {
-			oi_fills <- c(fill, fill)
+			oi_fills <- rep_len(fill, 2L)
 		}
 		suit_idx <- ((seq_len(n_cards) - 1L) %% 5L) + 1L
 		fill_idx <- ((seq_len(n_cards) - 1L) %% 2L) + 1L
@@ -258,5 +258,7 @@ df_index <- function(ranks, suits = "french", fill = NULL) {
 			fill = oi_fills[fill_idx]
 		)
 		rbind(df_ranks, df_suits_base, df_suits_neg)
+	} else {
+		abort(glue('unknown suits value "{suits}"'))
 	}
 }

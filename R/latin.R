@@ -1960,13 +1960,13 @@ create_alphanumerics <- function(font = "suits") {
 			"f590",
 			"1f4a7" # droplet
 		)),
-		# circled digits 24ea and 2460 through 2468
-		# negative circled digits 24ff and 2776 through 277e
+		# circled digits 24ea and 2460 through 2467 (excl. 2464, 2465, 2468 not ready)
+		# negative circled digits 24ff and 2776 through 277d (excl. 277a, 277b, 277e not ready)
 		as.hexmode(c("24ea", "24ff")),
 		as.hexmode("2460"):as.hexmode("2463"),
-		as.hexmode(c("2467")),
+		as.hexmode(c("2466", "2467")),
 		as.hexmode("2776"):as.hexmode("2779"),
-		as.hexmode(c("277d")),
+		as.hexmode(c("277c", "277d")),
 		# mathematical bold (avec-serif) digits 1d7ce through 1d7d7
 		as.hexmode("1d7ce"):as.hexmode("1d7d7")
 	) |>

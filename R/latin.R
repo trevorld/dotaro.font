@@ -673,13 +673,12 @@ create_alphanumerics <- function(font = "suits") {
 	write_svg(c(cd_circle_black + d_cd9), "277e")
 
 	# number ten (private use area since doesn't exist in Unicode)
-	# PUA f590 (for now)
 	ten_rx <- 0.5 * (w - 2 * hg - 2.00 * srw)
 	ds <- c(
 		d_rect2(ych, hg + srw, vg, hg), # one
 		d_ellipse(xcw - ten_rx, yc, ten_rx + c(0, -srw), 0.5 * ch + c(0, -srw))
 	)
-	write_svg(ds, "f590")
+	write_svg(ds, "f59a")
 
 	# 0041 latin capital letter a
 	if (font == "suits") {
@@ -2071,7 +2070,7 @@ create_alphanumerics <- function(font = "suits") {
 			"20b5",
 			"20bf",
 			"218b",
-			"f590",
+			"f59a",
 			"1f4a7", # droplet
 			"f5a0", # droplet with digit one
 			"f5a1", # negative droplet with digit one

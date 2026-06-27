@@ -78,7 +78,7 @@ Current [Unicode block](https://en.wikipedia.org/wiki/Unicode_block) coverage (e
 |Miscellaneous Symbols and Arrows        |            5|            5|            256|
 |Miscellaneous Symbols and Pictographs   |            1|            1|            768|
 |Number Forms                            |            1|            1|             64|
-|Private Use Area                        |            2|            2|           6400|
+|Private Use Area                        |           16|           16|           6400|
 |Spacing Modifier Letters                |            1|            1|             80|
 |Supplementary Private Use Area-A        |            2|            2|          65536|
 |Symbols for Legacy Computing Supplement |           36|           36|            704|

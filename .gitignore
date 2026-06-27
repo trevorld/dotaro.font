@@ -4,6 +4,7 @@ codecov.yml
 pkgdown
 *.swp
 tmp
+Rplots.pdf
 raw-data/step_1
 raw-data/step_2
 share/*.aux

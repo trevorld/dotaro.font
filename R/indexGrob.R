@@ -258,6 +258,38 @@ df_index <- function(ranks, suits = "french", fill = NULL) {
 			fill = oi_fills[fill_idx]
 		)
 		rbind(df_ranks, df_suits_base, df_suits_neg)
+	} else if (suits == "numbers") {
+		number_shapes <- c("⓪", "", "", "", "") # ⓪, droplet+1, arch+2, shield+3, square+4
+		neg_number_shapes <- c("⓿", "", "", "", "") # ⓿, negatives
+		if (is.null(fill)) {
+			oi_fills <- c("#F0E442", "#0072B2")
+		} else {
+			oi_fills <- rep_len(fill, 2L)
+		}
+		suit_idx <- ((seq_len(n_cards) - 1L) %% 5L) + 1L
+		fill_idx <- ((seq_len(n_cards) - 1L) %% 2L) + 1L
+		df_ranks <- data.frame(
+			card = seq_len(n_cards),
+			type = "rank",
+			glyph = ranks,
+			col = "black",
+			fill = oi_fills[fill_idx]
+		)
+		df_suits_base <- data.frame(
+			card = seq_len(n_cards),
+			type = "suit",
+			glyph = number_shapes[suit_idx],
+			col = "black",
+			fill = "black"
+		)
+		df_suits_neg <- data.frame(
+			card = seq_len(n_cards),
+			type = "suit",
+			glyph = neg_number_shapes[suit_idx],
+			col = "black",
+			fill = oi_fills[fill_idx]
+		)
+		rbind(df_ranks, df_suits_base, df_suits_neg)
 	} else {
 		abort(glue('unknown suits value "{suits}"'))
 	}

@@ -66,6 +66,8 @@ latin1_non_currency_00A <- setdiff(
     latin1_currency
 )
 card_suits <- paste0("266", 0:7)
+pua_digit_shapes <- c("F5A0", "F5A1", "F5A2", "F5A3", "F5A4", "F5A5", "F5A6", "F5A7")
+pua_suits <- c("F5A8", "F5A9", "F5AA", "F5AB", "F5AC", "F5AD", paste0("F5B", c(0:9)))
 %% end.rcode
 
 \begin{document}
@@ -89,7 +91,7 @@ make_table("218", "218")
 make_table("1CCF", "1CCF")
 %% end.rcode
 
-Note: mathematical bold digits are intended to be rendered by \texttt{grid::fillStrokeGrob()}.
+Note: mathematical bold digits are intended to be rendered by \texttt{grid::fillStrokeGrob()} and certain strokes may otherwise look invisible to the naked eye.
 
 %% begin.rcode mathematical_alphanumeric_symbols, echo=FALSE, results='asis'
 make_table("1D7C", "1D7E")
@@ -99,6 +101,7 @@ make_table("1D7C", "1D7E")
 make_table("246", "246")
 make_table("24E", "24F")
 make_table("277", "277")
+make_table("F5A", "F5A", only = pua_digit_shapes)
 %% end.rcode
 
 \newpage
@@ -182,7 +185,7 @@ make_table("22E", "22F")
 
 %% begin.rcode playing_card_suits, echo=FALSE, results='asis'
 make_table("266", "266", only = card_suits)
-make_table("F5A", "F5B")
+make_table("F5A", "F5B", only = pua_suits)
 %% end.rcode
 
 \section{Chess Symbols}

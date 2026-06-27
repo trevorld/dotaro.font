@@ -33,6 +33,8 @@ create_alphanumerics <- function(font = "suits") {
 	cych <- yc + 0.5 * cdw # top
 	cd_circle_white <- d_circle(xc, yc, 0.5 * c(cw, cw - ow))
 	cd_circle_black <- d_ellipse(xc, yc, 0.5 * cw, 0.5 * cw)
+	sq_outer <- d_rect2(ych, xcw, vg, hg)
+	sq_inner <- d_rect2(ych - ow, xcw - ow, vg + ow, hg + ow)
 	csrw <- 0.4 * srw
 
 	# Mathematical bold digits variables
@@ -462,6 +464,10 @@ create_alphanumerics <- function(font = "suits") {
 	write_svg(c(cd_circle_white, d_cd4_outline + d_cd4_counter), "2463")
 	# 2779 dingbat negative circled digit four
 	write_svg(c(cd_circle_black + d_cd4_outline + d_cd4_counter), "2779")
+	# f5a6 square with digit four
+	write_svg(c(sq_outer + sq_inner, d_cd4_outline + d_cd4_counter), "f5a6")
+	# f5a7 negative square with digit four
+	write_svg(sq_outer + d_cd4_outline + d_cd4_counter, "f5a7")
 
 	# 0035 digit five
 	ds <- c(
@@ -1915,11 +1921,119 @@ create_alphanumerics <- function(font = "suits") {
 	# 1f4a7 droplet
 	r_drop <- 0.5 * cw
 	ycc_drop <- vg + r_drop
-	ds <- M(xc, ych) +
+	drop_outer <- M(xc, ych) +
 		Q(xc + 0.8 * r_drop, vg + 0.75 * ch, xc + r_drop, ycc_drop) +
 		A(r_drop, r_drop, x = xc - r_drop, y = ycc_drop) +
 		QZ(xc - 0.8 * r_drop, vg + 0.75 * ch, xc, ych)
-	write_svg(ds, "1f4a7")
+	write_svg(drop_outer, "1f4a7")
+	r_drop_in <- r_drop - ow
+	drop_inner <- M(xc, ych - ow) +
+		Q(xc + 0.8 * r_drop_in, vg + 0.75 * ch, xc + r_drop_in, ycc_drop) +
+		A(r_drop_in, r_drop_in, x = xc - r_drop_in, y = ycc_drop) +
+		QZ(xc - 0.8 * r_drop_in, vg + 0.75 * ch, xc, ych - ow)
+	# digit 1 centered at ycc_drop (= yc for suits; lower for ranks)
+	# d_td1 <- d_rect(x = xc, y = ycc_drop, w = csrw, h = cdw - 2 * csrw) +
+	# 	d_rect2(ycc_drop + 0.5 * cdw, xc + 0.5 * csrw, ycc_drop + 0.5 * cdw - csrw, xc - 0.5 * csrw - sl2) +
+	# 	d_rect2(
+	# 		ycc_drop - 0.5 * cdw + csrw,
+	# 		xc + 0.5 * csrw + sl2,
+	# 		ycc_drop - 0.5 * cdw,
+	# 		xc - 0.5 * csrw - sl2
+	# 	)
+	# d_td1 <- d_rect(x = xc, y = ycc_drop, w = csrw, h = cdw)
+	d_td1 <- d_rect(x = xc, y = ycc_drop, w = csrw, h = cdw - csrw)
+	# f5a0 droplet with digit one
+	write_svg(c(drop_outer + drop_inner, d_td1), "f5a0")
+	# f5a1 negative droplet with digit one
+	write_svg(drop_outer + d_td1, "f5a1")
+	# f5a8 black droplet (PUA duplicate of 1f4a7)
+	write_svg(drop_outer, "f5a8")
+	# f5a9 white droplet
+	write_svg(drop_outer + drop_inner, "f5a9")
+
+	# Arch geometry: circle fills m-width (r_key = 0.5*cw, touching hg/xcw and ych)
+	r_key <- 0.5 * cw
+	ycc_key <- ych - r_key
+	sw_key <- 0.5 * cw
+	y_key_slot_top <- ycc_key - sqrt(r_key^2 - sw_key^2)
+	r_key_in <- r_key - ow
+	sw_key_in <- sw_key - ow
+	y_key_slot_top_in <- ycc_key - sqrt(r_key_in^2 - sw_key_in^2)
+	arch_outer <- M(xc - sw_key, vg) +
+		V(y_key_slot_top) +
+		A(r_key, r_key, x = xc, y = ych) +
+		A(r_key, r_key, x = xc + sw_key, y = y_key_slot_top) +
+		V(vg) +
+		Z()
+	arch_inner <- M(xc - sw_key_in, vg + ow) +
+		V(y_key_slot_top_in) +
+		A(r_key_in, r_key_in, x = xc, y = ych - ow) +
+		A(r_key_in, r_key_in, x = xc + sw_key_in, y = y_key_slot_top_in) +
+		V(vg + ow) +
+		Z()
+	# Digit 2: center between ycc_key and yc so ranks and suits look consistent
+	arch_digit_yc <- (ycc_key + yc) / 2
+	ck_vg <- arch_digit_yc - 0.5 * cdw
+	ck_ych <- arch_digit_yc + 0.5 * cdw
+	ck_hg <- xc - 0.42 * cdw
+	ck_xcw <- xc + 0.42 * cdw
+	d_arch2 <- d_arc12(ck_ych, ck_xcw, ck_ych - 0.30 * cdw, ck_hg, csrw) +
+		M(ck_xcw, ck_ych - 0.30 * cdw) +
+		Q(ck_xcw, arch_digit_yc, ck_hg + 2 * csrw, ck_vg + csrw) +
+		H(ck_hg) +
+		Q(ck_xcw - 2 * csrw, arch_digit_yc, ck_xcw - csrw, ck_ych - 0.30 * cdw) +
+		Z() +
+		d_rect2(ck_vg + csrw, ck_xcw, ck_vg, ck_hg)
+	write_svg(arch_outer, "f5aa")
+	write_svg(arch_outer + arch_inner, "f5ab")
+	# f5a2 arch with digit two
+	write_svg(c(arch_outer + arch_inner, d_arch2), "f5a2")
+	# f5a3 negative arch with digit two
+	write_svg(arch_outer + d_arch2, "f5a3")
+
+	# Heater shield geometry: flat top, curved sides, pointed bottom at vg
+	# Control at yc (mid-cap) so sides arrive at an angle, making a sharp V-point
+	ycp <- yc - 0.3 * ch
+	xcp <- xcw + 0.10 * cw
+	hs_outer <- M(hg, ych) +
+		H(xcw) +
+		Q(xcp, ycp, xc, vg) +
+		QZ(w - xcp, ycp, hg, ych)
+	hs_inner <- M(hg + ow, ych - ow) +
+		H(xcw - ow) +
+		Q(xcp - ow, ycp, xc, vg + ow) +
+		QZ(w - xcp + ow, ycp, hg + ow, ych - ow)
+	# Digit 3 shifted up 15% of cap height to account for shield taper
+	hs_yc <- yc + 0.05 * ch
+	yc3c_top_hs <- hs_yc + 0.25 * h3c - 0.5 * ov3c
+	yc3c_bot_hs <- hs_yc - 0.25 * h3c + 0.5 * ov3c
+	x_right3c_hs <- x_ellipse_right(hs_yc, xc, yc3c_top_hs, rx3c, ry3c)
+	y_left3c1_hs <- hs_yc - 0.39 * h3c
+	x_left3c1_hs <- x_ellipse_left(y_left3c1_hs, xc, yc3c_bot_hs, rx3c, ry3c)
+	y_left3c2_hs <- hs_yc - 0.22 * h3c
+	x_left3c2_hs <- x_ellipse_left(y_left3c2_hs, xc, yc3c_bot_hs, rx3c - csrw, ry3c - csrw)
+	y_left3c3_hs <- yc3c_bot_hs + ry3c - csrw
+	d_hs3 <- M(x_right3c_hs, hs_yc) +
+		A(rx3c, ry3c, big = TRUE, x = x_left3c1_hs, y = y_left3c1_hs) +
+		L(x_left3c2_hs, y_left3c2_hs) +
+		A(rx3c - csrw, ry3c - csrw, big = TRUE, cw = TRUE, x = xc, y = y_left3c3_hs) +
+		V(2 * hs_yc - y_left3c3_hs) +
+		A(
+			rx3c - csrw,
+			ry3c - csrw,
+			big = TRUE,
+			cw = TRUE,
+			x = x_left3c2_hs,
+			y = 2 * hs_yc - y_left3c2_hs
+		) +
+		L(x_left3c1_hs, 2 * hs_yc - y_left3c1_hs) +
+		AZ(rx3c, ry3c, big = TRUE, x = x_right3c_hs, y = hs_yc)
+	write_svg(hs_outer, "f5ac")
+	write_svg(hs_outer + hs_inner, "f5ad")
+	# f5a4 heater shield with digit three
+	write_svg(c(hs_outer + hs_inner, d_hs3), "f5a4")
+	# f5a5 negative heater shield with digit three
+	write_svg(hs_outer + d_hs3, "f5a5")
 
 	c(
 		as.hexmode("0021"):as.hexmode("007e"),
@@ -1958,7 +2072,21 @@ create_alphanumerics <- function(font = "suits") {
 			"20bf",
 			"218b",
 			"f590",
-			"1f4a7" # droplet
+			"1f4a7", # droplet
+			"f5a0", # droplet with digit one
+			"f5a1", # negative droplet with digit one
+			"f5a6", # square with digit four
+			"f5a7", # negative square with digit four
+			"f5a8", # black droplet
+			"f5a9", # white droplet
+			"f5aa", # black arch
+			"f5ab", # white arch
+			"f5a2", # arch with digit two
+			"f5a3", # negative arch with digit two
+			"f5ac", # black heater shield
+			"f5ad", # white heater shield
+			"f5a4", # heater shield with digit three
+			"f5a5" # negative heater shield with digit three
 		)),
 		# circled digits 24ea and 2460 through 2467 (excl. 2464, 2465, 2468 not ready)
 		# negative circled digits 24ff and 2776 through 277d (excl. 277a, 277b, 277e not ready)

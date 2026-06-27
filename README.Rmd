@@ -52,7 +52,7 @@ df <- dotaro.font:::df_index(as.character(0:9))
 dotaro.font:::grid.index(df, bleed = "white")
 ```
 ```{r face_letters, echo=FALSE, fig.alt = "Some capital letters in Dotaro Ranks shown as card indices"}
-df <- dotaro.font:::df_index(c("\uf590", "J", "C", "Q", "K", "A"))
+df <- dotaro.font:::df_index(c("\uf59a", "J", "C", "Q", "K", "A"))
 dotaro.font:::grid.index(df, bleed = "white")
 ```
 

@@ -9,6 +9,11 @@ create_glyphs <- function(font = "suits") {
 
 # Playing Card Suit has similar location as the Catrinity Font but different names
 GLYPH_NAMES <- list(
+	`f590` = "NUMBER SUIT DIGIT ZERO",
+	`f591` = "NUMBER SUIT DIGIT ONE",
+	`f592` = "NUMBER SUIT DIGIT TWO",
+	`f593` = "NUMBER SUIT DIGIT THREE",
+	`f594` = "NUMBER SUIT DIGIT FOUR",
 	`f59a` = "NUMBER TEN",
 	`f5a0` = "DROPLET WITH DIGIT ONE",
 	`f5a1` = "NEGATIVE DROPLET WITH DIGIT ONE",

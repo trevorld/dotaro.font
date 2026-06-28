@@ -142,6 +142,26 @@ grid.draw(make_glyph(ROOK_BLACK, xs[4], y_meeple, 1.0 * meeple_size, fill = "lig
 popViewport()
 ```
 
+### Number suits
+
+```{r number_suits, echo=FALSE, fig.alt = "Some mathematical bold numbers in Dotaro Ranks and number suit symbols in Dotaro Suits shown as card indices"}
+bold_digits <- c(
+    "\U0001D7CE", # 𝟎
+    "\U0001D7CF", # 𝟏
+    "\U0001D7D0", # 𝟐
+    "\U0001D7D1", # 𝟑
+    "\U0001D7D2", # 𝟒
+    "\U0001D7D3", # 𝟓
+    "\U0001D7D4", # 𝟔
+    "\U0001D7D5", # 𝟕
+    "\U0001D7D6", # 𝟖
+    "\U0001D7D7"  # 𝟗
+)
+df <- dotaro.font:::df_index(bold_digits, suits = "numbers")
+dotaro.font:::grid.index(df, bleed = "white")
+```
+
+
 ## <a name="blocks">Unicode block coverage</a>
 
 Current [Unicode block](https://en.wikipedia.org/wiki/Unicode_block) coverage (excluding control codes):

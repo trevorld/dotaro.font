@@ -66,7 +66,7 @@ latin1_non_currency_00A <- setdiff(
     latin1_currency
 )
 card_suits <- paste0("266", 0:7)
-pua_digit_shapes <- c("F5A0", "F5A1", "F5A2", "F5A3", "F5A4", "F5A5", "F5A6", "F5A7")
+pua_digit_shapes <- c("F590", "F591", "F592", "F593", "F594", "F5A0", "F5A1", "F5A2", "F5A3", "F5A4", "F5A5", "F5A6", "F5A7")
 pua_suits <- c("F5A8", "F5A9", "F5AA", "F5AB", "F5AC", "F5AD", paste0("F5B", c(0:9)))
 %% end.rcode
 
@@ -101,7 +101,7 @@ make_table("1D7C", "1D7E")
 make_table("246", "246")
 make_table("24E", "24F")
 make_table("277", "277")
-make_table("F5A", "F5A", only = pua_digit_shapes)
+make_table("F59", "F5A", only = pua_digit_shapes)
 %% end.rcode
 
 \newpage

@@ -1,5 +1,11 @@
 LWD_GLYPH <- 2.0
 
+GREEN <- "#009E73" # Okabe-Ito bluish-green
+RED <- "#D55E00" # Okabe-Ito vermillion
+GOLD <- "#F0E442" # Okabe-Ito yellow
+SILVER <- "#C0C0C0"
+BLUE <- "#0072B2" # Okabe-Ito blue
+
 #' Create grobs for rank glyphs at a single position
 #'
 #' @param glyph Character vector of glyphs to draw
@@ -36,10 +42,18 @@ rankGrob <- function(
 			y = y[j],
 			gp = gpar(fontsize = fontsize, fontfamily = "Dotaro Ranks")
 		)
+		col_j <- col[j]
+		lwd_j <- LWD_GLYPH
+		# Cairo devices don't render fillStrokeGrob/fillGrob when col is NA;
+		# work around by using lwd=0 with a non-transparent col instead.
+		if (is_transparent(col_j)) {
+			col_j <- "black"
+			lwd_j <- 0
+		}
 		gl[[j]] <- fillStrokeGrob(
 			tg,
 			name = paste0("rank_glyph.", j),
-			gp = gpar(col = col[j], fill = fill[j], lwd = LWD_GLYPH)
+			gp = gpar(col = col_j, fill = fill[j], lwd = lwd_j)
 		)
 	}
 	if (isTRUE(center)) {
@@ -90,10 +104,18 @@ suitGrob <- function(
 			y = y[j],
 			gp = gpar(fontsize = fontsize, fontfamily = "Dotaro Suits")
 		)
+		col_j <- col[j]
+		lwd_j <- LWD_GLYPH
+		# Cairo devices don't render fillStrokeGrob/fillGrob when col is NA;
+		# work around by using lwd=0 with a non-transparent col instead.
+		if (is_transparent(col_j)) {
+			col_j <- "black"
+			lwd_j <- 0.0
+		}
 		gl[[j]] <- fillStrokeGrob(
 			tg,
 			name = paste0("suit_glyph.", j),
-			gp = gpar(col = col[j], fill = fill[j], lwd = LWD_GLYPH)
+			gp = gpar(col = col_j, fill = fill[j], lwd = lwd_j)
 		)
 	}
 	if (isTRUE(center)) {
@@ -206,7 +228,7 @@ df_index <- function(ranks, suits = "french", fill = NULL) {
 	if (suits == "french") {
 		french_suits <- c("\u2660", "\u2665", "\u2666", "\u2663") # ♠ ♥ ♦ ♣
 		if (is.null(fill)) {
-			suit_fills <- c("#009E73", "#D55E00", "#D55E00", "#009E73")
+			suit_fills <- c(GREEN, RED, RED, GREEN)
 		} else {
 			suit_fills <- rep_len(fill, 4L)
 		}
@@ -230,7 +252,7 @@ df_index <- function(ranks, suits = "french", fill = NULL) {
 		circled <- c("\u24ea", "\u2460", "\u2461", "\u2462", "\u2463") # ⓪①②③④
 		neg_circled <- c("\u24ff", "\u2776", "\u2777", "\u2778", "\u2779") # ⓿❶❷❸❹
 		if (is.null(fill)) {
-			oi_fills <- c("#F0E442", "#0072B2") # Okabe-Ito yellow, dark blue
+			oi_fills <- c(GOLD, BLUE)
 		} else {
 			oi_fills <- rep_len(fill, 2L)
 		}
@@ -259,10 +281,10 @@ df_index <- function(ranks, suits = "french", fill = NULL) {
 		)
 		rbind(df_ranks, df_suits_base, df_suits_neg)
 	} else if (suits == "numbers") {
-		number_shapes <- c("⓪", "", "", "", "") # ⓪, droplet+1, arch+2, shield+3, square+4
 		neg_number_shapes <- c("⓿", "", "", "", "") # ⓿, negatives
+		number_suit_digits <- c("", "", "", "", "") # F590-F594
 		if (is.null(fill)) {
-			oi_fills <- c("#F0E442", "#0072B2")
+			oi_fills <- c(GREEN, RED) # Okabe-Ito bluish-green, vermillion
 		} else {
 			oi_fills <- rep_len(fill, 2L)
 		}
@@ -275,13 +297,6 @@ df_index <- function(ranks, suits = "french", fill = NULL) {
 			col = "black",
 			fill = oi_fills[fill_idx]
 		)
-		df_suits_base <- data.frame(
-			card = seq_len(n_cards),
-			type = "suit",
-			glyph = number_shapes[suit_idx],
-			col = "black",
-			fill = "black"
-		)
 		df_suits_neg <- data.frame(
 			card = seq_len(n_cards),
 			type = "suit",
@@ -289,8 +304,20 @@ df_index <- function(ranks, suits = "french", fill = NULL) {
 			col = "black",
 			fill = oi_fills[fill_idx]
 		)
-		rbind(df_ranks, df_suits_base, df_suits_neg)
+		df_suits_digit <- data.frame(
+			card = seq_len(n_cards),
+			type = "suit",
+			glyph = number_suit_digits[suit_idx],
+			# col = NA,
+			col = "black",
+			fill = "black"
+		)
+		rbind(df_ranks, df_suits_neg, df_suits_digit)
 	} else {
 		abort(glue('unknown suits value "{suits}"'))
 	}
+}
+
+is_transparent <- function(col) {
+	as.logical(grDevices::col2rgb(col, alpha = TRUE)[4, ] == 0)
 }

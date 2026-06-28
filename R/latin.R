@@ -244,6 +244,8 @@ create_alphanumerics <- function(font = "suits") {
 	write_svg(c(cd_circle_white, d_cd0), "24ea")
 	# 24ff negative circled digit zero
 	write_svg(c(cd_circle_black + d_cd0), "24ff")
+	# f590 number suit digit zero
+	write_svg(d_cd0, "f590")
 
 	# 0031 digit one
 	ds <- c(
@@ -468,6 +470,8 @@ create_alphanumerics <- function(font = "suits") {
 	write_svg(c(sq_outer + sq_inner, d_cd4_outline + d_cd4_counter), "f5a6")
 	# f5a7 negative square with digit four
 	write_svg(sq_outer + d_cd4_outline + d_cd4_counter, "f5a7")
+	# f594 number suit digit four
+	write_svg(d_cd4_outline + d_cd4_counter, "f594")
 
 	# 0035 digit five
 	ds <- c(
@@ -1941,6 +1945,8 @@ create_alphanumerics <- function(font = "suits") {
 	# 	)
 	# d_td1 <- d_rect(x = xc, y = ycc_drop, w = csrw, h = cdw)
 	d_td1 <- d_rect(x = xc, y = ycc_drop, w = csrw, h = cdw - csrw)
+	# f591 number suit digit one
+	write_svg(d_td1, "f591")
 	# f5a0 droplet with digit one
 	write_svg(c(drop_outer + drop_inner, d_td1), "f5a0")
 	# f5a1 negative droplet with digit one
@@ -1985,6 +1991,8 @@ create_alphanumerics <- function(font = "suits") {
 		d_rect2(ck_vg + csrw, ck_xcw, ck_vg, ck_hg)
 	write_svg(arch_outer, "f5aa")
 	write_svg(arch_outer + arch_inner, "f5ab")
+	# f592 number suit digit two
+	write_svg(d_arch2, "f592")
 	# f5a2 arch with digit two
 	write_svg(c(arch_outer + arch_inner, d_arch2), "f5a2")
 	# f5a3 negative arch with digit two
@@ -2029,6 +2037,8 @@ create_alphanumerics <- function(font = "suits") {
 		AZ(rx3c, ry3c, big = TRUE, x = x_right3c_hs, y = hs_yc)
 	write_svg(hs_outer, "f5ac")
 	write_svg(hs_outer + hs_inner, "f5ad")
+	# f593 number suit digit three
+	write_svg(d_hs3, "f593")
 	# f5a4 heater shield with digit three
 	write_svg(c(hs_outer + hs_inner, d_hs3), "f5a4")
 	# f5a5 negative heater shield with digit three
@@ -2070,6 +2080,11 @@ create_alphanumerics <- function(font = "suits") {
 			"20b5",
 			"20bf",
 			"218b",
+			"f590", # number suit digit zero
+			"f591", # number suit digit one
+			"f592", # number suit digit two
+			"f593", # number suit digit three
+			"f594", # number suit digit four
 			"f59a",
 			"1f4a7", # droplet
 			"f5a0", # droplet with digit one

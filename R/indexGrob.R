@@ -42,18 +42,10 @@ rankGrob <- function(
 			y = y[j],
 			gp = gpar(fontsize = fontsize, fontfamily = "Dotaro Ranks")
 		)
-		col_j <- col[j]
-		lwd_j <- LWD_GLYPH
-		# Cairo devices don't render fillStrokeGrob/fillGrob when col is NA;
-		# work around by using lwd=0 with a non-transparent col instead.
-		if (is_transparent(col_j)) {
-			col_j <- "black"
-			lwd_j <- 0
-		}
 		gl[[j]] <- fillStrokeGrob(
 			tg,
 			name = paste0("rank_glyph.", j),
-			gp = gpar(col = col_j, fill = fill[j], lwd = lwd_j)
+			gp = stroke_gpar(col[j], fill[j])
 		)
 	}
 	if (isTRUE(center)) {
@@ -104,18 +96,10 @@ suitGrob <- function(
 			y = y[j],
 			gp = gpar(fontsize = fontsize, fontfamily = "Dotaro Suits")
 		)
-		col_j <- col[j]
-		lwd_j <- LWD_GLYPH
-		# Cairo devices don't render fillStrokeGrob/fillGrob when col is NA;
-		# work around by using lwd=0 with a non-transparent col instead.
-		if (is_transparent(col_j)) {
-			col_j <- "black"
-			lwd_j <- 0.0
-		}
 		gl[[j]] <- fillStrokeGrob(
 			tg,
 			name = paste0("suit_glyph.", j),
-			gp = gpar(col = col_j, fill = fill[j], lwd = lwd_j)
+			gp = stroke_gpar(col[j], fill[j])
 		)
 	}
 	if (isTRUE(center)) {
@@ -316,6 +300,17 @@ df_index <- function(ranks, suits = "french", fill = NULL) {
 	} else {
 		abort(glue('unknown suits value "{suits}"'))
 	}
+}
+
+stroke_gpar <- function(col, fill) {
+	lwd <- LWD_GLYPH
+	# Cairo devices don't render fillStrokeGrob/fillGrob when col is NA;
+	# work around by using lwd=0 with a non-transparent col instead.
+	if (is_transparent(col)) {
+		col <- "black"
+		lwd <- 0
+	}
+	gpar(col = col, fill = fill, lwd = lwd)
 }
 
 is_transparent <- function(col) {

@@ -2010,7 +2010,7 @@ create_alphanumerics <- function(font = "suits") {
 		H(xcw - ow) +
 		Q(xcp - ow, ycp, xc, vg + ow) +
 		QZ(w - xcp + ow, ycp, hg + ow, ych - ow)
-	# Digit 3 shifted up 15% of cap height to account for shield taper
+	# Digit 3 shifted up to account for shield taper
 	hs_yc <- yc + 0.05 * ch
 	yc3c_top_hs <- hs_yc + 0.25 * h3c - 0.5 * ov3c
 	yc3c_bot_hs <- hs_yc - 0.25 * h3c + 0.5 * ov3c
@@ -2085,7 +2085,7 @@ create_alphanumerics <- function(font = "suits") {
 			"f592", # number suit digit two
 			"f593", # number suit digit three
 			"f594", # number suit digit four
-			"f59a",
+			"f59a", # number ten
 			"1f4a7", # droplet
 			"f5a0", # droplet with digit one
 			"f5a1", # negative droplet with digit one

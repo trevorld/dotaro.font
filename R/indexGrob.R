@@ -265,8 +265,8 @@ df_index <- function(ranks, suits = "french", fill = NULL) {
 		)
 		rbind(df_ranks, df_suits_base, df_suits_neg)
 	} else if (suits == "numbers") {
-		neg_number_shapes <- c("⓿", "", "", "", "") # ⓿, negatives
-		number_suit_digits <- c("", "", "", "", "") # F590-F594
+		neg_number_shapes <- c("\u24ff", "\uf5a1", "\uf5a3", "\uf5a5", "\uf5a7") # ⓿, negatives
+		number_suit_digits <- c("\uf590", "\uf591", "\uf592", "\uf593", "\uf594") # F590-F594
 		if (is.null(fill)) {
 			oi_fills <- c(GREEN, RED) # Okabe-Ito bluish-green, vermillion
 		} else {

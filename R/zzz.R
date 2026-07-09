@@ -1,7 +1,7 @@
 #' @importFrom affiner as_coord2d degrees isotoxal_2ngon_inner_radius
 #' @import dee
 #' @importFrom glue glue
-#' @importFrom grid circleGrob fillStrokeGrob gList gTree gpar grid.draw popViewport pushViewport rectGrob roundrectGrob textGrob unit viewport
+#' @importFrom grid circleGrob fillStrokeGrob gList gTree gpar grid.draw linearGradient pattern popViewport pushViewport rectGrob roundrectGrob textGrob unit viewport
 #' @importFrom omsvg SVG svg_attrs_pres svg_path
 #' @importFrom rlang abort check_dots_empty local_options warn
 #' @importFrom utils hasName packageVersion

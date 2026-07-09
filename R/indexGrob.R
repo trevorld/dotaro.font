@@ -11,6 +11,7 @@ BLUE <- "#0072B2" # Okabe-Ito blue
 #' @param glyph Character vector of glyphs to draw
 #' @param x,y Position (unit objects)
 #' @param col,fill Boundary and fill colors (recycled to length of `glyph`)
+#' @param shading Shading of the fill (recycled to length of `glyph`)
 #' @param center Whether to add a center indicator circle
 #' @return A grid gTree
 #' @noRd
@@ -21,16 +22,18 @@ rankGrob <- function(
 	...,
 	col = "black",
 	fill = "black",
+	shading = "none",
 	center = FALSE,
 	name = NULL
 ) {
 	check_dots_empty()
-	n <- max(lengths(list(glyph, x, y, col, fill)))
+	n <- max(lengths(list(glyph, x, y, col, fill, shading)))
 	glyph <- rep_len(glyph, n)
 	x <- rep_len(x, n)
 	y <- rep_len(y, n)
 	col <- rep_len(col, n)
 	fill <- rep_len(fill, n)
+	shading <- rep_len(shading, n)
 	# cap height = 3/8" = 27pt
 	# em height = 2048px, cap height = 1200px => 46pt = 27pt / (1200px/2048px)
 	fontsize <- 27 / (dotaro_cap_height("ranks") / dotaro_height("ranks"))
@@ -45,7 +48,7 @@ rankGrob <- function(
 		gl[[j]] <- fillStrokeGrob(
 			tg,
 			name = paste0("rank_glyph.", j),
-			gp = stroke_gpar(col[j], fill[j])
+			gp = stroke_gpar(col[j], shaded_fill(fill[j], shading[j]))
 		)
 	}
 	if (isTRUE(center)) {
@@ -65,6 +68,7 @@ rankGrob <- function(
 #' @param glyph Character vector of glyphs to draw
 #' @param x,y Position (unit objects)
 #' @param col,fill Boundary and fill colors (recycled to length of `glyph`)
+#' @param shading Shading of the fill (recycled to length of `glyph`)
 #' @param center Whether to add a center indicator circle
 #' @return A grid gTree
 #' @noRd
@@ -75,16 +79,18 @@ suitGrob <- function(
 	...,
 	col = "black",
 	fill = "black",
+	shading = "none",
 	center = FALSE,
 	name = NULL
 ) {
 	check_dots_empty()
-	n <- max(lengths(list(glyph, x, y, col, fill)))
+	n <- max(lengths(list(glyph, x, y, col, fill, shading)))
 	glyph <- rep_len(glyph, n)
 	x <- rep_len(x, n)
 	y <- rep_len(y, n)
 	col <- rep_len(col, n)
 	fill <- rep_len(fill, n)
+	shading <- rep_len(shading, n)
 	# cap height = 1/4" = 18pt
 	# em height = 2048px, cap height = 1600px => 23pt = 18pt / (1600px/2048px)
 	fontsize <- 18 / (dotaro_cap_height("suits") / dotaro_height("suits"))
@@ -99,7 +105,7 @@ suitGrob <- function(
 		gl[[j]] <- fillStrokeGrob(
 			tg,
 			name = paste0("suit_glyph.", j),
-			gp = stroke_gpar(col[j], fill[j])
+			gp = stroke_gpar(col[j], shaded_fill(fill[j], shading[j]))
 		)
 	}
 	if (isTRUE(center)) {
@@ -123,6 +129,12 @@ suitGrob <- function(
 #'           * **glyph** Character string of glyph to draw
 #'           * **col** Boundary color of glyph
 #'           * **fill** Fill color of glyph
+#'           * **shading** (optional) Shading of the fill.  If missing or `NA`
+#'             defaults to `"none"` (solid fill).  `"hgradient"`/`"vgradient"`
+#'             use a gradient between `fill` and a darker version of it
+#'             (lighter on the left/top).  `"hbinary"`/`"vbinary"` split the
+#'             glyph in half with `fill` on the left/top and the darker
+#'             version on the right/bottom.
 #'
 #' @param ... Should be empty
 #' @param bleed Bleed zone fill color
@@ -131,6 +143,9 @@ suitGrob <- function(
 #' @noRd
 indexGrob <- function(df, ..., bleed = "white", center = FALSE) {
 	check_dots_empty()
+	if (!hasName(df, "shading")) {
+		df$shading <- "none"
+	}
 	n_cards <- max(df$card)
 	corner_width <- INDEX_WIDTH + 2 * BLEED
 	corner_height <- INDEX_HEIGHT + 2 * BLEED
@@ -169,6 +184,7 @@ indexGrob <- function(df, ..., bleed = "white", center = FALSE) {
 			y = y_rank,
 			col = df_rank$col,
 			fill = df_rank$fill,
+			shading = df_rank$shading,
 			center = center,
 			name = paste0("rank.", "i")
 		)
@@ -182,6 +198,7 @@ indexGrob <- function(df, ..., bleed = "white", center = FALSE) {
 			y = y_suit,
 			col = df_suit$col,
 			fill = df_suit$fill,
+			shading = df_suit$shading,
 			center = center,
 			name = paste0("suit.", i)
 		)
@@ -315,4 +332,65 @@ stroke_gpar <- function(col, fill) {
 
 is_transparent <- function(col) {
 	as.logical(grDevices::col2rgb(col, alpha = TRUE)[4, ] == 0)
+}
+
+darken <- function(col, amount) {
+	mat <- grDevices::col2rgb(col, alpha = TRUE)
+	mat[1:3, ] <- mat[1:3, ] * (1 - amount)
+	grDevices::rgb(mat[1, ], mat[2, ], mat[3, ], mat[4, ], maxColorValue = 255)
+}
+
+lighten <- function(col, amount) {
+	mat <- grDevices::col2rgb(col, alpha = TRUE)
+	mat[1:3, ] <- mat[1:3, ] + amount * (255 - mat[1:3, ])
+	grDevices::rgb(mat[1, ], mat[2, ], mat[3, ], mat[4, ], maxColorValue = 255)
+}
+
+BINARY_SHADING_AMOUNT <- 0.3
+GRADIENT_SHADING_AMOUNT <- 0.45
+
+# Returns either `fill` unchanged or a gradient/pattern fill
+# shaded lighter on the left/top and darker on the right/bottom.
+# Gradients span lightened fill to darkened fill, with a stronger
+# amount than the binary splits, so the effect stays visible at
+# small (e.g. corner index) sizes.
+shaded_fill <- function(fill, shading) {
+	if (is.na(shading) || shading == "none") {
+		return(fill)
+	}
+	gradient_lighter <- lighten(fill, GRADIENT_SHADING_AMOUNT)
+	gradient_darker <- darken(fill, GRADIENT_SHADING_AMOUNT)
+	binary_darker <- darken(fill, BINARY_SHADING_AMOUNT)
+	switch(
+		shading,
+		hgradient = linearGradient(
+			c(gradient_lighter, gradient_darker),
+			x1 = 0,
+			y1 = 0.5,
+			x2 = 1,
+			y2 = 0.5
+		),
+		vgradient = linearGradient(
+			c(gradient_lighter, gradient_darker),
+			x1 = 0.5,
+			y1 = 1,
+			x2 = 0.5,
+			y2 = 0
+		),
+		hbinary = pattern(
+			rectGrob(
+				x = c(0.25, 0.75),
+				width = 0.5,
+				gp = gpar(col = NA, fill = c(fill, binary_darker))
+			)
+		),
+		vbinary = pattern(
+			rectGrob(
+				y = c(0.75, 0.25),
+				height = 0.5,
+				gp = gpar(col = NA, fill = c(fill, binary_darker))
+			)
+		),
+		abort(glue('unknown shading value "{shading}"'))
+	)
 }

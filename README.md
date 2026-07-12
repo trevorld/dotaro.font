@@ -40,7 +40,7 @@ The main goal is to create a couple of fonts with bespoke glyphs to use in my [D
 
 ## <a name="examples">Examples</a>
 
-**Note:** Although *Dotaro Ranks* and *Dotaro Suits* are **monochrome** fonts in the examples below I use R's [`fillStrokeGrob()`](https://stat.ethz.ch/R-manual/R-devel/library/grid/html/grid.stroke.html) to rendered colored versions of the glyphs with outlines.
+**Note:** Although *Dotaro Ranks* and *Dotaro Suits* are **monochrome** fonts in the examples below I use R's [`fillStrokeGrob()`](https://stat.ethz.ch/R-manual/R-devel/library/grid/html/grid.stroke.html) to rendered colored versions of the glyphs with outlines.  The more complicated glyphs may require drawing two glyphs on top of each other and/or using `grid::pattern()` fill(s).
 
 ### Traditional Anglo-American pattern ranks
 
@@ -52,9 +52,13 @@ The main goal is to create a couple of fonts with bespoke glyphs to use in my [D
 <img src="man/figures/README-face_chess-1.png" alt="Some chess glyphs in Dotaro Ranks shown as card indices"  />
 <img src="man/figures/README-chess_meeples-1.png" alt="Chess glyphs combined with meeple glyphs"  />
 
-### Number suits
+### Dotaro Deck number suits
 
 <img src="man/figures/README-number_suits-1.png" alt="Some mathematical bold numbers in Dotaro Ranks and number suit symbols in Dotaro Suits shown as card indices"  />
+
+### Dotaro Deck hybrid traditional suits
+
+<img src="man/figures/README-hybrid_suits-1.png" alt="Eight hybrid (French/German/Spanish/Hanafuda) suit symbols in Dotaro Suits shown as card indices"  />
 
 
 ## <a name="blocks">Unicode block coverage</a>
@@ -80,10 +84,10 @@ Current [Unicode block](https://en.wikipedia.org/wiki/Unicode_block) coverage (e
 |Mathematical Alphanumeric Symbols       |           20|           20|           1024|
 |Mathematical Operators                  |            4|            4|            256|
 |Miscellaneous Symbols                   |           24|           24|            256|
-|Miscellaneous Symbols and Arrows        |            5|            5|            256|
+|Miscellaneous Symbols and Arrows        |            6|            6|            256|
 |Miscellaneous Symbols and Pictographs   |            1|            1|            768|
 |Number Forms                            |            1|            1|             64|
-|Private Use Area                        |           21|           21|           6400|
+|Private Use Area                        |           30|           30|           6400|
 |Spacing Modifier Letters                |            1|            1|             80|
 |Supplementary Private Use Area-A        |            2|            2|          65536|
 |Symbols for Legacy Computing Supplement |           36|           36|            704|

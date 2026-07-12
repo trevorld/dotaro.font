@@ -43,7 +43,7 @@ The main goal is to create a couple of fonts with bespoke glyphs to use in my [D
 
 ## <a name="examples">Examples</a>
 
-**Note:** Although *Dotaro Ranks* and *Dotaro Suits* are **monochrome** fonts in the examples below I use R's [`fillStrokeGrob()`](https://stat.ethz.ch/R-manual/R-devel/library/grid/html/grid.stroke.html) to rendered colored versions of the glyphs with outlines.
+**Note:** Although *Dotaro Ranks* and *Dotaro Suits* are **monochrome** fonts in the examples below I use R's [`fillStrokeGrob()`](https://stat.ethz.ch/R-manual/R-devel/library/grid/html/grid.stroke.html) to rendered colored versions of the glyphs with outlines.  The more complicated glyphs may require drawing two glyphs on top of each other and/or using `grid::pattern()` fill(s).
 
 ### Traditional Anglo-American pattern ranks
 
@@ -142,7 +142,7 @@ grid.draw(make_glyph(ROOK_BLACK, xs[4], y_meeple, 1.0 * meeple_size, fill = "lig
 popViewport()
 ```
 
-### Number suits
+### Dotaro Deck number suits
 
 ```{r number_suits, echo=FALSE, fig.alt = "Some mathematical bold numbers in Dotaro Ranks and number suit symbols in Dotaro Suits shown as card indices"}
 bold_digits <- c(
@@ -158,6 +158,39 @@ bold_digits <- c(
     "\U0001D7D7"  # 𝟗
 )
 df <- dotaro.font:::df_index(bold_digits, suits = "numbers")
+dotaro.font:::grid.index(df, bleed = "white")
+```
+
+### Dotaro Deck hybrid traditional suits
+
+```{r hybrid_suits, echo=FALSE, fig.alt = "Eight hybrid (French/German/Spanish/Hanafuda) suit symbols in Dotaro Suits shown as card indices"}
+RED <- dotaro.font:::RED
+GREEN <- dotaro.font:::GREEN
+GOLD <- dotaro.font:::GOLD
+suit_glyph <- c(
+    "\u2665", "\u2660", "\u2663", "\u2666", # Hearts, Spades, Clubs, Diamonds
+    "\uf5c6", "\uf5c0", "\uf5c4", "\uf5b8"  # chalice, spade, club top, coin
+)
+suit_fill <- c(RED, GREEN, GREEN, RED, GOLD, GREEN, GREEN, GOLD)
+shading <- c("hbinary", "hbinary", NA, NA, NA, NA, "hbinary", "hbinary")
+# rank numbers use whichever of RED/GREEN the suit's glyphs actually
+# contain (GOLD is just the hybrid suits' accent color, not a suit family)
+rank_fill <- c(RED, GREEN, GREEN, RED, RED, GREEN, GREEN, RED)
+df_ranks <- data.frame(
+    card = 1:8, type = "rank", glyph = as.character(1:8),
+    col = "black", fill = rank_fill, shading = shading
+)
+df_suits <- data.frame(
+    card = 1:8, type = "suit", glyph = suit_glyph,
+    col = "black", fill = suit_fill, shading = shading
+)
+df_overlay <- data.frame(
+    card = c(5, 6, 7, 8), type = "suit",
+    glyph = c("\uf5c8", "\uf5c1", "\uf5c5", "\u2b29"), # heart, hilt, acorn tip, diamond
+    col = "black", fill = c(RED, GOLD, GOLD, RED),
+    shading = c(NA, NA, "hbinary", "hbinary")
+)
+df <- rbind(df_ranks, df_suits, df_overlay)
 dotaro.font:::grid.index(df, bleed = "white")
 ```
 

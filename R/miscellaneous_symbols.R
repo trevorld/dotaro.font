@@ -103,33 +103,96 @@ create_miscellaneous_symbols <- function(font = "suits") {
 	# 2667 white club suit (derived via OUTLINE_FROM_TO)
 
 	# 2660 Black Spade Suit
-	hr <- cw / 4
-	vr <- cw / 5
-	if (font == "ranks") {
-		base <- d_polygon(
-			x = c(xc - 0.7 * srw, xc, xc + 0.7 * srw),
-			y = c(vg, yc + 2 * srw, vg)
-		)
-	}
-	bso <- srw
-	d <- M(xc, vg + vr + bso) +
-		A(hr, vr, 0, 0, 0, xc - 2 * hr, vg + vr + bso) +
-		Q(hg, ych - 0.56 * ch, xc, h - vg) +
-		Q(w - hg, ych - 0.56 * ch, xc + 2 * hr, vg + vr + bso) +
-		AZ(hr, vr, 0, 0, 0, xc, vg + vr + bso)
-	write_svg(c(base, d), "2660")
+	write_svg(d_spade(font, xc, ych, vg, cw, srw), "2660")
 	# 2664 white spade suit (derived via OUTLINE_FROM_TO)
 
+	# Hybrid Spades-Swords suit sub-glyphs: overlaying the sword hilt (f5c1)
+	# on the small raised spade (f5c0) should look like a dagger/sword
+	hs <- 0.6 # scale of the small raised spade relative to the full spade
+	ysp <- ych - hs * ch # bottom of the small raised spade
+	# f5c0 small raised black spade suit
+	write_svg(d_spade(font, xc, ych, ysp, 0.8 * hs * cw, hs * srw), "f5c0")
+	# f5c1 sword hilt
+	rp <- 0.5 * srw # pommel radius
+	d_guard <- d_rect(x = xc, y = ysp - 0.25 * srw, w = 0.55 * cw, h = srw)
+	d_grip <- d_rect2(ysp + 0.25 * srw, xc + 0.5 * hs * srw, vg + rp, xc - 0.5 * hs * srw)
+	d_pommel <- d_circle(xc, vg + rp, rp)
+	write_svg(c(d_guard, d_grip, d_pommel), "f5c1")
+
+	# Hybrid Acorns-Clubs suit sub-glyphs: overlaying the acorn tip (f5c5)
+	# on the club top (f5c4) should look like an acorn cap with two small
+	# leaf buds (the bottom of the club top's circle peeks out above the
+	# acorn tip's flat top)
+	wn <- 0.19 * cw # acorn nut half-width (thin acorn)
+	y_acorn_top <- vg + 0.75 * ch
+	ynw <- y_acorn_top # acorn nut widest point
+	ynt <- y_acorn_top # acorn nut top (below the top of the club top circle)
+	# f5c5 acorn tip: a flat top (straight sides up to ynt, then a
+	# horizontal line across) so the boundary with the club top (f5c4)
+	# drawn underneath is a straight horizontal line, like the straight
+	# line dividing the cap and nut on German acorn suit symbols
+	d_nut <- M(xc, vg) +
+		Q(xc - wn, vg + 0.25 * ch, xc - wn, ynw) +
+		L(xc - wn, ynt) +
+		L(xc + wn, ynt) +
+		L(xc + wn, ynw) +
+		QZ(xc + wn, vg + 0.25 * ch, xc, vg)
+	write_svg(d_nut, "f5c5")
+	# f5c4 club top
+	rc <- 1.0 * srw # club top circle radius
+	ycc <- ych - rc # club top circle center
+	d_cap <- d_circle(xc, ycc, rc)
+	# leaves are smaller than the club suit's side circles and sit close
+	# beside the club top circle (overlapping it slightly), not out at the
+	# usual suit glyph left/right extent
+	if (font == "suits") {
+		rl <- 0.7 * srw
+		yleaf <- y_acorn_top + 0.5 * rl
+	} else {
+		rl <- 1.2 * srw
+		yleaf <- yc - 0.1 * ch
+	}
+	d_leaf_left <- d_circle(xc - rl - 0.5 * srw, yleaf, rl)
+	d_leaf_right <- d_circle(xc + rl + 0.5 * srw, yleaf, rl)
+	write_svg(c(d_cap, d_leaf_left, d_leaf_right), "f5c4")
+
 	# 2665 Black Heart Suit
-	hr <- cw / 4
-	vr <- cw / 4
-	d <- M(xc, h - vg - vr) +
-		A(hr, vr, 0, 0, 0, xc + 2 * hr, h - vg - vr) +
-		Q(w - hg, vg + 0.56 * ch, xc, vg) +
-		Q(hg, vg + 0.56 * ch, xc - 2 * hr, h - vg - vr) +
-		AZ(hr, vr, 0, 0, 0, xc, h - vg - vr)
-	write_svg(d, "2665")
+	write_svg(d_heart(xc, ych, vg, cw), "2665")
 	# 2661 white heart suit (derived via OUTLINE_FROM_TO)
+
+	# Hybrid Cups-Hearts suit sub-glyphs: a chalice (f5c6) whose bowl sides
+	# follow the heart suit's lower curve before going straight up to a flat
+	# top at cap height, plus a small heart (f5c7) which can be embedded in
+	# the chalice bowl
+	wb <- 0.32 * cw # chalice foot (triangle) half-width
+	hb <- 0.42 * ch # chalice foot (triangle) height
+	yct <- ych # chalice top (rim)
+	# f5c8 chalice heart: a heart nearly filling the chalice bowl with its
+	# top below the chalice rim and its bottom above the bowl bottom (like
+	# the cups in Spanish-suited playing cards, e.g.
+	# https://en.wikipedia.org/wiki/File:3copas.png)
+	mg <- 0 # no gold margin: the chalice heart reaches the chalice sides
+	yhw <- yct - 0.14 * ch # top of the chalice heart
+	ybh <- vg + 0.16 * ch # bottom of the chalice heart
+	wh <- cw - 2 * mg # chalice heart width
+	write_svg(d_heart(xc, yhw, ybh, wh), "f5c8")
+	# f5c6 chalice: foot + rim + an outset copy of the chalice heart so the
+	# chalice side curve matches the chalice heart's bottom curve, offset by
+	# `mg` (currently 0, so the two curves coincide exactly); FontForge's
+	# removeOverlap merges the three pieces. The rim rectangle's bottom sits
+	# at the outset heart's widest height so the vertical walls cover the
+	# outset heart's lobe curves entirely
+	d_foot <- d_polygon(
+		x = c(xc - wb, xc, xc + wb),
+		y = c(vg, vg + hb, vg)
+	)
+	d_rim <- d_rect2(yct, w - hg, yhw + mg - 0.25 * cw, hg)
+	d_heart_outset <- d_heart(xc, yhw + mg, ybh - mg, cw)
+	write_svg(c(d_foot, d_rim, d_heart_outset), "f5c6")
+	# f5c7 small black heart suit (embedded in the chalice bowl)
+	hh <- 0.45 # scale of the small heart relative to the full heart
+	yht <- yct - 0.12 * ch # top of the small heart (below the chalice rim)
+	write_svg(d_heart(xc, yht, yht - hh * ch, hh * cw), "f5c7")
 
 	# 2666 Black Diamond Suit
 	x <- c(xc, w - hg, xc, hg)
@@ -422,7 +485,7 @@ create_miscellaneous_symbols <- function(font = "suits") {
 	}
 
 	as_hex(c(
-		as.hexmode(c("2605", "2606")),
+		as.hexmode(c("2605", "2606", "f5c0", "f5c1", "f5c4", "f5c5", "f5c6", "f5c7", "f5c8")),
 		as.hexmode("2660"),
 		as.hexmode("2662"):as.hexmode("2663"),
 		as.hexmode("2655"),
@@ -437,4 +500,41 @@ create_miscellaneous_symbols <- function(font = "suits") {
 		as.hexmode(c("1fa25")),
 		if (requireNamespace("piecepackr")) as.hexmode(c("fc431", "fc432"))
 	))
+}
+
+# Black spade suit within the bounding box `xc` +/- 0.5 * `cw` and `yb` to `yt`
+# (stem/tail plus lobed body with a point at the top)
+d_spade <- function(font, xc, yt, yb, cw, srw) {
+	hr <- cw / 4
+	vr <- cw / 5
+	ch <- yt - yb
+	yc <- (yt + yb) / 2
+	if (font == "ranks") {
+		base <- d_polygon(
+			x = c(xc - 0.7 * srw, xc, xc + 0.7 * srw),
+			y = c(yb, yc + 2 * srw, yb)
+		)
+	} else {
+		r <- 1.1 * srw
+		base <- d_rect(x = xc, y = yc - 0.5 * r, w = srw, h = ch - r)
+	}
+	bso <- srw
+	body <- M(xc, yb + vr + bso) +
+		A(hr, vr, 0, 0, 0, xc - 2 * hr, yb + vr + bso) +
+		Q(xc - 0.5 * cw, yt - 0.56 * ch, xc, yt) +
+		Q(xc + 0.5 * cw, yt - 0.56 * ch, xc + 2 * hr, yb + vr + bso) +
+		AZ(hr, vr, 0, 0, 0, xc, yb + vr + bso)
+	c(base, body)
+}
+
+# Black heart suit within the bounding box `xc` +/- 0.5 * `cw` and `yb` to `yt`
+d_heart <- function(xc, yt, yb, cw) {
+	hr <- cw / 4
+	vr <- cw / 4
+	ch <- yt - yb
+	M(xc, yt - vr) +
+		A(hr, vr, 0, 0, 0, xc + 2 * hr, yt - vr) +
+		Q(xc + 0.5 * cw, yb + 0.56 * ch, xc, yb) +
+		Q(xc - 0.5 * cw, yb + 0.56 * ch, xc - 2 * hr, yt - vr) +
+		AZ(hr, vr, 0, 0, 0, xc, yt - vr)
 }

@@ -67,7 +67,10 @@ latin1_non_currency_00A <- setdiff(
 )
 card_suits <- paste0("266", 0:7)
 pua_digit_shapes <- c("F590", "F591", "F592", "F593", "F594", "F5A0", "F5A1", "F5A2", "F5A3", "F5A4", "F5A5", "F5A6", "F5A7")
-pua_suits <- c("F5A8", "F5A9", "F5AA", "F5AB", "F5AC", "F5AD", paste0("F5B", c(0:9)))
+pua_suits <- c("F5A8", "F5A9", "F5AA", "F5AB", "F5AC", "F5AD",
+	paste0("F5B", c(0:9)), paste0("F5B", LETTERS[1:6]),
+	paste0("F5C", c(0:9)), paste0("F5C", LETTERS[1:6])
+)
 %% end.rcode
 
 \begin{document}
@@ -185,7 +188,7 @@ make_table("22E", "22F")
 
 %% begin.rcode playing_card_suits, echo=FALSE, results='asis'
 make_table("266", "266", only = card_suits)
-make_table("F5A", "F5B", only = pua_suits)
+make_table("F5A", "F5C", only = pua_suits)
 %% end.rcode
 
 \section{Chess Symbols}

@@ -7,7 +7,16 @@ create_glyphs <- function(font = "suits") {
 	c(box, block, latin, shapes, misc_symbols) |> sort()
 }
 
-# Playing Card Suit has similar location as the Catrinity Font but different names
+# PUA row map:
+#
+# * F590--F59F  digits (subset in use)
+# * F5A0--F5AF  "number" suits (droplet / arch / heater shield / square)
+# * F5B0--F5BF  playing card suits at Catrinity-compatible codepoints
+# * F5C0--F5CF  hybrid suit sub-glyphs
+# * F5D0--F5DF  hybrid suit sub-glyphs, overflow/variants (planned)
+#
+# Only the F5B0--F5BF row is kept aligned with the Catrinity font PUA;
+# the other rows knowingly deviate from it.
 GLYPH_NAMES <- list(
 	`f590` = "NUMBER SUIT DIGIT ZERO",
 	`f591` = "NUMBER SUIT DIGIT ONE",
@@ -39,6 +48,15 @@ GLYPH_NAMES <- list(
 	`f5b7` = "LATIN CUP SUIT",
 	`f5b8` = "LATIN COIN SUIT",
 	`f5b9` = "LATIN CLUB SUIT",
+	`f5c0` = "SMALL RAISED BLACK SPADE SUIT",
+	`f5c1` = "SWORD HILT",
+	`f5c4` = "CLUB TOP",
+	`f5c5` = "ACORN TIP",
+	`f5c6` = "CHALICE",
+	`f5c7` = "SMALL BLACK HEART SUIT",
+	`f5c8` = "CHALICE HEART",
+	`f5ca` = "TURNED SMALL RAISED BLACK SPADE SUIT",
+	`f5cb` = "TURNED SWORD HILT",
 	`fc431` = "BLACK MEEPLE",
 	`fc432` = "WHITE MEEPLE"
 )
@@ -112,6 +130,14 @@ TURNED_FROM_TO <- list(
 	`2657` = "1fa21", # White Chess Bishop
 	`2658` = "1fa22", # White Chess Knight
 	`2659` = "1fa23" # White Chess Pawn
+)
+
+# Rotated 180 degrees about the em center (instead of the glyph's
+# bounding-box center like `TURNED_FROM_TO`) so overlaid hybrid-suit
+# sub-glyphs stay aligned with each other when turned
+TURNED_EM_FROM_TO <- list(
+	`f5c0` = "f5ca", # Small Raised Black Spade Suit
+	`f5c1` = "f5cb" # Sword Hilt
 )
 
 LEFT_FROM_TO <- list(

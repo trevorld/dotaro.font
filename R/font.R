@@ -79,6 +79,16 @@ generate_sfd <- function(font = c("suits", "ranks"), output = paste0("dotaro_", 
 		rotate_glyph(ff_font, from_int, to_int, pi, psMat)
 	}
 
+	# Em center y in FontForge coordinates (which run from -descent to ascent)
+	em_cx <- glyph_width / 2
+	em_cy <- glyph_height / 2 - dotaro_vertical_gap(font)
+	for (hex in names(TURNED_EM_FROM_TO)) {
+		from_int <- hex |> as.hexmode() |> as.integer()
+		to_int <- TURNED_EM_FROM_TO[[hex]] |> as.hexmode() |> as.integer()
+
+		rotate_glyph(ff_font, from_int, to_int, pi, psMat, cx = em_cx, cy = em_cy)
+	}
+
 	if (font == "suits") {
 		for (hex in names(LEFT_FROM_TO)) {
 			from_int <- hex |> as.hexmode() |> as.integer()
@@ -100,15 +110,23 @@ generate_sfd <- function(font = c("suits", "ranks"), output = paste0("dotaro_", 
 	invisible(output)
 }
 
-rotate_glyph <- function(ff_font, from_int, to_int, radians, psMat) {
+# Rotates about the glyph's bounding-box center unless `cx`/`cy` given
+rotate_glyph <- function(ff_font, from_int, to_int, radians, psMat, cx = NULL, cy = NULL) {
 	ff_font$selection$select(from_int)
 	ff_font$copy()
-	glyph <- ff_font$createChar(to_int)
+	to_hex <- as_hex(to_int)
+	if (hasName(GLYPH_NAMES, to_hex)) {
+		glyph <- ff_font$createChar(to_int, glue('"{GLYPH_NAMES[[to_hex]]}"'))
+	} else {
+		glyph <- ff_font$createChar(to_int)
+	}
 	ff_font$selection$select(to_int)
 	ff_font$paste()
-	bb <- glyph$boundingBox()
-	cx <- (bb[[3]] + bb[[1]]) / 2
-	cy <- (bb[[4]] + bb[[2]]) / 2
+	if (is.null(cx) || is.null(cy)) {
+		bb <- glyph$boundingBox()
+		cx <- (bb[[3]] + bb[[1]]) / 2
+		cy <- (bb[[4]] + bb[[2]]) / 2
+	}
 	trcen <- psMat$translate(-cx, -cy)
 	rotcen <- psMat$compose(trcen, psMat$compose(psMat$rotate(radians), psMat$inverse(trcen)))
 	glyph$transform(rotcen)

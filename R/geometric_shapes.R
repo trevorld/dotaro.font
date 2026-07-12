@@ -54,6 +54,10 @@ create_geometric_shapes <- function(font = "suits") {
 	# 2b26 black medium diamond
 	d_2b26 <- d_diamond(xc, yc, w = cdw, h = cdw, offset = -ow)
 	write_svg(d_2b25 + d_2b26, "2b26")
+	# 2b29 black small diamond (exactly the same size as the diamond hole
+	# in the f5b8 Latin Coin Suit)
+	d_2b29 <- d_diamond(xc, yc, w = 0.5 * cw, h = 0.5 * cw)
+	write_svg(d_2b29, "2b29")
 
 	d_25cf <- d_circle(xc, yc, 0.5 * cw)
 	d_2b24 <- d_circle(xc, yc, 0.5 * w)
@@ -156,7 +160,8 @@ create_geometric_shapes <- function(font = "suits") {
 		as.hexmode("25e7"):as.hexmode("25ea"),
 		as.hexmode(c("25fa", "25f8", "25f9", "25ff")),
 		as.hexmode("2b1b"):as.hexmode("2b1c"),
-		as.hexmode("2b24"):as.hexmode("2b26")
+		as.hexmode("2b24"):as.hexmode("2b26"),
+		as.hexmode("2b29")
 	))
 }
 

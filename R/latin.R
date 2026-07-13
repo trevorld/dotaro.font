@@ -244,7 +244,7 @@ create_alphanumerics <- function(font = "suits") {
 	write_svg(c(cd_circle_white, d_cd0), "24ea")
 	# 24ff negative circled digit zero
 	write_svg(c(cd_circle_black + d_cd0), "24ff")
-	# f590 number suit digit zero
+	# f590 number suit digit zero (also doubles as circled digit zero counter for 24ea)
 	write_svg(d_cd0, "f590")
 
 	# 0031 digit one
@@ -275,6 +275,8 @@ create_alphanumerics <- function(font = "suits") {
 	write_svg(c(cd_circle_white, d_cd1), "2460")
 	# 2776 dingbat negative circled digit one
 	write_svg(c(cd_circle_black + d_cd1), "2776")
+	# f595 circled digit one counter (digit only, for two-color overlay onto 2460)
+	write_svg(d_cd1, "f595")
 
 	# 0032 digit two
 	d2ry <- 0.30 * ch
@@ -332,6 +334,8 @@ create_alphanumerics <- function(font = "suits") {
 	write_svg(c(cd_circle_white, d_cd2), "2461")
 	# 2777 dingbat negative circled digit two
 	write_svg(c(cd_circle_black + d_cd2), "2777")
+	# f596 circled digit two counter (digit only, for two-color overlay onto 2461)
+	write_svg(d_cd2, "f596")
 
 	# 0033 digit three
 	if (font == "ranks") {
@@ -406,6 +410,8 @@ create_alphanumerics <- function(font = "suits") {
 	write_svg(cd_circle_white + d_cd3, "2462")
 	# 2778 dingbat negative circled digit three
 	write_svg(cd_circle_black + d_cd3, "2778")
+	# f597 circled digit three counter (digit only, for two-color overlay onto 2462)
+	write_svg(d_cd3, "f597")
 
 	# 0034 digit four
 	if (font == "ranks") {
@@ -470,7 +476,7 @@ create_alphanumerics <- function(font = "suits") {
 	write_svg(c(sq_outer + sq_inner, d_cd4_outline + d_cd4_counter), "f5a6")
 	# f5a7 negative square with digit four
 	write_svg(sq_outer + d_cd4_outline + d_cd4_counter, "f5a7")
-	# f594 number suit digit four
+	# f594 number suit digit four (also doubles as circled digit four counter for 2463)
 	write_svg(d_cd4_outline + d_cd4_counter, "f594")
 
 	# 0035 digit five
@@ -2085,6 +2091,9 @@ create_alphanumerics <- function(font = "suits") {
 			"f592", # number suit digit two
 			"f593", # number suit digit three
 			"f594", # number suit digit four
+			"f595", # circled digit one counter
+			"f596", # circled digit two counter
+			"f597", # circled digit three counter
 			"f59a", # number ten
 			"1f4a7", # droplet
 			"f5a0", # droplet with digit one

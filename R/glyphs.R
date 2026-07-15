@@ -9,23 +9,25 @@ create_glyphs <- function(font = "suits") {
 
 # PUA row map:
 #
-# * F590--F59F  digits (subset in use)
+# * F590--F59F  number suit digit counters and two-digit numbers (subset in use)
 # * F5A0--F5AF  "number" suits (droplet / arch / heater shield / square)
 # * F5B0--F5BF  playing card suits at Catrinity-compatible codepoints
 # * F5C0--F5CF  hybrid suit sub-glyphs
 # * F5D0--F5DF  hybrid suit sub-glyphs, overflow/variants (planned)
+# * F5E0--F5EF  circled digit counters (subset in use; reserved for a full
+#                0-9 set, e.g. digit-only overlays for 24ea/2460-2468)
+# * F5F0--F5FF  reserved for future multi-digit counters (e.g. "circled
+#                number ten" style overlays, not yet designed)
+# * FC431/FC432 meeples in Supplementary PUA-A
 #
-# Only the F5B0--F5BF row is kept aligned with the Catrinity font PUA;
-# the other rows knowingly deviate from it.
+# Only the F5B0--F5BF row and the FC431/FC432 meeples are kept aligned with
+# the Catrinity font PUA; the other rows knowingly deviate from it.
 GLYPH_NAMES <- list(
-	`f590` = "NUMBER SUIT DIGIT ZERO",
-	`f591` = "NUMBER SUIT DIGIT ONE",
-	`f592` = "NUMBER SUIT DIGIT TWO",
-	`f593` = "NUMBER SUIT DIGIT THREE",
-	`f594` = "NUMBER SUIT DIGIT FOUR",
-	`f595` = "CIRCLED DIGIT ONE COUNTER",
-	`f596` = "CIRCLED DIGIT TWO COUNTER",
-	`f597` = "CIRCLED DIGIT THREE COUNTER",
+	`f590` = "NUMBER SUIT DIGIT ZERO COUNTER",
+	`f591` = "NUMBER SUIT DIGIT ONE COUNTER",
+	`f592` = "NUMBER SUIT DIGIT TWO COUNTER",
+	`f593` = "NUMBER SUIT DIGIT THREE COUNTER",
+	`f594` = "NUMBER SUIT DIGIT FOUR COUNTER",
 	`f59a` = "NUMBER TEN",
 	`f5a0` = "DROPLET WITH DIGIT ONE",
 	`f5a1` = "NEGATIVE DROPLET WITH DIGIT ONE",
@@ -60,6 +62,13 @@ GLYPH_NAMES <- list(
 	`f5c8` = "CHALICE HEART",
 	`f5ca` = "TURNED SMALL RAISED BLACK SPADE SUIT",
 	`f5cb` = "TURNED SWORD HILT",
+	`f5e0` = "CIRCLED DIGIT ZERO COUNTER",
+	`f5e1` = "CIRCLED DIGIT ONE COUNTER",
+	`f5e2` = "CIRCLED DIGIT TWO COUNTER",
+	`f5e3` = "CIRCLED DIGIT THREE COUNTER",
+	`f5e4` = "CIRCLED DIGIT FOUR COUNTER",
+	`f5e7` = "CIRCLED DIGIT SEVEN COUNTER",
+	`f5e8` = "CIRCLED DIGIT EIGHT COUNTER",
 	`fc431` = "BLACK MEEPLE",
 	`fc432` = "WHITE MEEPLE"
 )

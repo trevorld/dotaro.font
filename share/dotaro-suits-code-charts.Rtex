@@ -67,6 +67,8 @@ latin1_non_currency_00A <- setdiff(
 )
 card_suits <- paste0("266", 0:7)
 pua_digit_shapes <- c("F590", "F591", "F592", "F593", "F594", "F5A0", "F5A1", "F5A2", "F5A3", "F5A4", "F5A5", "F5A6", "F5A7")
+pua_two_digit_numbers <- "F59A"
+pua_circled_digit_counters <- paste0("F5E", c(0:4, 7, 8))
 pua_suits <- c("F5A8", "F5A9", "F5AA", "F5AB", "F5AC", "F5AD",
 	paste0("F5B", c(0:9)), paste0("F5B", LETTERS[1:6]),
 	paste0("F5C", c(0:9)), paste0("F5C", LETTERS[1:6])
@@ -86,7 +88,7 @@ Private Use Area (PUA) codepoints are reserved for individual fonts.  They have 
 
 %% begin.rcode digits, echo=FALSE, results='asis'
 make_table("003", "003", only = ascii_digits)
-make_table("F59", "F59")
+make_table("F59", "F59", only = pua_two_digit_numbers)
 make_table("218", "218")
 %% end.rcode
 
@@ -101,6 +103,7 @@ make_table("1D7C", "1D7E")
 %% end.rcode
 
 %% begin.rcode dingbats_digits, echo=FALSE, results='asis'
+make_table("F5E", "F5E", only = pua_circled_digit_counters)
 make_table("246", "246")
 make_table("24E", "24F")
 make_table("277", "277")

@@ -244,8 +244,10 @@ create_alphanumerics <- function(font = "suits") {
 	write_svg(c(cd_circle_white, d_cd0), "24ea")
 	# 24ff negative circled digit zero
 	write_svg(c(cd_circle_black + d_cd0), "24ff")
-	# f590 number suit digit zero (also doubles as circled digit zero counter for 24ea)
+	# f590 number suit digit zero counter
 	write_svg(d_cd0, "f590")
+	# f5e0 circled digit zero counter (digit only, for two-color overlay onto 24ea)
+	write_svg(d_cd0, "f5e0")
 
 	# 0031 digit one
 	ds <- c(
@@ -275,8 +277,8 @@ create_alphanumerics <- function(font = "suits") {
 	write_svg(c(cd_circle_white, d_cd1), "2460")
 	# 2776 dingbat negative circled digit one
 	write_svg(c(cd_circle_black + d_cd1), "2776")
-	# f595 circled digit one counter (digit only, for two-color overlay onto 2460)
-	write_svg(d_cd1, "f595")
+	# f5e1 circled digit one counter (digit only, for two-color overlay onto 2460)
+	write_svg(d_cd1, "f5e1")
 
 	# 0032 digit two
 	d2ry <- 0.30 * ch
@@ -334,8 +336,8 @@ create_alphanumerics <- function(font = "suits") {
 	write_svg(c(cd_circle_white, d_cd2), "2461")
 	# 2777 dingbat negative circled digit two
 	write_svg(c(cd_circle_black + d_cd2), "2777")
-	# f596 circled digit two counter (digit only, for two-color overlay onto 2461)
-	write_svg(d_cd2, "f596")
+	# f5e2 circled digit two counter (digit only, for two-color overlay onto 2461)
+	write_svg(d_cd2, "f5e2")
 
 	# 0033 digit three
 	if (font == "ranks") {
@@ -410,8 +412,8 @@ create_alphanumerics <- function(font = "suits") {
 	write_svg(cd_circle_white + d_cd3, "2462")
 	# 2778 dingbat negative circled digit three
 	write_svg(cd_circle_black + d_cd3, "2778")
-	# f597 circled digit three counter (digit only, for two-color overlay onto 2462)
-	write_svg(d_cd3, "f597")
+	# f5e3 circled digit three counter (digit only, for two-color overlay onto 2462)
+	write_svg(d_cd3, "f5e3")
 
 	# 0034 digit four
 	if (font == "ranks") {
@@ -476,8 +478,10 @@ create_alphanumerics <- function(font = "suits") {
 	write_svg(c(sq_outer + sq_inner, d_cd4_outline + d_cd4_counter), "f5a6")
 	# f5a7 negative square with digit four
 	write_svg(sq_outer + d_cd4_outline + d_cd4_counter, "f5a7")
-	# f594 number suit digit four (also doubles as circled digit four counter for 2463)
+	# f594 number suit digit four counter
 	write_svg(d_cd4_outline + d_cd4_counter, "f594")
+	# f5e4 circled digit four counter (digit only, for two-color overlay onto 2463)
+	write_svg(d_cd4_outline + d_cd4_counter, "f5e4")
 
 	# 0035 digit five
 	ds <- c(
@@ -582,6 +586,8 @@ create_alphanumerics <- function(font = "suits") {
 	write_svg(c(cd_circle_white, d_cd7), "2466")
 	# 277c dingbat negative circled digit seven
 	write_svg(c(cd_circle_black + d_cd7), "277c")
+	# f5e7 circled digit seven counter (digit only, for two-color overlay onto 2466)
+	write_svg(d_cd7, "f5e7")
 
 	# 0038 digit eight
 	d_eight <- function(w8, h8, ov8, srw8, ..., loop = TRUE) {
@@ -629,6 +635,8 @@ create_alphanumerics <- function(font = "suits") {
 	write_svg(cd_circle_white + d_cd8, "2467")
 	# 277d dingbat negative circled digit eight
 	write_svg(cd_circle_black + d_cd8, "277d")
+	# f5e8 circled digit eight counter (digit only, for two-color overlay onto 2467)
+	write_svg(d_cd8, "f5e8")
 
 	# 0039 digit nine
 	d9so <- srw / 3
@@ -1951,7 +1959,7 @@ create_alphanumerics <- function(font = "suits") {
 	# 	)
 	# d_td1 <- d_rect(x = xc, y = ycc_drop, w = csrw, h = cdw)
 	d_td1 <- d_rect(x = xc, y = ycc_drop, w = csrw, h = cdw - csrw)
-	# f591 number suit digit one
+	# f591 number suit digit one counter
 	write_svg(d_td1, "f591")
 	# f5a0 droplet with digit one
 	write_svg(c(drop_outer + drop_inner, d_td1), "f5a0")
@@ -1997,7 +2005,7 @@ create_alphanumerics <- function(font = "suits") {
 		d_rect2(ck_vg + csrw, ck_xcw, ck_vg, ck_hg)
 	write_svg(arch_outer, "f5aa")
 	write_svg(arch_outer + arch_inner, "f5ab")
-	# f592 number suit digit two
+	# f592 number suit digit two counter
 	write_svg(d_arch2, "f592")
 	# f5a2 arch with digit two
 	write_svg(c(arch_outer + arch_inner, d_arch2), "f5a2")
@@ -2043,7 +2051,7 @@ create_alphanumerics <- function(font = "suits") {
 		AZ(rx3c, ry3c, big = TRUE, x = x_right3c_hs, y = hs_yc)
 	write_svg(hs_outer, "f5ac")
 	write_svg(hs_outer + hs_inner, "f5ad")
-	# f593 number suit digit three
+	# f593 number suit digit three counter
 	write_svg(d_hs3, "f593")
 	# f5a4 heater shield with digit three
 	write_svg(c(hs_outer + hs_inner, d_hs3), "f5a4")
@@ -2086,14 +2094,11 @@ create_alphanumerics <- function(font = "suits") {
 			"20b5",
 			"20bf",
 			"218b",
-			"f590", # number suit digit zero
-			"f591", # number suit digit one
-			"f592", # number suit digit two
-			"f593", # number suit digit three
-			"f594", # number suit digit four
-			"f595", # circled digit one counter
-			"f596", # circled digit two counter
-			"f597", # circled digit three counter
+			"f590", # number suit digit zero counter
+			"f591", # number suit digit one counter
+			"f592", # number suit digit two counter
+			"f593", # number suit digit three counter
+			"f594", # number suit digit four counter
 			"f59a", # number ten
 			"1f4a7", # droplet
 			"f5a0", # droplet with digit one
@@ -2118,6 +2123,11 @@ create_alphanumerics <- function(font = "suits") {
 		as.hexmode(c("2466", "2467")),
 		as.hexmode("2776"):as.hexmode("2779"),
 		as.hexmode(c("277c", "277d")),
+		# circled digit counters (digit only, for two-color overlay onto
+		# 24ea/2460-2463/2466/2467; no counters yet for 2464/2465/2468 since
+		# those circled digits aren't ready)
+		as.hexmode("f5e0"):as.hexmode("f5e4"),
+		as.hexmode(c("f5e7", "f5e8")),
 		# mathematical bold (avec-serif) digits 1d7ce through 1d7d7
 		as.hexmode("1d7ce"):as.hexmode("1d7d7")
 	) |>
